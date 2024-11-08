@@ -11,7 +11,7 @@ class UpdateCommentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id'=>['required','exists:users,id'],
+            'class_id'=>['required','exists:classes,id'],
+            'content'=>['required']
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'user_id.required'=>'User Belum Ter-isi',
+            'user_id.exists'=>'Data User Tidak Ada',
+            'class_id.required'=>'Tugas Belum Ter-isi',
+            'class_id.exists'=>'Data Tugas Tidak Ada',
         ];
     }
 }
