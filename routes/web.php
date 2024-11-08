@@ -17,13 +17,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('auth')->group(function(){
-    Route::resource('Teacher', TeacherController::class);
-    Route::resource('Class', ClassesController::class);
-    Route::resource('Modul', ModulController::class);
-    Route::resource('Task', TaskController::class);
-    Route::resource('Collection', CollectionController::class);
-    Route::resource('Assessment', AssessmentController::class);
-    Route::resource('Comment', CommentController::class);
+    Route::resource('teachers', TeacherController::class);
+    Route::resource('classes', ClassesController::class);
+    Route::resource('moduls', ModulController::class);
+    Route::resource('tasks', TaskController::class);
+    Route::resource('collections', CollectionController::class);
+    Route::resource('assessments', AssessmentController::class);
+    Route::resource('comments', CommentController::class);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
