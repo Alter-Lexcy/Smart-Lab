@@ -16,16 +16,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-route::middleware('auth')->group(function(){
-    route::resource([
-        'Teacher'=>TeacherController::class,
-        'Class'=>ClassesController::class,
-        'Modul'=>ModulController::class,
-        'Task'=>TaskController::class,
-        'Collection'=>CollectionController::class,
-        'Assessment'=>AssessmentController::class,
-        'Comment'=>CommentController::class
-    ]);
+Route::middleware('auth')->group(function(){
+    Route::resource('teachers', TeacherController::class);
+    Route::resource('classes', ClassesController::class);
+    Route::resource('moduls', ModulController::class);
+    Route::resource('tasks', TaskController::class);
+    Route::resource('collections', CollectionController::class);
+    Route::resource('assessments', AssessmentController::class);
+    Route::resource('comments', CommentController::class);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
