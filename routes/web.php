@@ -10,13 +10,13 @@ use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::middleware('auth')->group(function(){
+    Route::get('/', function () {
+        return view('home');
+    });
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('moduls', ModulController::class);
@@ -25,5 +25,3 @@ Route::middleware('auth')->group(function(){
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
 });
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
