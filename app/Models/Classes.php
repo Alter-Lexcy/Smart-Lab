@@ -9,7 +9,6 @@ class Classes extends Model
     protected $fillable = [
         'name_class',
         'description',
-        'code_class',
         'teacher_id'
     ];
     public function teacher(){

@@ -12,14 +12,12 @@
                     <th>No</th>
                     <th>Nama Kelas</th>
                     <th>Deskripsi Kelas</th>
-                    <th>Kode Kelas</th>
                     <th>Nama Guru</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>#</td>
                     <td>#</td>
                     <td>#</td>
                     <td>#</td>
@@ -50,10 +48,6 @@
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" rows="3" name="description"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="code_class" class="form-label">Kode Kelas</label>
-                            <input type="text" class="form-control" id="code_class" name="code_class">
                         </div>
                         <div class="mb-3">
                             <label for="teacher_id" class="form-label">Guru Pengajar</label>
@@ -87,10 +81,6 @@
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" rows="3" name="description"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="code_class" class="form-label">Kode Kelas</label>
-                            <input type="text" class="form-control" id="code_class" name="code_class">
                         </div>
                         <div class="mb-3">
                             <label for="teacher_id" class="form-label">Guru Pengajar</label>

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name_class');
             $table->text('description');
-            $table->integer('code_class');
             $table->foreignId('teacher_id')->constrained('teachers');
             $table->timestamps();
         });
