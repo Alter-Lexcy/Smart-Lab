@@ -23,9 +23,9 @@ class UpdateTeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_teacher'=>['required','string','max:255',Rule::unique('teachers','name_teacher')->ignore($this->route('teachers'))],
-            'NIP'=>['required','numeric','max:18',Rule::unique('teachers','NIP')->ignore($this->route('teachers'))],
-            'email_teacher'=>['required','email','max:255',Rule::unique('teacher','email')],
+            'name_teacher'=>['required','string','max:255',Rule::unique('teachers','name_teacher')->ignore($this->route('teacher'))],
+            'NIP'=>['required','numeric','max_digits:8',Rule::unique('teachers','NIP')->ignore($this->route('teacher'))],
+            'email_teacher'=>['required','email','max:255',Rule::unique('teachers','email_teacher')->ignore($this->route('teacher'))],
         ];
     }
     public function messages()
@@ -37,7 +37,7 @@ class UpdateTeacherRequest extends FormRequest
             'name_teacher.unique'=>'Nama Guru Sudah Ada',
             'NIP.required'=>'NIP Belum Di-isi',
             'NIP.numeric'=>'NIP Harus Berformat Angka',
-            'NIP.max'=>'NIP Melebihi Batas',
+            'NIP.max_digits'=>'NIP Melebihi Batas',
             'NIP.unique'=>'NIP Sudah Ada',
             'email_teacher.required'=>'Email Belum Di-isi',
             'email_teacher.max'=>'Email Melebihi Batas',
