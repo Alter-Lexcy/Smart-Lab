@@ -13,7 +13,7 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -29,7 +29,9 @@ class AssessmentController extends Controller
      */
     public function store(StoreAssessmentRequest $request)
     {
-        //
+        Assessment::create($request->validated());
+
+        return redirect()->route('assessments.index')->with('success', 'Data Penilaian Baru Berhasil Dibuat');
     }
 
     /**
@@ -53,7 +55,9 @@ class AssessmentController extends Controller
      */
     public function update(UpdateAssessmentRequest $request, Assessment $assessment)
     {
-        //
+        $assessment->update($request->validated());
+
+        return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +65,12 @@ class AssessmentController extends Controller
      */
     public function destroy(Assessment $assessment)
     {
-        //
+        try {
+            $assessment->delete();
+
+            return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('assessments.index')->with('Gagal', 'Data Penilaian Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }

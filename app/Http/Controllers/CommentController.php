@@ -13,7 +13,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::with('users','classes')->get();
+
+        return view('Admins.Comments.index', compact('comments'));
     }
 
     /**
@@ -29,7 +31,9 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        Comment::create($request->validated());
+
+        return redirect()->route('comments.index')->with('success', 'Data Komentar Baru Berhasil Dibuat');
     }
 
     /**
@@ -53,7 +57,9 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        $comment->update($request->validated());
+
+        return redirect()->route('comments.index')->with('success', 'Komentar Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +67,6 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
     }
 }

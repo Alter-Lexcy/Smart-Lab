@@ -13,7 +13,8 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        $collections = Collection::with('users','tasks')->get();
+        return view('Admins.Collection.index', compact('collections'));
     }
 
     /**
@@ -29,7 +30,9 @@ class CollectionController extends Controller
      */
     public function store(StoreCollectionRequest $request)
     {
-        //
+        Collection::create($request->validated());
+
+        return redirect()->route('collections.index')->with('success', 'Data Pengumpulan Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -53,7 +56,9 @@ class CollectionController extends Controller
      */
     public function update(UpdateCollectionRequest $request, Collection $collection)
     {
-        //
+        $collection->update($request->validated());
+
+        return redirect()->route('collections.index')->with('success', 'Pengumpulan Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +66,12 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
-        //
+        try {
+            $collection->delete();
+
+            return redirect()->route('collections.index')->with('success', 'Data Pengumpulan Yang Dipilih Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('collections.index')->with('gagal', 'Data Pengumpulan Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }
