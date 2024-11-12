@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+.login-image,
+.login-form {
+    width: 50%;
+    height: 100vh;
+    position: relative;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-icon {
+    position: absolute;
+    top: 20px;
+    /* Jarak dari atas */
+    left: 50px;
+    /* Jarak dari kiri */
+    width: 250px;
+    /* Sesuaikan ukuran logo */
+}
+
+.logo-icon img {
+    width: 100%;
+    height: auto;
+}
+
+.lottie {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 30px;
+    margin: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    background: linear-gradient(45deg, #4B79A1, #283E51);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+h5, p {
+    font-size: 13px;
+    color: #777;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    height: 60px;
+    /* Membesarkan tinggi kotak input */
+    padding: 20px 20px 20px 10px;
+    /* Membuat padding lebih besar */
+    font-size: 18px;
+    /* Membesarkan ukuran font */
+    background-color: #fff;
+    border: none;
+}
+
+.login-form button {
+    width: 100%;
+    /* Mengatur lebar tombol */
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin: 20px auto 0;
+    /* Memusatkan tombol dengan auto margin */
+    display: block;
+    /* Memastikan tombol berperilaku sebagai block element */
+}
+
+.login-form button:hover {
+    background-color: #0056b3;
+}
+
+.login-form button:active {
+    transform: scale(0.98);
+}
+
+.form-table {
+    width: 100%;
+    margin: auto;
+}
+
+.form-table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.link {
+    margin-top: 20px;
+}

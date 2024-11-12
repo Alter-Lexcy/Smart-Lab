@@ -1,73 +1,61 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk</title>
+    <link rel="stylesheet" href="style/login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<body>
+    <div class="login-image">
+        <div class="logo-icon">
+            <img src="{{ asset('image/SMART-LAB (DARK MODE).png') }}" alt="LOGO SMART-LAB">
+        </div>
+        <img src="image/background-login.png" alt="Login Image">
+        <!-- Animasi Lottie di tengah -->
+        <div class="lottie">
+            <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+            <dotlottie-player src="https://lottie.host/f256ae59-5457-4979-9aaa-4e825312fbfd/Ycwn8A8gFH.json"
+                background="transparent" speed="1" style="width: 450px;" loop autoplay></dotlottie-player>
         </div>
     </div>
-</div>
-@endsection
+    <div style="display: flex; flex-direction:column; width: 50%; justify-content:center; align-items:center;">
+        <h2>Masuk</h2>
+        <h5>Selamat Datang!</h5>
+        <p>Masukkan akun Email beserta Sandi nya yang sesuai</p>
+        <div class="login-form">
+            <form action="{{ route('login')}}" method="POST">
+                @csrf
+                <table class="form-table">
+                    <tr>
+                        <td colspan="2">
+                            <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
+                                <i class='bx bxs-envelope' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
+                                <input type="email" id="email" name="email" placeholder="Email" style="border: none; outline: none; flex: 1;">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
+                                <i class='bx bxs-lock-open' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
+                                <input type="password" id="password" name="password" placeholder="Password" style="border: none; outline: none; flex: 1;">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit">Masuk</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="link">
+            <p>Belum punya akun? <a href="register">Daftar Sekarang!</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
