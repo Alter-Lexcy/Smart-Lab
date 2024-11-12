@@ -7,6 +7,13 @@
     <title>Masuk</title>
     <link rel="stylesheet" href="style/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,28 +37,42 @@
             <form action="{{ route('login')}}" method="POST">
                 @csrf
                 <table class="form-table">
+                    <!-- Input Email -->
                     <tr>
                         <td colspan="2">
                             <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
                                 <i class='bx bxs-envelope' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="email" id="email" name="email" placeholder="Email" style="border: none; outline: none; flex: 1;">
                             </span>
+                            <!-- Pesan Error Email -->
+                            @error('email')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
+
+                    <!-- Input Password -->
                     <tr>
                         <td colspan="2">
                             <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
                                 <i class='bx bxs-lock-open' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" style="border: none; outline: none; flex: 1;">
                             </span>
+                            <!-- Pesan Error Password -->
+                            @error('password')
+                                <div class="error-message">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
+
+                    <!-- Tombol Login -->
                     <tr>
                         <td colspan="2"><button type="submit">Masuk</button></td>
                     </tr>
                 </table>
             </form>
         </div>
+
         <div class="link">
             <p>Belum punya akun? <a href="register">Daftar Sekarang!</a></p>
         </div>
