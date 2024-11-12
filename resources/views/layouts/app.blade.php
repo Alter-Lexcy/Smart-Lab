@@ -23,29 +23,23 @@
             </div>
 
             <ul class="list-unstyled components">
-                <li><a href="teachers">Guru</a></li>
-                <li><a href="classes">Kelas</a></li>
+                <li><a href="teachers"><i class="fas fa-chalkboard-teacher" style="margin-right: 2px"></i> Guru</a></li>
+                <li><a href="classes"><i class="fas fa-school" style="margin-right: 2px"></i> Kelas</a></li>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Materi</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-book" style="margin-right: 2px"></i> Materi
+                    </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="moduls">Materi Siswa</a>
-                        </li>
-                        <li>
-                            <a href="tasks">Tugas</a>
-                        </li>
-                        <li>
-                            <a href="collections">Pengumpulan</a>
-                        </li>
-                        <li>
-                            <a href="assesments">Penilaian</a>
-                        </li>
+                        <li><a href="moduls" style="margin-right: 2px"><i class="fas fa-book-reader"></i> Materi Siswa</a></li>
+                        <li><a href="tasks" style="margin-right: 2px"><i class="fas fa-tasks"></i> Tugas</a></li>
+                        <li><a href="collections" style="margin-right: 2px"><i class="fas fa-archive"></i> Pengumpulan</a></li>
+                        <li><a href="assesments" style="margin-right: 2px"><i class="fas fa-pen-alt"></i> Penilaian</a></li>
                     </ul>
                 </li>
-                <li><a href="comments">Komentar</a></li>
+                <li><a href="comments" style="margin-right: 2px"><i class="fas fa-comments"></i> Komentar</a></li>
             </ul>
         </nav>
+
 
         <!-- Page Content  -->
         <div id="content">
@@ -90,7 +84,7 @@
             </nav>
 
             @yield('content')
-            
+
         </div>
     </div>
 
