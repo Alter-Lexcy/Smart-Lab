@@ -93,7 +93,8 @@
             </nav>
 
             @yield('content')
-
+            @stack('scripts')
+                
         </div>
     </div>
 
