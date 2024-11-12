@@ -9,9 +9,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <style>
         .error-message {
+            display: flex;
+            align-items: center;
             color: #d9534f;
+            background-color: #f8d7da;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
             font-size: 14px;
             margin-top: 5px;
+        }
+
+        .error-message i {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -46,7 +56,9 @@
                             </span>
                             <!-- Pesan Error Email -->
                             @error('email')
-                                <div class="error-message">{{ $message }}</div>
+                                <div class="error-message">
+                                    <i class='bx bx-error-circle'></i>{{ $message }}
+                                </div>
                             @enderror
                         </td>
                     </tr>
@@ -60,7 +72,9 @@
                             </span>
                             <!-- Pesan Error Password -->
                             @error('password')
-                                <div class="error-message">{{ $message }}</div>
+                                <div class="error-message">
+                                    <i class='bx bx-error-circle'></i>{{ $message }}
+                                </div>
                             @enderror
                         </td>
                     </tr>
