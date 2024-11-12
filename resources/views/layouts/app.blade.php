@@ -12,6 +12,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle with Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -30,13 +36,15 @@
                         <i class="fas fa-book" style="margin-right: 2px"></i> Materi
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a href="moduls" style="margin-right: 2px"><i class="fas fa-book-reader"></i> Materi Siswa</a></li>
+                        <li><a href="moduls" style="margin-right: 2px"><i class="fas fa-book-reader"></i> Materi
+                                Siswa</a></li>
                         <li><a href="tasks" style="margin-right: 2px"><i class="fas fa-tasks"></i> Tugas</a></li>
-                        <li><a href="collections" style="margin-right: 2px"><i class="fas fa-archive"></i> Pengumpulan</a></li>
-                        <li><a href="assesments" style="margin-right: 2px"><i class="fas fa-pen-alt"></i> Penilaian</a></li>
+                        <li><a href="collections" style="margin-right: 2px"><i class="fas fa-archive"></i>
+                                Pengumpulan</a></li>
+                        <li><a href="assesments" style="margin-right: 2px"><i class="fas fa-pen-alt"></i> Penilaian</a>
+                        </li>
                     </ul>
                 </li>
-                <li><a href="comments" style="margin-right: 2px"><i class="fas fa-comments"></i> Komentar</a></li>
             </ul>
         </nav>
 
@@ -62,17 +70,18 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
                             @else
                                 <li class="nav-item-dropdown">
-                                    <a href="#" class="nav-link" id="userDropdown"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a href="#" class="nav-link" id="userDropdown" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-user"></i> {{ Auth::user()->name }}
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="margin-top: 20px">
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown"
+                                        style="margin-top: 20px">
                                         <a class="dropdown-item" href="{{ url('/logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="fas fa-sign-out-alt"></i> Logout
                                         </a>
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST"
-                                              style="display: none;">
+                                            style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </div>
