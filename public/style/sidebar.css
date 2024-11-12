@@ -60,6 +60,10 @@ a:focus {
     background: #1c1f4a; /* Biru tua yang elegan */
     color: #fff;
     transition: all 0.3s;
+    border-top-right-radius: 20px; /* Hanya memberi radius pada sisi kanan atas */
+    border-bottom-right-radius: 20px; /* Hanya memberi radius pada sisi kanan bawah */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #sidebar.active {
@@ -67,8 +71,6 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: #1c1f4a;
     text-align: center;
 }
 
@@ -86,12 +88,14 @@ a:focus {
 #sidebar ul p {
     color: #fff;
     padding: 10px;
+    text-decoration: none;
 }
 
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
+    text-decoration: none;
 }
 
 #sidebar ul li a:hover {
@@ -99,6 +103,8 @@ a:focus {
     background: #333a73; /* Warna hover yang lebih terang */
     text-decoration: none;
     padding-left: 30px;
+    margin-right: 20px;
+
 }
 
 a[data-toggle="collapse"] {
