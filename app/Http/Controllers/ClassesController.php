@@ -13,7 +13,9 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classes::with('teachers')->get();
+
+        return view('Admins.Classes.index', compact('classes'));
     }
 
     /**
@@ -29,7 +31,9 @@ class ClassesController extends Controller
      */
     public function store(StoreClassesRequest $request)
     {
-        //
+        Classes::create($request->validated());
+
+        return redirect()->route('classes.index')->with('success', 'Data Kelas Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -53,7 +57,9 @@ class ClassesController extends Controller
      */
     public function update(UpdateClassesRequest $request, Classes $classes)
     {
-        //
+        $classes->update($request->validated());
+
+        return redirect()->route('classes.index')->with('success', 'Kelas Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +67,12 @@ class ClassesController extends Controller
      */
     public function destroy(Classes $classes)
     {
-        //
+        try {
+            $classes->delete();
+
+            return redirect()->route('classes.index')->with('Sukses', 'Data Kelas Yang Dipilih Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->route('teachers.index')->with('Gagal', 'Data Kelas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }

@@ -13,7 +13,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $teachers = Teacher::all();
+        return view('Admins.Teachers.index', compact('teachers'));
     }
 
     /**
@@ -29,7 +30,8 @@ class TeacherController extends Controller
      */
     public function store(StoreTeacherRequest $request)
     {
-        //
+        Teacher::create($request->validated());
+        return redirect()->route('teachers.index')->with('success', 'Data Guru Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -53,7 +55,9 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
-        //
+        $teacher->update($request->validated());
+
+        return redirect()->route('teachers.index')->with('success', 'Data Guru Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +65,12 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        try {
+            $teacher->delete();
+
+            return redirect()->route('teachers.index')->with('Sukses', 'Data Guru Yang Dipilih Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('teachers.index')->with('Gagal', 'Data Guru Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }

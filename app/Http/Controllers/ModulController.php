@@ -13,7 +13,8 @@ class ModulController extends Controller
      */
     public function index()
     {
-        //
+        $moduls = Modul::with('classes')->get();
+        return view('Admins.Moduls.index', compact('moduls'));
     }
 
     /**
@@ -29,7 +30,9 @@ class ModulController extends Controller
      */
     public function store(StoreModulRequest $request)
     {
-        //
+        Modul::create($request->validated());
+
+        return redirect()->route('moduls.index')->with('success', 'Data Materi Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -53,7 +56,8 @@ class ModulController extends Controller
      */
     public function update(UpdateModulRequest $request, Modul $modul)
     {
-        //
+        $modul->update($request->validated());
+        return redirect()->route('moduls.index')->with('success', 'Materi Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +65,12 @@ class ModulController extends Controller
      */
     public function destroy(Modul $modul)
     {
-        //
+        try {
+            $modul->delete();
+
+            return redirect()->route('moduls.index')->with('success', 'Materi Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('moduls.index')->with('success', 'Data Materi Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }

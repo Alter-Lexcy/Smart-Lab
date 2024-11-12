@@ -13,7 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::with('classes')->get();
+
+        return view('Admins.Tasks.index', compact('tasks'));
     }
 
     /**
@@ -29,7 +31,9 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        Task::create($request->validated());
+
+        return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -53,7 +57,9 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $task->update($request->validated());
+
+        return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +67,12 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        try {
+            $task->delete();
+
+            return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('tasks.index')->with('success', 'Data Tugas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        }
     }
 }
