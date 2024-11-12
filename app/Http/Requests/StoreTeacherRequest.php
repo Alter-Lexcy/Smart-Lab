@@ -23,8 +23,8 @@ class StoreTeacherRequest extends FormRequest
     {
         return [
             'name_teacher'=>['required','unique:teachers,name_teacher','string','max:255'],
-            'NIP'=>['required','numeric','max:18','unique:teachers,NIP'],
-            'email_teacher'=>['required','email','max:255','unique:teacher,email'],
+            'NIP'=>['required','numeric', 'max_digits:8','unique:teachers,NIP'],
+            'email_teacher'=>['required','email','max:255','unique:teachers,email_teacher'],
         ];
     }
     public function messages()
@@ -36,7 +36,7 @@ class StoreTeacherRequest extends FormRequest
             'name_teacher.unique'=>'Nama Guru Sudah Ada',
             'NIP.required'=>'NIP Belum Di-isi',
             'NIP.numeric'=>'NIP Harus Berformat Angka',
-            'NIP.max'=>'NIP Melebihi Batas',
+            'NIP.max' => 'NIP Melebihi Batas',
             'NIP.unique'=>'NIP Sudah Ada',
             'email_teacher.required'=>'Email Belum Di-isi',
             'email_teacher.max'=>'Email Melebihi Batas',
