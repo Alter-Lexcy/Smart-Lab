@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar</title>
     <link rel="stylesheet" href="style/login.css">
+    <style>
+        .error-message {
+            background-color: #ffcccc;
+            color: #d9534f;
+            border: 1px solid #d9534f;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-message i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,6 +55,11 @@
                                 <i class='bx bxs-user' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="text" id="name" name="name" placeholder="Nama" style="border: none; outline: none; flex: 1;">
                             </span>
+                            @error('name')
+                                <div class="error-message">
+                                    <i class="bx bx-error-circle"></i>{{ $message }}
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <!-- Input Email -->
@@ -46,6 +69,11 @@
                                 <i class='bx bxs-envelope' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="email" id="email" name="email" placeholder="Email" style="border: none; outline: none; flex: 1;">
                             </span>
+                            @error('email')
+                                <div class="error-message">
+                                    <i class="bx bx-error-circle"></i>{{ $message }}
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <!-- Password dan Konfirmasi Password dalam satu baris -->
@@ -55,12 +83,22 @@
                                 <i class='bx bxs-lock' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" style="border: none; outline: none; flex: 1;">
                             </span>
+                            @error('password')
+                                <div class="error-message">
+                                    <i class="bx bx-error-circle"></i>{{ $message }}
+                                </div>
+                            @enderror
                         </td>
                         <td>
                             <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
                                 <i class='bx bxs-lock' style="font-size: 24px; color: gray; padding-right: 10px;"></i>
                                 <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" style="border: none; outline: none; flex: 1;">
                             </span>
+                            @error('password_confirmation')
+                                <div class="error-message">
+                                    <i class="bx bx-error-circle"></i>{{ $message }}
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <!-- Tombol Daftar -->

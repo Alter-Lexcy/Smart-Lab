@@ -14,7 +14,7 @@
         <div class="logo-icon">
             <img src="{{ asset('image/SMART-LAB (DARK MODE).png') }}" alt="LOGO SMART-LAB">
         </div>
-        <img src="{{ asset('image/background-login.png') }}" alt="Login Image">
+        <img src="image/background-login.png" alt="Login Image">
         <!-- Animasi Lottie di tengah -->
         <div class="lottie">
             <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
@@ -26,21 +26,8 @@
         <h2>Masuk</h2>
         <h5>Selamat Datang!</h5>
         <p>Masukkan akun Email beserta Sandi nya yang sesuai</p>
-
-        <!-- Alert untuk pesan sukses atau error -->
-        @if(session()->has('success'))
-            <div style="color: green; border: 1px solid green; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                {{ session()->get('success') }}
-            </div>
-        @endif
-        @if(session()->has('error'))
-            <div style="color: red; border: 1px solid red; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                {{ session()->get('error') }}
-            </div>
-        @endif
-
         <div class="login-form">
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('login')}}" method="POST">
                 @csrf
                 <table class="form-table">
                     <tr>
@@ -66,7 +53,7 @@
             </form>
         </div>
         <div class="link">
-            <p>Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang!</a></p>
+            <p>Belum punya akun? <a href="register">Daftar Sekarang!</a></p>
         </div>
     </div>
 </body>
