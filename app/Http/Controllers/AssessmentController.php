@@ -13,7 +13,7 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        return view('Admins.Assesments.index');
+        
     }
 
     /**
