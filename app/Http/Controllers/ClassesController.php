@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
+use App\Models\Teacher;
+use Exception;
 
 class ClassesController extends Controller
 {
@@ -13,9 +15,9 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes = Classes::with('teachers')->get();
-
-        return view('Admins.Classes.index', compact('classes'));
+        $classes = Classes::with('teacher')->get();
+        $teachers = Teacher::all();
+        return view('Admins.Classes.index', compact('classes','teachers'));
     }
 
     /**
@@ -31,9 +33,8 @@ class ClassesController extends Controller
      */
     public function store(StoreClassesRequest $request)
     {
-        Classes::create($request->validated());
-
-        return redirect()->route('classes.index')->with('success', 'Data Kelas Baru Berhasil Dtambahkan');
+       Classes::create($request->all());
+       return redirect()->route('classes.index')->with('success', 'Data Kelas Baru Berhasil Dtambahkan');
     }
 
     /**
@@ -71,8 +72,8 @@ class ClassesController extends Controller
             $classes->delete();
 
             return redirect()->route('classes.index')->with('Sukses', 'Data Kelas Yang Dipilih Berhasil Dihapus');
-        } catch (\Throwable $th) {
-            return redirect()->route('teachers.index')->with('Gagal', 'Data Kelas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+        } catch (Exception $e) {
+            return redirect()->route('classes.index')->with('Gagal', 'Data Kelas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
         }
     }
 }
