@@ -24,7 +24,6 @@ class StoreClassesRequest extends FormRequest
         return [
             'name_class'=>['required','alpha_num','string','unique:classes,name_class'],
             'description'=>['nullable','alpha_num'],
-            'code_class'=>['required','string','max:7'],
             'teacher_id'=>['required','exists:teachers,id']
         ];
     }
@@ -36,7 +35,6 @@ class StoreClassesRequest extends FormRequest
             'name_class.string'=>'Nama Kelas Hanya Bertipe string',
             'name_class.unique'=>'Nama Kelas Sudah Ada',
             'description.alpha_num'=>'Deskripsi Hanya Berformat Angka Dan Huruf',
-            'code_class.required'=>'Kode Kelas Belum Ter-isi',
             'code_class.string'=>'Nama Kelas Hanya Bertipe string',
             'code_class.max'=>'Nama Kelas Melebihi batas',
             'teacher_id.required'=>'Guru Belum Ter-isi',
