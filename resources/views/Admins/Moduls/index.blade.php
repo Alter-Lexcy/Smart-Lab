@@ -1,48 +1,45 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <h2>Modul</h2>
-        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modulModal">Tambah
-            Modul</button>
-        <table class="table table-bordered">
+    <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-4">Modul</h2>
+        <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mb-4" onclick="openModal('modulModal')">Tambah Modul</button>
+        <table class="w-full bg-white border border-gray-300">
             <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kelas</th>
-                    <th>Judul Modul</th>
-                    <th>Diskripsi</th>
-                    <th>File Modul</th>
-                    <th>Aksi</th>
+                <tr class="">
+                    <th class="py-2 px-4 border">No</th>
+                    <th class="py-2 px-4 border">Kelas</th>
+                    <th class="py-2 px-4 border">Judul Modul</th>
+                    <th class="py-2 px-4 border">Diskripsi</th>
+                    <th class="py-2 px-4 border">File Modul</th>
+                    <th class="py-2 px-4 border">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($moduls as $modul)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $modul->Class->name_class }}</td>
-                        <td>{{ $modul->title }}</td>
-                        <td>{{ $modul->description }}</td>
-                        <td>
+                        <td class="py-2 px-4 border">{{ $loop->iteration }}</td>
+                        <td class="py-2 px-4 border">{{ $modul->Class->name_class }}</td>
+                        <td class="py-2 px-4 border">{{ $modul->title }}</td>
+                        <td class="py-2 px-4 border">{{ $modul->description }}</td>
+                        <td class="py-2 px-4 border">
                             @php
                                 $fileExtension = pathinfo($modul->file_modul, PATHINFO_EXTENSION);
                             @endphp
                             @if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                <img src="{{ asset('storage/' . $modul->file_modul) }}" alt="File Image" width="100px">
+                                <img src="{{ asset('storage/' . $modul->file_modul) }}" alt="File Image" class="w-24 h-auto">
                             @elseif($fileExtension === 'pdf')
-                                <embed src="{{ asset('storage/' . $modul->file_modul) }}" type="application/pdf"
-                                    width="100px" height="100px">
+                                <embed src="{{ asset('storage/' . $modul->file_modul) }}" type="application/pdf" class="w-24 h-24">
                             @endif
                         </td>
 
-                        <td>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModulModal_{{ $modul->id }}">
+                        <td class="py-2 px-4 border">
+                            <button type="button" class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded" onclick="openModal('editModulModal_{{ $modul->id }}')">
                                 Ubah Modul
                             </button>
-                            <form action="{{ route('moduls.destroy', $modul->id) }}" class="d-inline" method="POST">
+                            <form action="{{ route('moduls.destroy', $modul->id) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return Confirm('Apakah Anda Ingin Menghapus Modul ini ? ')">Hapus</button>
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded" onclick="return confirm('Apakah Anda Ingin Menghapus Modul ini?')">Hapus</button>
                             </form>
                         </td>
                     </tr>
@@ -51,227 +48,98 @@
         </table>
     </div>
 
-    {{-- Modul Create --}}
-    <div class="modal fade" id="modulModal" tabindex="-1" aria-labelledby="modulModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modulModalLabel">Tambah Modul</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    {{-- Modul Create Modal --}}
+    <div id="modulModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl">
+            <h5 class="text-xl font-bold mb-4">Tambah Modul</h5>
+            <form action="{{ route('moduls.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="class_id" class="block font-semibold">Kelas</label>
+                        <select name="class_id" id="class_id" class="border border-gray-300 rounded p-2 w-full">
+                            <option value="" disabled selected>Pilih Kelas</option>
+                            @foreach ($classes as $class)
+                                <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>{{ $class->name_class }}</option>
+                            @endforeach
+                        </select>
+                        @error('class_id') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div>
+                        <label for="title" class="block font-semibold">Judul Modul</label>
+                        <input type="text" id="title" name="title" class="border border-gray-300 rounded p-2 w-full" value="{{ old('title') }}" placeholder="Masukkan Judul Modul">
+                        @error('title') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('moduls.store') }}" id="modulForm" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <!-- Guru Pengajar -->
-                            <div class="col-md-6 mb-3">
-                                <label for="class_id" class="form-label">Kelas</label>
-                                <select name="class_id" id="class_id" class="form-control">
-                                    <option value="" disabled selected>Pilih Kelas</option>
-                                    @foreach ($classes as $class)
-                                        <option value="{{ $class->id }}"
-                                            {{ old('class_id') == $class->id ? 'selected' : '' }}>
-                                            {{ $class->name_class }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('class_id')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
 
-                            <!-- Judul Modul -->
-                            <div class="col-md-6 mb-3">
-                                <label for="title" class="form-label">Judul Modul</label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                    placeholder="Masukkan Judul Modul" value="{{ old('title') }}">
-                                @error('title')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- Deskripsi -->
-                            <div class="col-md-12 mb-3">
-                                <label for="description" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="description" rows="3" name="description" placeholder="Deskripsikan modul">{{ old('description') }}</textarea>
-                                @error('description')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- File Modul -->
-                            <div class="col-md-12 mb-3">
-                                <label for="file_modul" class="form-label">File Modul</label>
-                                <input type="file" class="form-control" id="file_modul" name="file_modul"
-                                    onchange="previewFile()">
-                                <div id="file_preview" class="mt-2"></div>
-                                @error('file_modul')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-success">Kirim</button>
-                        </div>
-                    </form>
+                <div class="mt-4">
+                    <label for="description" class="block font-semibold">Deskripsi</label>
+                    <textarea id="description" name="description" rows="3" class="border border-gray-300 rounded p-2 w-full" placeholder="Deskripsikan modul">{{ old('description') }}</textarea>
+                    @error('description') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
                 </div>
-            </div>
+
+                <div class="mt-4">
+                    <label for="file_modul" class="block font-semibold">File Modul</label>
+                    <input type="file" id="file_modul" name="file_modul" class="border border-gray-300 rounded p-2 w-full" onchange="previewFile()">
+                    <div id="file_preview" class="mt-2"></div>
+                    @error('file_modul') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                    <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mr-2" onclick="closeModal('modulModal')">Batal</button>
+                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Kirim</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    {{-- Modul update --}}
+    {{-- Modul Update Modals --}}
     @foreach ($moduls as $modul)
-        <div class="modal fade" id="editModulModal_{{ $modul->id }}"
-            aria-labelledby="editModulModal_{{ $modul->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModulModal_{{ $modul->id }}">Ubah Modul</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div id="editModulModal_{{ $modul->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl">
+                <h5 class="text-xl font-bold mb-4">Ubah Modul</h5>
+                <form action="{{ route('moduls.update', $modul->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="class_id_{{ $modul->id }}" class="block font-semibold">Kelas</label>
+                            <select name="class_id" id="class_id_{{ $modul->id }}" class="border border-gray-300 rounded p-2 w-full">
+                                <option value="" disabled selected>Pilih Kelas</option>
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->id }}" {{ $modul->class_id == $class->id ? 'selected' : '' }}>{{ $class->name_class }}</option>
+                                @endforeach
+                            </select>
+                            @error('class_id') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div>
+                            <label for="title_{{ $modul->id }}" class="block font-semibold">Judul Modul</label>
+                            <input type="text" id="title_{{ $modul->id }}" name="title" class="border border-gray-300 rounded p-2 w-full" value="{{ $modul->title }}">
+                            @error('title') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('moduls.update', $modul->id) }}" id="modulForm" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="row">
-                                <!-- Guru Pengajar -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="class_id" class="form-label">Kelas</label>
-                                    <select name="class_id" id="class_id" class="form-control">
-                                        <option value="" disabled selected>Pilih Kelas</option>
-                                        @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}"
-                                                {{ $class->id == $class->id ? 'selected' : '' }}>
-                                                {{ $class->name_class }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('class_id')
-                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
-                                <!-- Judul Modul -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="title" class="form-label">Judul Modul</label>
-                                    <input type="text" class="form-control" id="title" name="title"
-                                        placeholder="Masukkan Judul Modul" value="{{ $modul->title }}">
-                                    @error('title')
-                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!-- Deskripsi -->
-                                <div class="col-md-12 mb-3">
-                                    <label for="description" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="Deskripsikan modul">{{ $modul->description }}</textarea>
-                                    @error('description')
-                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="file_modul" class="form-label">Foto</label>
-                                    <input type="file" class="form-control" id="file_modul_{{ $modul->id }}"
-                                        name="file_modul" onchange="previewFile({{ $modul->id }})">
-                                    <div id="file_preview_{{ $modul->id }}" class="mt-2">
-                                        @php
-                                            $fileExtension = pathinfo($modul->file_modul, PATHINFO_EXTENSION);
-                                        @endphp
-                                        @if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                            <center>
-                                                <p>File Sebelumnya</p>
-                                                <img src="{{ asset('storage/' . $modul->file_modul) }}" alt="File Image"
-                                                    width="100px">
-                                            </center>
-                                        @elseif($fileExtension === 'pdf')
-                                            <center>
-                                                <p>File Sebelumnya</p><embed
-                                                    src="{{ asset('storage/' . $modul->file_modul) }}"
-                                                    type="application/pdf" width="100px" height="100px">
-                                            </center>
-                                        @endif
-                                    </div>
-
-
-                                    @error('file_modul')
-                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-success">Kirim</button>
-                            </div>
-                        </form>
+                    <div class="mt-4">
+                        <label for="description_{{ $modul->id }}" class="block font-semibold">Deskripsi</label>
+                        <textarea id="description_{{ $modul->id }}" name="description" rows="3" class="border border-gray-300 rounded p-2 w-full">{{ $modul->description }}</textarea>
+                        @error('description') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
                     </div>
-                </div>
+
+                    <div class="mt-4">
+                        <label for="file_modul_{{ $modul->id }}" class="block font-semibold">File Modul</label>
+                        <input type="file" id="file_modul_{{ $modul->id }}" name="file_modul" class="border border-gray-300 rounded p-2 w-full" onchange="previewFile({{ $modul->id }})">
+                        <div id="file_preview_{{ $modul->id }}" class="mt-2"></div>
+                        @error('file_modul') <div class="text-red-500 mt-1">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mt-4 flex justify-end">
+                        <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mr-2" onclick="closeModal('editModulModal_{{ $modul->id }}')">Batal</button>
+                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">Kirim</button>
+                    </div>
+                </form>
             </div>
         </div>
     @endforeach
 @endsection
-@push('scripts')
-    <script>
-        function previewFile() {
-            const file = document.getElementById('file_modul').files[0];
-            const previewContainer = document.getElementById('file_preview');
-            previewContainer.innerHTML = ''; // Clear previous preview
-
-            if (file) {
-                const fileName = document.createElement('p');
-                previewContainer.appendChild(fileName);
-
-                // For image files, create an image preview
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.classList.add('img-fluid');
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-
-        function previewFile(modulId) {
-            const fileInput = document.getElementById(`file_modul_${modulId}`);
-            const preview = document.getElementById(`file_preview_${modulId}`);
-
-            // Hapus preview lama
-            preview.innerHTML = '';
-
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    if (file.type.startsWith('image/')) {
-                        preview.innerHTML =
-                            `<center><p>File Sekarang</p>
-                                <img src="${e.target.result}" alt="Preview" width="200" class="img-thumbnail"></center>`;
-                    } else if (file.type === 'application/pdf') {
-                        preview.innerHTML =
-                            `<center><p>File Sekarang</p>
-                                <embed src="${e.target.result}" type="application/pdf" width="200" height="200"></center>`;
-                    } else {
-                        preview.innerHTML = `<p>File tidak dapat dipreview.</p>`;
-                    }
-                };
-
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-@endpush
