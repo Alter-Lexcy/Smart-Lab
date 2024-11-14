@@ -1,125 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body>
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Daftar Assesments </h1>
+    <h2>Daftar Assessment</h2>
 
-    <!-- Button to trigger modal for adding a new assesment -->
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#assesmentModal">
-        Tambah assesment
+    <!-- Button to trigger the modal for adding a new assessment -->
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAssessmentModal">
+        Tambah Assessment
     </button>
 
-    <!--  Table -->
+    <!-- Table of assessments -->
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Collection ID</th>
+                <th>No</th>
+                <th>Collection</th>
+                <th>User</th>
                 <th>Mark Task</th>
-                <th>Created At</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody> 
-       
-<tr>
-    <td>#</td>
-    <td>#</td>
-    <td>#</td>
-    <td>#</td>
-    <td>
-        <!-- Button to trigger edit modal -->
-        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editAssessmentModal">
-            Edit
-        </button>
+        <tbody>
+            @foreach ($assessments as $index => $assessment)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $assessment->collection->name ?? 'Tidak tersedia' }}</td>
+                    <td>{{ $assessment->user->name ?? 'Tidak tersedia' }}</td>
+                    <td>{{ $assessment->mark_task }}</td>
+                    <td>
+                        <!-- Edit button to open modal -->
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAssessmentModal_{{ $assessment->id }}">
+                            Edit
+                        </button>
 
-        <!-- Actions: View, Delete -->
-        <form action="#" method="POST" style="display:inline-block;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus assessment ini?')">Hapus</button>
-        </form>
-    </td>
-</tr>
-
-<!-- Edit Assessment Modal -->
-<div class="modal fade" id="editAssessmentModal" tabindex="-1" aria-labelledby="editAssessmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editAssessmentModalLabel">Edit Assessment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editAssessmentForm" action="#" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <!-- Collection ID Input -->
-                    <div class="mb-3">
-                        <label for="collection_id" class="form-label">Collection ID</label>
-                        <input type="number" class="form-control" id="collection_id" name="collection_id" value="#" required>
-                    </div>
-                    
-                    <!-- Mark Task Input -->
-                    <div class="mb-3">
-                        <label for="mark_task" class="form-label">Mark Task</label>
-                        <input type="text" class="form-control" id="mark_task" name="mark_task" value="#" required>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+                        <!-- Delete form -->
+                        <form action="{{ route('assesments.destroy', $assesments->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus assessment ini?')">
+                                Hapus
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 
-<!-- Modal for adding a new assesment -->
-<div class="modal fade" id="assesmentModal" tabindex="-1" aria-labelledby="assesmentModalLabel" aria-hidden="true">
+<!-- Modal for adding a new assessment -->
+<div class="modal fade" id="addAssessmentModal" tabindex="-1" aria-labelledby="addAssessmentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="assesmentModalLabel">Tambah assesment</h5>
+                <h5 class="modal-title" id="addAssessmentModalLabel">Tambah Assessment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="assesmentForm" action="#" method="POST">
-                    @csrf
-                    <!-- Collection ID Input -->
+            <form action="{{ route('assesments.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <!-- Collection selection -->
                     <div class="mb-3">
-                        <label for="collection_id" class="form-label">Collection ID</label>
-                        <input type="number" class="form-control" id="collection_id" name="collection_id" required>
-                    </div>
-                    
-                    <!-- Mark Task Input -->
-                    <div class="mb-3">
-                        <label for="mark_task" class="form-label">Mark Task</label>
-                        <input type="text" class="form-control" id="mark_task" name="mark_task" required>
+                        <label for="collection_id" class="form-label">Collection</label>
+                        <select name="collection_id" id="collection_id" class="form-control">
+                            <option value="" disabled selected>Pilih Collection</option>
+                            @foreach ($collections as $collection)
+                                <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('collection_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <!-- User selection -->
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">User</label>
+                        <select name="user_id" id="user_id" class="form-control">
+                            <option value="" disabled selected>Pilih User</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('user_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Mark Task -->
+                    <div class="mb-3">
+                        <label for="mark_task" class="form-label">Mark Task</label>
+                        <input type="text" class="form-control" id="mark_task" name="mark_task" placeholder="Masukkan Mark Task">
+                        @error('mark_task')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modals for editing each assessment -->
+@foreach ($assessments as $assessment)
+    <div class="modal fade" id="editAssessmentModal_{{ $assesments->id }}" tabindex="-1" aria-labelledby="editAssessmentModalLabel_{{ $assessment->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAssessmentModalLabel_{{ $assessment->id }}">Edit Assessment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('assessments.update', $assessment->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <!-- Collection selection -->
+                        <div class="mb-3">
+                            <label for="collection_id_{{ $assessment->id }}" class="form-label">Collection</label>
+                            <select name="collection_id" id="collection_id_{{ $assessment->id }}" class="form-control">
+                                @foreach ($collections as $collection)
+                                    <option value="{{ $collection->id }}" {{ $collection->id == $assessment->collection_id ? 'selected' : '' }}>
+                                        {{ $collection->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- User selection -->
+                        <div class="mb-3">
+                            <label for="user_id_{{ $assessment->id }}" class="form-label">User</label>
+                            <select name="user_id" id="user_id_{{ $assessment->id }}" class="form-control">
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}" {{ $user->id == $assessment->user_id ? 'selected' : '' }}>
+                                        {{ $user->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Mark Task -->
+                        <div class="mb-3">
+                            <label for="mark_task_{{ $assessment->id }}" class="form-label">Mark Task</label>
+                            <input type="text" class="form-control" id="mark_task_{{ $assessment->id }}" name="mark_task" value="{{ $assessment->mark_task }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+@endforeach
 @endsection
-
-</body>
-</html>

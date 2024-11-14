@@ -10,7 +10,7 @@ class Modul extends Model
         'class_id',
         'title',
         'description',
-        'file_module'
+        'file_modul'
     ];
 
     public function Class(){
