@@ -14,7 +14,7 @@ class CollectionController extends Controller
     public function index()
     {
         $collections = Collection::with('users','tasks')->get();
-        return view('Admins.Collection.index', compact('collections'));
+        return view('Admins.Collections.index', compact('collections'));
     }
 
     /**
