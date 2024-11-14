@@ -37,7 +37,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Apakah anda yakin ingin menghapus kelas ini?')">Hapus</button>
+                                    onclick="return confirm('Apakah anda yakin ingin menghapus Kelas ini?')">Hapus</button>
                             </form>
                         </td>
                     </tr>
@@ -141,7 +141,7 @@
     </div>
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
     <!-- JavaScript untuk membuka modal jika validasi gagal -->
     @if (session('openModal') == 'classModal' || $errors->any())
         <script>
@@ -155,4 +155,4 @@
             });
         </script>
     @endif
-@endpush
+@endpush --}}

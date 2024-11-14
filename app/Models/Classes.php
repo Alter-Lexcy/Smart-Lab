@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classes extends Model
 {
-
-    protected $guarded = ['id'];
+    protected $table = 'classes';
+    protected $fillable = [
+        'name_class',
+        'description',
+        'teacher_id'
+    ];
     public function teacher(){
         return $this->belongsTo(Teacher::class,'teacher_id');
     }

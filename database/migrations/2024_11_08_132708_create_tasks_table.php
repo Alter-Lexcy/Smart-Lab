@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('class_id')->constrained('classes');
             $table->string('title_task');
             $table->text('description_task')->nullable();
-            $table->timestamp('date_collection');
+            $table->date('date_collection');
             $table->timestamps();
         });
     }
