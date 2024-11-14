@@ -13,4 +13,8 @@ class Assessment extends Model
     public function Collection(){
         return $this->belongsTo(Collection::class,'collection_id');
     }
+
+    public function User(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }
