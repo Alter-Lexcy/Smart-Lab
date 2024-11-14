@@ -15,16 +15,17 @@ class RoleUser extends Seeder
      */
     public function run(): void
     {
-        $roleguru = Role::firstOrCreate(['name' => 'guru']);
+        Role::firstOrCreate(['name' => 'guru']);
         Role::firstOrCreate(['name' => 'murid']);
+        $roleadmin = Role::firstOrCreate(['name'=>'admin']);
 
-        $guru = User::create([
-            'name' => 'Guru',
-            'email' => 'guru123@gmail.com',
-            'password' => Hash::make('123456789')
+        $admin = User::create([
+            'name'=>'Admin',
+            'email'=>'Admin123@gmail.com',
+            'password'=>Hash::make('123456789')
         ]);
 
-        $guru->assignRole($roleguru);
+        $admin->assignRole($roleadmin);
     }
 
 }

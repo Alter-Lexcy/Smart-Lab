@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Classes;
 
 class TaskController extends Controller
 {
@@ -13,9 +14,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('classes')->get();
+        $tasks = Task::with('Class')->get();
+        $classes = Classes::all();
 
-        return view('Admins.Tasks.index', compact('tasks'));
+        return view('Admins.Tasks.index', compact('tasks','classes'));
     }
 
     /**
@@ -31,8 +33,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        Task::create($request->validated());
-
+        Task::create($request->all());
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Dtambahkan');
     }
 
@@ -69,7 +70,6 @@ class TaskController extends Controller
     {
         try {
             $task->delete();
-
             return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Dihapus');
         } catch (\Exception $e) {
             return redirect()->route('tasks.index')->with('success', 'Data Tugas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');

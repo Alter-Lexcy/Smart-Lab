@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessment;
+use App\Models\Collection;
+use App\Models\User;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
 
@@ -13,10 +15,11 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $assessment = Assessment::with('collections')->get();
-        // dd
+        $assessments = Assessment::with('collections')->get();
+        $collections = Collection::all();
+        $users = User::all();
 
-        return view('Admins.Assesments.index', compact('assessment'));
+        return view('Admins.Assesments.index', compact('assessments','collections','users'));
     }
 
     /**
@@ -32,7 +35,7 @@ class AssessmentController extends Controller
      */
     public function store(StoreAssessmentRequest $request)
     {
-        Assessment::create($request->validated());
+        Assessment::create($request->all());
 
         return redirect()->route('assessments.index')->with('success', 'Data Penilaian Baru Berhasil Dibuat');
     }
@@ -40,7 +43,7 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Assessment $assessment)
+    public function show(Assessment $assessments)
     {
         //
     }
@@ -48,7 +51,7 @@ class AssessmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Assessment $assessment)
+    public function edit(Assessment $assessments)
     {
         //
     }
@@ -56,9 +59,9 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAssessmentRequest $request, Assessment $assessment)
+    public function update(UpdateAssessmentRequest $request, Assessment $assessments)
     {
-        $assessment->update($request->validated());
+        $assessments->update($request->validated());
 
         return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Diperbarui');
     }
@@ -66,10 +69,10 @@ class AssessmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Assessment $assessment)
+    public function destroy(Assessment $assessments)
     {
         try {
-            $assessment->delete();
+            $assessments->delete();
 
             return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Dihapus');
         } catch (\Exception $e) {
