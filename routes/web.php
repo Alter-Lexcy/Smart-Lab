@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::middleware('auth')->group(function(){
-    Route::get('/', function () {
-        return view('home');
-    });
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    // Rute lainnya...
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('moduls', ModulController::class);
