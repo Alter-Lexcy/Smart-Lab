@@ -12,8 +12,12 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                cornflowerblue: '#6495ED',
+              },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                poppins: ['Poppins', 'sans-serif'], // Tambahkan Poppins sebagai font kustom
             },
         },
     },

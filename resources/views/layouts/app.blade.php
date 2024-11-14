@@ -45,9 +45,9 @@
                 </div>
                 <div
                     class = "flex items-center space-x-3 group bg-gradient-to-r from-cyan-500 to-blue-500   pl-10 pr-2 py-1 rounded-full text-white  ">
-                    <a href="{{ route('home') }}" class= "transform ease-in-out duration-300 mr-12 font-medium">
+                    <div class= "transform ease-in-out duration-300 mr-12 font-medium">
                         SmartLab
-                    </a>
+                    </div>
                 </div>
             </div>
             <div onclick="openNav()"
@@ -60,6 +60,18 @@
             </div>
             <!-- MAX SIDEBAR-->
             <div class= "max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
+                <a href="{{ route('home') }}"
+                    class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path
+                            d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                        <path
+                            d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                    </svg>
+                    <div>
+                        Dashboard
+                    </div>
+                </a>
                 <a href="{{ route('teachers.index') }}"
                     class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -114,8 +126,7 @@
                         <path
                             d="M9.97.97a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72v3.44h-1.5V3.31L8.03 5.03a.75.75 0 0 1-1.06-1.06l3-3ZM9.75 6.75v6a.75.75 0 0 0 1.5 0v-6h3a3 3 0 0 1 3 3v7.5a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3h3Z" />
                         <path
-                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z"
-                            />
+                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z" />
                     </svg>
                     <div>
                         Pengumpulan
@@ -138,6 +149,15 @@
             </div>
             <!-- MINI SIDEBAR-->
             <div class= "mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
+                <button onclick="window.location.href='{{ route('home') }}'"
+                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path
+                            d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                        <path
+                            d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                    </svg>
+                </button>
                 <button onclick="window.location.href='{{ route('teachers.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -146,7 +166,7 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('moduls.index') }}'"
+                <button onclick="window.location.href='{{ route('classes.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -154,7 +174,7 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('teachers.index') }}'"
+                <button onclick="window.location.href='{{ route('moduls.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -163,7 +183,7 @@
                         <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z"   />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('teachers.index') }}'"
+                <button onclick="window.location.href='{{ route('tasks.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -174,17 +194,16 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('teachers.index') }}'"
+                <button onclick="window.location.href='{{ route('collections.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M9.97.97a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72v3.44h-1.5V3.31L8.03 5.03a.75.75 0 0 1-1.06-1.06l3-3ZM9.75 6.75v6a.75.75 0 0 0 1.5 0v-6h3a3 3 0 0 1 3 3v7.5a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3h3Z" />
                         <path
-                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z"
-                            />
+                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z" />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('teachers.index') }}'"
+                <button onclick="window.location.href='{{ route('assesments.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -201,20 +220,57 @@
 
         <!-- Page Content  -->
         <div class="flex-1 p-4 ml-14">
-            <nav class="flex items-center justify-between bg-white p-4 shadow-lg relative z-10">
-                <div class="ml-auto relative group ">
-                    <button class="text-gray-700 block" id="userDropdown">
-                        <i class="fas fa-user"></i> {{ Auth::user()->name }}
+            <nav class="flex items-center justify-between bg-white p-4 shadow-lg rounded-lg relative z-10">
+                <div class="ml-auto relative flex">
+                    <button class="mr-4 border-2 rounded-lg p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
+                          </svg>
                     </button>
-                    <div
-                        class="absolute right-0 mt-2 bg-white shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                        <a href="{{ url('/logout') }}" class="block px-4 py-2 text-gray-600 hover:bg-gray-200"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
+                    <!-- User Icon Button -->
+                    <button id="userDropdown" class="text-gray-700 mr-5 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-8 rounded-3xl">
+                            <path fill-rule="evenodd"
+                                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- User Profile Dropdown -->
+                    <div id="dropdownMenu"
+                        class="absolute right-0 mt-14 w-80 bg-white rounded-lg shadow-lg opacity-0 invisible transition-all duration-300">
+                        <div class="py-2 px-4">
+                            <h5 class="text-xl mt-2 ml-2 font-semibold">User Profile</h5>
+                        </div>
+                        <div class="flex align-items-center pt-5 mx-5 border-bottom">
+                            <img src="https://pkl.hummatech.com/user.webp" class="rounded-3xl" width="80"
+                                height="80" alt="">
+                            <div class="ms-3">
+                                <h5 class="mb-1 font-medium"><span class="uppercase ">{{ Auth::user()->name }}</span>
+                                </h5>
+                                <span class="mb-2 text-md">Guru</span>
+                                <p class="mt-1 text-sm flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                    </svg>
+                                    <span class="text-sm">{{ Auth::user()->email }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <div class="grid p-2 text-center border-2 border-blue-200 my-4 mx-5">
+                            <a class="" href="{{ url('/logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -284,7 +340,19 @@
 
         }
     </script>
+    <script>
+        // JavaScript to toggle the user profile dropdown visibility
+        const userDropdownButton = document.getElementById('userDropdown');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
+        userDropdownButton.addEventListener('click', function() {
+            // Toggle visibility
+            dropdownMenu.classList.toggle('opacity-0');
+            dropdownMenu.classList.toggle('invisible');
+            dropdownMenu.classList.toggle('opacity-100');
+            dropdownMenu.classList.toggle('visible');
+        });
+    </script>
 </body>
 
 </html>
