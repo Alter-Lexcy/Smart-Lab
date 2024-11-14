@@ -24,8 +24,7 @@ class UpdateModulRequest extends FormRequest
     {
         return [
             'class_id' => ['required', 'exists:classes,id'],
-            'title' => ['required', Rule::unique('moduls','title')->ignore($this->route('moduls'))],
-            'description' => ['nullable'],
+            'title' => ['required', Rule::unique('moduls','title')->ignore($this->route('modul'))],
             'file_modul' => ['required', 'file', 'max:3072', 'mimes:jpg,jpeg,png,pdf']
         ];
     }

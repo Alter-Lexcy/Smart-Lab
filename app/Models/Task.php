@@ -10,7 +10,7 @@ class Task extends Model
         'class_id',
         'title_task',
         'description_task',
-        'date_task'
+        'date_collection'
     ];
     public function Class(){
         return $this->belongsTo(Classes::class,'class_id');

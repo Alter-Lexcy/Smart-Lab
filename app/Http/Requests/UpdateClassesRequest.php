@@ -23,9 +23,7 @@ class UpdateClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_class'=>['required','alpha_num','string',Rule::unique('Clasess','name_classes')->ignore($this->route('classes'))],
-            'description'=>['nullable','alpha_num'],
-            'code_class'=>['required','string','max:7'],
+            'name_class'=>['required','alpha_num','string',Rule::unique('classes','name_class')->ignore($this->route('class'))],
             'teacher_id'=>['required','exists:teachers,id']
         ];
     }
