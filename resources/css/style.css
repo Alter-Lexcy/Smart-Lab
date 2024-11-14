@@ -1,0 +1,5 @@
+/* Pastikan dropdown muncul dengan opacity penuh saat hover */
+.relative:hover .absolute {
+    opacity: 1;
+    visibility: visible;
+}
