@@ -121,9 +121,5 @@
             </div>
         </div>
     @endforeach
-<<<<<<< HEAD
 
-
-=======
     @endsection
->>>>>>> 5ea558a09ed0bdacbffdb3574c978c7d85a77829
