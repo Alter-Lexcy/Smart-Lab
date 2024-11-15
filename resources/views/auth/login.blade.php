@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk</title>
+    <title>Masuk SmartLab</title>
+    <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
     <link rel="stylesheet" href="style/login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <style>

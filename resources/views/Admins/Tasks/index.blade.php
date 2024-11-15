@@ -4,7 +4,7 @@
         <h2 class="text-2xl font-bold mb-4">Tugas</h2>
 
         <!-- Button to Open Add Task Modal -->
-        <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
+        <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
             onclick="openModal('taskModal')">Tambah Tugas</button>
 
         <!-- Task Table -->

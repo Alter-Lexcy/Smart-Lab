@@ -5,7 +5,7 @@
     <h2 class="text-2xl font-semibold mb-4">Daftar Assessment</h2>
 
     <!-- Button to trigger the modal for adding a new assessment -->
-    <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4" data-modal-target="#addAssessmentModal">
+    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" data-modal-target="#addAssessmentModal">
         Tambah Assessment
     </button>
 
