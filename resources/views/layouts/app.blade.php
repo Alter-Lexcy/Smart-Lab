@@ -300,13 +300,7 @@
                 });
             </script>
 
-            <main class="flex-1 transition-all duration-300 ease-in-out">
-                <div id="preloader"
-                    class="fixed inset-0 flex items-center justify-center bg-white z-50 transition-transform duration-700 transform">
-                    <img src="{{ asset('image/logo.png') }}" alt="Loading" class="h-20 w-20 animate-shake">
-                </div>
                 @yield('content')
-            </main>
         </div>
     </div>
 
@@ -327,17 +321,7 @@
         const moon = document.querySelector(".moon")
         const sun = document.querySelector(".sun")
 
-        function setDark(val) {
-            if (val === "dark") {
-                document.documentElement.classList.add('dark')
-                moon.classList.add("hidden")
-                sun.classList.remove("hidden")
-            } else {
-                document.documentElement.classList.remove('dark')
-                sun.classList.add("hidden")
-                moon.classList.remove("hidden")
-            }
-        }
+
 
         function openNav() {
             if (sidebar.classList.contains('-translate-x-48')) {

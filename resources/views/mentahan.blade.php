@@ -25,7 +25,7 @@
 
         </div>
     </div>
-    </div>
+
     <script>
         const getChartOptions = () => {
             return {

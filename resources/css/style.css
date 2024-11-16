@@ -3,3 +3,9 @@
     opacity: 1;
     visibility: visible;
 }
+
+html, body {
+    overflow: auto;
+    height: auto;
+}
+
