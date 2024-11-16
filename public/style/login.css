@@ -61,6 +61,20 @@ body {
     margin: 30px;
 }
 
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    height: fit-content;
+    border-radius: 30px;
+    margin: 30px;
+}
+
 h2 {
     font-size: 24px;
     font-weight: bold;
@@ -80,27 +94,35 @@ h5, p {
     font-size: 13px;
     color: #777;
     text-align: center;
-    margin-bottom: 15px;
 }
 
 
 .login-form input[type="text"],
 .login-form input[type="email"],
-.login-form input[type="password"] {
-    width: 100%;
-    height: 60px;
-    /* Membesarkan tinggi kotak input */
-    padding: 20px 20px 20px 10px;
-    /* Membuat padding lebih besar */
-    font-size: 18px;
-    /* Membesarkan ukuran font */
-    background-color: #fff;
-    border: none;
+.login-form input[type="password"],
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+    width: 100%; /* Lebar input proporsional (80% dari container) */
+    max-width: 300px; /* Membatasi lebar maksimum input */
+    height: 40px; /* Tinggi input yang lebih kecil */
+    padding: 10px 15px; /* Padding untuk jarak teks */
+    font-size: 14px; /* Ukuran font teks */
+    border: 1px solid #ddd; /* Menambahkan border untuk input */
+    border-radius: 10px; /* Membulatkan sudut input */
+    background-color: #fff; /* Warna latar belakang input */
+    box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran */
+    outline: none; /* Menghilangkan outline default */
+}
+
+.login-form input::placeholder,
+.register-form input::placeholder {
+    font-size: 12px; /* Ukuran placeholder lebih kecil */
+    color: #aaa; /* Warna placeholder */
 }
 
 .login-form button {
-    width: 100%;
-    /* Mengatur lebar tombol */
+    width: 100%;/* Mengatur lebar tombol */
     padding: 15px;
     font-size: 18px;
     font-weight: bold;
@@ -110,10 +132,7 @@ h5, p {
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
-    margin: 20px auto 0;
-    /* Memusatkan tombol dengan auto margin */
-    display: block;
-    /* Memastikan tombol berperilaku sebagai block element */
+    display: block;/* Memastikan tombol berperilaku sebagai block element */
 }
 
 .login-form button:hover {
@@ -124,9 +143,30 @@ h5, p {
     transform: scale(0.98);
 }
 
+.register-form button {
+    width: 100%;/* Mengatur lebar tombol */
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    display: block;/* Memastikan tombol berperilaku sebagai block element */
+}
+
+.register-form button:hover {
+    background-color: #0056b3;
+}
+
+.register-form button:active {
+    transform: scale(0.98);
+}
+
 .form-table {
     width: 100%;
-    margin: auto;
 }
 
 .form-table td {
@@ -134,6 +174,58 @@ h5, p {
     vertical-align: middle;
 }
 
-.link {
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: #e9ecef;
+    color: #333;
+    border-color: #ccc;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.tabs button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tabs button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.register-form {
     margin-top: 20px;
 }
