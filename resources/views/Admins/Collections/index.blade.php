@@ -4,7 +4,7 @@
     <h2 class="text-2xl font-bold mb-4">Daftar Koleksi</h2>
 
     <!-- Button Tambah Collection -->
-    <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mb-4" onclick="toggleModal('addCollectionModal')">
+    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" onclick="toggleModal('addCollectionModal')">
         Tambah Collection
     </button>
 
