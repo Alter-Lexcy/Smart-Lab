@@ -4,7 +4,7 @@
     <h2 class="text-2xl font-bold mb-4">Daftar Koleksi</h2>
 
     <!-- Button Tambah Collection -->
-    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" onclick="toggleModal('addCollectionModal')">
+    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" onclick="openModal('collectionModal')">
         Tambah Collection
     </button>
 
@@ -40,7 +40,7 @@
 </div>
 
 <!-- Tambah Collection Modal -->
-<div id="addCollectionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+<div id="collectionModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
         <h5 class="text-xl font-bold mb-4">Tambah Collection</h5>
         <button type="button" class="text-gray-400 hover:text-gray-600 absolute top-2 right-2" onclick="toggleModal('addCollectionModal')">&times;</button>
@@ -74,7 +74,7 @@
 
 <!-- Edit Collection Modals -->
 @foreach ($collections as $collection)
-    <div id="editCollectionModal-{{ $collection->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+    <div id="editCollectionModal-{{ $collection->id }}" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center" style="display: none;">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
             <h5 class="text-xl font-bold mb-4">Edit Collection</h5>
             <button type="button" class="text-gray-400 hover:text-gray-600 absolute top-2 right-2" onclick="toggleModal('editCollectionModal-{{ $collection->id }}')">&times;</button>
@@ -109,11 +109,23 @@
     </div>
 @endforeach
 
-<!-- Tailwind CSS Modal Toggle Script -->
 <script>
-    function toggleModal(modalID) {
-        document.getElementById(modalID).classList.toggle('hidden');
-        document.getElementById(modalID).classList.toggle('flex');
+    function openModal(id) {
+        console.log(`Opening modal: ${id}`);
+        document.getElementById(id).style.display = 'flex';
     }
-</script>
+
+    function closeModal(id) {
+        console.log(`Closing modal: ${id}`);
+        document.getElementById(id).style.display = 'none';
+    }
+
+
+        // Open the modal if validation fails
+        @if (session('success'))
+            document.addEventListener("DOMContentLoaded", function() {
+                closeModal('collectionModal'); // Menutup modal setelah data berhasil ditambah
+            });
+        @endif
+    </script>
 @endsection

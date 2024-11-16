@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Classes;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -14,6 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
+        Carbon::setLocale('id'); // Bahasa Indonesia
         $tasks = Task::with('Class')->get();
         $classes = Classes::all();
 
@@ -28,13 +30,14 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTaskRequest $request)
     {
-        Task::create($request->all());
-        return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Dtambahkan');
+        // Format waktu sebelum menyimpan (jika diperlukan)
+        $data = $request->all();
+        $data['date_collection'] = Carbon::parse($request->date_collection);
+    
+        Task::create($data);
+        return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
     }
 
     /**

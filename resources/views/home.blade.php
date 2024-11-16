@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto py-8">
-        <div class="max-w-full bg-gradient-to-r from-gray-200 to-blue-300 p-0 rounded-lg shadow-lg">
+        <div class="max-w-full bg-gradient-to-r from-cyan-100 to-blue-300 p-0 rounded-lg shadow-lg">
 
             @if (session('status'))
                 <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
@@ -38,7 +38,7 @@
                 <div id="bar-chart"></div>
             </div>
         </div>
-        <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+        <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 mt-5">
 
             <div class="flex justify-between mb-3">
                 <div class="flex justify-center items-center">
@@ -58,7 +58,7 @@
         <script>
             const getChartOptions = () => {
                 return {
-                    series: [35.1, 23.5],
+                    series: [16, 20],
                     colors: ["#1C64F2", "#16BDCA"],
                     chart: {
                         height: 320,
@@ -89,7 +89,7 @@
                                         },
                                     },
                                 },
-                                size: "60%",
+                                size: "65%",
                             },
                         },
                     },
@@ -135,34 +135,6 @@
 
                 // Get all the checkboxes by their class name
                 const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
-
-                // Function to handle the checkbox change event
-                function handleCheckboxChange(event, chart) {
-                    const checkbox = event.target;
-                    if (checkbox.checked) {
-                        switch (checkbox.value) {
-                            case 'desktop':
-                                chart.updateSeries([15.1, 22.5, 4.4, 8.4]);
-                                break;
-                            case 'tablet':
-                                chart.updateSeries([25.1, 26.5, 1.4, 3.4]);
-                                break;
-                            case 'mobile':
-                                chart.updateSeries([45.1, 27.5, 8.4, 2.4]);
-                                break;
-                            default:
-                                chart.updateSeries([55.1, 28.5, 1.4, 5.4]);
-                        }
-
-                    } else {
-                        chart.updateSeries([35.1, 23.5, 2.4, 5.4]);
-                    }
-                }
-
-                // Attach the event listener to each checkbox
-                checkboxes.forEach((checkbox) => {
-                    checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
-                });
             }
         </script>
 

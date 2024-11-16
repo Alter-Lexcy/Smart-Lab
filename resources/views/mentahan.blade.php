@@ -13,9 +13,12 @@
 
         <div class="flex justify-between mb-3">
             <div class="flex justify-center items-center">
-                <h5 class="text-xl font-medium leading-none text-gray-900 dark:text-white pe-1">Data Pengumpulan Tugas
+                <h5 class="text-xl font-medium leading-none text-gray-900 dark:text-white pe-1">Absensi
                 </h5>
             </div>
+            <button class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-semibold py-1 px-5 rounded mt-2 ">
+                Absen
+            </button>
         </div>
 
         <!-- Donut Chart -->
@@ -29,8 +32,8 @@
     <script>
         const getChartOptions = () => {
             return {
-                series: [35.1, 23.5],
-                colors: ["#1C64F2", "#16BDCA"],
+                series: [24,2,3,1],
+                colors: ["#3399FF", "#16BDCA","#FFCC00","#FF0000"],
                 chart: {
                     height: 320,
                     width: "100%",
@@ -60,7 +63,7 @@
                                     },
                                 },
                             },
-                            size: "60%",
+                            size: "65%",
                         },
                     },
                 },
@@ -69,7 +72,7 @@
                         top: -2,
                     },
                 },
-                labels: ["Mengumpulkan", "Tidak Mengumpulkan"],
+                labels: ["Masuk", "Izin","Sakit","Alpha"],
                 dataLabels: {
                     enabled: false,
                 },
@@ -106,34 +109,6 @@
 
             // Get all the checkboxes by their class name
             const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
-
-            // Function to handle the checkbox change event
-            function handleCheckboxChange(event, chart) {
-                const checkbox = event.target;
-                if (checkbox.checked) {
-                    switch (checkbox.value) {
-                        case 'desktop':
-                            chart.updateSeries([15.1, 22.5, 4.4, 8.4]);
-                            break;
-                        case 'tablet':
-                            chart.updateSeries([25.1, 26.5, 1.4, 3.4]);
-                            break;
-                        case 'mobile':
-                            chart.updateSeries([45.1, 27.5, 8.4, 2.4]);
-                            break;
-                        default:
-                            chart.updateSeries([55.1, 28.5, 1.4, 5.4]);
-                    }
-
-                } else {
-                    chart.updateSeries([35.1, 23.5, 2.4, 5.4]);
-                }
-            }
-
-            // Attach the event listener to each checkbox
-            checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
-            });
         }
     </script>
 </body>
