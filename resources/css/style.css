@@ -1,11 +1,41 @@
-/* Pastikan dropdown muncul dengan opacity penuh saat hover */
-.relative:hover .absolute {
-    opacity: 1;
-    visibility: visible;
+#classModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
 }
 
-html, body {
-    overflow: auto;
-    height: auto;
+
+
+#modulModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
 }
 
+#taskModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+}
+
+#addAssessmentModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+}
+
+#addCommentModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+}

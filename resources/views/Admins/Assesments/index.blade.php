@@ -5,7 +5,7 @@
     <h2 class="text-2xl font-semibold mb-4">Daftar Assessment</h2>
 
     <!-- Button to trigger the modal for adding a new assessment -->
-    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" data-modal-target="#addAssessmentModal">
+    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" onclick="openModal('assessmentModal')">
         Tambah Assessment
     </button>
 
@@ -51,7 +51,7 @@
 </div>
 
 <!-- Modal for adding a new assessment -->
-<div id="addAssessmentModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+<div id="assessmentModal" class="hidden fixed inset-0 z-50 overflow-y-auto" style="display: none;">
     <div class="flex items-center justify-center min-h-screen px-4">
         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
             <h5 class="text-xl font-semibold mb-4">Tambah Assessment</h5>
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="flex justify-end gap-2">
-                    <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded" onclick="document.getElementById('addAssessmentModal').classList.add('hidden')">Batal</button>
+                    <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded" onclick="closeModal('assessmentModal')">Batal</button>
                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Simpan</button>
                 </div>
             </form>
@@ -102,7 +102,7 @@
 
 <!-- Modals for editing each assessment -->
 @foreach ($assessments as $assessment)
-    <div id="editAssessmentModal_{{ $assessment->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div id="editAssessmentModal_{{ $assessment->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto" style="display: none;">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
                 <h5 class="text-xl font-semibold mb-4">Edit Assessment</h5>
@@ -145,4 +145,23 @@
         </div>
     </div>
 @endforeach
+<script>
+    function openModal(id) {
+        console.log(`Opening modal: ${id}`);
+        document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+        console.log(`Closing modal: ${id}`);
+        document.getElementById(id).style.display = 'none';
+    }
+
+
+        // Open the modal if validation fails
+        @if (session('success'))
+            document.addEventListener("DOMContentLoaded", function() {
+                closeModal('assessmentModal'); // Menutup modal setelah data berhasil ditambah
+            });
+        @endif
+    </script>
 @endsection
