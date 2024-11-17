@@ -264,7 +264,17 @@
                                 <div class="ms-3">
                                     <h5 class="mb-1 font-medium"><span
                                             class="uppercase">{{ Auth::user()->name }}</span></h5>
-                                    <span class="mb-2 text-md">Guru</span>
+                                    {{-- @php
+                                        $roles = Auth::user()->getRoleNames()->filter(fn($role) => $role !== 'murid');
+                                        $lastRole = $roles->last();
+                                    @endphp
+                                    <span class="mb-2 text-md">
+                                        <span class="badge bg-primary">{{ $lastRole }}</span>
+                                    </span> --}}
+
+                                    @foreach (Auth::user()->getRoleNames() as $role)
+                                        <span class="mb-2 text-md">{{ $role }}</span>
+                                    @endforeach
                                     <p class="mt-1 text-sm flex items-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
