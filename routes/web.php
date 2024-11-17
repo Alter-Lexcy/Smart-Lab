@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     // Rute lainnya...
     Route::resource('teachers', TeacherController::class);
@@ -24,4 +24,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('collections', CollectionController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
+});
+
+Route::middleware(['auth', 'check.approval'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/approval-pending', function () {return view('approval.pending');})->name('approval.pending');
 });
