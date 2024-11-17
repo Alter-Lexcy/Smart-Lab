@@ -22,6 +22,6 @@ Route::middleware('auth')->group(function(){
     Route::resource('moduls', ModulController::class);
     Route::resource('tasks', TaskController::class);
     Route::resource('collections', CollectionController::class);
-    Route::resource('assesments', AssessmentController::class);
+    Route::resource('assessments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
 });

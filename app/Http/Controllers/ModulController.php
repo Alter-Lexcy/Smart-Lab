@@ -17,7 +17,7 @@ class ModulController extends Controller
     {
         $moduls = Modul::with('Class')->get();
         $classes = Classes::all();
-        return view('Admins.Moduls.index', compact('moduls','classes'));
+        return view('Admins.Moduls.index', compact('moduls', 'classes'));
     }
 
     /**
@@ -33,14 +33,25 @@ class ModulController extends Controller
      */
     public function store(StoreModulRequest $request)
     {
-        $file = $request->file_modul->store('file','public');
+        if (!$request->hasFile('file_modul')) {
+            return back()->withErrors(['file_modul' => 'No file uploaded'])->withInput();
+        }
+
+        $file = $request->file('file_modul');
+        if (!$file->isValid()) {
+            return back()->withErrors(['file_modul' => 'Invalid file upload'])->withInput();
+        }
+
+        $filePath = $file->store('file', 'public');
+
         Modul::create([
-            'class_id'=>$request->class_id,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'file_modul'=>$file
+            'class_id' => $request->class_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'file_modul' => $filePath,
         ]);
-        return redirect()->route('moduls.index')->with('success', 'Data Materi Baru Berhasil Dtambahkan');
+
+        return redirect()->route('moduls.index')->with('success', 'Data Materi Baru Berhasil Ditambahkan');
     }
 
     /**
@@ -64,12 +75,12 @@ class ModulController extends Controller
      */
     public function update(UpdateModulRequest $request, Modul $modul)
     {
-        if($request->hasFile('file_modul')){
-            if($modul->file_modul){
+        if ($request->hasFile('file_modul')) {
+            if ($modul->file_modul) {
                 Storage::disk('public')->delete($modul->file_modul);
             }
 
-            $file = $request->file_modul->store('file','public');
+            $file = $request->file_modul->store('file', 'public');
             $modul->file_modul = $file;
         }
 
