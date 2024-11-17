@@ -57,7 +57,7 @@
         <!-- Form Register Siswa -->
         <div id="siswa-tab" class="tab-content active">
             <div class="register-form">
-                <form action="{{ route('register') }}" method="POST">
+                <form action="{{ route('register_murid') }}" method="POST">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
@@ -127,7 +127,7 @@
         <!-- Form Register Guru -->
         <div id="guru-tab" class="tab-content">
             <div class="register-form">
-                <form action="{{ route('register') }}" method="POST">
+                <form action="{{ route('register_guru') }}" method="POST">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
@@ -166,7 +166,7 @@
                                     <input
                                         type="text"
                                         id="nip"
-                                        name="nip"
+                                        name="NIP"
                                         placeholder="NIP"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>

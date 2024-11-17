@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CommentController;
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
+Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
+
 Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    // Rute lainnya...
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('moduls', ModulController::class);

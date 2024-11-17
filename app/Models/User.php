@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,4 +55,16 @@ class User extends Authenticatable
             $user->assignRole($murid);
         });
     }
+
+    public function hasRole(...$roles)
+{
+    foreach ($roles as $role) {
+        if ($this->roles->contains('name', $role)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 }
