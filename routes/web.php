@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
+Route::middleware('auth')->group(function () {
 Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
 Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
-
 Route::middleware('auth')->group(function(){
+  
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassesController::class);
@@ -27,4 +29,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('collections', CollectionController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
+});
+
+Route::middleware(['auth', 'check.approval'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/approval-pending', function () {return view('approval.pending');})->name('approval.pending');
 });
