@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSubject extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateSubject extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,20 @@ class UpdateSubject extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_subject' => [
+                'required',
+                'string',
+                Rule::unique('subject', 'name_subject')->ignore($this->route('subject'))
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name_subject.required'=>'Nama Mata Pembelajaran Belum Di-isi',
+            'name_subject.string'=>'Nama Mata Pembelajaran Harus Bertipe Huruf',
+            'name_subject.unique'=>'Nama Mata Pembelajaran Sudah Ada'
         ];
     }
 }

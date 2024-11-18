@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subject_id')->constrained('subject');
             $table->foreignId('classes_id')->constrained('classes');
+            $table->string('title_materi');
             $table->string('file_materi');
             $table->text('description')->nullable();
             $table->timestamps();
