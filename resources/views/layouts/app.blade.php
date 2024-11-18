@@ -82,7 +82,7 @@
                         Dashboard
                     </div>
                 </a>
-                <a href="{{ route('teachers.index') }}"
+                <a href="/Students"
                     class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -90,7 +90,7 @@
                             clip-rule="evenodd"  />
                     </svg>
                     <div>
-                        Guru
+                        Siswa
                     </div>
                 </a>
                 <a href="{{ route('classes.index') }}"
