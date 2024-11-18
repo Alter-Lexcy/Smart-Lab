@@ -1,24 +1,27 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-4">Tugas</h2>
-
-        <!-- Button to Open Add Task Modal -->
-        <button type="button"
-            class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
-            onclick="openModal('taskModal')">Tambah Tugas</button>
-
+        <div class="container mx-auto p-4">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-bold mr-auto">Daftar Tugas</h1>
+                <a class="group relative inline-block text-xs font-medium text-blue-500 focus:outline-none focus:ring active:text-indigo-500"
+                    onclick="openModal('taskModal')">
+                    <span class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
+                    <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Tambah Tugas -></span>
+                </a>
+            </div>
+        </div>
         <!-- Task Table -->
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-300 text-center">
-                <thead class="bg-gradient-to-r from-cyan-100 to-blue-300">
+                <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                     <tr class=" text-black  ">
-                        <th class="py-3 px-6 ">No</th>
-                        <th class="py-3 px-6 ">Kelas</th>
-                        <th class="py-3 px-6 ">Judul Tugas</th>
-                        <th class="py-3 px-6 ">Deskripsi Tugas</th>
-                        <th class="py-3 px-6 ">Tanggal Pengumpulan Tugas</th>
-                        <th class="py-3 px-6 ">Aksi</th>
+                        <th class="px-4 py-2 border">No</th>
+                        <th class="px-4 py-2 border">Kelas</th>
+                        <th class="px-4 py-2 border">Judul Tugas</th>
+                        <th class="px-4 py-2 border">Deskripsi Tugas</th>
+                        <th class="px-4 py-2 border">Tanggal Pengumpulan Tugas</th>
+                        <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="">
@@ -33,7 +36,7 @@
                                 <!-- Open edit modal -->
                                 <button type="button"
                                     class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded"
-                                    onclick="openModal('editTaskModal{{ $task->id }}')"> 
+                                    onclick="openModal('editTaskModal{{ $task->id }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                         <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
@@ -94,7 +97,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="date_collection" class="block text-gray-700 font-bold mb-2">Tanggal dan Waktu Pengumpulan Tugas</label>
-                    <input type="datetime-local" id="date_collection" name="date_collection" 
+                    <input type="datetime-local" id="date_collection" name="date_collection"
                         class="w-full px-3 py-2 border rounded"
                         value="{{ old('date_collection') }}">
                     @error('date_collection')

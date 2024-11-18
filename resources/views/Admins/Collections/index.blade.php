@@ -1,23 +1,27 @@
 @extends('layouts.app')
 @section('content')
 <div class="container mx-auto px-4 mt-5">
-    <h2 class="text-2xl font-bold mb-4">Daftar Koleksi</h2>
-
-    <!-- Button Tambah Collection -->
-    <button type="button" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded mb-4" onclick="openModal('collectionModal')">
-        Tambah Collection
-    </button>
+    <div class="container mx-auto p-4">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-bold mr-auto">Daftar Pengumpulan</h1>
+            <a class="group relative inline-block text-xs font-medium text-blue-500 focus:outline-none focus:ring active:text-indigo-500"
+                onclick="openModal('collectionModal')">
+                <span class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
+                <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Kumpulkan Tugas -></span>
+            </a>
+        </div>
+    </div>
 
     <!-- Tabel Data Koleksi -->
     <table class="min-w-full bg-white border border-gray-200">
-        <thead class="bg-gradient-to-r from-cyan-100 to-blue-300">
+        <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
             <tr class="">
-                <th class="py-2 px-4 border">ID</th>
-                <th class="py-2 px-4 border">User ID</th>
-                <th class="py-2 px-4 border">Task ID</th>
-                <th class="py-2 px-4 border">File Collection</th>
-                <th class="py-2 px-4 border">Status</th>
-                <th class="py-2 px-4 border">Aksi</th>
+                <th class="px-4 py-2 border">ID</th>
+                <th class="px-4 py-2 border">User ID</th>
+                <th class="px-4 py-2 border">Task ID</th>
+                <th class="px-4 py-2 border">File Collection</th>
+                <th class="px-4 py-2 border">Status</th>
+                <th class="px-4 py-2 border">Aksi</th>
             </tr>
         </thead>
         <tbody>
