@@ -35,7 +35,6 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/Students',[StudentController::class,'User'])->name('Students');
 });
-
 Route::middleware(['auth', 'check.approval'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/approval-pending', function () {return view('approval.pending');})->name('approval.pending');
