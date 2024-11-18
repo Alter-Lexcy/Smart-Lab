@@ -68,6 +68,11 @@
                                     <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
+                                @error('name')
+                                    <div class="error-message">
+                                        <i class='bx bx-error-circle'></i>{{ $message }}
+                                    </div>
+                                @enderror
                             </td>
                         </tr>
                         <!-- Input Email -->
@@ -80,13 +85,17 @@
                                     <input type="email" id="email" name="email" placeholder="Email"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
+                                @error('email')
+                                    <div class="error-message">
+                                        <i class='bx bx-error-circle'></i>{{ $message }}
+                                    </div>
+                                @enderror
                             </td>
                         </tr>
                         <!-- Password dan Konfirmasi Password -->
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
-                                    <!-- Input Password -->
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock"
@@ -96,8 +105,6 @@
                                         <i class="bx bxs-show" id="toggle-password"
                                             style="margin-left: 10px; font-size: 16px; color: #666; cursor: pointer;"></i>
                                     </span>
-
-                                    <!-- Input Konfirmasi Password -->
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
@@ -137,6 +144,11 @@
                                     <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
+                                @error('name')
+                                    <div class="error-message">
+                                        <i class='bx bx-error-circle'></i>{{ $message }}
+                                    </div>
+                                @enderror
                             </td>
                         </tr>
                         <!-- Input Email -->
@@ -149,6 +161,11 @@
                                     <input type="email" id="email" name="email" placeholder="Email"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
+                                @error('email')
+                                    <div class="error-message">
+                                        <i class='bx bx-error-circle'></i>{{ $message }}
+                                    </div>
+                                @enderror
                             </td>
                         </tr>
                         <!-- Input NIP -->
@@ -161,6 +178,11 @@
                                     <input type="text" id="nip" name="NIP" placeholder="NIP"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
+                                @error('NIP')
+                                    <div class="error-message">
+                                        <i class='bx bx-error-circle'></i>{{ $message }}
+                                    </div>
+                                @enderror
                             </td>
                         </tr>
                         <!-- Password dan Konfirmasi Password -->
