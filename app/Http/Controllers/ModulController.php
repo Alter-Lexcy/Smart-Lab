@@ -33,25 +33,29 @@ class ModulController extends Controller
      */
     public function store(StoreModulRequest $request)
     {
-        if (!$request->hasFile('file_modul')) {
-            return back()->withErrors(['file_modul' => 'No file uploaded'])->withInput();
-        }
-
         $file = $request->file('file_modul');
+
+        // Check if the file is uploaded
+        if (!$file) {
+            return back()->withErrors(['file_modul' => 'No file was uploaded'])->withInput();
+        }
+        
+        // Check if the file is valid
         if (!$file->isValid()) {
             return back()->withErrors(['file_modul' => 'Invalid file upload'])->withInput();
         }
-
+        
+        // Store the file
         $filePath = $file->store('file', 'public');
-
+        
         Modul::create([
             'class_id' => $request->class_id,
             'title' => $request->title,
             'description' => $request->description,
             'file_modul' => $filePath,
         ]);
-
-        return redirect()->route('moduls.index')->with('success', 'Data Materi Baru Berhasil Ditambahkan');
+        
+        return redirect()->route('moduls.index')->with('success', 'Data Materi Baru Berhasil Ditambahkan');        
     }
 
     /**
