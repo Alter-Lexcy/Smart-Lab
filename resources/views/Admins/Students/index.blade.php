@@ -9,7 +9,7 @@
                     <tr class="border">
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Nama Siswa</th>
-                        <th class="px-4 py-2 border">Email Guru</th>
+                        <th class="px-4 py-2 border">Email Siswa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +20,7 @@
                             <td class="px-4 py-2 border">{{ $student->email }}</td>
                         </tr>
                     @endforeach
-                </tbody>                
+                </tbody>
             </table>
         </div>
     </div>
