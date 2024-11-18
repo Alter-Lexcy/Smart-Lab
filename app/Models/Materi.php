@@ -4,24 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Classes extends Model
+class Materi extends Model
 {
-    protected $table = 'classes';
     protected $fillable = [
         'subject_id',
-        'name_class',
-        'description',
+        'classes_id',
+        'file_materi',
+        'description'
     ];
 
     public function Subject(){
         return $this->belongsTo(Subject::class,'subject_id');
     }
-
-    public function Materi(){
-        return $this->hasMany(Materi::class);
+    public function Classes(){
+        return $this->belongsTo(Classes::class,'classes_id');
     }
-
     public function Task(){
-        return $this->belongsTo(Task::class);
+        return $this->hasMany(Task::class);
     }
 }

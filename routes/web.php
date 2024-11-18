@@ -12,7 +12,9 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 
 Auth::routes();
 
@@ -25,14 +27,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::resource('teachers', TeacherController::class);
+
+    Route::resource('materis',MateriController::class);
+    Route::resource('subjects',SubjectController::class);
     Route::resource('classes', ClassesController::class);
-    Route::resource('moduls', ModulController::class);
     Route::resource('tasks', TaskController::class);
-    Route::resource('collections', CollectionController::class);
     Route::resource('assessments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
 
+    Route::resource('teachers', TeacherController::class);
     Route::get('/Students',[StudentController::class,'User'])->name('Students');
 
     Route::get('/guru',function(){
