@@ -189,20 +189,28 @@
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
+                                    <!-- Input Password -->
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock"
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
-                                        <input type="password" id="password" name="password" placeholder="Password"
+                                        <input type="password" id="password_guru" name="password"
+                                            placeholder="Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bxs-show" id="toggle-password-guru"
+                                            style="margin-left: 10px; font-size: 16px; color: #666; cursor: pointer;"></i>
                                     </span>
+
+                                    <!-- Input Konfirmasi Password -->
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
-                                        <input type="password" id="password_confirmation"
+                                        <input type="password" id="password_confirmation_guru"
                                             name="password_confirmation" placeholder="Konfirmasi Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bxs-show" id="toggle-password-confirmation-guru"
+                                            style="margin-left: 10px; font-size: 16px; color: #666; cursor: pointer;"></i>
                                     </span>
                                 </div>
                             </td>
@@ -235,29 +243,48 @@
     </script>
 
     <script>
-        // Fungsi untuk toggle input password
-        function togglePasswordVisibility(inputId, iconId) {
-            const passwordField = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                icon.classList.remove('bxs-show');
-                icon.classList.add('bxs-hide');
-            } else {
-                passwordField.type = 'password';
-                icon.classList.remove('bxs-hide');
-                icon.classList.add('bxs-show');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fungsi untuk toggle input password
+            function togglePasswordVisibility(inputId, iconId) {
+                const passwordField = document.getElementById(inputId);
+                const icon = document.getElementById(iconId);
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.classList.remove('bxs-show');
+                    icon.classList.add('bxs-hide');
+                } else {
+                    passwordField.type = 'password';
+                    icon.classList.remove('bxs-hide');
+                    icon.classList.add('bxs-show');
+                }
             }
-        }
 
-        // Event Listener untuk Password
-        document.getElementById('toggle-password').addEventListener('click', function() {
-            togglePasswordVisibility('password', 'toggle-password');
-        });
+            // Tambahkan event listener untuk elemen toggle
+            const toggles = [{
+                    inputId: 'password',
+                    iconId: 'toggle-password'
+                },
+                {
+                    inputId: 'password_confirmation',
+                    iconId: 'toggle-password-confirmation'
+                },
+                {
+                    inputId: 'password_guru',
+                    iconId: 'toggle-password-guru'
+                },
+                {
+                    inputId: 'password_confirmation_guru',
+                    iconId: 'toggle-password-confirmation-guru'
+                },
+            ];
 
-        // Event Listener untuk Konfirmasi Password
-        document.getElementById('toggle-password-confirmation').addEventListener('click', function() {
-            togglePasswordVisibility('password_confirmation', 'toggle-password-confirmation');
+            toggles.forEach(({
+                inputId,
+                iconId
+            }) => {
+                const icon = document.getElementById(iconId);
+                icon.addEventListener('click', () => togglePasswordVisibility(inputId, iconId));
+            });
         });
     </script>
 </body>
