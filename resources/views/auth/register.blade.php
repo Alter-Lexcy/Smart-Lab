@@ -102,12 +102,9 @@
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input type="password" id="password" name="password" placeholder="Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bxs-show" id="toggle-password"
+                                            style="margin-left: 10px; font-size: 16px; color: #666; cursor: pointer;"></i>
                                     </span>
-                                    @error('password')
-                                        <div class="error-message">
-                                            <i class='bx bx-error-circle'></i>{{ $message }}
-                                        </div>
-                                    @enderror
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
@@ -115,6 +112,8 @@
                                         <input type="password" id="password_confirmation" name="password_confirmation"
                                             placeholder="Konfirmasi Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bxs-show" id="toggle-password-confirmation"
+                                            style="margin-left: 10px; font-size: 16px; color: #666; cursor: pointer;"></i>
                                     </span>
                                 </div>
                             </td>
@@ -197,11 +196,6 @@
                                         <input type="password" id="password" name="password" placeholder="Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                     </span>
-                                    @error('password')
-                                        <div class="error-message">
-                                            <i class='bx bx-error-circle'></i>{{ $message }}
-                                        </div>
-                                    @enderror
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
@@ -237,6 +231,33 @@
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
             });
+        });
+    </script>
+
+    <script>
+        // Fungsi untuk toggle input password
+        function togglePasswordVisibility(inputId, iconId) {
+            const passwordField = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('bxs-show');
+                icon.classList.add('bxs-hide');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('bxs-hide');
+                icon.classList.add('bxs-show');
+            }
+        }
+
+        // Event Listener untuk Password
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            togglePasswordVisibility('password', 'toggle-password');
+        });
+
+        // Event Listener untuk Konfirmasi Password
+        document.getElementById('toggle-password-confirmation').addEventListener('click', function() {
+            togglePasswordVisibility('password_confirmation', 'toggle-password-confirmation');
         });
     </script>
 </body>
