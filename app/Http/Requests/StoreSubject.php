@@ -11,7 +11,7 @@ class Subject extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class Subject extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_subject'=>['required','unique:subject,name_subject','string']
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+            'name_subject.required'=>'Nama Mata Pembelajaran Belum Di-sisi',
+            'name_subject.unique'=>'Nama Mata Pembelajaran Sudah Ada',
+            'name_subject.unique'=>'Nama Mata Pembelajaran Harus Berformat Huruf',
         ];
     }
 }

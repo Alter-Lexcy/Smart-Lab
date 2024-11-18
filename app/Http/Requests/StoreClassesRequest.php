@@ -22,23 +22,20 @@ class StoreClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_class'=>['required','alpha_num','string','unique:classes,name_class'],
-            'description'=>['nullable','alpha_num'],
-            'teacher_id'=>['required','exists:teachers,id']
+            'subject_id'=>['required','exists:subject,id'],
+            'name_class'=>['required','alpha_num','unique:classes,name_class'],
+            'description'=>['max:255']
         ];
     }
     public function messages()
     {
         return [
-            'name_class.required'=>'Nama Kelas Belum Ter-isi',
-            'name_class.alpha_num'=>'Nama Kelas Hanya Berformat Angka Dan Huruf',
-            'name_class.string'=>'Nama Kelas Hanya Bertipe string',
+            'subject_id.required'=>'Mata Pembelajaran Belum Di-Pilih',
+            'subject_id.exists'=>'Mata Pembelajaran Tidak Ada',
+            'name_class.required'=>'Nama Kelas Belum Di-isi',
+            'name_class.alpa_num'=>'Nama Kelas Hanya Berformat Huruf dan Angka',
             'name_class.unique'=>'Nama Kelas Sudah Ada',
-            'description.alpha_num'=>'Deskripsi Hanya Berformat Angka Dan Huruf',
-            'code_class.string'=>'Nama Kelas Hanya Bertipe string',
-            'code_class.max'=>'Nama Kelas Melebihi batas',
-            'teacher_id.required'=>'Guru Belum Ter-isi',
-            'teacher_id.exists'=>'Data Guru Tidak Ada',
+            'description.max'=>'Deskripsi Kelas Terlalu panjang (Batas : 255 Karakter)'
         ];
     }
 }
