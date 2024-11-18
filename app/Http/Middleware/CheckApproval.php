@@ -16,7 +16,7 @@ class CheckApproval
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === 'teacher' && !Auth::user()->is_approved) {
+        if (Auth::check() && Auth::user()->role === 'guru' && !Auth::user()->is_approved) {
             return redirect()->route('approval.pending')->with('error', 'Akun Anda belum disetujui oleh superadmin.');
         }
 
