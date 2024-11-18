@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('materis', function (Blueprint $table) {
             $table->id();
-            $table->string('name_teacher');
-            $table->integer('NIP');
-            $table->string('email_teacher');
+            $table->foreignId('subject_id')->constrained('subject');
+            $table->foreignId('classes_id')->constrained('classes');
+            $table->string('file_materi');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('materis');
     }
 };
