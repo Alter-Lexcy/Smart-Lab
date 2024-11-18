@@ -30,9 +30,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
 });
-
+});
 Route::middleware(['auth', 'check.approval'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/approval-pending', function () {return view('approval.pending');})->name('approval.pending');
 });
-});
+
