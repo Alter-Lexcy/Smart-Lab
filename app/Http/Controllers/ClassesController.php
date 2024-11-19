@@ -16,8 +16,7 @@ class ClassesController extends Controller
     public function index()
     {
         $classes = Classes::with('teacher')->get();
-        $teachers = Teacher::all();
-        return view('Admins.Classes.index', compact('classes', 'teachers'));
+        return view('Admins.Classes.index', compact('classes'));
     }
 
     /**

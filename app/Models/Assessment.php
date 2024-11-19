@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Assessment extends Model
 {
     protected $fillable = [
-        'collection_id',
+        'task_id',
+        'user_id',
         'mark_task'
     ];
-    public function Collection(){
-        return $this->belongsTo(Collection::class,'collection_id');
-    }
+
 
     public function User(){
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class,'user_id')->whereHas('roles',function($query){
+            $query->where('name','Murid');
+        });
+    }
+
+    public function Task(){
+        return $this->belongsTo(Task::class,'task_id');
     }
 }

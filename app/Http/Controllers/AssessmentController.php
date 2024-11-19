@@ -16,7 +16,6 @@ class AssessmentController extends Controller
     public function index()
     {
         $assessments = Assessment::with('collections')->get();
-        $collections = Collection::all();
         $users = User::all();
 
         return view('Admins.Assesments.index', compact('assessments','collections','users'));
