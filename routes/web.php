@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::resource('materis',MateriController::class);
-    Route::resource('subjects',SubjectController::class);
+    Route::resource('subject',SubjectController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('tasks', TaskController::class);
     Route::resource('assessments', AssessmentController::class);
