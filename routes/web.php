@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function(){
 
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('home');
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('moduls', ModulController::class);
