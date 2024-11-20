@@ -296,7 +296,7 @@
                     <!-- User Profile Dropdown -->
                     <div class="relative">
                         <div id="dropdownMenu"
-                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-14 w-80 bg-white rounded-lg shadow-lg z-50">
+                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-14 w-96 bg-white rounded-lg shadow-lg z-50">
                             <div class="py-2 px-4">
                                 <h5 class="text-xl mt-2 ml-2 font-semibold">User Profile</h5>
                             </div>
