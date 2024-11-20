@@ -9,11 +9,15 @@ class Task extends Model
     protected $fillable =[
         'class_id',
         'subject_id',
-        'materi-id',
+        'materi_id',
         'title_task',
         'file_task',
         'description_task',
         'date_collection'
+    ];
+
+    protected $casts = [
+        'date_collection' => 'datetime',
     ];
 
     public function Classes(){

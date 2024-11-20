@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title_task');
             $table->string('file_task')->nullable();
             $table->text('description_task')->nullable();
-            $table->datetime('date_collection');
+            $table->timestamp('date_collection');
             $table->timestamps();
         });
     }
