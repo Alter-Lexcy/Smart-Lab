@@ -141,7 +141,7 @@ body{
     z-index: 50;
 }
 
-#collectionModal {
+#subjectModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -155,7 +155,7 @@ body{
     z-index: 50;
 }
 
-.collectionModal {
+.subjectModal {
     top: 0;
     left: 0;
     right: 0;

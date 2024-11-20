@@ -19,8 +19,6 @@ Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name(
 
 Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
-  
-  
     Route::resource('subject',SubjectController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('materis',MateriController::class);
