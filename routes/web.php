@@ -16,6 +16,9 @@ Auth::routes();
 
 Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
 Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
+Route::get('/landing',[function(){
+    return view('Users.landing');
+}]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
