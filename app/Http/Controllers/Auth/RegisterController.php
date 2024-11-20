@@ -19,11 +19,17 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    protected $redirectTo = '/';
 
+    /**
+     * Validasi dan Registrasi Murid.
+     */
     public function registerMurid(Request $request)
     {
+        // Validasi data murid
         $this->validateMurid($request);
 
+        // Buat user baru
         $murid = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -31,8 +37,14 @@ class RegisterController extends Controller
         ]);
 
         Auth::login($murid);
+
+        // Redirection after registration
+        return redirect('/'); // Adjust the route as needed
     }
 
+    /**
+     * Validasi dan Registrasi Guru.
+     */
     public function registerGuru(Request $request)
     {
         // Validasi data guru
@@ -44,12 +56,13 @@ class RegisterController extends Controller
             'email' => $request->email,
             'NIP' => $request->NIP,
             'password' => Hash::make($request->password),
-            'is_approved' => false,
-
         ]);
 
-        $guru->assignRole('Guru');
+        // Assign role to the user
+        $guru->assignRole('Guru'); // Ensure this function exists in the User model
         Auth::login($guru);
+        // Redirection after registration
+        return redirect('/'); // Adjust the route as needed
     }
 
     /**
