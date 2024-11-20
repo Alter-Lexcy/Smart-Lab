@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
+use App\Models\Subject;
 
 class MateriController extends Controller
 {
@@ -13,7 +14,8 @@ class MateriController extends Controller
      */
     public function index()
     {
-        return view('Admins.Materi.index');
+        $materis = Materi::with('Subject','Classes')->get();
+        return view('Admins.Materi.index',compact('materis'));
     }
 
     /**
@@ -29,7 +31,9 @@ class MateriController extends Controller
      */
     public function store(StoreMateriRequest $request)
     {
-        //
+        Subject::create($request->all());
+
+        return redirect()->route('materis.index')->with('success','Data Berhasil Ditambahkan');
     }
 
     /**
@@ -53,7 +57,8 @@ class MateriController extends Controller
      */
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
-        //
+        $materi->update($request->all());
+        return redirect()->route('materi')->with('success','Data Berhasil Di-ubah');
     }
 
     /**
@@ -61,6 +66,11 @@ class MateriController extends Controller
      */
     public function destroy(Materi $materi)
     {
-        //
+        try{
+            $materi->delete();
+            return redirect()->route('materis.index')->with();
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect()->back()->withErrors('Data gagal Dihapus');
+        }
     }
 }

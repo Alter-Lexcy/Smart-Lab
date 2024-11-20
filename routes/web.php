@@ -19,8 +19,11 @@ Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name(
 
 Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::resource('teachers', TeacherController::class);
+  
+  
+    Route::resource('subject',SubjectController::class);
     Route::resource('classes', ClassesController::class);
+    Route::resource('materis',MateriController::class);
     Route::resource('tasks', TaskController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
