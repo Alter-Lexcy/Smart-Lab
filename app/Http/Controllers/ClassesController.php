@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Exception;
 
@@ -15,8 +16,9 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes = Classes::with('teacher')->get();
-        return view('Admins.Classes.index', compact('classes'));
+        $classes = Classes::with('Subject')->get();
+        $subject = Subject::all();
+        return view('Admins.Classes.index', compact('classes','subject'));
     }
 
     /**
