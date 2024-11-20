@@ -7,6 +7,7 @@ use App\Models\Collection;
 use App\Models\User;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
+use App\Models\Task;
 
 class AssessmentController extends Controller
 {
@@ -15,10 +16,10 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $assessments = Assessment::with('collections')->get();
+        $assessments = Assessment::with('User','Task')->get();
         $users = User::all();
-
-        return view('Admins.Assesments.index', compact('assessments','collections','users'));
+        $tasks = Task::all();
+        return view('Admins.Assesments.index', compact('assessments','tasks','users'));
     }
 
     /**
@@ -35,7 +36,6 @@ class AssessmentController extends Controller
     public function store(StoreAssessmentRequest $request)
     {
         Assessment::create($request->all());
-
         return redirect()->route('assessments.index')->with('success', 'Data Penilaian Baru Berhasil Dibuat');
     }
 
@@ -61,7 +61,6 @@ class AssessmentController extends Controller
     public function update(UpdateAssessmentRequest $request, Assessment $assessments)
     {
         $assessments->update($request->validated());
-
         return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Diperbarui');
     }
 
@@ -72,7 +71,6 @@ class AssessmentController extends Controller
     {
         try {
             $assessments->delete();
-
             return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Dihapus');
         } catch (\Exception $e) {
             return redirect()->route('assessments.index')->with('Gagal', 'Data Penilaian Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');

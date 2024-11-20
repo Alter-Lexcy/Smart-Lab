@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Materi;
+use App\Models\Classes;
+use App\Models\Subject;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
-use App\Models\Subject;
 
 class MateriController extends Controller
 {
@@ -15,7 +17,9 @@ class MateriController extends Controller
     public function index()
     {
         $materis = Materi::with('Subject','Classes')->get();
-        return view('Admins.Materi.index',compact('materis'));
+        $subjects = Subject::all();
+        $classes = Classes::all();
+        return view('Admins.Materi.index',compact('materis','subjects','classes'));
     }
 
     /**
@@ -31,8 +35,14 @@ class MateriController extends Controller
      */
     public function store(StoreMateriRequest $request)
     {
-        Subject::create($request->all());
-
+        $file = $request->file_materi->store('File_materi','public');
+        Materi::create([
+            'subject_id'=>$request->subject_id,
+            'classes_id'=>$request->classes_id,
+            'title_materi'=>$request->title_materi,
+            'file_materi'=>$file,
+            'description'=>$request->description
+        ]);
         return redirect()->route('materis.index')->with('success','Data Berhasil Ditambahkan');
     }
 
@@ -57,7 +67,21 @@ class MateriController extends Controller
      */
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
-        $materi->update($request->all());
+        if($materi->hasFile('file_materi')){
+            $file = $request->file('file_materi')->store('public');
+            if($materi->file_materi){
+                Storage::disk('public')->delete($materi->file_materii);
+            }
+         $materi->file_materi = $file;
+        }
+
+        $materi->class_id = $request->class_id;
+        $materi->subject_id = $request->subject_id;
+        $materi->title_materi = $request->title_materi;
+        $materi->description = $request->description;
+
+        $materi->save();
+
         return redirect()->route('materi')->with('success','Data Berhasil Di-ubah');
     }
 
@@ -67,8 +91,10 @@ class MateriController extends Controller
     public function destroy(Materi $materi)
     {
         try{
+            $filename = $materi->file_materi;
             $materi->delete();
-            return redirect()->route('materis.index')->with();
+            Storage::disk('public')->delete($filename);
+            return redirect()->route('materis.index')->with('success','Data Berhasil Dihapus');
         }catch(\Illuminate\Database\QueryException $e){
             return redirect()->back()->withErrors('Data gagal Dihapus');
         }
