@@ -18,10 +18,10 @@ Route::post('register-murid', [RegisterController::class, 'registerMurid'])->nam
 Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
 
 Route::middleware('auth')->group(function(){
-
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
-    Route::resource('teachers', TeacherController::class);
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::resource('subject',SubjectController::class);
     Route::resource('classes', ClassesController::class);
+    Route::resource('materis',MateriController::class);
     Route::resource('tasks', TaskController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
