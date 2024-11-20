@@ -22,7 +22,7 @@ class StoreClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id'=>['required','exists:subject,id'],
+            'subject_id'=>['required','exists:subjects,id'],
             'name_class'=>['required','alpha_num','unique:classes,name_class'],
             'description'=>['max:255']
         ];

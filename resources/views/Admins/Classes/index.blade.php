@@ -28,9 +28,9 @@
                     @foreach ($classes as $index => $class)
                         <tr class="border">
                             <td class="py-2 px-4 border">{{ $loop->iteration }}</td>
+                            <td class="py-2 px-4 border">{{ $class->Subject->name_subject }}</td>
                             <td class="py-2 px-4 border">{{ $class->name_class }}</td>
                             <td class="py-2 px-4 border">{{ $class->description }}</td>
-                            <td class="py-2 px-4 border">{{ $class->teacher->name_teacher }}</td>
                             <td class="py-2 px-4 border space-x-5">
                                 <!-- Tombol Ubah untuk Modal -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
@@ -65,6 +65,16 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-4">
+                                            <label class="block text-gray-700">Guru Pengajar</label>
+                                            <select class="w-full px-4 py-2 border rounded" name="teacher_id">
+                                                @foreach ($subject as $mapel)
+                                                    <option value="{{ $teacher->id }}"
+                                                        {{ $mapel->id == $class->mapel_id ? 'selected' : '' }}>
+                                                        {{ $mapel->name_subject }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-4">
                                             <label class="block text-gray-700">Nama Kelas</label>
                                             <input type="text" class="w-full px-4 py-2 border rounded" name="name_class"
                                                 value="{{ $class->name_class }}">
@@ -72,16 +82,6 @@
                                         <div class="mb-4">
                                             <label class="block text-gray-700">Deskripsi</label>
                                             <textarea class="w-full px-4 py-2 border rounded" rows="3" name="description">{{ $class->description }}</textarea>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700">Guru Pengajar</label>
-                                            <select class="w-full px-4 py-2 border rounded" name="teacher_id">
-                                                @foreach ($teachers as $teacher)
-                                                    <option value="{{ $teacher->id }}"
-                                                        {{ $teacher->id == $class->teacher_id ? 'selected' : '' }}>
-                                                        {{ $teacher->name_teacher }}</option>
-                                                @endforeach
-                                            </select>
                                         </div>
                                         <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Simpan
                                             Perubahan</button>
@@ -103,6 +103,17 @@
                     <form action="{{ route('classes.store') }}" method="POST" class="mt-4">
                         @csrf
                         <div class="mb-4">
+                            <label class="block text-gray-700">Mapel</label>
+                            <select class="w-full px-4 py-2 border rounded" name="teacher_id">
+                                <option value="" disabled selected>Pilih Mapel</option>
+                                @foreach ($subject as $mapel)
+                                    <option value="{{ $mapel->id }}"
+                                        {{ old('subject_id') == $mapel->id ? 'selected' : '' }}>{{ $mapel->name_subject }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-4">
                             <label class="block text-gray-700">Nama Kelas</label>
                             <input type="text" class="w-full px-4 py-2 border rounded" name="name_class"
                                 value="{{ old('name_class') }}">
@@ -110,17 +121,6 @@
                         <div class="mb-4">
                             <label class="block text-gray-700">Deskripsi</label>
                             <textarea class="w-full px-4 py-2 border rounded" rows="3" name="description">{{ old('description') }}</textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700">Guru Pengajar</label>
-                            <select class="w-full px-4 py-2 border rounded" name="teacher_id">
-                                <option value="" disabled selected>Pilih Guru</option>
-                                @foreach ($teachers as $teacher)
-                                    <option value="{{ $teacher->id }}"
-                                        {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>{{ $teacher->name_teacher }}
-                                    </option>
-                                @endforeach
-                            </select>
                         </div>
                         <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Tambah Kelas</button>
                         <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded" onclick="closeModal('classModal')">Batal</button>
