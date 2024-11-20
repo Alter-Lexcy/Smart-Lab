@@ -8,6 +8,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
