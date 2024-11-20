@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Subject extends FormRequest
+class StoreSubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class Subject extends FormRequest
     public function rules(): array
     {
         return [
-            'name_subject'=>['required','unique:subject,name_subject','string']
+            'name_subject'=>['required','unique:subjects,name_subject','string']
         ];
     }
 

@@ -23,20 +23,19 @@ class UpdateClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id'=>['required','exists:subject,id'],
-            'name_class'=>['required','alpha_num',Rule::unique('classes','name_class')->ignore($this->route('class'))],
-            'description'=>['max:255']
+            'subject_id' => 'required|exists:subjects,id',
+            'name_class' => 'required|string|max:255',
+            'description' => 'nullable|string',
         ];
     }
     public function messages()
     {
         return [
-            'subject_id.required'=>'Mata Pembelajaran Belum Di-pilih',
-            'subject_id.exists'=>'Mata Pembelajaran Tidak Ada',
-            'name_class.required'=>'Nama Kelas Belum Di-isi',
-            'name_class.alpha_num'=>'Nama Kelas Hanya Berformat Huruf Dan Angka',
-            'name_class.unique'=>'Nama Kelas Sudah Ada',
-            'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
+            'subject_id.required' => 'Mata Pembelajaran Belum Di-pilih',
+            'subject_id.exists' => 'Mata Pembelajaran Tidak Ada',
+            'name_class.required' => 'Nama Kelas Belum Di-isi',
+            'name_class.unique' => 'Nama Kelas Sudah Ada',
+            'description.max' => 'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
         ];
     }
 }

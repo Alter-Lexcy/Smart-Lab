@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    
     protected $fillable = [
         'name_subject'
     ];
@@ -17,6 +16,7 @@ class Subject extends Model
     public function Materi(){
         return $this->hasMany(Materi::class);
     }
+
     public function Task(){
         return $this->hasMany(Task::class);
     }

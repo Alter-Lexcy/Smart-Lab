@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateSubject extends FormRequest
+class UpdateSubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class UpdateSubject extends FormRequest
             'name_subject' => [
                 'required',
                 'string',
-                Rule::unique('subject', 'name_subject')->ignore($this->route('subject'))
+                Rule::unique('subjects', 'name_subject')->ignore($this->route('subject'))
             ]
         ];
     }

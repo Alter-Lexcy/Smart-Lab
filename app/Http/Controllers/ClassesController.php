@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
+use Illuminate\Http\Request;
 use App\Models\Subject;
-use App\Models\Teacher;
 use Exception;
 
 class ClassesController extends Controller
@@ -57,8 +57,9 @@ class ClassesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClassesRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        dd($request->all());
         $classes = Classes::findOrFail($id); // Pastikan memuat data berdasarkan ID
         $classes->update($request->validated());
 
