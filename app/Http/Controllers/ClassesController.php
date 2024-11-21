@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
+use Illuminate\Http\Request;
 use App\Models\Subject;
-use App\Models\Teacher;
 use Exception;
 
 class ClassesController extends Controller
@@ -57,10 +57,10 @@ class ClassesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClassesRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $classes = Classes::findOrFail($id); // Pastikan memuat data berdasarkan ID
-        $classes->update($request->validated());
+        $classes->update($request->all());
 
         return redirect()->route('classes.index')->with('success', 'Kelas Yang Dipilih Berhasil Diperbarui');
     }
@@ -76,7 +76,7 @@ class ClassesController extends Controller
             $classes->delete();
 
             return redirect()->route('classes.index')->with('Sukses', 'Data Kelas Yang Dipilih Berhasil Dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors('Data Masih Digunakan pada Data lain');
         }
     }

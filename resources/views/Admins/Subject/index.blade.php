@@ -3,38 +3,34 @@
     <div class="container mx-auto p-4">
         <div class="container mx-auto p-4">
             <div class="flex items-center justify-between mb-4">
-                <h1 class="text-2xl font-bold mr-auto">Daftar Guru</h1>
+                <h1 class="text-2xl font-bold mr-auto">Daftar Mapel</h1>
                 <a class="group relative inline-block text-xs font-medium text-blue-500 focus:outline-none focus:ring active:text-indigo-500"
                     onclick="openModal('subjectModal')">
                     <span class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
-                    <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Tambah Guru -></span>
+                    <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Tambah Mapel -></span>
                 </a>
             </div>
         </div>
 
-        <!-- Tabel Guru -->
+        <!-- Tabel Mapel -->
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
                 <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                     <tr class="border">
                         <th class="px-4 py-2 border">No</th>
-                        <th class="px-4 py-2 border">Nama Guru</th>
-                        <th class="px-4 py-2 border">NIP</th>
-                        <th class="px-4 py-2 border">Email Guru</th>
+                        <th class="px-4 py-2 border">Nama Mapel</th>
                         <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($teachers as $teacher)
+                    @foreach ($subjects as $subject)
                         <tr class="border">
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->name_teacher }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->email_teacher }}</td>
+                            <td class="px-4 py-2 border">{{ $subject->name_subject}}</td>
                             <td class="px-4 py-2 border space-x-5">
                                 <!-- Tombol Ubah untuk Modal -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
-                                    onclick="openModal('editsubjectModal-{{ $teacher->id }}')">
+                                    onclick="openModal('editsubjectModal-{{ $subject->id }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                         class="size-6">
                                         <path
@@ -45,12 +41,12 @@
                                 </button>
 
                                 <!-- Tombol Hapus -->
-                                <form action="{{ route('teachers.destroy', $teacher->id) }}" method="POST"
+                                <form action="{{ route('subject.destroy', $subject->id) }}" method="POST"
                                     class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 rounded-sm"
-                                        onclick="return confirm('Apakah anda yakin ingin menghapus guru ini?')">
+                                        onclick="return confirm('Apakah anda yakin ingin menghapus Mapel ini?')">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="size-6">
                                             <path fill-rule="evenodd"
@@ -63,41 +59,25 @@
                         </tr>
 
                         <!-- Modal Update/Ubah -->
-                        <div id="editsubjectModal-{{ $teacher->id }}"
+                        <div id="editsubjectModal-{{ $subject->id }}"
                             class="subjectModal fixed inset-0 hidden items-center justify-center" style="display: none;">
                             <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
-                                <h5 class="text-xl font-bold mb-4">Ubah Guru</h5>
-                                <form action="{{ route('teachers.update', $teacher->id) }}" method="POST">
+                                <h5 class="text-xl font-bold mb-4">Ubah Mapel</h5>
+                                <form action="{{ route('subject.update', $subject->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="name_teacher" class="block font-medium mb-1">Nama Guru</label>
-                                        <input type="text" class="w-full border rounded px-3 py-2" id="name_teacher"
-                                            name="name_teacher" value="{{ $teacher->name_teacher }}">
-                                        @error('name_teacher')
-                                            <div class="text-red-500">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="NIP" class="block font-medium mb-1">NIP</label>
-                                        <input type="number" class="w-full border rounded px-3 py-2" id="NIP"
-                                            name="NIP" value="{{ $teacher->NIP }}">
-                                        @error('NIP')
-                                            <div class="text-red-500">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email_teacher" class="block font-medium mb-1">Email Guru</label>
-                                        <input type="email" class="w-full border rounded px-3 py-2" id="email_teacher"
-                                            name="email_teacher" value="{{ $teacher->email_teacher }}">
-                                        @error('email_teacher')
+                                        <label for="name_subject" class="block font-medium mb-1">Nama Mapel</label>
+                                        <input type="text" class="w-full border rounded px-3 py-2" id="name_subject"
+                                            name="name_subject" value="{{ $subject->name_subject }}">
+                                        @error('name_subject')
                                             <div class="text-red-500">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan
                                         Perubahan</button>
                                     <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
-                                        onclick="closeModal('editsubjectModal-{{ $teacher->id }}')">Batal</button>
+                                        onclick="closeModal('editsubjectModal-{{ $subject->id }}')">Batal</button>
                                 </form>
                             </div>
                         </div>
@@ -107,37 +87,21 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Guru -->
+    <!-- Modal Tambah Mapel -->
     <div id="subjectModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
         <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
-            <h5 class="text-xl font-bold mb-4">Tambah Guru</h5>
-            <form action="{{ route('teachers.store') }}" method="POST">
+            <h5 class="text-xl font-bold mb-4">Tambah Mapel</h5>
+            <form action="{{ route('subject.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="name_teacher" class="block font-medium mb-1">Nama Guru</label>
-                    <input type="text" class="w-full border rounded px-3 py-2" id="name_teacher" name="name_teacher"
-                        value="{{ old('name_teacher') }}">
-                    @error('name_teacher')
+                    <label for="name_subject" class="block font-medium mb-1">Nama Mapel</label>
+                    <input type="text" class="w-full border rounded px-3 py-2" id="name_subject" name="name_subject"
+                        value="{{ old('name_subject') }}">
+                    @error('name_subject')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="NIP" class="block font-medium mb-1">NIP</label>
-                    <input type="number" class="w-full border rounded px-3 py-2" id="NIP" name="NIP"
-                        value="{{ old('NIP') }}">
-                    @error('NIP')
-                        <div class="text-red-500">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="email_teacher" class="block font-medium mb-1">Email Guru</label>
-                    <input type="email" class="w-full border rounded px-3 py-2" id="email_teacher"
-                        name="email_teacher" value="{{ old('email_teacher') }}">
-                    @error('email_teacher')
-                        <div class="text-red-500">{{ $message }}</div>
-                    @enderror
-                </div>
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Guru</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Mapel</button>
                 <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
                     onclick="closeModal('subjectModal')">Batal</button>
             </form>

@@ -100,7 +100,7 @@
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{ route('teachers.index')}}"
+                        <a href="{{ route('teachers.index') }}"
                             class="hover:ml-6 ml-4 w-[80%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out flex-row items-center space-x-3 flex text-base font-normal transition duration-75 group ">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"
                                 class="size-6 mr-3">
@@ -150,7 +150,6 @@
                 </a>
 
                 <a href="{{ route('materis.index') }}"
-
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -238,7 +237,6 @@
                 </button>
 
                 <button onclick="window.location.href='{{ route('materis.index') }}'"
-
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -258,7 +256,6 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-
                 <button onclick="window.location.href='{{ route('assesments.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
