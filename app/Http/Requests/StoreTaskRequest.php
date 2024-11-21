@@ -23,10 +23,10 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'class_id'=>['required','exists:classes,id'],
-            'subject_id'=>['required','exists:subject,id'],
+            'subject_id'=>['required','exists:subjects,id'],
             'materi_id'=>['required','exists:materis,id'],
-            'title_task'=>['required','alpha_num','unique:tasks,title_task'],
-            'file_task'=>['required','mimes:png,jpg,pdf','max:3072'],
+            'title_task'=>['required','string','unique:tasks,title_task'],
+            'file_task'=>['required','mimes:png,jpg,pdf,tmp','max:3072'],
             'date_collection'=>['required','date','after:now']
         ];
     }
@@ -41,11 +41,11 @@ class StoreTaskRequest extends FormRequest
             'materi_id.required'=>'Materi Belum Di-Pilih',
             'materi_id.exists'=>'Materi Tidak Ada',
             'title_task.required'=>'Judul Tugas Belum Di-Isi',
-            'title_task.alpha_num'=>'Judul Tugas Harus Berformat Angka Dan Huruf',
+            'title_task.string'=>'Judul Tugas Harus Berformat String',
             'title_task.unique'=>'Judul Tugas Sudah Ada',
-            'file_task.required'=>'Judul Tugas Sudah Ada',
-            'file_task.mimes'=>'Judul Tugas Harus Bertipe png,jpg,pdf',
-            'file_task.max'=>'Judul Tugas Melewati batas (Batas: 3MB)',
+            'file_task.required'=>'File Tugas Belum Di-isi',
+            'file_task.mimes'=>'File Tugas Harus Bertipe png,jpg,pdf',
+            'file_task.max'=>'File Tugas Melewati batas (Batas: 3MB)',
             'date_collection.required'=>'Tanggal Pengumpulan Belum Di-Isi',
             'date_collection.after'=>'Tanggal Harus Setelah Hari ini',
         ];

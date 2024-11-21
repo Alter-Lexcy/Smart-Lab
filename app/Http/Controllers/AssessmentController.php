@@ -16,10 +16,16 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $assessments = Assessment::with('User','Task')->get();
-        $users = User::all();
+        $assessments = Assessment::with('User', 'Task')->get();
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Murid');
+        })
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', '!=', 'Murid');
+            })
+            ->get();
         $tasks = Task::all();
-        return view('Admins.Assesments.index', compact('assessments','tasks','users'));
+        return view('Admins.Assesments.index', compact('assessments', 'tasks', 'users'));
     }
 
     /**
@@ -36,7 +42,7 @@ class AssessmentController extends Controller
     public function store(StoreAssessmentRequest $request)
     {
         Assessment::create($request->all());
-        return redirect()->route('assessments.index')->with('success', 'Data Penilaian Baru Berhasil Dibuat');
+        return redirect()->route('assesments.index')->with('success', 'Data Penilaian Baru Berhasil Dibuat');
     }
 
     /**
@@ -58,22 +64,25 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAssessmentRequest $request, Assessment $assessments)
+    public function update(UpdateAssessmentRequest $request, $id)
     {
-        $assessments->update($request->validated());
-        return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Diperbarui');
+        $assessment = Assessment::findOrFail($id);
+        $assessment->update($request->all());
+        return redirect()->route('assesments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Assessment $assessments)
+    public function destroy($id)
     {
         try {
+            $assessments = Assessment::findOrFail($id);
             $assessments->delete();
-            return redirect()->route('assessments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Dihapus');
+            return redirect()->route('assesments.index')->with('success', 'Data Penilaian Yang Dipilih Berhasil Dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('assessments.index')->with('Gagal', 'Data Penilaian Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+            return redirect()->route('assesments.index')->with('Gagal', 'Data Penilaian Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
         }
     }
 }

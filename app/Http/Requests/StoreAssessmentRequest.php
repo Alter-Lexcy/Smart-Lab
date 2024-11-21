@@ -28,15 +28,16 @@ class StoreAssessmentRequest extends FormRequest
         ];
     }
     public function messages()
-    {
-        return [
-            'tasks.required'=>'Tugas Belum Ter-isi',
-            'tasks.exists'=>'Tugas Tidak Ada',
-            'user_id.required'=>'Siswa Belum Ter-isi',
-            'user_id.exists'=>'Siswa Tidak Ada',
-            'mark_task.required'=>'Nilai Belum Ter-isi',
-            'mark_task.numeric'=>'Nilai Harus Berformat Angka',
-            'mark_task.max'=>'Nilai Melewati Batas',
-        ];
-    }
+{
+    return [
+        'task_id.required' => 'Tugas Belum Terisi',
+        'task_id.exists' => 'Tugas Tidak Ada',
+        'user_id.required' => 'Siswa Belum Terisi',
+        'user_id.exists' => 'Siswa Tidak Ada',
+        'mark_task.required' => 'Nilai Belum Terisi',
+        'mark_task.numeric' => 'Nilai Harus Berformat Angka',
+        'mark_task.max' => 'Nilai Melewati Batas',
+    ];
+}
+
 }

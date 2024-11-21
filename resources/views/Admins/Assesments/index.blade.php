@@ -18,8 +18,8 @@
             <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                 <tr>
                     <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">assessments</th>
-                    <th class="border px-4 py-2">User</th>
+                    <th class="border px-4 py-2">Tugas</th>
+                    <th class="border px-4 py-2">Siswa</th>
                     <th class="border px-4 py-2">Mark Task</th>
                     <th class="border px-4 py-2">Aksi</th>
                 </tr>
@@ -28,20 +28,22 @@
                 @foreach ($assessments as $index => $assessment)
                     <tr>
                         <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2">{{ $assessment->assessment->name ?? 'Tidak tersedia' }}</td>
-                        <td class="border px-4 py-2">{{ $assessment->user->name ?? 'Tidak tersedia' }}</td>
+                        <td class="border px-4 py-2">{{ $assessment->Task->title_task ?? 'Tidak tersedia' }}</td>
+                        <td class="border px-4 py-2">{{ $assessment->User->name ?? 'Tidak tersedia' }}</td>
                         <td class="border px-4 py-2">{{ $assessment->mark_task }}</td>
                         <td class="border px-4 py-2 flex gap-2">
                             <!-- Edit button to open modal -->
-                            <button type="button" class="text-yellow-500 rounded-sm" data-modal-target="#editAssessmentModal_{{ $assessment->id }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                </svg>
-                            </button>
+                            <button type="button"
+                            class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded"
+                            onclick="openModal('editAssessmentModal_{{ $assessment->id }}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                            </svg>
+                        </button>
 
                             <!-- Delete form -->
-                            <form action="{{ route('assessments.destroy', $assessment->id) }}" method="POST" class="inline">
+                            <form action="{{ route('assesments.destroy', $assessment->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus assessment ini?')">
@@ -66,24 +68,28 @@
             <form action="{{ route('assesments.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="assessments_id" class="block font-semibold">assessments</label>
-                    <select name="assessments_id" id="sssessment_id" class="w-full mt-1 p-2 border border-gray-300 rounded">
-                        <option value="" disabled selected>Pilih sssessment</option>
-                        @foreach ($assessment as $assessments)
-                            <option value="{{ $assessments->id }}">{{ $assessments->name }}</option>
+                    <label for="task_id" class="block text-gray-700 font-bold mb-2">Tugas</label>
+                    <select name="task_id" id="task_id" class="w-full px-3 py-2 border rounded">
+                        <option value="" disabled selected>Pilih Tugas</option>
+                        @foreach ($tasks as $task)
+                            <option value="{{ $task->id }}" {{ old('task_id') == $task->id ? 'selected' : '' }}>
+                                {{ $task->title_task }}</option>
                         @endforeach
                     </select>
-                    @error('assessments_id')
-                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @error('task_id')
+                        <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-4">
-                    <label for="user_id" class="block font-semibold">User</label>
-                    <select name="user_id" id="user_id" class="w-full mt-1 p-2 border border-gray-300 rounded">
-                        <option value="" disabled selected>Pilih User</option>
+                    <label for="user_id" class="block text-gray-700 font-bold mb-2">Siswa</label>
+                    <select name="user_id" id="user_id"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                        <option value="" disabled selected>Pilih Siswa</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('user_id')
@@ -92,8 +98,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="mark_task" class="block font-semibold">Mark Task</label>
-                    <input type="text" class="w-full mt-1 p-2 border border-gray-300 rounded" id="mark_task" name="mark_task" placeholder="Masukkan Mark Task">
+                    <label for="mark_task" class="block font-semibold">Nilai Tugas</label>
+                    <input type="number" class="w-full mt-1 p-2 border border-gray-300 rounded" id="mark_task" name="mark_task" placeholder="Masukkan Mark Task">
                     @error('mark_task')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                     @enderror
@@ -113,30 +119,38 @@
     <div id="editAssessmentModal_{{ $assessment->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto" style="display: none;">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                <h5 class="text-xl font-semibold mb-4">Edit Assessment</h5>
+                <h5 class="text-xl font-semibold mb-4">Edit Penilaian</h5>
                 <form action="{{ route('assesments.update', $assessment->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
-                        <label for="assessments_id_{{ $assessment->id }}" class="block font-semibold">assessments</label>
-                        <select name="assessments_id" id="assessments_id_{{ $assessment->id }}" class="w-full mt-1 p-2 border border-gray-300 rounded">
-                            @foreach ($assessment as $assessments)
-                                <option value="{{ $assessments->id }}" {{ $assessments->id == $assessment->assessments_id ? 'selected' : '' }}>
-                                    {{ $assessments->name }}
-                                </option>
+                        <label for="task_id" class="block text-gray-700 font-bold mb-2">Tugas</label>
+                        <select name="task_id" id="task_id" class="w-full px-3 py-2 border rounded">
+                            <option value="" disabled selected>Pilih Tugas</option>
+                            @foreach ($tasks as $task)
+                                <option value="{{ $task->id }}" {{ $assessment->task_id ? 'selected' : '' }}>
+                                    {{ $task->title_task }}</option>
                             @endforeach
                         </select>
+                        @error('task_id')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
-
+    
                     <div class="mb-4">
-                        <label for="user_id_{{ $assessment->id }}" class="block font-semibold">User</label>
-                        <select name="user_id" id="user_id_{{ $assessment->id }}" class="w-full mt-1 p-2 border border-gray-300 rounded">
+                        <label for="user_id" class="block text-gray-700 font-bold mb-2">Siswa</label>
+                        <select name="user_id" id="user_id"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            <option value="" disabled selected>Pilih Siswa</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}" {{ $user->id == $assessment->user_id ? 'selected' : '' }}>
+                                <option value="{{ $user->id }}" {{ $assessment->user_id == $user->id ? 'selected' : '' }}>
                                     {{ $user->name }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('user_id')
+                            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-4">
