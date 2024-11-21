@@ -22,13 +22,31 @@
                 </dotlottie-player>
             </div>
         </div>
-        <div class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mt-5">
+        <div class="flex items-center">
+            <div class="container my-5">
+                <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="p-5 bg-white rounded shadow-sm">
+                        <div class="text-xl text-gray-900 text-semibold">Jumlah Guru</div>
+                        <div class="flex items-center pt-1">
+                            <div class="text-2xl font-bold text-gray-900 ">100</div>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white rounded shadow-sm">
+                        <div class="text-xl text-gray-900 text-semibold">Jumlah Murid</div>
+                        <div class="flex items-center pt-1">
+                            <div class="text-2xl font-bold text-gray-900 ">3600</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
             <div
                 class="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center">
-
                 <div>
                     <h6
-                        class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
+                        class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-gray-900 antialiased">
                         Jumlah Siswa yang Mengumpulkan Tugas
                     </h6>
 
