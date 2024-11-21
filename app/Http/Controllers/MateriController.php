@@ -16,18 +16,10 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materis = Materi::with('Subject','Classes')->get();
+        $materis = Materi::with('Subject', 'Classes')->get();
         $subjects = Subject::all();
         $classes = Classes::all();
-        return view('Admins.Materi.index',compact('materis','subjects','classes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
     }
 
     /**
@@ -35,31 +27,17 @@ class MateriController extends Controller
      */
     public function store(StoreMateriRequest $request)
     {
-        $file = $request->file_materi->store('File_materi','public');
-        Materi::create([
-            'subject_id'=>$request->subject_id,
-            'classes_id'=>$request->classes_id,
-            'title_materi'=>$request->title_materi,
-            'file_materi'=>$file,
-            'description'=>$request->description
-        ]);
-        return redirect()->route('materis.index')->with('success','Data Berhasil Ditambahkan');
-    }
+        $validated = $request->validated();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Materi $materi)
-    {
-        //
-    }
+        // Upload file materi
+        if ($request->hasFile('file_materi')) {
+            $file = $request->file('file_materi')->store('file_materi', 'public');
+            $validated['file_materi'] = $file; // Simpan path file ke database
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Materi $materi)
-    {
-        //
+        Materi::create($request->all());
+
+        return redirect()->route('materis.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -67,22 +45,23 @@ class MateriController extends Controller
      */
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
-        if($materi->hasFile('file_materi')){
-            $file = $request->file('file_materi')->store('public');
-            if($materi->file_materi){
-                Storage::disk('public')->delete($materi->file_materii);
+        $validated = $request->validated();
+
+       
+        if ($request->hasFile('file_materi')) {
+         
+            if ($materi->file_materi) {
+                Storage::disk('public')->delete($materi->file_materi);
             }
-         $materi->file_materi = $file;
+
+            $file = $request->file('file_materi')->store('file_materi', 'public');
+            $validated['file_materi'] = $file;
         }
 
-        $materi->class_id = $request->class_id;
-        $materi->subject_id = $request->subject_id;
-        $materi->title_materi = $request->title_materi;
-        $materi->description = $request->description;
+        // Update data materi
+        $materi->update($validated);
 
-        $materi->save();
-
-        return redirect()->route('materi')->with('success','Data Berhasil Di-ubah');
+        return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -90,13 +69,16 @@ class MateriController extends Controller
      */
     public function destroy(Materi $materi)
     {
-        try{
-            $filename = $materi->file_materi;
+        try {
+            if($materi->file_materi){
+                Storage::delete('public/'.$materi->file_materi);
+            }
             $materi->delete();
-            Storage::disk('public')->delete($filename);
-            return redirect()->route('materis.index')->with('success','Data Berhasil Dihapus');
-        }catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withErrors('Data gagal Dihapus');
+    
+            return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('materis.index')->withErrors('Data gagal dihapus: ' . $e->getMessage());
         }
     }
+    
 }
