@@ -59,9 +59,8 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $classes = Classes::findOrFail($id); // Pastikan memuat data berdasarkan ID
-        $classes->update($request->validated());
+        $classes->update($request->all());
 
         return redirect()->route('classes.index')->with('success', 'Kelas Yang Dipilih Berhasil Diperbarui');
     }
@@ -77,7 +76,7 @@ class ClassesController extends Controller
             $classes->delete();
 
             return redirect()->route('classes.index')->with('Sukses', 'Data Kelas Yang Dipilih Berhasil Dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors('Data Masih Digunakan pada Data lain');
         }
     }

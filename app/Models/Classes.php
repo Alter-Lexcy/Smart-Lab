@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Classes extends Model
 {
     protected $table = 'classes';
-    protected $fillable = [
-        'subject_id',
-        'name_class',
-        'description',
-    ];
+    protected $guarded = ['id'];
 
     public function Subject(){
         return $this->belongsTo(Subject::class,'subject_id');

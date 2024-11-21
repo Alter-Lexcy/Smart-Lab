@@ -71,42 +71,68 @@
                 </tr>
 
                 <!-- Modal Update/Ubah -->
-                <div class="classModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50" style="display: none;"
-                    id="editClassModal-{{ $class->id }}">
+                <div class="classModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                    style="display: none;" id="editClassModal-{{ $class->id }}">
                     <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                         <div class="p-5">
                             <h5 class="text-lg font-bold">Ubah Kelas</h5>
                             <form action="{{ route('classes.update', $class->id) }}" method="POST" class="mt-4">
                                 @csrf
                                 @method('PUT')
+
+                                <!-- Pilihan Mapel -->
                                 <div class="mb-4">
-                                    <label class="block text-gray-700">Nama Mapel</label>
-                                    <select class="w-full px-4 py-2 border rounded" name="subject_id">
+                                    <label for="subject_id" class="block text-gray-700">Nama Mapel</label>
+                                    <select id="subject_id" class="w-full px-4 py-2 border rounded" name="subject_id" required>
                                         @foreach ($subject as $mapel)
-                                        <option value="{{ $mapel->subject_id }}"
-                                        {{ $class->subject_id == $mapel->subject_id ? 'selected' : '' }}>
+                                        <option value="{{ $mapel->id }}"
+                                            {{ $mapel->subject_id === $mapel->id ? 'selected' : '' }}>
                                             {{ $mapel->name_subject }}
                                         </option>
                                         @endforeach
                                     </select>
+                                </div>
 
-                                </div>
+                                <!-- Input Nama Kelas -->
                                 <div class="mb-4">
-                                    <label class="block text-gray-700">Nama Kelas</label>
-                                    <input type="text" class="w-full px-4 py-2 border rounded" name="name_class"
-                                        value="{{ $class->name_class }}">
+                                    <label for="name_class" class="block text-gray-700">Nama Kelas</label>
+                                    <input
+                                        id="name_class"
+                                        type="text"
+                                        class="w-full px-4 py-2 border rounded"
+                                        name="name_class"
+                                        value="{{ $class->name_class }}"
+                                        required>
                                 </div>
+
+                                <!-- Input Deskripsi -->
                                 <div class="mb-4">
-                                    <label class="block text-gray-700">Deskripsi</label>
-                                    <textarea class="w-full px-4 py-2 border rounded" rows="3" name="description">{{ $class->description }}</textarea>
+                                    <label for="description" class="block text-gray-700">Deskripsi</label>
+                                    <textarea
+                                        id="description"
+                                        class="w-full px-4 py-2 border rounded"
+                                        rows="3"
+                                        name="description"
+                                        required>{{ $class->description }}</textarea>
                                 </div>
-                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Simpan
-                                    Perubahan</button>
-                                <button type="button" class="bg-gray-300 hover:bg-gray-400 text-white px-4 py-2 rounded" onclick="closeModal('editClassModal-{{ $class->id }}')">Batal</button>
+
+                                <!-- Tombol Aksi -->
+                                <div class="flex justify-end space-x-4">
+                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                                        Simpan Perubahan
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="bg-gray-300 hover:bg-gray-400 text-white px-4 py-2 rounded"
+                                        onclick="closeModal('editClassModal-{{ $class->id }}')">
+                                        Batal
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
                 @endforeach
             </tbody>
         </table>
