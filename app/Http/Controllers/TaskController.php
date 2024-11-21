@@ -35,13 +35,14 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        $file = $request->file_task->store('File_taks','public');
+        dd($request->all());
+        $file = $request->file_task->store('File_task','public');
         Task::create([
             'class_id'=>$request->class_id,
             'subject_id'=>$request->subject_id,
             'materi_id'=>$request->materi_id,
             'file_task'=>$file,
-            'title_task'=>$request->title_taks,
+            'title_task'=>$request->title_task,
             'description_task'=>$request->description_task,
             'date_collection'=>$request->date_collection
         ]);
@@ -71,19 +72,21 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        if($request->hasFile('file')){
-            $file = $request->file('file_task')->store('File_task','public');
-            if($task->file_task){
+
+        // Handle file upload
+        if ($request->hasFile('file_task')) {
+            $file = $request->file('file_task')->store('File_task', 'public');
+            if ($task->file_task) {
                 Storage::disk('public')->delete($task->file_task);
             }
 
-            $task->file_taks = $file;
+            $task->file_task = $file; // Pastikan nama field konsisten
         }
 
+        // Update other fields
         $task->class_id = $request->class_id;
         $task->subject_id = $request->subject_id;
         $task->materi_id = $request->materi_id;
-        $task->task_id = $request->task_id;
         $task->title_task = $request->title_task;
         $task->description_task = $request->description_task;
         $task->date_collection = $request->date_collection;
@@ -92,6 +95,7 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.

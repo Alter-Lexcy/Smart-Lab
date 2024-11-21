@@ -18,7 +18,10 @@
                     <tr class=" text-black  ">
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Kelas</th>
+                        <th class="px-4 py-2 border">Mapel</th>
+                        <th class="px-4 py-2 border">Materi</th>
                         <th class="px-4 py-2 border">Judul Tugas</th>
+                        <th class="px-4 py-2 border">FIle Tugas</th>
                         <th class="px-4 py-2 border">Deskripsi Tugas</th>
                         <th class="px-4 py-2 border">Tanggal Pengumpulan Tugas</th>
                         <th class="px-4 py-2 border">Aksi</th>
@@ -28,9 +31,23 @@
                     @foreach ($tasks as $task)
                         <tr class="border border-gray-300">
                             <td class="py-3 px-6">{{ $loop->iteration }}</td>
-                            <td class="py-3 px-6">{{ $task->Class->name_class }}</td>
+                            <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
+                            <td class="py-3 px-6">{{ $task->Subject->name_subject }}</td>
+                            <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
                             <td class="py-3 px-6">{{ $task->title_task }}</td>
-                            <td class="py-3 px-6">{{ $task->description_task }}</td>
+                            <td class="py-3 px-6">
+                            @php
+                                $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
+                            @endphp
+                            @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
+                                <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image" width="100px">
+                            @elseif($fileExtension === 'pdf')
+                                <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf" width="100px" height="100px">
+                            @else
+                                <p>Format file tidak didukung.</p>
+                            @endif
+                            </td>
+                            <td class="py-3 px-6">{{ $task->description_task ?? 'Kosong'}}</td>
                             <td class="py-3 px-6">{{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}</td>
                             <td class="py-3 px-6">
                                 <!-- Open edit modal -->
@@ -65,7 +82,7 @@
     <div id="taskModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
         <div class="bg-white rounded-lg overflow-hidden w-full max-w-md p-6">
             <h5 class="text-xl font-bold mb-4">Tambah Tugas</h5>
-            <form action="{{ route('tasks.store') }}" method="POST">
+            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
                     <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
@@ -81,10 +98,44 @@
                     @enderror
                 </div>
                 <div class="mb-4">
+                    <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
+                    <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
+                        <option value="" disabled selected>Pilih Mapel</option>
+                        @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
+                                {{ $subject->name_subject }}</option>
+                        @endforeach
+                    </select>
+                    @error('subject_id')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
+                    <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
+                        <option value="" disabled selected>Pilih Materi</option>
+                        @foreach ($materis as $materi)
+                            <option value="{{ $materi->id }}" {{ old('materi_id') == $materi->id ? 'selected' : '' }}>
+                                {{ $materi->title_materi }}</option>
+                        @endforeach
+                    </select>
+                    @error('materi_id')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
                     <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
                     <input type="text" id="title_task" name="title_task" class="w-full px-3 py-2 border rounded"
                         value="{{ old('title_task') }}">
                     @error('title_task')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
+                    <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
+                        value="{{ old('file_task') }}">
+                    @error('file_task')
                         <div class="text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
@@ -118,7 +169,7 @@
             class="taskModal fixed inset-0 z-50 hidden  items-center justify-center bg-black " style="display: none;">
             <div class="bg-white rounded-lg overflow-hidden w-full max-w-md p-6">
                 <h5 class="text-xl font-bold mb-4">Ubah Tugas</h5>
-                <form action="{{ route('tasks.update', $task->id) }}" method="POST">
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
@@ -135,10 +186,44 @@
                         @enderror
                     </div>
                     <div class="mb-4">
+                        <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
+                        <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
+                            <option value="" disabled selected>Pilih Mapel</option>
+                            @foreach ($subjects as $subject)
+                                <option value="{{ $subject->id }}" {{ $task->subject_id == $subject->id ? 'selected' : '' }}>
+                                    {{ $subject->name_subject }}</option>
+                            @endforeach
+                        </select>
+                        @error('subject_id')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
+                        <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
+                            <option value="" disabled selected>Pilih Materi</option>
+                            @foreach ($materis as $materi)
+                                <option value="{{ $materi->id }}" {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
+                                    {{ $materi->title_materi }}</option>
+                            @endforeach
+                        </select>
+                        @error('materi_id')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
                         <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
                         <input type="text" id="title_task" name="title_task" class="w-full px-3 py-2 border rounded"
                             value="{{ $task->title_task }}">
                         @error('title_task')
+                            <div class="text-red-500">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
+                        <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
+                            value="{{ $task->file_task }}">
+                        @error('file_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
