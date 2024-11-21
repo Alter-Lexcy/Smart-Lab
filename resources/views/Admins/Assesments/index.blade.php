@@ -18,7 +18,7 @@
             <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                 <tr>
                     <th class="border px-4 py-2">No</th>
-                    <th class="border px-4 py-2">Collection</th>
+                    <th class="border px-4 py-2">assessments</th>
                     <th class="border px-4 py-2">User</th>
                     <th class="border px-4 py-2">Mark Task</th>
                     <th class="border px-4 py-2">Aksi</th>
@@ -28,7 +28,7 @@
                 @foreach ($assessments as $index => $assessment)
                     <tr>
                         <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2">{{ $assessment->collection->name ?? 'Tidak tersedia' }}</td>
+                        <td class="border px-4 py-2">{{ $assessment->assessment->name ?? 'Tidak tersedia' }}</td>
                         <td class="border px-4 py-2">{{ $assessment->user->name ?? 'Tidak tersedia' }}</td>
                         <td class="border px-4 py-2">{{ $assessment->mark_task }}</td>
                         <td class="border px-4 py-2 flex gap-2">
@@ -63,17 +63,17 @@
     <div class="flex items-center justify-center min-h-screen px-4">
         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
             <h5 class="text-xl font-semibold mb-4">Tambah Assessment</h5>
-            <form action="{{ route('assessments.store') }}" method="POST">
+            <form action="{{ route('assesments.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="collection_id" class="block font-semibold">Collection</label>
-                    <select name="collection_id" id="collection_id" class="w-full mt-1 p-2 border border-gray-300 rounded">
-                        <option value="" disabled selected>Pilih Collection</option>
-                        @foreach ($collections as $collection)
-                            <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+                    <label for="assessments_id" class="block font-semibold">assessments</label>
+                    <select name="assessments_id" id="sssessment_id" class="w-full mt-1 p-2 border border-gray-300 rounded">
+                        <option value="" disabled selected>Pilih sssessment</option>
+                        @foreach ($assessment as $assessments)
+                            <option value="{{ $assessments->id }}">{{ $assessments->name }}</option>
                         @endforeach
                     </select>
-                    @error('collection_id')
+                    @error('assessments_id')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                     @enderror
                 </div>
@@ -114,15 +114,15 @@
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
                 <h5 class="text-xl font-semibold mb-4">Edit Assessment</h5>
-                <form action="{{ route('assessments.update', $assessment->id) }}" method="POST">
+                <form action="{{ route('assesments.update', $assessment->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
-                        <label for="collection_id_{{ $assessment->id }}" class="block font-semibold">Collection</label>
-                        <select name="collection_id" id="collection_id_{{ $assessment->id }}" class="w-full mt-1 p-2 border border-gray-300 rounded">
-                            @foreach ($collections as $collection)
-                                <option value="{{ $collection->id }}" {{ $collection->id == $assessment->collection_id ? 'selected' : '' }}>
-                                    {{ $collection->name }}
+                        <label for="assessments_id_{{ $assessment->id }}" class="block font-semibold">assessments</label>
+                        <select name="assessments_id" id="assessments_id_{{ $assessment->id }}" class="w-full mt-1 p-2 border border-gray-300 rounded">
+                            @foreach ($assessment as $assessments)
+                                <option value="{{ $assessments->id }}" {{ $assessments->id == $assessment->assessments_id ? 'selected' : '' }}>
+                                    {{ $assessments->name }}
                                 </option>
                             @endforeach
                         </select>
