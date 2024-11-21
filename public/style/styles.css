@@ -4,9 +4,9 @@
 /*===== VARIABLES CSS =====*/
 /*=== Colores ===*/
 :root {
-  --first-color: #0396A6;
+  --first-color: #3b9ae8;
   --dark-color: #000;
-  --white-color: #F2FAFF;
+  --white-color: #FFFF;
 }
 
 /*=== Fuente y tipografia ===*/
@@ -20,7 +20,7 @@
 @media screen and (min-width: 768px) {
   :root {
     --biggest-font-size: 7rem;
-    --h2-font-size: 1.5rem;
+    --h2-font-size: 2rem;
     --normal-font-size: 1rem;
   }
 }
@@ -47,7 +47,7 @@ html {
 body {
   margin: 0;
   font-family: var(--body-font);
-    background-color: #F2FAFF;
+    background-color: #FFFF;
 }
 
 
@@ -111,20 +111,17 @@ a {
 }
 
 .home__parallax-img1 {
-  background-image: url("/assets/img/imgm1.png");
-  z-index: var(--z-normal);
-}
-
+    background-image: url("/assets/img/imgm1.png");
+    z-index: var(--z-fixed);
+  }
 .home__parallax-img2 {
-  background-image: url("/assets/img/imgm2.png");
-  z-index: var(--z-tooltip);
-}
-
+    background-image: url("/assets/img/imgm2.png");
+    z-index: var(--z-fixed);
+  }
 .home__parallax-img3 {
-  background-image: url("/assets/img/imgm3.png");
-  z-index: var(--z-fixed);
-}
-
+    background-image: url("/assets/img/imgm3.png");
+    z-index: var(--z-fixed);
+  }
 .home__parallax-img4 {
   background-image: url("/assets/img/imgm4.png");
   z-index: var(--z-fixed);
@@ -146,6 +143,7 @@ a {
   top: 32%;
   font-size: var(--biggest-font-size);
   z-index: var(--z-normal);
+  color: var(--first-color);
 }
 
 .home__subtitle {
@@ -153,6 +151,7 @@ a {
   font-size: var(--h2-font-size);
   font-weight: bold;
   z-index: var(--z-tooltip);
+  color: var(--first-color);
 }
 
 .home__scroll {
@@ -170,20 +169,19 @@ a {
 }
 
 .home__scroll .bx-mouse {
-  color: var(--white-color);
+  color: var(--first-color);
 }
 
 /*===== SECTION =====*/
 .l-section {
-  background-color: transparent;
-
+  background-color: #FFFF;
 }
 
 .section {
   height: 100vh;
-  max-width: 950px;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  max-width: 1100px;
+  margin-left: 1px;
+  margin-right: 1px;
   padding: 2rem 0;
   color: var(--white-color);
   display: -webkit-box;
@@ -246,9 +244,14 @@ a {
             flex-direction: row;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 100px;
+    padding-right: 100px;
   }
   .section__text {
     padding-right: 4rem;
+    color: var(--first-color);
+    font-size: 1.2rem;
+
   }
   .section__img {
     width: 470px;
