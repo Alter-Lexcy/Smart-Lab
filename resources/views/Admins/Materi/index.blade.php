@@ -63,7 +63,7 @@
 
                 <!-- Modal Edit -->
                 <div id="editmateriModal-{{ $materi->id }}"
-                    class="materiModal fixed inset-0 hidden items-center justify-center">
+                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
                     <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
                         <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
                         <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
@@ -129,7 +129,7 @@
 </div>
 
 <!-- Modal Tambah -->
-<div id="materiModal" class="fixed inset-0 flex items-center justify-center hidden">
+<div id="materiModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
     <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
         <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
         <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data">
@@ -180,14 +180,22 @@
 </div>
 
 <script>
-    // Fungsi untuk membuka modal
     function openModal(id) {
-        document.getElementById(id).classList.remove('hidden');
+        console.log(`Opening modal: ${id}`);
+        document.getElementById(id).style.display = 'flex';
     }
 
-    // Fungsi untuk menutup modal
     function closeModal(id) {
-        document.getElementById(id).classList.add('hidden');
+        console.log(`Closing modal: ${id}`);
+        document.getElementById(id).style.display = 'none';
     }
+
+
+    // Open the modal if validation fails
+    @if(session('success'))
+    document.addEventListener("DOMContentLoaded", function() {
+        closeModal('materiModal'); // Menutup modal setelah data berhasil ditambah
+    });
+    @endif
 </script>
 @endsection
