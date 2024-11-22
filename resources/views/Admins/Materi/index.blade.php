@@ -33,7 +33,7 @@
                     <td class="px-4 py-2 border">{{ $materi->classes->name_class }}</td>
                     <td class="px-4 py-2 border">{{ $materi->title_materi }}</td>
                     <td class="px-4 py-2 border">
-                        @if ($materi->file_materi && in_array(pathinfo($materi->file_materi, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
+                        @if ($materi->file_materi)
                         <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="Preview" class="w-32 h-32 object-cover">
                         @elseif ($materi->file_materi)
                         <span class="text-gray-500">Preview tidak tersedia</span>
@@ -62,66 +62,82 @@
                 </tr>
 
                 <!-- Modal Edit -->
-                <div id="editmateriModal-{{ $materi->id }}"
-                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-                    <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
-                        <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
-                        <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
+                <div id="editmateriModal-{{ $materi->id }}" 
+    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg p-6 w-1/3 shadow-lg">
+        <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
+        <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-                            <div class="mb-3">
-                                <label for="name_subject-{{ $materi->id }}" class="block font-medium mb-1">Nama Mapel</label>
-                                <select id="name_subject-{{ $materi->id }}" name="subject_id"
-                                    class="w-full border rounded px-3 py-2" required>
-                                    <option value="" disabled>Pilih Nama Mapel</option>
-                                    @foreach ($subjects as $mapel)
-                                    <option value="{{ $mapel->id }}"
-                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
-                                        {{ $mapel->name_subject }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
+            <!-- Dropdown Mapel -->
+            <div class="mb-3">
+                <label for="name_subject-{{ $materi->id }}" class="block font-medium mb-1">Nama Mapel</label>
+                <select id="name_subject-{{ $materi->id }}" name="subject_id" class="w-full border rounded px-3 py-2" required>
+                    <option value="" disabled>Pilih Nama Mapel</option>
+                    @foreach ($subjects as $mapel)
+                        <option value="{{ $mapel->id }}" {{ $materi->subject_id == $mapel->id ? 'selected' : '' }}>
+                            {{ $mapel->name_subject }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
+            <!-- Dropdown Kelas -->
+            <div class="mb-3">
+                <label for="classes_id-{{ $materi->id }}" class="block font-medium mb-1">Kelas</label>
+                <select id="classes_id-{{ $materi->id }}" name="classes_id" class="w-full border rounded px-3 py-2" required>
+                    <option value="" disabled>Pilih Kelas</option>
+                    @foreach ($classes as $kelas)
+                        <option value="{{ $kelas->id }}" {{ $materi->classes_id == $kelas->id ? 'selected' : '' }}>
+                            {{ $kelas->name_class }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-                            <div class="mb-3">
-                                <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                                <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2" required>
-                                    <option value="" disabled>Pilih Kelas</option>
-                                    @foreach ($classes as $kelas)
-                                    <option value="{{ $kelas->id }}" {{ $materi->kelas_id == $kelas->id ? 'selected' : '' }}>
-                                        {{ $kelas->name_class }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
+            <!-- Input Nama Materi -->
+            <div class="mb-3">
+                <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama Materi</label>
+                <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi" 
+                       class="w-full border rounded px-3 py-2" 
+                       value="{{ $materi->title_materi }}" required>
+            </div>
 
-
-                            <div class="mb-3">
-                                <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama Materi</label>
-                                <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
-                                    class="w-full border rounded px-3 py-2" value="{{ $materi->title_materi }}" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File Materi</label>
-                                <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
-                                    class="w-full border rounded px-3 py-2">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="description-{{ $materi->id }}" class="block font-medium mb-1">Deskripsi</label>
-                                <input type="text" id="description-{{ $materi->id }}" name="description"
-                                    class="w-full border rounded px-3 py-2" value="{{ $materi->description }}" required>
-                            </div>
-
-                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan Perubahan</button>
-                            <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
-                                onclick="closeModal('editmateriModal-{{ $materi->id }}')">Batal</button>
-                        </form>
-                    </div>
+            <!-- Input File Materi -->
+            <div class="mb-3">
+                <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File Materi</label>
+                @if ($materi->file_materi)
+                <div class="mb-2">
+                    <a href="{{ asset('storage/' . $materi->file_materi) }}" class="text-blue-500 underline" target="_blank">
+                        Lihat File Sebelumnya
+                    </a>
                 </div>
+                @endif
+                <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi" class="w-full border rounded px-3 py-2">
+            </div>
+
+            <!-- Input Deskripsi -->
+            <div class="mb-3">
+                <label for="description-{{ $materi->id }}" class="block font-medium mb-1">Deskripsi</label>
+                <input type="text" id="description-{{ $materi->id }}" name="description" 
+                       class="w-full border rounded px-3 py-2" 
+                       value="{{ $materi->description }}" required>
+            </div>
+
+            <!-- Tombol -->
+            <div class="flex justify-end gap-2">
+                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                        onclick="closeModal('editmateriModal-{{ $materi->id }}')">
+                    Batal
+                </button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
                 @endforeach
             </tbody>
         </table>
