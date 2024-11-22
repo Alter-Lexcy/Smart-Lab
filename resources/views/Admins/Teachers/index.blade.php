@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Daftar Siswa</h1>
+        <h1 class="text-2xl font-bold mb-4">Daftar Guru</h1>
 
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">

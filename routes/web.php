@@ -12,6 +12,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\MateriController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
 
 Auth::routes();
@@ -30,8 +31,8 @@ Route::middleware('auth')->group(function(){
     Route::resource('tasks', TaskController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
-
     Route::resource('teachers', TeacherController::class);
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
     Route::get('/Students',[StudentController::class,'User'])->name('Students');
 });
 Route::get('/guru',function(){
