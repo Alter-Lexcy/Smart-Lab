@@ -23,7 +23,7 @@ class UpdateMateriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id'=>['required','exists:subject,id'],
+            'subject_id'=>['required','exists:subjects,id'],
             'classes_id'=>['required','exists:classes,id'],
             'title_materi'=>['required','alpha_num',Rule::unique('materis','title_materi')],
             'file_materi'=>['required','mimes:png,jpg,pdf','max:3072'],

@@ -9,6 +9,7 @@ use App\Models\Classes;
 use App\Models\Materi;
 use App\Models\Subject;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
@@ -35,6 +36,7 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
+
         $file = $request->file_task->store('File_task','public');
         Task::create([
             'class_id'=>$request->class_id,
@@ -46,6 +48,7 @@ class TaskController extends Controller
             'date_collection'=>$request->date_collection
         ]);
 
+        Task::create($validated);
 
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
     }
@@ -72,25 +75,17 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task)
     {
 
-        // Handle file upload
-        if ($request->hasFile('file_task')) {
-            $file = $request->file('file_task')->store('File_task', 'public');
-            if ($task->file_task) {
+        $validated = $request->validated();
+
+        if($request->hasFile('file_task')){
+            if($task->file_task){
                 Storage::disk('public')->delete($task->file_task);
             }
-
-            $task->file_task = $file; // Pastikan nama field konsisten
+            $file = $request->file('file_task')->store('file_task','public');
+            $validated['file_task'] = $file;
         }
 
-        // Update other fields
-        $task->class_id = $request->class_id;
-        $task->subject_id = $request->subject_id;
-        $task->materi_id = $request->materi_id;
-        $task->title_task = $request->title_task;
-        $task->description_task = $request->description_task;
-        $task->date_collection = $request->date_collection;
-
-        $task->save();
+        $task->update($validated);
 
         return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');
     }

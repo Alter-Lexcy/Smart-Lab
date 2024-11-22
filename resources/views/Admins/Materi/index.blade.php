@@ -105,7 +105,6 @@
                         </select>
                     </div>
 
-
                     <div class="mb-3 mr-6">
                         <label for="classes_id" class="block font-medium mb-1">Kelas</label>
                         <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
