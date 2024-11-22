@@ -29,13 +29,15 @@ class MateriController extends Controller
     {
         $validated = $request->validated();
 
-        // Upload file materi
-        if ($request->hasFile('file_materi')) {
-            $file = $request->file('file_materi')->store('file_materi', 'public');
-            $validated['file_materi'] = $file; // Simpan path file ke database
-        }
+        $img = $request->file_materi->store('file_materi', 'public');
 
-        Materi::create($request->all());
+        Materi::create([
+            'title_materi' => $request->title_materi,
+            'file_materi' => $img,
+            'description' => $request->description,
+            'subject_id' => $request->subject_id,
+            'classes_id' => $request->classes_id,
+        ]);
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Ditambahkan');
     }
@@ -45,21 +47,25 @@ class MateriController extends Controller
      */
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
+
+        dd($materi->id);
         $validated = $request->validated();
 
-       
-        if ($request->hasFile('file_materi')) {
-         
-            if ($materi->file_materi) {
-                Storage::disk('public')->delete($materi->file_materi);
-            }
+    
+              
+        Storage::delete('public/' . $materi->file_materi);
+        $img = $request->file_materi->store('file_materi', 'public');
 
-            $file = $request->file('file_materi')->store('file_materi', 'public');
-            $validated['file_materi'] = $file;
-        }
+        
 
         // Update data materi
-        $materi->update($validated);
+        $materi->update([
+            'title_materi' => $request->title_materi,
+            'file_materi' => $img,
+            'description' => $request->description,
+            'subject_id' => $request->subject_id,
+            'classes_id' => $request->classes_id,
+        ]);
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
@@ -68,17 +74,20 @@ class MateriController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Materi $materi)
-    {
-        try {
-            if($materi->file_materi){
-                Storage::delete('public/'.$materi->file_materi);
-            }
-            $materi->delete();
-    
-            return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
-        } catch (\Exception $e) {
-            return redirect()->route('materis.index')->withErrors('Data gagal dihapus: ' . $e->getMessage());
+{
+    try {
+        // Periksa apakah ada file yang terkait dengan data
+        if ($materi->file_materi) {
+            // Hapus file dari penyimpanan
+            Storage::disk('public')->delete($materi->file_materi);
         }
+
+        // Hapus data dari database
+        $materi->delete();
+
+        return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
+    } catch (\Exception $e) {
+        return redirect()->route('materis.index')->withErrors('Data gagal dihapus: ' . $e->getMessage());
     }
-    
+}
 }
