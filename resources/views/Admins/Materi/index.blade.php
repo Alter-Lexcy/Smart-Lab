@@ -81,81 +81,85 @@
         </div>
     </div>
     <!-- Modal Edit -->
-    <div id="materiModal-{{ $materi->id }}"
-        class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
-        style="display:none;">
-        <div class="bg-white rounded-lg py-6 pl-6 w-[50%] h-auto shadow-lg">
-            <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
-            <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
-                @csrf
-                @method('PUT')
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-3">
-                        <label for="name_subject-{{ $materi->id }}" class="block font-medium mb-1">Nama
-                            Mapel</label>
-                        <select id="name_subject-{{ $materi->id }}" name="subject_id"
-                            class="w-full border rounded px-3 py-2">
-                            <option value="" disabled>Pilih Nama Mapel</option>
-                            @foreach ($subjects as $mapel)
-                                <option value="{{ $mapel->id }}"
-                                    {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
-                                    {{ $mapel->name_subject }}
-                                </option>
-                            @endforeach
-                        </select>
+    @foreach ($materis as $materi)
+        <div id="materiModal-{{ $materi->id }}"
+            class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
+            style="display:none;">
+            <div class="bg-white rounded-lg py-6 pl-6 w-[50%] h-auto shadow-lg">
+                <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
+                <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data"
+                    class="overflow-y-auto h-[70%]">
+                    @csrf
+                    @method('PUT')
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="mb-3">
+                            <label for="name_subject-{{ $materi->id }}" class="block font-medium mb-1">Nama
+                                Mapel</label>
+                            <select id="name_subject-{{ $materi->id }}" name="subject_id"
+                                class="w-full border rounded px-3 py-2">
+                                <option value="" disabled>Pilih Nama Mapel</option>
+                                @foreach ($subjects as $mapel)
+                                    <option value="{{ $mapel->id }}"
+                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
+                                        {{ $mapel->name_subject }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3 mr-6">
+                            <label for="classes_id" class="block font-medium mb-1">Kelas</label>
+                            <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
+                                <option value="" disabled>Pilih Kelas</option>
+                                @foreach ($classes as $kelas)
+                                    <option value="{{ $kelas->id }}"
+                                        {{ $materi->kelas_id == $kelas->id ? 'selected' : '' }}>
+                                        {{ $kelas->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <div class="mb-3 mr-6">
-                        <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                        <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
-                            <option value="" disabled>Pilih Kelas</option>
-                            @foreach ($classes as $kelas)
-                                <option value="{{ $kelas->id }}"
-                                    {{ $materi->kelas_id == $kelas->id ? 'selected' : '' }}>
-                                    {{ $kelas->name_class }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
+                            Materi</label>
+                        <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
+                            class="w-full border rounded px-3 py-2" value="{{ $materi->title_materi }}">
                     </div>
-                </div>
 
-                <div class="mb-3 mr-6">
-                    <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
-                        Materi</label>
-                    <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
-                        class="w-full border rounded px-3 py-2" value="{{ $materi->title_materi }}">
-                </div>
+                    <div class="mb-3 mr-6">
+                        <label for="description-{{ $materi->id }}" class="block font-medium mb-1">Deskripsi</label>
+                        <textarea id="description-{{ $materi->id }}" rows="2" name="description"
+                            class="w-full px-3 py-2 border rounded" value="{{ $materi->description }}">{{ old('description') }}</textarea>
+                    </div>
+                    <div class="mb-3 mr-6">
+                        <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
+                            Materi
+                        </label>
+                        <!-- Image preview -->
+                        <img id="image-preview-{{ $materi->id }}" class="mt-2 w-32 mb-2"
+                            src="{{ $materi->file_materi ? asset('file_materi/' . $materi->file_materi) : '' }}"
+                            alt="Preview" style="{{ $materi->file_materi ? '' : 'display: none;' }}" />
+                        <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
+                            class="w-full border rounded px-3 py-2">
+                    </div>
 
-                <div class="mb-3 mr-6">
-                    <label for="description-{{ $materi->id }}" class="block font-medium mb-1">Deskripsi</label>
-                    <textarea id="description-{{ $materi->id }}" rows="2" name="description"
-                        class="w-full px-3 py-2 border rounded" value="{{ $materi->description }}">{{ old('description') }}</textarea>
-                </div>
-                <div class="mb-3 mr-6">
-                    <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
-                        Materi
-                    </label>
-                    <!-- Image preview -->
-                    <img id="image-preview-{{ $materi->id }}" class="mt-2 w-32 mb-2"
-                        src="{{ $materi->file_materi ? asset('file_materi/' . $materi->file_materi) : '' }}" alt="Preview"
-                        style="{{ $materi->file_materi ? '' : 'display: none;' }}" />
-                    <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
-                        class="w-full border rounded px-3 py-2">
-                </div>
-
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan
-                    Perubahan</button>
-                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
-                    onclick="closeModal('materiModal-{{ $materi->id }}')">Batal</button>
-            </form>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan
+                        Perubahan</button>
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                        onclick="closeModal('materiModal-{{ $materi->id }}')">Batal</button>
+                </form>
+            </div>
         </div>
-    </div>
+    @endforeach
 
     <!-- Modal Tambah -->
     <div id="materiModal" class="fixed inset-0 flex items-center justify-center " style="display: none;">
         <div class="bg-white rounded-lg py-6 pl-6 w-[50%] h-auto shadow-lg ">
             <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
-            <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
+            <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data"
+                class="overflow-y-auto h-[70%]">
                 @csrf
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-3">
