@@ -5,7 +5,7 @@
 
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
-                <thead class="bg-gradient-to-r from-sky-100 to-blue-100">
+                <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                     <tr class="border">
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Nama Siswa</th>

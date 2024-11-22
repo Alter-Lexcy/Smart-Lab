@@ -85,7 +85,7 @@
         <div id="materiModal-{{ $materi->id }}"
             class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
             style="display:none;">
-            <div class="bg-white rounded-lg py-6 pl-6 w-[50%] h-auto shadow-lg">
+            <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                 <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
                 <form action="{{ route('materis.update', $materi->id) }}" method="POST" enctype="multipart/form-data"
                     class="overflow-y-auto h-[70%]">
@@ -156,7 +156,7 @@
 
     <!-- Modal Tambah -->
     <div id="materiModal" class="fixed inset-0 flex items-center justify-center " style="display: none;">
-        <div class="bg-white rounded-lg py-6 pl-6 w-[50%] h-auto shadow-lg ">
+        <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg ">
             <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
             <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data"
                 class="overflow-y-auto h-[70%]">
@@ -201,7 +201,7 @@
                     <input type="file" id="file_materi-new" name="file_materi"
                         class="w-full border rounded px-3 py-2">
                 </div>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
                 <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
                     onclick="closeModal('materiModal')">Batal</button>
             </form>
