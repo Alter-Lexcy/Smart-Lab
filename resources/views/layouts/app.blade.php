@@ -275,19 +275,19 @@
         <div class="flex-1 p-4 ml-14">
             <nav class="flex items-center justify-between bg-white p-4 shadow-lg rounded-lg relative z-10">
                 <!-- Search Input -->
-                <div class="flex items-center">
+                <form action="{{ route('search') }}" method="GET" class="flex items-center">
                     <input
                         type="text"
+                        name="search"
                         placeholder="Search..."
-                        class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                     />
-                    <button class="ml-2 p-2 bg-blue-500 text-white rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 21a9.75 9.75 0 1 1 9.75-9.75 9.755 9.755 0 0 1-9.75 9.75zm0-18a8.25 8.25 0 1 0 8.25 8.25A8.26 8.26 0 0 0 11.25 3z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.9 16.9l4.35 4.35" />
+                    <button type="submit" class="ml-2 p-2 bg-blue-400 text-white rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                            <path fill="black" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14"/>
                         </svg>
                     </button>
-                </div>
+                </form>
 
                 <div class="ml-auto relative flex">
                     <!-- Inbox Icon Button -->
