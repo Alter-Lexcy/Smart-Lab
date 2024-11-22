@@ -35,7 +35,6 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        dd($request->all());
         $file = $request->file_task->store('File_task','public');
         Task::create([
             'class_id'=>$request->class_id,
