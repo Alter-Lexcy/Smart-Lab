@@ -36,17 +36,11 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-
-        $file = $request->file_task->store('File_task','public');
-        Task::create([
-            'class_id'=>$request->class_id,
-            'subject_id'=>$request->subject_id,
-            'materi_id'=>$request->materi_id,
-            'file_task'=>$file,
-            'title_task'=>$request->title_task,
-            'description_task'=>$request->description_task,
-            'date_collection'=>$request->date_collection
-        ]);
+        $validated = $request->validated();
+        if($request->hasFile('file_task')){
+            $file = $request->file('file_task')->store('file_task','public');
+            $validated['file_task'] = $file;
+        }
 
         Task::create($validated);
 
