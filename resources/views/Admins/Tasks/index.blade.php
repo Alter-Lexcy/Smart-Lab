@@ -50,9 +50,9 @@
                                 @endif
                             </td>
                             <td class="py-3 px-6">{{ $task->description_task ?? 'Kosong' }}</td>
-                            <td class="py-3 px-6">
+                            <td class="py-2 px-6">
                                 {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}</td>
-                            <td class="py-3 px-6">
+                            <td class="py-3 px-6 space-y-3">
                                 <!-- Open edit modal -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
                                     onclick="openModal('editTaskModal{{ $task->id }}')">
@@ -62,7 +62,7 @@
                                             d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                         <path
                                             d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                    </svg>>
+                                    </svg>
                                 </button>
                                 <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="inline-block">
                                     @csrf
@@ -88,12 +88,12 @@
     <!-- Modal Create -->
     <div id="taskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;"
         role="dialog" aria-hidden="true">
-        <div class="bg-white rounded-lg w-[80%] max-w-4xl p-6">
+        <div class="bg-white rounded-lg w-[40%] h-auto pt-6 pb-2 pl-6">
             <h5 class="text-xl font-bold mb-4" id="modal-title">Tambah Tugas</h5>
-            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                 @csrf
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="mb-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="mb-4 mr-2">
                         <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
                         <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
                             <option value="" disabled selected>Pilih Kelas</option>
@@ -107,7 +107,7 @@
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mr-6">
                         <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
                         <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
                             <option value="" disabled selected>Pilih Mapel</option>
@@ -135,9 +135,7 @@
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-2">
+                    <div class="mb-4 mr-6">
                         <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
                         <input type="text" id="title_task" name="title_task" class="w-full px-3 py-2 border rounded"
                             value="{{ old('title_task') }}">
@@ -145,7 +143,8 @@
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-2">
+                </div>
+                    <div class="mb-4 mr-6">
                         <label for="date_collection" class="block text-gray-700 font-bold mb-2">
                             Tanggal dan Waktu Pengumpulan Tugas
                         </label>
@@ -156,17 +155,18 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-4 mr-6">
                         <label for="description_task" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
                         <textarea id="description_task" rows="3" name="description_task" class="w-full px-3 py-2 border rounded">{{ old('description_task') }}</textarea>
                         @error('description_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4 ">
+                    <div class="mb-4 mr-6 ">
                         <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                         <!-- Image preview -->
-                        <img id="image-preview" class="mt-2 w-32 mb-2" style="{{ old('file_task') ? '' : 'display: none;' }}"
+                        <img id="image-preview" class="mt-2 w-32 mb-2"
+                            style="{{ old('file_task') ? '' : 'display: none;' }}"
                             src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
                             alt="Old Image Preview" />
                         <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
@@ -175,10 +175,9 @@
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
                 <!-- Repeat other fields -->
                 <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Simpan</button>
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Tambah tugas</button>
                 <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
                     onclick="closeModal('taskModal')">Batal</button>
             </form>
@@ -190,62 +189,64 @@
     @foreach ($tasks as $task)
         <div id="editTaskModal{{ $task->id }}"
             class="taskModal fixed inset-0 z-50 hidden  items-center justify-center bg-black " style="display: none;">
-            <div class="bg-white rounded-lg overflow-hidden w-full max-w-md p-6">
-                <h5 class="text-xl font-bold mb-4">Ubah Tugas</h5>
-                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data">
+            <div class="bg-white rounded-lg w-[40%] h-auto pt-6 pb-2 pl-6">
+                <h5 class="text-xl font-bold mb-4" id="modal-title">Ubah Tugas</h5>
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                     @csrf
                     @method('PUT')
-                    <div class="mb-4">
-                        <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
-                        <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            @foreach ($classes as $class)
-                                <option value="{{ $class->id }}"
-                                    {{ $task->class_id == $class->id ? 'selected' : '' }}>
-                                    {{ $class->name_class }}</option>
-                            @endforeach
-                        </select>
-                        @error('class_id')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
+                            <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
+                                <option value="" disabled selected>Pilih Kelas</option>
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->id }}"
+                                        {{ $task->class_id == $class->id ? 'selected' : '' }}>
+                                        {{ $class->name_class }}</option>
+                                @endforeach
+                            </select>
+                            @error('class_id')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-4 mr-6">
+                            <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
+                            <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
+                                <option value="" disabled selected>Pilih Mapel</option>
+                                @foreach ($subjects as $subject)
+                                    <option value="{{ $subject->id }}"
+                                        {{ $task->subject_id == $subject->id ? 'selected' : '' }}>
+                                        {{ $subject->name_subject }}</option>
+                                @endforeach
+                            </select>
+                            @error('subject_id')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-4 ">
+                            <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
+                            <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
+                                <option value="" disabled selected>Pilih Materi</option>
+                                @foreach ($materis as $materi)
+                                    <option value="{{ $materi->id }}"
+                                        {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
+                                        {{ $materi->title_materi }}</option>
+                                @endforeach
+                            </select>
+                            @error('materi_id')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-4 mr-6">
+                            <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
+                            <input type="text" id="title_task" name="title_task"
+                                class="w-full px-3 py-2 border rounded" value="{{ $task->title_task }}">
+                            @error('title_task')
+                                <div class="text-red-500">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
-                        <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
-                            <option value="" disabled selected>Pilih Mapel</option>
-                            @foreach ($subjects as $subject)
-                                <option value="{{ $subject->id }}"
-                                    {{ $task->subject_id == $subject->id ? 'selected' : '' }}>
-                                    {{ $subject->name_subject }}</option>
-                            @endforeach
-                        </select>
-                        @error('subject_id')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
-                        <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
-                            <option value="" disabled selected>Pilih Materi</option>
-                            @foreach ($materis as $materi)
-                                <option value="{{ $materi->id }}"
-                                    {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
-                                    {{ $materi->title_materi }}</option>
-                            @endforeach
-                        </select>
-                        @error('materi_id')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
-                        <input type="text" id="title_task" name="title_task" class="w-full px-3 py-2 border rounded"
-                            value="{{ $task->title_task }}">
-                        @error('title_task')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mr-6">
                         <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                         <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
                             value="{{ $task->file_task }}">
@@ -253,14 +254,14 @@
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mr-6">
                         <label for="description_task" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
                         <textarea id="description_task" rows="3" name="description_task" class="w-full px-3 py-2 border rounded">{{ $task->description_task }}</textarea>
                         @error('description_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mr-6">
                         <label for="date_collection" class="block text-gray-700 font-bold mb-2">Tanggal Pengumpulan
                             Tugas</label>
                         <input type="datetime-local" id="date_collection" name="date_collection"

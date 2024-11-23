@@ -10,6 +10,9 @@ export default {
     ],
     theme: {
         extend: {
+            inset: {
+                '18': '4.5rem',
+              },
             keyframes: {
                 tada: {
                     "0%": {
