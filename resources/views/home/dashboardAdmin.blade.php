@@ -34,7 +34,7 @@
                         <!-- Text Content -->
                         <div class="space-y-4">
                             <div class="text-3xl text-gray-800 font-semibold">Jumlah Guru</div>
-                            <div class="text-4xl font-bold text-sky-600 ">100</div>
+                            <div class="text-4xl font-bold text-sky-600 ">{{$totalguru}}</div>
                         </div>
                     </div>
                     <div class="h-40 p-5 bg-white shadow-sm rounded-lg flex items-center">
@@ -73,7 +73,7 @@
                         <!-- Text Content -->
                         <div class="space-y-4">
                             <div class="text-3xl text-gray-800 font-semibold">Jumlah Siswa</div>
-                            <div class="text-4xl font-bold text-sky-600 ">3600</div>
+                            <div class="text-4xl font-bold text-sky-600 ">{{ $totalMurid }}</div>
                         </div>
                     </div>
                 </div>

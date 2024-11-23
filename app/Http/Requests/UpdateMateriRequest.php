@@ -23,13 +23,14 @@ class UpdateMateriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id'=>['required','exists:subjects,id'],
-            'classes_id'=>['required','exists:classes,id'],
-            'title_materi'=>['required','alpha_num',Rule::unique('materis','title_materi')],
-            'file_materi'=>['required','mimes:png,jpg,pdf','max:3072'],
-            'description'=>['max:255']
+            'subject_id' => ['required', 'exists:subjects,id'],
+            'classes_id' => ['required', 'exists:classes,id'],
+            'title_materi' => ['required','string','max:255',Rule::unique('materis', 'title_materi')->ignore($this->materi)],
+            'file_materi' => ['nullable', 'mimes:png,jpg,pdf', 'max:3072'],
+            'description' => ['nullable', 'max:255'],
         ];
     }
+
     public function messages()
     {
         return [
@@ -38,9 +39,8 @@ class UpdateMateriRequest extends FormRequest
             'classes_id.required'=>'Kelas Belum Di-Pilih',
             'classes_id.exists'=>'Kelas Tidak Ada',
             'title_materi.required'=>'Judul Materi Belum Di-isi',
-            'title_materi.alpha_num'=>'Judul Materi Hanya Berformat Angka Dan Huruf',
+            'title_materi.string'=>'Judul Materi Hanya Berformat String',
             'title_materi.unique'=>'Judul Materi Sudah Ada',
-            'file_materi.required'=>'File Materi Belum Di-isi',
             'file_materi.mimes'=>'File Materi Harus Bertipe jpg,png,pdf',
             'file_materi.max'=>'File Materi Harus Dibawah 3 MB',
             'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'

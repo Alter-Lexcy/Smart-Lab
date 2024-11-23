@@ -16,7 +16,7 @@ use App\Http\Controllers\SearchController;
 
 
 Auth::routes();
-
+use App\Http\Controllers\RoleController;
 Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
 Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
 Route::get('/landing',[function(){
