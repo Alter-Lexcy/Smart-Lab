@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.dashboardAdmin');
+        $totalMurid = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Murid');
+        })
+        ->whereDoesntHave('roles', function ($query) {
+            $query->where('name', '<>', 'Murid');
+        })
+        ->count();
+
+        $totalguru = User::whereHas('roles',function($query){
+            $query->where('name','Guru');
+        })->whereDoesntHave('roles',function($query){
+            $query->where('name','Admin');
+        })->count();
+        return view('home.dashboardAdmin', compact('totalMurid','totalguru'));
     }
 }

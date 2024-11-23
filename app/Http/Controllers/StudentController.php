@@ -15,5 +15,6 @@ class StudentController extends Controller
             })->get();
 
         return view('Admins.Students.index', compact('students'));
+
     }
 }

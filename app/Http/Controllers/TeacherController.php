@@ -21,5 +21,4 @@ class TeacherController extends Controller
         return view('Admins.Teachers.index', compact('teachers'));
     }
 
-
 }

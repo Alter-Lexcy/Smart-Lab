@@ -46,7 +46,7 @@
                                     <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
                                         width="100px" height="100px">
                                 @else
-                                    <p>Format file tidak didukung.</p>
+                                        
                                 @endif
                             </td>
                             <td class="py-3 px-6">{{ $task->description_task ?? 'Kosong' }}</td>
