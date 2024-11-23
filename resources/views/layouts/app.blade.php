@@ -273,9 +273,9 @@
 
         <!-- Page Content  -->
         <div class="flex-1 p-4 ml-14">
-            <nav class="flex items-center justify-between bg-white p-4 shadow-lg rounded-lg relative z-10">
+            <nav id="navbar" class="flex items-center justify-between bg-white shadow-lg rounded-xl  z-10 transition-all duration-300">
                 <!-- Search Input -->
-                <form action="{{ route('search') }}" method="GET" class="flex items-center">
+                <form action="{{ route('search') }}" method="GET" class="flex items-center ml-4 mt-4">
                     <input type="text" name="search" placeholder="Search..."
                         class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" />
                     <button type="submit" class="ml-2 p-2 bg-blue-400 text-white rounded-lg">
@@ -348,7 +348,20 @@
                 </div>
             </nav>
 
+            <script>
+                const navbar = document.getElementById("navbar");
+                const initialNavOffset = navbar.offsetTop; // Posisi awal navbar
 
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > initialNavOffset) {
+                        navbar.classList.add("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-50");
+                        navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
+                    } else {
+                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-50");
+                        navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
+                    }
+                });
+            </script>
             <script>
                 // Toggle dropdown visibility on button click
                 function toggleDropdown() {
