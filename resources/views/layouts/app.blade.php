@@ -336,10 +336,10 @@
 
                             <!-- Logout Button -->
                             <div class="grid p-2 text-center border-2 rounded-md  border-blue-200 my-4 mx-5">
-                                <a href="{{ url('/logout') }}"
+                                <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="hidden">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                     {{ csrf_field() }}
                                 </form>
                             </div>
