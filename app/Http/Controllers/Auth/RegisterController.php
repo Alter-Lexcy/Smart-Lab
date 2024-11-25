@@ -34,12 +34,10 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-
+        ])->assignRole('Murid');
         Auth::login($murid);
 
-        // Redirection after registration
-        return redirect('/'); // Adjust the route as needed
+        return redirect('/');
     }
 
     /**
@@ -56,13 +54,11 @@ class RegisterController extends Controller
             'email' => $request->email,
             'NIP' => $request->NIP,
             'password' => Hash::make($request->password),
-        ]);
+        ])->assignRole('Guru','Murid');
 
-        // Assign role to the user
-        $guru->assignRole('Guru'); // Ensure this function exists in the User model
         Auth::login($guru);
-        // Redirection after registration
-        return redirect('/'); // Adjust the route as needed
+
+        return redirect('/guru');
     }
 
     /**

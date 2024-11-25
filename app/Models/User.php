@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Spatie\Permission\Models\Role;
+
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -46,25 +46,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    protected static function boot(){
-        parent::boot();
-
-        static::created(function($user){
-            $murid = Role::firstOrCreate(['name'=>'murid']);
-            $user->assignRole($murid);
-        });
-    }
-
-    public function hasRole(...$roles)
-{
-    foreach ($roles as $role) {
-        if ($this->roles->contains('name', $role)) {
-            return true;
-        }
-    }
-    return false;
 }
 
 
-}
