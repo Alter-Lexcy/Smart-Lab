@@ -34,6 +34,7 @@
         Route::resource('teachers', TeacherController::class);
         Route::get('/search', [SearchController::class, 'index'])->name('search');
         Route::get('/Students',[StudentController::class,'User'])->name('Students');
+        Route::put('/update/{user}', [TeacherController::class, 'assign'])->name('assignTeacher');
     });
 
     // Route Guru

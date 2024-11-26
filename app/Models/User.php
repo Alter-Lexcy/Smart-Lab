@@ -47,12 +47,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function Subject(){
+    public function subject(){
         return $this->belongsTo(Subject::class);
     }
 
-    public function Classes(){
-        return $this->belongsTo(Classes::class);
+    public function class(){
+        return $this->belongsTo(Classes::class, 'classes_id');
     }
 }
 
