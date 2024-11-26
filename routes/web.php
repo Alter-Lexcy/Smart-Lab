@@ -22,22 +22,28 @@
 
     Route::get('/',[function(){return view('Users.landing');}]);
 
-        Route::middleware(['auth','role:Admin'])->group(function(){
-            Route::get('/admin', [HomeController::class, 'index'])->name('home');
-            Route::resource('subject',SubjectController::class);
-            Route::resource('classes', ClassesController::class);
-            Route::resource('materis',MateriController::class);
-            Route::resource('tasks', TaskController::class);
-            Route::resource('assesments', AssessmentController::class);
-            Route::resource('comments', CommentController::class);
-            Route::resource('teachers', TeacherController::class);
-            Route::get('/search', [SearchController::class, 'index'])->name('search');
-            Route::get('/Students',[StudentController::class,'User'])->name('Students');
-        });
+    // Route Admin
+    Route::middleware(['auth','role:Admin'])->group(function(){
+        Route::get('/admin', [HomeController::class, 'index'])->name('home');
+        Route::resource('subject',SubjectController::class);
+        Route::resource('classes', ClassesController::class);
+        Route::resource('materis',MateriController::class);
+        Route::resource('tasks', TaskController::class);
+        Route::resource('assesments', AssessmentController::class);
+        Route::resource('comments', CommentController::class);
+        Route::resource('teachers', TeacherController::class);
+        Route::get('/search', [SearchController::class, 'index'])->name('search');
+        Route::get('/Students',[StudentController::class,'User'])->name('Students');
+    });
 
-
+    // Route Guru
     Route::middleware(['auth','role:Guru|Admin'])->group(function(){
         Route::get('/guru',function(){
             return view('Guru.index');
         });
+    });
+
+    // Route Murid
+    Route::middleware('auth')->group(function(){
+        
     });

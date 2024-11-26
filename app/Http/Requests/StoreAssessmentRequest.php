@@ -24,7 +24,7 @@ class StoreAssessmentRequest extends FormRequest
         return [
             'task_id'=>['required','exists:tasks,id'],
             'user_id'=>['required','exists:users,id'],
-            'mark_task'=>['required','numeric','max:100'],
+            'mark_task'=>['required','numeric','max:100','min:0'],
         ];
     }
     public function messages()
@@ -37,6 +37,7 @@ class StoreAssessmentRequest extends FormRequest
         'mark_task.required' => 'Nilai Belum Terisi',
         'mark_task.numeric' => 'Nilai Harus Berformat Angka',
         'mark_task.max' => 'Nilai Melewati Batas',
+        'mark_task.min' => 'Nilai Tidak Bisa Mines',
     ];
 }
 
