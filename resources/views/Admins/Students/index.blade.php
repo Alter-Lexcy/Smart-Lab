@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Daftar Siswa</h1>
         <form action="" method="GET" class="flex items-center mr-full   ">
             <input type="text" name="search" placeholder="Search..."
                 class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
@@ -11,7 +12,6 @@
                 </svg>
             </button>
         </form>
-        <h1 class="text-2xl font-bold mb-4">Daftar Siswa</h1>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
                 <thead class="bg-gradient-to-r from-sky-200 to-blue-300">

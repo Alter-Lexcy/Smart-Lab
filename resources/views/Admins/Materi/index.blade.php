@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto p-4">
+    <div class="container mx- p-4">
         <!-- Search Input -->
         <h1 class="text-2xl font-bold mr-auto">Daftar Materi</h1>
-        <div class="container mx-auto pt-2">
+        <div class="container mx- pt-2">
             <div class="flex items-center justify-between ">
                 <form action="" method="GET" class="flex items-center mr-full   ">
                     <input type="text" name="search" placeholder="Search..."
@@ -26,7 +26,7 @@
 
             <!-- Tabel Materi -->
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
+                <table class="min-w-auto bg-white text-center border border-gray-300 border-collapse">
                     <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                         <tr class="border">
                             <th class="px-4 py-2 border">No</th>
@@ -320,20 +320,6 @@
                     </div>
                 </a>
             </div>
-
-                <div class="mb-3 mr-6">
-                    <label for="file_materi" class="block font-medium mb-1">File Materi</label>
-                    <!-- Image preview -->
-                    <center><div id="file-preview" class="mt-2">
-                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
-                    </div></center>
-                    <input type="file" id="file_materi" name="file_materi"
-                        class="w-full border rounded px-3 py-2">
-                </div>
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
-                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
-                    onclick="closeModal('materiModal')">Batal</button>
-            </form>
         </div>
         <script>
             // Seleksi elemen secara unik untuk modal tertentu
