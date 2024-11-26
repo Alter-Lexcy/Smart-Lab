@@ -198,7 +198,7 @@
                 </form>
             </div>
             <div class="link">
-                <p>Belum punya akun? <a href="register">Daftar Sekarang!</a></p>
+                <p>Sudah punya akun? <a href="login">Masuk Sekarang!</a></p>
             </div>
         </div>
     </div>
