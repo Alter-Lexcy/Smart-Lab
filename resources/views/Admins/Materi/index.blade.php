@@ -34,17 +34,20 @@
                             <td class="px-4 py-2 border">{{ $materi->classes->name_class }}</td>
                             <td class="px-4 py-2 border">{{ $materi->title_materi }}</td>
                             <td class="px-4 py-2 border">
-                                @if ($materi->file_materi)
-                                    <img src="{{ asset('file_materi/' . $materi->file_materi) }}" alt="Preview"
-                                        class="w-16 h-16 object-cover">
+                                @php
+                                    $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($file, ['jpg', 'png']))
+                                    <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
+                                        width="100px">
+                                @elseif($file === 'pdf')
+                                    <embed src="{{ asse('storage/' . $materi->file_materi) }}" type="application/pdf"
+                                        width="100px" height="100px">
                                 @else
-                                    No Image
+                                    <p>Format file tidak didukung.</p>
                                 @endif
                             </td>
-
-
-
-                            <td class="px-4 py-2 border">{{ $materi->description }}</td>
+                            <td class="px-4 py-2 border">{{ $materi->description ?? 'Kosong' }}</td>
                             <td class="px-4 py-2 border space-x-5">
                                 <!-- Tombol Ubah -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
@@ -100,20 +103,20 @@
                                 <option value="" disabled>Pilih Nama Mapel</option>
                                 @foreach ($subjects as $mapel)
                                     <option value="{{ $mapel->id }}"
-                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
+                                        {{ $materi->subject_id == $mapel->id ? 'selected' : '' }}>
                                         {{ $mapel->name_subject }}
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
 
+                        </div>
                         <div class="mb-3 mr-6">
                             <label for="classes_id" class="block font-medium mb-1">Kelas</label>
                             <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
                                 <option value="" disabled>Pilih Kelas</option>
                                 @foreach ($classes as $kelas)
                                     <option value="{{ $kelas->id }}"
-                                        {{ $materi->kelas_id == $kelas->id ? 'selected' : '' }}>
+                                        {{ $materi->classes_id == $kelas->id ? 'selected' : '' }}>
                                         {{ $kelas->name_class }}
                                     </option>
                                 @endforeach
@@ -137,10 +140,24 @@
                         <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
                             Materi
                         </label>
-                        <!-- Image preview -->
-                        <img id="image-preview-{{ $materi->id }}" class="mt-2 w-32 mb-2"
-                            src="{{ $materi->file_materi ? asset('file_materi/' . $materi->file_materi) : '' }}"
-                            alt="Preview" style="{{ $materi->file_materi ? '' : 'display: none;' }}" />
+                        <div id="file-preview-{{ $materi->id }}" class="mt-2">
+                            @if ($materi->file_materi)
+                                @php
+                                    $fileExtension = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
+                                    <p class="mb-3">Gambar Sebelumnya</p>
+                                    <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="Preview"
+                                        class="w-32 mb-3">
+                                @elseif ($fileExtension === 'pdf')
+                                    <p class="mb-3">PDf Sebelumnya</p>
+                                    <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
+                                        class="w-full h-32 mb-2" />
+                                @else
+                                    <p class="text-red-500">Format file tidak didukung.</p>
+                                @endif
+                            @endif
+                        </div>
                         <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
                             class="w-full border rounded px-3 py-2">
                     </div>
@@ -197,7 +214,9 @@
                 <div class="mb-3 mr-6">
                     <label for="file_materi" class="block font-medium mb-1">File Materi</label>
                     <!-- Image preview -->
-                    <img id="image-preview-new" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    <div id="file-preview-new" class="mt-2">
+                        <img id="image-preview-new" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    </div>
                     <input type="file" id="file_materi-new" name="file_materi"
                         class="w-full border rounded px-3 py-2">
                 </div>
@@ -286,43 +305,61 @@
                 </div>
             </a>
         </div>
-        <script>
-            // Seleksi elemen secara unik untuk modal tertentu
-            document.querySelectorAll('input[type="file"]').forEach(input => {
-                input.addEventListener('change', function(event) {
-                    const previewId = this.id.replace('file_materi', 'image-preview');
-                    const imagePreview = document.getElementById(previewId);
-                    const file = event.target.files[0];
+    </div>
+    <script>
+        // Seleksi elemen secara unik untuk modal tertentu
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(event) {
+                const previewId = this.id.replace('file_materi',
+                    'file-preview'); // Replace file ID to match preview ID
+                const filePreview = document.getElementById(
+                    previewId); // Get the preview element
+                const file = event.target.files[0];
 
-                    if (file) {
-                        const reader = new FileReader();
+                if (file) {
+                    const fileExtension = file.name.split('.').pop()
+                        .toLowerCase(); // Get the file extension
+                    const reader = new FileReader();
+
+                    if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+                        // If the file is an image
                         reader.onload = function(e) {
-                            imagePreview.src = e.target.result;
-                            imagePreview.style.display = 'block';
+                            filePreview.innerHTML =
+                                `<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
                         };
-                        reader.readAsDataURL(file);
+                    } else if (fileExtension === 'pdf') {
+                        // If the file is a PDF
+                        reader.onload = function(e) {
+                            filePreview.innerHTML =
+                                `<embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
+                        };
                     } else {
-                        imagePreview.style.display = 'none';
+                        // Unsupported file format
+                        filePreview.innerHTML =
+                            `<p class="text-red-500">Format file tidak didukung.</p>`;
                     }
-                });
+
+                    reader.readAsDataURL(file); // Read the file as a data URL
+                } else {
+                    filePreview.innerHTML = ''; // Clear the preview if no file is selected
+                }
             });
+        });
 
-            function openModal(id) {
-                console.log(`Opening modal: ${id}`);
-                document.getElementById(id).style.display = 'flex';
-            }
+        function openModal(id) {
+            console.log(`Opening modal: ${id}`);
+            document.getElementById(id).style.display = 'flex';
+        }
 
-            function closeModal(id) {
-                console.log(`Closing modal: ${id}`);
-                document.getElementById(id).style.display = 'none';
-            }
+        function closeModal(id) {
+            console.log(`Closing modal: ${id}`);
+            document.getElementById(id).style.display = 'none';
+        }
 
-
-            // Open the modal if validation fails
-            @if (session('success'))
-                document.addEventListener("DOMContentLoaded", function() {
-                    closeModal('materiModal'); // Menutup modal setelah data berhasil ditambah
-                });
-            @endif
-        </script>
-    @endsection
+        @if (session('success'))
+            document.addEventListener("DOMContentLoaded", function() {
+                closeModal('materiModal'); // Close the modal on successful action
+            });
+        @endif
+    </script>
+@endsection

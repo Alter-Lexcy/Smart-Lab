@@ -46,7 +46,6 @@
                                     <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
                                         width="100px" height="100px">
                                 @else
-                                    <p>Format file tidak didukung.</p>
                                 @endif
                             </td>
                             <td class="py-3 px-6">{{ $task->description_task ?? 'Kosong' }}</td>
@@ -90,7 +89,8 @@
         role="dialog" aria-hidden="true">
         <div class="bg-white rounded-lg w-[40%] h-auto pt-6 pb-2 pl-6">
             <h5 class="text-xl font-bold mb-4" id="modal-title">Tambah Tugas</h5>
-            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
+            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data"
+                class="overflow-y-auto h-[70%]">
                 @csrf
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-4 mr-2">
@@ -144,40 +144,41 @@
                         @enderror
                     </div>
                 </div>
-                    <div class="mb-4 mr-6">
-                        <label for="date_collection" class="block text-gray-700 font-bold mb-2">
-                            Tanggal dan Waktu Pengumpulan Tugas
-                        </label>
-                        <input type="datetime-local" id="date_collection" name="date_collection"
-                            class="w-full px-3 py-2 border rounded" value="{{ old('date_collection') }}">
-                        @error('date_collection')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="mb-4 mr-6">
+                    <label for="date_collection" class="block text-gray-700 font-bold mb-2">
+                        Tanggal dan Waktu Pengumpulan Tugas
+                    </label>
+                    <input type="datetime-local" id="date_collection" name="date_collection"
+                        class="w-full px-3 py-2 border rounded" value="{{ old('date_collection') }}">
+                    @error('date_collection')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
 
-                    <div class="mb-4 mr-6">
-                        <label for="description_task" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
-                        <textarea id="description_task" rows="3" name="description_task" class="w-full px-3 py-2 border rounded">{{ old('description_task') }}</textarea>
-                        @error('description_task')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-4 mr-6 ">
-                        <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
-                        <!-- Image preview -->
+                <div class="mb-4 mr-6">
+                    <label for="description_task" class="block text-gray-700 font-bold mb-2">Deskripsi</label>
+                    <textarea id="description_task" rows="3" name="description_task" class="w-full px-3 py-2 border rounded">{{ old('description_task') }}</textarea>
+                    @error('description_task')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-4 mr-6 ">
+                    <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
+                    <!-- Image preview -->
+                    <center><div id="file-preview-{{ $materi->id }}" class="mt-2">
                         <img id="image-preview" class="mt-2 w-32 mb-2"
-                            style="{{ old('file_task') ? '' : 'display: none;' }}"
-                            src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
-                            alt="Old Image Preview" />
-                        <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
-                            value="{{ old('file_task') }}">
-                        @error('file_task')
-                            <div class="text-red-500">{{ $message }}</div>
-                        @enderror
-                    </div>
+                        style="{{ old('file_task') ? '' : 'display: none;' }}"
+                        src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
+                        alt="Old Image Preview" /></div></center>
+                    <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
+                        value="{{ old('file_task') }}">
+                    @error('file_task')
+                        <div class="text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
                 <!-- Repeat other fields -->
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Tambah tugas</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Tambah
+                    tugas</button>
                 <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
                     onclick="closeModal('taskModal')">Batal</button>
             </form>
@@ -191,7 +192,8 @@
             class="taskModal fixed inset-0 z-50 hidden  items-center justify-center bg-black " style="display: none;">
             <div class="bg-white rounded-lg w-[40%] h-auto pt-6 pb-2 pl-6">
                 <h5 class="text-xl font-bold mb-4" id="modal-title">Ubah Tugas</h5>
-                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST" enctype="multipart/form-data"
+                    class="overflow-y-auto h-[70%]">
                     @csrf
                     @method('PUT')
                     <div class="grid grid-cols-2 gap-4">
@@ -248,8 +250,23 @@
                     </div>
                     <div class="mb-4 mr-6">
                         <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
-                        <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
-                            value="{{ $task->file_task }}">
+                        <div id="file-preview-{{ $task->id }}" class="mt-2">
+                            @if ($task->file_task)
+                                @php
+                                    $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
+                                    <center><p class="mb-3">Gambar Sebelumnya</p>
+                                        <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview" class="w-32 mb-2"></center>
+                                @elseif ($fileExtension === 'pdf')
+                                    <center><p class="mb-3">PDF Sebelumnya</p>
+                                        <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf" class="w-full h-32 mb-2" /></center>
+                                @else
+                                    <p class="text-red-500">Format file tidak didukung.</p>
+                                @endif
+                            @endif
+                        </div>
+                        <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded">
                         @error('file_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
@@ -280,20 +297,42 @@
     @endforeach
 
     <script>
-        document.getElementById('file_task').addEventListener('change', function(event) {
-            const imagePreview = document.getElementById('image-preview');
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(event) {
+                const previewId = this.id.replace('file_materi',
+                'file-preview'); // Mengganti nama preview ID
+                const filePreview = document.getElementById(previewId); // Elemen untuk preview
+                const file = event.target.files[0];
+
+                if (file) {
+                    const fileExtension = file.name.split('.').pop()
+                .toLowerCase(); // Dapatkan ekstensi file
+                    const reader = new FileReader();
+
+                    if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+                        // Jika file adalah gambar
+                        reader.onload = function(e) {
+                            filePreview.innerHTML =
+                                `<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
+                        };
+                    } else if (fileExtension === 'pdf') {
+                        // Jika file adalah PDF
+                        reader.onload = function(e) {
+                            filePreview.innerHTML =
+                                `<embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
+                        };
+                    } else {
+                        // Jika format tidak didukung
+                        filePreview.innerHTML = `<p class="text-red-500">Format file tidak didukung.</p>`;
+                    }
+
+                    reader.readAsDataURL(file); // Membaca file sebagai URL data
+                } else {
+                    filePreview.innerHTML = ''; // Kosongkan preview jika file dihapus
                 }
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.style.display = 'none';
-            }
+            });
         });
+
 
 
         function openModal(id) {

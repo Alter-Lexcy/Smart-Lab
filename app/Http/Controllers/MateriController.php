@@ -48,25 +48,18 @@ class MateriController extends Controller
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
 
-        dd($materi->id);
-        $validated = $request->validated();
+        $validated  = $request->validated();
 
-    
-              
-        Storage::delete('public/' . $materi->file_materi);
-        $img = $request->file_materi->store('file_materi', 'public');
+        if($request->hasFile('file_materi')){
+            if($materi->file_materi){
+                Storage::disk('public')->delete($materi->file_materi);
+            }
 
-        
+            $file = $request->file('file_materi')->store('file_materi','public');
+            $validated['file_materi'] = $file;
+        }
 
-        // Update data materi
-        $materi->update([
-            'title_materi' => $request->title_materi,
-            'file_materi' => $img,
-            'description' => $request->description,
-            'subject_id' => $request->subject_id,
-            'classes_id' => $request->classes_id,
-        ]);
-
+        $materi->update($validated);
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
 
