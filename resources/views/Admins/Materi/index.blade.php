@@ -306,6 +306,7 @@
                                 </p>
                             </div>
 
+
                             <div class="flex justify-end">
                                 <p
                                     class="inline-block font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
@@ -319,6 +320,20 @@
                     </div>
                 </a>
             </div>
+
+                <div class="mb-3 mr-6">
+                    <label for="file_materi" class="block font-medium mb-1">File Materi</label>
+                    <!-- Image preview -->
+                    <center><div id="file-preview" class="mt-2">
+                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    </div></center>
+                    <input type="file" id="file_materi" name="file_materi"
+                        class="w-full border rounded px-3 py-2">
+                </div>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
+                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                    onclick="closeModal('materiModal')">Batal</button>
+            </form>
         </div>
         <script>
             // Seleksi elemen secara unik untuk modal tertentu
@@ -350,10 +365,23 @@
                         } else {
                             // Unsupported file format
                             filePreview.innerHTML =
+
                                 `<p class="text-red-500">Format file tidak didukung.</p>`;
                         }
 
                         reader.readAsDataURL(file); // Read the file as a data URL
+
+                                `<center><p>File Sekarang</p>
+                                    <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview"></center>`;
+                        };
+                    } else if (fileExtension === 'pdf') {
+                        // Jika file adalah PDF
+                        reader.onload = function(e) {
+                            filePreview.innerHTML =
+                                `<center><p>File Sekarang</p>
+                                    <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" /></center>`;
+                        };
+
                     } else {
                         filePreview.innerHTML = ''; // Clear the preview if no file is selected
                     }
