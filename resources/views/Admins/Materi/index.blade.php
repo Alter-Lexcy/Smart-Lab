@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx- p-4">
+    <div class="container mx-auto p-4">
         <!-- Search Input -->
         <h1 class="text-2xl font-bold mr-auto">Daftar Materi</h1>
-        <div class="container mx- pt-2">
+        <div class="container mx-auto pt-2">
             <div class="flex items-center justify-between ">
                 <form action="" method="GET" class="flex items-center mr-full   ">
                     <input type="text" name="search" placeholder="Search..."

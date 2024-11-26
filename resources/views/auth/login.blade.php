@@ -52,10 +52,10 @@
                     <tr>
                         <td colspan="2">
                             <span
-                                style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
+                                style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 15px;">
                                 <i class='bx bxs-envelope'
                                     style="font-size: 24px; color: gray; padding-right: 10px;"></i>
-                                <input type="email" id="email" name="email" placeholder="Email"
+                                <input type="email" id="email" autocomplete="off" name="email" placeholder="Email"
                                     style="border: none; outline: none; flex: 1;">
                             </span>
                             <!-- Pesan Error Email -->
@@ -74,10 +74,10 @@
                                 style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
                                 <i class='bx bxs-lock-open'
                                     style="font-size: 24px; color: gray; padding-right: 10px;"></i>
-                                <input type="password" id="password" name="password" placeholder="Password"
-                                    style="border: none; outline: none; flex: 1;">
+                                <input type="password" id="password" autocomplete="off" name="password" placeholder="Password"
+                                    style="border: none;  outline: none; flex: 1;">
                                 <i class='bx bxs-show' id="toggle-password"
-                                    style="font-size: 24px; color: gray; cursor: pointer;"></i>
+                                    style="font-size: 24px; color: gray; cursor: pointer; padding-left: 10px;"></i>
                             </span>
                             <!-- Pesan Error Password -->
                             @error('password')
