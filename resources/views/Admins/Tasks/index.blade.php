@@ -1,9 +1,19 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
-        <div class="container mx-auto p-4">
-            <div class="flex items-center justify-between mb-4">
-                <h1 class="text-2xl font-bold mr-auto">Daftar Tugas</h1>
+        <h1 class="text-2xl font-bold mr-auto">Daftar Tugas</h1>
+        <div class="container mx-auto pt-2">
+            <div class="flex items-center justify-between ">
+                <form action="" method="GET" class="flex items-center mr-full   ">
+                    <input type="text" name="search" placeholder="Search..."
+                        class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
+                    <button type="submit" class="p-2 border-2 border-l-0 bg-white text-white rounded-r-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                            <path fill="black"
+                                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
+                        </svg>
+                    </button>
+                </form>
                 <a class="group relative inline-block text-xs font-medium text-blue-500 focus:outline-none focus:ring active:text-indigo-500"
                     onclick="openModal('taskModal')">
                     <span
@@ -165,9 +175,18 @@
                 <div class="mb-4 mr-6 ">
                     <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                     <!-- Image preview -->
+
+                        <div id="file-preview-{{ $materi->id }}" class="mt-2">
+                            <img id="image-preview" class="mt-2 w-32 mb-2"
+                                style="{{ old('file_task') ? '' : 'display: none;' }}"
+                                src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
+                                alt="Old Image Preview" />
+                        </div>
+
                     <center><div id="file-preview" class="mt-2">
                         <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
                     </div></center>
+
                     <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
                         value="{{ old('file_task') }}">
                     @error('file_task')
@@ -254,11 +273,13 @@
                                     $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
                                 @endphp
                                 @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                    <center><p class="mb-3">Gambar Sebelumnya</p>
-                                        <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview" class="w-32 mb-2"></center>
+                                        <p class="mb-3">Gambar Sebelumnya</p>
+                                        <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview"
+                                            class="w-32 mb-2">
                                 @elseif ($fileExtension === 'pdf')
-                                    <center><p class="mb-3">PDF Sebelumnya</p>
-                                        <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf" class="w-full h-32 mb-2" /></center>
+                                        <p class="mb-3">PDF Sebelumnya</p>
+                                        <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
+                                            class="w-full h-32 mb-2" />
                                 @else
                                     <p class="text-red-500">Format file tidak didukung.</p>
                                 @endif
@@ -297,6 +318,9 @@
     <script>
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function(event) {
+
+                const previewId = this.id.replace('file_materi',
+                    'file-preview'); // Mengganti nama preview ID
                 const previewId = this.id.replace('file_task',
                 'file-preview'); // Mengganti nama preview ID
                 const filePreview = document.getElementById(previewId); // Elemen untuk preview
@@ -304,7 +328,7 @@
 
                 if (file) {
                     const fileExtension = file.name.split('.').pop()
-                .toLowerCase(); // Dapatkan ekstensi file
+                        .toLowerCase(); // Dapatkan ekstensi file
                     const reader = new FileReader();
 
                     if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
