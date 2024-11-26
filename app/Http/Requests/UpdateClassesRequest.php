@@ -23,17 +23,17 @@ class UpdateClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id' => 'required|exists:subjects,id',
-            'name_class' => 'required|string|max:255',
+            'name_class' => [
+                'required','string',Rule::unique('classes','name_class')->ignore($this->route('class'))
+            ],
             'description' => 'nullable|string',
         ];
     }
     public function messages()
     {
         return [
-            'subject_id.required' => 'Mata Pembelajaran Belum Di-pilih',
-            'subject_id.exists' => 'Mata Pembelajaran Tidak Ada',
             'name_class.required' => 'Nama Kelas Belum Di-isi',
+            'name_class.string' => 'Nama Kelas Harus Berformat String',
             'name_class.unique' => 'Nama Kelas Sudah Ada',
             'description.max' => 'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
         ];
