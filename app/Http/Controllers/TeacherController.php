@@ -18,7 +18,7 @@ public function index(Request $request)
     $query = User::role('Guru')
         ->whereDoesntHave('roles', function ($query) {
             $query->where('name', 'Admin');
-        });
+        })->orderBy('created_at', 'desc');
 
     // Full-text search
     if ($request->filled('search')) {
@@ -44,6 +44,15 @@ public function index(Request $request)
     $subjects = \App\Models\Subject::all();
 
     return view('Admins.Teachers.index', compact('teachers', 'subjects','classes'));
+}
+
+public function assign(Request $request, User $user) {
+    $user->update([
+        'classes_id' => $request->classes_id,
+        'subject_id' => $request->subject_id
+    ]);
+
+    return redirect()->back()->with('success', 'Teacher assigned successfully');
 }
 
 

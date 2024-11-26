@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('NIP')->nullable();
             $table->foreignId('subject_id')->nullable()->constrained();
-            $table->foreignId('classes_id')->nullable()->constrained();
+            $table->foreignId('classes_id')->nullable()->constrained('classes');
             $table->rememberToken();
             $table->timestamps();
         });
