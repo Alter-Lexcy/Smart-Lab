@@ -43,12 +43,39 @@
         </div>
         <div id="assignModal" class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
             style="display: none">
-            <div class="bg-white p-4 rounded-md w-1/3">
-
-                <div class="mt-4 flex justify-end space-x-2">
-                    <button onclick="closeModal('assignModal')"
-                        class="px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
-                    <button class="px-4 py-2 bg-green-500 text-white rounded-md">Confirm</button>
+            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
+                <div class="p-5">
+                    <h5 class="text-lg font-bold">Tambah Kelas</h5>
+                    <form action="{{ route('classes.store') }}" method="POST" class="mt-4">
+                        @csrf
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Mapel</label>
+                            <select name="subject_id" class="w-full px-4 py-2 border rounded">1
+                                <option value="" disabled selected>Pilih Mapel</option>
+                                @foreach ($subjects as $subject)
+                                    <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>
+                                        {{ $subject->name_subject }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Nama Kelas</label>
+                            <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
+                                <option value="" disabled selected>Pilih Kelas</option>
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
+                                        {{ $class->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mt-4 flex justify-end space-x-2">
+                            <button onclick="closeModal('assignModal')"
+                                class="px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
+                            <button class="px-4 py-2 bg-green-500 text-white rounded-md">Confirm</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
