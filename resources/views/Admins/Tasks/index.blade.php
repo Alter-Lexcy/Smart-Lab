@@ -175,12 +175,18 @@
                 <div class="mb-4 mr-6 ">
                     <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                     <!-- Image preview -->
+
                         <div id="file-preview-{{ $materi->id }}" class="mt-2">
                             <img id="image-preview" class="mt-2 w-32 mb-2"
                                 style="{{ old('file_task') ? '' : 'display: none;' }}"
                                 src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
                                 alt="Old Image Preview" />
                         </div>
+
+                    <center><div id="file-preview" class="mt-2">
+                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    </div></center>
+
                     <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
                         value="{{ old('file_task') }}">
                     @error('file_task')
@@ -279,7 +285,7 @@
                                 @endif
                             @endif
                         </div>
-                        <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded">
+                        <input type="File" id="file_task-{{ $task->id }}" name="file_task" class="w-full px-3 py-2 border rounded">
                         @error('file_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
@@ -312,8 +318,11 @@
     <script>
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function(event) {
+
                 const previewId = this.id.replace('file_materi',
                     'file-preview'); // Mengganti nama preview ID
+                const previewId = this.id.replace('file_task',
+                'file-preview'); // Mengganti nama preview ID
                 const filePreview = document.getElementById(previewId); // Elemen untuk preview
                 const file = event.target.files[0];
 
@@ -326,13 +335,15 @@
                         // Jika file adalah gambar
                         reader.onload = function(e) {
                             filePreview.innerHTML =
-                                `<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
+                                `<center><p>File Sekarang</p>
+                                    <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview"></center>`;
                         };
                     } else if (fileExtension === 'pdf') {
                         // Jika file adalah PDF
                         reader.onload = function(e) {
                             filePreview.innerHTML =
-                                `<embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
+                                `<center><p>File Sekarang</p>
+                                    <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" /></center>`;
                         };
                     } else {
                         // Jika format tidak didukung
