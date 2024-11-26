@@ -30,6 +30,7 @@
   --z-back: -10;
   --z-normal: 1;
   --z-tooltip: 10;
+  --z-tooltip2: 20;
   --z-fixed: 100;
   --z-modal: 1000;
 }
@@ -112,19 +113,19 @@ a {
 
 .home__parallax-img1 {
     background-image: url("/assets/img/imgm1.png");
-    z-index: var(--z-fixed);
+    z-index: var(--z-tooltip);
   }
 .home__parallax-img2 {
     background-image: url("/assets/img/imgm2.png");
-    z-index: var(--z-fixed);
+    z-index: var(--z-tooltip);
   }
 .home__parallax-img3 {
     background-image: url("/assets/img/imgm3.png");
-    z-index: var(--z-fixed);
+    z-index: var(--z-tooltip);
   }
 .home__parallax-img4 {
   background-image: url("/assets/img/imgm4.png");
-  z-index: var(--z-fixed);
+  z-index: var(--z-tooltip);
 }
 
 .home__title, .home__subtitle {
@@ -142,6 +143,7 @@ a {
 .home__title {
   top: 32%;
   font-size: var(--biggest-font-size);
+  font-weight: 600;
   z-index: var(--z-normal);
   color: var(--first-color);
 }
@@ -150,7 +152,7 @@ a {
   top: 44%;
   font-size: var(--h2-font-size);
   font-weight: bold;
-  z-index: var(--z-tooltip);
+  z-index: var(--z-normal);
   color: var(--first-color);
 }
 
@@ -165,7 +167,7 @@ a {
       -ms-flex-pack: center;
           justify-content: center;
   font-size: 1.5rem;
-  z-index: var(--z-modal);
+  z-index: var(--z-tooltip2);
 }
 
 .home__scroll .bx-mouse {
@@ -173,46 +175,114 @@ a {
 }
 
 /*===== SECTION =====*/
-.l-section {
-  background-color: #FFFF;
-}
-
 .section {
-  height: 100vh;
-  max-width: 1100px;
-  margin-left: 1px;
-  margin-right: 1px;
-  padding: 2rem 0;
-  color: var(--white-color);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
+    border-radius: 10px;
+    margin: 20px auto;
+    margin-bottom: 200px;
+    max-width: 1200px; /* Batas lebar maksimal */
+    height: 500px;
 }
 
-.section__data {
-  margin-bottom: 3rem;
+/* Content Container */
+.section__content {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Jarak antara gambar dan teks */
+}
+
+/* Lottie Animation */
+.section__image {
+    flex: 0 0 300px; /* Ukuran tetap untuk animasi */
+}
+
+.section__heading {
+    flex: 1; /* Allow the heading and text to take remaining space */
 }
 
 .section__title {
-  font-size: var(--h2-font-size);
-  color: var(--first-color);
-  margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.section__img {
-  width: 285px;
-  border-radius: .5rem;
+.section__text {
+    font-size: 1rem;
+    color: #555;
 }
+
+.section__image {
+    flex: 0 0 300px; /* Set a fixed width for the image */
+}
+
+dotlottie-player {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; /* Sudut membulat */
+}
+
+
+.section__heading .section__subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 40px 0;
+}
+
+.section__cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-inline: 200px;
+    padding-bottom: 120px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 250px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card__icon {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.card__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card__divider {
+    width: 40px;
+    height: 4px;
+    background-color: #3498db;
+    margin: 10px auto;
+}
+
+.card__text {
+    font-size: 1rem;
+    color: #777;
+}
+
 
 /*===== MEDIA QUERIES =====*/
 @media screen and (min-width: 760px) {
