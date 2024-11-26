@@ -1,12 +1,23 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
-        <div class="container mx-auto p-4">
-            <div class="flex items-center justify-between mb-4">
-                <h1 class="text-2xl font-bold mr-auto">Daftar Mapel</h1>
+        <h1 class="text-2xl font-bold mr-auto">Daftar Mapel</h1>
+        <div class="container mx-auto pt-2">
+            <div class="flex items-center justify-between ">
+                <form action="" method="GET" class="flex items-center mr-full   ">
+                    <input type="text" name="search" placeholder="Search..."
+                        class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
+                    <button type="submit" class="p-2 border-2 border-l-0 bg-white text-white rounded-r-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                            <path fill="black"
+                                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
+                        </svg>
+                    </button>
+                </form>
                 <a class="group relative inline-block text-xs font-medium text-blue-500 focus:outline-none focus:ring active:text-indigo-500"
                     onclick="openModal('subjectModal')">
-                    <span class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
+                    <span
+                        class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-blue-500 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 rounded-md"></span>
                     <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Tambah Mapel -></span>
                 </a>
             </div>
@@ -26,7 +37,7 @@
                     @foreach ($subjects as $subject)
                         <tr class="border">
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-2 border">{{ $subject->name_subject}}</td>
+                            <td class="px-4 py-2 border">{{ $subject->name_subject }}</td>
                             <td class="px-4 py-2 border space-x-5">
                                 <!-- Tombol Ubah untuk Modal -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
