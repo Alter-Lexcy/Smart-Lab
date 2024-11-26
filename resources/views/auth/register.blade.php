@@ -63,7 +63,7 @@
                         <!-- Input Nama -->
                         <tr>
                             <td colspan="2">
-                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; width: 100%; max-width: 400px; margin: auto;">
+                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-user" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
                                         type="text"
@@ -77,7 +77,7 @@
                         <!-- Input Email -->
                         <tr>
                             <td colspan="2">
-                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; width: 100%; max-width: 400px; margin: auto;">
+                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-envelope" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
                                         type="email"
@@ -92,7 +92,7 @@
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
-                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
+                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
                                             type="password"
@@ -101,7 +101,7 @@
                                             placeholder="Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                     </span>
-                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
+                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock-alt" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
                                             type="password"
@@ -133,7 +133,7 @@
                         <!-- Input Nama -->
                         <tr>
                             <td colspan="2">
-                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; width: 100%; max-width: 400px; margin: auto;">
+                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-user" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
                                         type="text"
@@ -147,7 +147,7 @@
                         <!-- Input Email -->
                         <tr>
                             <td colspan="2">
-                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; width: 100%; max-width: 400px; margin: auto;">
+                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-envelope" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
                                         type="email"
@@ -161,7 +161,7 @@
                         <!-- Input NIP -->
                         <tr>
                             <td colspan="2">
-                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; width: 100%; max-width: 400px; margin: auto;">
+                                <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-id-card" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
                                         type="text"
@@ -176,7 +176,7 @@
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
-                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
+                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
                                             type="password"
@@ -185,7 +185,7 @@
                                             placeholder="Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                     </span>
-                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
+                                    <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock-alt" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
                                             type="password"
