@@ -22,7 +22,6 @@ class StoreClassesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id'=>['required','exists:subjects,id'],
             'name_class'=>['required','string','unique:classes,name_class'],
             'description'=>['max:255']
         ];
@@ -30,8 +29,6 @@ class StoreClassesRequest extends FormRequest
     public function messages()
     {
         return [
-            'subject_id.required'=>'Mata Pembelajaran Belum Di-Pilih',
-            'subject_id.exists'=>'Mata Pembelajaran Tidak Ada',
             'name_class.required'=>'Nama Kelas Belum Di-isi',
             'name_class.unique'=>'Nama Kelas Sudah Ada',
             'description.max'=>'Deskripsi Kelas Terlalu panjang (Batas : 255 Karakter)'

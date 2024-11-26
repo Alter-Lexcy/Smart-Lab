@@ -16,9 +16,8 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $classes = Classes::with('Subject')->get();
-        $subject = Subject::all();
-        return view('Admins.Classes.index', compact('classes','subject'));
+        $classes = Classes::all();
+        return view('Admins.Classes.index', compact('classes'));
     }
 
     /**
@@ -57,10 +56,11 @@ class ClassesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateClassesRequest $request, $id)
     {
-        $classes = Classes::findOrFail($id); // Pastikan memuat data berdasarkan ID
-        $classes->update($request->all());
+
+        $class = Classes::findOrFail($id);
+        $class->update($request->all());
 
         return redirect()->route('classes.index')->with('success', 'Kelas Yang Dipilih Berhasil Diperbarui');
     }
