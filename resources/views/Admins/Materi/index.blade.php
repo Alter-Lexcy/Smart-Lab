@@ -214,10 +214,10 @@
                 <div class="mb-3 mr-6">
                     <label for="file_materi" class="block font-medium mb-1">File Materi</label>
                     <!-- Image preview -->
-                    <center><div id="file-preview-new" class="mt-2">
-                        <img id="image-preview-new" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    <center><div id="file-preview" class="mt-2">
+                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
                     </div></center>
-                    <input type="file" id="file_materi-new" name="file_materi"
+                    <input type="file" id="file_materi" name="file_materi"
                         class="w-full border rounded px-3 py-2">
                 </div>
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
@@ -245,13 +245,15 @@
                         // Jika file adalah gambar
                         reader.onload = function(e) {
                             filePreview.innerHTML =
-                                `<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
+                                `<center><p>File Sekarang</p>
+                                    <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview"></center>`;
                         };
                     } else if (fileExtension === 'pdf') {
                         // Jika file adalah PDF
                         reader.onload = function(e) {
                             filePreview.innerHTML =
-                                `<embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
+                                `<center><p>File Sekarang</p>
+                                    <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" /></center>`;
                         };
                     } else {
                         // Jika format tidak didukung

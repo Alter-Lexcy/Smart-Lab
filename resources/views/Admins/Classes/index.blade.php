@@ -45,7 +45,7 @@
                     <td class="py-2 px-4 border">{{ $index + 1 }}</td>
                     <td class="py-2 px-4 border">{{ $class->Subject->name_subject }}</td>
                     <td class="py-2 px-4 border">{{ $class->name_class }}</td>
-                    <td class="py-2 px-4 border">{{ $class->description }}</td>
+                    <td class="py-2 px-4 border">{{ $class->description ?? 'Kosong' }}</td>
                     <td class="py-2 px-4 border space-x-5">
                         <!-- Tombol Ubah untuk Modal -->
                         <button type="button" class="text-yellow-500 rounded-sm"
