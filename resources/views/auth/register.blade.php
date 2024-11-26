@@ -25,7 +25,6 @@
             margin-right: 10px;
             font-size: 18px;
         }
-
     </style>
 </head>
 
@@ -64,12 +63,9 @@
                         <tr>
                             <td colspan="2">
                                 <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
+
                                     <i class="bx bx-user" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Nama"
+                                    <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                             </td>
@@ -77,6 +73,7 @@
                         <!-- Input Email -->
                         <tr>
                             <td colspan="2">
+
                                 <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-envelope" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
@@ -84,6 +81,7 @@
                                         id="email"
                                         name="email"
                                         placeholder="Email"
+
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                             </td>
@@ -99,7 +97,10 @@
                                             id="password"
                                             name="password"
                                             placeholder="Password"
+
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bx-show" id="togglePassword"
+                                            style="cursor: pointer; position: absolute; right: 10px; font-size: 16px; color: #666;"></i>
                                     </span>
                                     <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock-alt" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
@@ -107,8 +108,11 @@
                                             type="password"
                                             id="password_confirmation"
                                             name="password_confirmation"
+
                                             placeholder="Konfirmasi Password"
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bx-show" id="togglePasswordConfirmation"
+                                            style="cursor: pointer; position: absolute; right: 10px; font-size: 16px; color: #666;"></i>
                                     </span>
                                 </div>
                             </td>
@@ -133,13 +137,11 @@
                         <!-- Input Nama -->
                         <tr>
                             <td colspan="2">
+
                                 <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
+
                                     <i class="bx bx-user" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Nama"
+                                    <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                             </td>
@@ -147,6 +149,7 @@
                         <!-- Input Email -->
                         <tr>
                             <td colspan="2">
+
                                 <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-envelope" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
@@ -154,6 +157,7 @@
                                         id="email"
                                         name="email"
                                         placeholder="Email"
+
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                             </td>
@@ -161,6 +165,7 @@
                         <!-- Input NIP -->
                         <tr>
                             <td colspan="2">
+
                                 <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-id-card" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input
@@ -168,6 +173,7 @@
                                         id="nip"
                                         name="NIP"
                                         placeholder="NIP"
+
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                             </td>
@@ -176,6 +182,7 @@
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
+
                                     <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
@@ -183,8 +190,12 @@
                                             id="password"
                                             name="password"
                                             placeholder="Password"
+
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bx-show" id="togglePassword"
+                                            style="cursor: pointer; position: absolute; right: 10px; font-size: 16px; color: #666;"></i>
                                     </span>
+
                                     <span style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock-alt" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input
@@ -192,7 +203,10 @@
                                             id="password_confirmation"
                                             name="password_confirmation"
                                             placeholder="Konfirmasi Password"
+
                                             style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
+                                        <i class="bx bx-show" id="togglePasswordConfirmation"
+                                            style="cursor: pointer; position: absolute; right: 10px; font-size: 16px; color: #666;"></i>
                                     </span>
                                 </div>
                             </td>
@@ -204,7 +218,7 @@
                 </form>
             </div>
             <div class="link">
-                <p>Belum punya akun? <a href="register">Daftar Sekarang!</a></p>
+                <p>Sudah punya akun? <a href="login">Masuk Sekarang!</a></p>
             </div>
         </div>
     </div>
@@ -221,6 +235,28 @@
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
             });
+        });
+    </script>
+
+    <script>
+        // Show/Hide Password
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.classList.toggle('bx-show'); // Switch to eye-open/close icon
+            this.classList.toggle('bx-hide');
+        });
+
+        // Show/Hide Confirmation Password
+        const togglePasswordConfirmation = document.getElementById('togglePasswordConfirmation');
+        const passwordConfirmationField = document.getElementById('password_confirmation');
+        togglePasswordConfirmation.addEventListener('click', function() {
+            const type = passwordConfirmationField.type === 'password' ? 'text' : 'password';
+            passwordConfirmationField.type = type;
+            this.classList.toggle('bx-show'); // Switch to eye-open/close icon
+            this.classList.toggle('bx-hide');
         });
     </script>
 </body>

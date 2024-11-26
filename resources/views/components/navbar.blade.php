@@ -1,44 +1,81 @@
 <style>
-    /* Initial transition for smooth scaling of the menu */
+    /* Animasi transisi menu */
     .menu {
-        transition: transform 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease, padding 0.3s ease;
     }
 
-    /* Class to scale and change color when scrolling */
+    /* Menu dalam kondisi di-scroll */
     .menu-scrolled {
+        background-color: #000a7b !important;
         transform: scale(1.05);
-        /* Adjust this value for scaling */
-        background-color: #1E40AF;
-        /* Blue background when scrolled */
-        color: white;
-        /* White text color when scrolled */
+        padding: 15px 20px;
     }
 
-    .menu-scrolled a {
+    /* Menu kembali ke posisi awal */
+    .menu-default {
+        background-color: #fff !important;
+        transform: scale(1);
+        padding: 10px 15px;
+    }
+
+
+    /* Tombol "Beranda", "Kelas", "Tugas" */
+    .menu-scrolled .text-blue-800 {
         color: white !important;
-        /* Ensure the text inside links becomes white */
+        transition: color 0.3s ease-in-out;
+    }
+
+    .menu-scrolled .text-blue-800:hover {
+        color: white !important;
+    }
+
+    /* CSS untuk dropdown */
+    .menu-scrolled #dropdown-menu {
+        background-color: #2379c4 !important;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .menu-scrolled #dropdown-menu a {
+        color: white !important;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .menu-scrolled #dropdown-menu a:hover {
+        background-color: lightblue !important;
+        transition: background-color 0.3s ease-in-out;
     }
 </style>
 
-<nav class="flex items-center px-5 py-3 mt-8 fixed top-0 left-0 right-0 z-10">
+<nav class="flex items-center px-5 py-3 mt-8 fixed top-0 left-0 right-0 z-modal">
     <!-- Logo -->
     <a href="#" class="absolute left-5 top-1/2 transform -translate-y-1/2 flex-shrink-0">
         <img src="image/logo-smartlab.png" alt="Logo" class="h-auto w-52">
     </a>
-
     <!-- Menu Tengah -->
     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <ul class="menu flex space-x-8 bg-white/80 rounded-2xl shadow-lg p-3 px-5">
             <li><a href="#" class="text-blue-800 hover:text-blue-600 font-medium">Beranda</a></li>
-            <li><a href="#" class="text-blue-800 hover:text-blue-600 font-medium">Kelas</a></li>
-            <li><a href="#" class="text-blue-800 hover:text-blue-600 font-medium">Materi</a></li>
+            <li class="relative">
+                <button id="kelasButton" class="text-blue-800 hover:text-blue-600 font-medium focus:outline-none"
+                    onclick="toggleDropdown('dropdown-menu')">
+                    Kelas
+                </button>
+                <div id="dropdown-menu" class="hidden absolute bg-white shadow-md rounded-lg mt-5 w-32 fadeindown">
+                    <ul class="py-2">
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 10</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 11</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 12</a></li>
+                    </ul>
+                </div>
+            </li>
             <li><a href="#" class="text-blue-800 hover:text-blue-600 font-medium">Tugas</a></li>
         </ul>
     </div>
 
     <!-- User Icon Button with Link -->
     <a href="/login" id="Login-button"
-        class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-blue-800 bg-white hover:bg-blue-300 transition">
+        class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-blue-800 bg-white hover:bg-blue-300 transition"
+        style="border: 1px solid #7676762f;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
             <path fill-rule="evenodd"
                 d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
@@ -49,13 +86,35 @@
 </nav>
 
 <script>
-    // Detect the scroll event and add/remove the class based on scroll position
+    // Optimized scroll detection with smooth animation
     window.addEventListener('scroll', function() {
-        const menu = document.querySelector('.menu');
+        const menu = document.querySelector('.menu'); // Selector untuk menu utama
+
         if (window.scrollY > 0) {
-            menu.classList.add('menu-scrolled');
+            if (!menu.classList.contains('menu-scrolled')) {
+                menu.classList.remove('menu-default'); // Pastikan menu default dihapus
+                menu.classList.add('menu-scrolled'); // Tambahkan menu scrolled
+            }
         } else {
-            menu.classList.remove('menu-scrolled');
+            if (!menu.classList.contains('menu-default')) {
+                menu.classList.remove('menu-scrolled'); // Pastikan menu scrolled dihapus
+                menu.classList.add('menu-default'); // Tambahkan menu default
+            }
         }
     });
+</script>
+
+
+<script>
+    function toggleDropdown(id) {
+        const menu = document.getElementById(id);
+
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            menu.classList.add('fadeindown');
+        } else {
+            menu.classList.add('hidden');
+            menu.classList.remove('fadeindown');
+        }
+    }
 </script>
