@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax responsive landing page</title>
+    <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
+    <title>SmartLab</title>
 
     <link rel="stylesheet" href="style/styles.css">
     @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
