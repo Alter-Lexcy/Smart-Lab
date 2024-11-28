@@ -4,13 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
-    <title>Smart-LAB</title>
-    
+    <title>SmartLab</title>
 
-
-    <link rel=stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="style/styles.css">
     @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
     <!-- ICONS BOXICONS -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -179,6 +176,8 @@
                 </a>
             </div>
         </div>
+
+
 
         <!-- component -->
         <x-footer></x-footer>
