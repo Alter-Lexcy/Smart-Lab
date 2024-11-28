@@ -23,10 +23,34 @@
                     <span class="relative block border border-current bg-white px-3 py-2 rounded-md">Tambah Materi -></span>
                 </a>
             </div>
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+                    role="alert">
+                    <strong class="font-bold">{{ session('success') }}</strong>
+                    <button onclick="this.parentElement.style.display='none'"
+                        class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <strong class="font-bold">Kesalahan Validasi:</strong>
+                    <ul class="list-disc ml-5 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button onclick="this.parentElement.style.display='none'"
+                        class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
             <!-- Tabel Materi -->
             <div class="overflow-x-auto">
-                <table class="min-w-auto bg-white text-center border border-gray-300 border-collapse">
+                <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
                     <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
                         <tr class="border">
                             <th class="px-4 py-2 border">No</th>
@@ -239,6 +263,8 @@
                 </form>
             </div>
         </div>
+
+        {{-- @foreach ($materis as $materi)
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
             <div class="relative mx-auto w-full max-w-sm">
                 <div class="shadow-md p-4 rounded-lg bg-white">
@@ -284,14 +310,9 @@
                     </div>
 
                     <!-- Description -->
-                    @php
-                        use Illuminate\Support\Str;
-                        $shortDescription = Str::limit($materi->description, 60, '...');
-                    @endphp
-
                     <div class="mt-2 text-sm text-gray-700">
                         <p id="description-{{ $materi->id }}" class="inline">
-                            {{ $shortDescription }}
+                            {{ $materi->short_description }}
                         </p>
                         @if (Str::length($materi->description) > 60)
                             <button onclick="showFullDescription('{{ $materi->id }}', '{{ $materi->description }}')"
@@ -300,6 +321,7 @@
                             </button>
                         @endif
                     </div>
+
                     <button class="mt-3 font-medium text-black border-2 border-blue-500 px-4 py-2 rounded-xl">
                         viewmore
                     </button>
@@ -314,7 +336,7 @@
             <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                 <h2 class="text-lg font-semibold mb-4">Deskripsi Lengkap</h2>
                 <p class="text-gray-700 mb-4">${description}</p>
-<button data-modal-id="{{ $materi->id }}" 
+<button data-modal-id="{{ $materi->id }}"
         class="close-modal-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
     Tutup
 </button>
@@ -339,6 +361,7 @@
                 </div>
             </div>
         </div>
+        @endforeach --}}
         <script>
             // Seleksi elemen secara unik untuk modal tertentu
             document.querySelectorAll('input[type="file"]').forEach(input => {
