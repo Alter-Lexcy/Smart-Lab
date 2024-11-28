@@ -21,6 +21,7 @@
     Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
 
     Route::get('/',[function(){return view('Users.landing');}]);
+    Route::get('/kelas10',[function(){return view('Users.kelas10');}]);
 
     // Route Admin
     Route::middleware(['auth','role:Admin'])->group(function(){
@@ -45,5 +46,5 @@
 
     // Route Murid
     Route::middleware('auth')->group(function(){
-        
+
     });

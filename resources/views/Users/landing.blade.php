@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax responsive landing page</title>
+    <title>Smart-LAB</title>
 
     <link rel="stylesheet" href="style/styles.css">
     @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
@@ -175,8 +175,6 @@
                 </a>
             </div>
         </div>
-
-
 
         <!-- component -->
         <x-footer></x-footer>
