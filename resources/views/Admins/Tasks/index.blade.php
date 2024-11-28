@@ -180,9 +180,11 @@
                         <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
                     </div>
 
-                    <center><div id="file-preview" class="mt-2">
-                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
-                    </div></center>
+                    <center>
+                        <div id="file-preview" class="mt-2">
+                            <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                        </div>
+                    </center>
 
                     <input type="File" id="file_task" name="file_task" class="w-full px-3 py-2 border rounded"
                         value="{{ old('file_task') }}">
@@ -270,19 +272,20 @@
                                     $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
                                 @endphp
                                 @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                        <p class="mb-3">Gambar Sebelumnya</p>
-                                        <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview"
-                                            class="w-32 mb-2">
+                                    <p class="mb-3">Gambar Sebelumnya</p>
+                                    <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview"
+                                        class="w-32 mb-2">
                                 @elseif ($fileExtension === 'pdf')
-                                        <p class="mb-3">PDF Sebelumnya</p>
-                                        <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
-                                            class="w-full h-32 mb-2" />
+                                    <p class="mb-3">PDF Sebelumnya</p>
+                                    <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
+                                        class="w-full h-32 mb-2" />
                                 @else
                                     <p class="text-red-500">Format file tidak didukung.</p>
                                 @endif
                             @endif
                         </div>
-                        <input type="File" id="file_task-{{ $task->id }}" name="file_task" class="w-full px-3 py-2 border rounded">
+                        <input type="File" id="file_task-{{ $task->id }}" name="file_task"
+                            class="w-full px-3 py-2 border rounded">
                         @error('file_task')
                             <div class="text-red-500">{{ $message }}</div>
                         @enderror
@@ -317,7 +320,7 @@
             input.addEventListener('change', function(event) {
 
                 const previewId = this.id.replace('file_task',
-                'file-preview'); // Mengganti nama preview ID
+                    'file-preview'); // Mengganti nama preview ID
                 const filePreview = document.getElementById(previewId); // Elemen untuk preview
                 const file = event.target.files[0];
 
@@ -356,14 +359,23 @@
 
         function openModal(id) {
             console.log(`Opening modal: ${id}`);
-            document.getElementById(id).style.display = 'flex';
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
         }
 
         function closeModal(id) {
             console.log(`Closing modal: ${id}`);
-            document.getElementById(id).style.display = 'none';
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
         }
-
 
         // Open the modal if validation fails
         @if (session('success'))
