@@ -136,6 +136,7 @@ h5, p {
     display: block;/* Memastikan tombol berperilaku sebagai block element */
 }
 
+
 .login-form button:hover {
     background-color: #0056b3;
 }
@@ -156,6 +157,13 @@ h5, p {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
     display: block;/* Memastikan tombol berperilaku sebagai block element */
+}
+
+input:-webkit-autofill {
+    background-color: blue !important; /* Pastikan latar belakang tetap putih */
+    color: #333 !important; /* Warna teks */
+    border: 1px solid #ddd; /* Warna border */
+    border-radius: 1px !important;
 }
 
 .register-form button:hover {

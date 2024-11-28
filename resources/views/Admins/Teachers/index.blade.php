@@ -20,6 +20,8 @@
                         <th class="px-4 py-2 border">Nama Guru</th>
                         <th class="px-4 py-2 border">Email Guru</th>
                         <th class="px-4 py-2 border">NIP</th>
+                        <th class="px-4 py-2 border">Kelas</th>
+                        <th class="px-4 py-2 border">Mapel</th>
                         <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
@@ -30,60 +32,76 @@
                             <td class="px-4 py-2 border">{{ $teacher->name }}</td>
                             <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                             <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
+                            <td class="px-4 py-2 border"> {{ $teacher->class->name_class ?? 'kosong' }}</td>
+                            </td>
+                            <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                             <td class="px-4 py-2 border">
                                 <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
-                                    onclick="openModal('assignModal')">
-                                    Assign
+                                    onclick="openModal('assignModal-{{ $teacher->id }}')">
+                                    Penempatan
                                 </button>
                             </td>
                         </tr>
+                        <div id="assignModal-{{ $teacher->id }}"
+                            class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
+                            style="display: none">
+                            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
+                                <div class="p-5">
+                                    <h5 class="text-lg font-bold">Tambah Kelas</h5>
+                                    <form action="{{ route('assignTeacher', $teacher->id) }}" method="POST" class="mt-4">
+                                        @method('PUT')
+                                        @csrf
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700">Mapel</label>
+                                            <select id="name_subject" name="subject_id"
+                                                class="w-full border rounded px-3 py-2">
+                                                <option value="" disabled selected>Pilih Nama Mapel</option>
+                                                @foreach ($subjects as $mapel)
+                                                    <option value="{{ $mapel->id }}"
+                                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
+                                                        {{ $mapel->name_subject }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700">Nama Kelas</label>
+                                            <select name="classes_id" id="classes_id"
+                                                class="w-full px-3 py-2 border rounded">
+                                                <option value="" disabled selected>Pilih Kelas</option>
+                                                @foreach ($classes as $class)
+                                                    <option value="{{ $class->id }}"
+                                                        {{ old('classes_id') == $class->id ? 'selected' : '' }}>
+                                                        {{ $class->name_class }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                        <div class="mt-4 flex justify-end space-x-2">
+                                            <button type="button" onclick="closeModal('assignModal-{{ $teacher->id }}')"
+                                                class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
+                                            <button type="submit"
+                                                class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div id="assignModal" class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
-            style="display: none">
-            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
-                <div class="p-5">
-                    <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                    <form action="{{ route('classes.store') }}" method="POST" class="mt-4">
-                        @csrf
-                        <div class="mb-4">
-                            <label class="block text-gray-700">Mapel</label>
-                            <select name="subject_id" class="w-full px-4 py-2 border rounded">1
-                                <option value="" disabled selected>Pilih Mapel</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}" {{ request('subject_id') == $subject->id ? 'selected' : '' }}>
-                                        {{ $subject->name_subject }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700">Nama Kelas</label>
-                            <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
-                                <option value="" disabled selected>Pilih Kelas</option>
-                                @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
-                                        {{ $class->name_class }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mt-4 flex justify-end space-x-2">
-                            <button onclick="closeModal('assignModal')"
-                                class="px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
-                            <button class="px-4 py-2 bg-green-500 text-white rounded-md">Confirm</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
     </div>
     <script>
         function openModal(id) {
             console.log(`Opening modal: ${id}`);
             document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
         function closeModal(id) {

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
-use App\Http\Requests\StoreTeacherRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateTeacherRequest;
+use App\Models\Classes;
+use App\Models\Subject;
 use App\Models\User;
 
 class TeacherController extends Controller
@@ -18,7 +18,10 @@ public function index(Request $request)
     $query = User::role('Guru')
         ->whereDoesntHave('roles', function ($query) {
             $query->where('name', 'Admin');
-        });
+        })
+        ->orderByRaw('classes_id IS NULL')
+        ->orderByRaw('subject_id IS  NULL')
+        ->orderBy('created_at', 'desc');
 
     // Full-text search
     if ($request->filled('search')) {
@@ -40,10 +43,19 @@ public function index(Request $request)
     $teachers = $query->get();
 
     // Get all subjects for the dropdown
-    $classes = \App\Models\Classes::all();
-    $subjects = \App\Models\Subject::all();
+    $classes = Classes::all();
+    $subjects = Subject::all();
 
     return view('Admins.Teachers.index', compact('teachers', 'subjects','classes'));
+}
+
+public function assign(Request $request, User $user) {
+    $user->update([
+        'classes_id' => $request->classes_id,
+        'subject_id' => $request->subject_id
+    ]);
+
+    return redirect()->back()->with('success', 'Teacher assigned successfully');
 }
 
 
