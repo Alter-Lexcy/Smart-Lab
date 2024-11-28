@@ -227,8 +227,8 @@
                     <div class="mb-3 mr-6">
                         <label for="file_materi" class="block font-medium mb-1">File Materi</label>
                         <!-- Image preview -->
-                        <div id="file-preview-new" class="mt-2">
-                            <img id="image-preview-new" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                        <div id="file-preview" class="mt-2">
+                            <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
                         </div>
                         <input type="file" id="file_materi-new" name="file_materi"
                             class="w-full border rounded px-3 py-2">
