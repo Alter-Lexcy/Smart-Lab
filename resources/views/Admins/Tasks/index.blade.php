@@ -176,12 +176,9 @@
                     <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                     <!-- Image preview -->
 
-                        <div id="file-preview-{{ $materi->id }}" class="mt-2">
-                            <img id="image-preview" class="mt-2 w-32 mb-2"
-                                style="{{ old('file_task') ? '' : 'display: none;' }}"
-                                src="{{ old('file_task') ? asset('file_task/' . old('file_task')) : '' }}"
-                                alt="Old Image Preview" />
-                        </div>
+                    <div id="file-preview" class="mt-2">
+                        <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                    </div>
 
                     <center><div id="file-preview" class="mt-2">
                         <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
@@ -319,8 +316,6 @@
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function(event) {
 
-                const previewId = this.id.replace('file_materi',
-                    'file-preview'); // Mengganti nama preview ID
                 const previewId = this.id.replace('file_task',
                 'file-preview'); // Mengganti nama preview ID
                 const filePreview = document.getElementById(previewId); // Elemen untuk preview

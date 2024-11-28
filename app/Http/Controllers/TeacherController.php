@@ -19,8 +19,8 @@ public function index(Request $request)
         ->whereDoesntHave('roles', function ($query) {
             $query->where('name', 'Admin');
         })
-        ->orderByRaw('classes_id IS NULL')
-        ->orderByRaw('subject_id IS  NULL')
+        ->orderByRaw('classes_id IS NOT NULL')
+        ->orderByRaw('subject_id IS NOT NULL')
         ->orderBy('created_at', 'desc');
 
     // Full-text search
@@ -50,6 +50,14 @@ public function index(Request $request)
 }
 
 public function assign(Request $request, User $user) {
+
+    if(User::where('classes_id',$request->classes_id)
+           ->where('subject_id',$request->subject_id)
+           ->where('id','!=',$user->id)
+           ->exists()){
+        return back()->withErrors(['assign'=>'Kelas Sama Mapel Sudah Ada Yang isi']);
+    }
+
     $user->update([
         'classes_id' => $request->classes_id,
         'subject_id' => $request->subject_id
