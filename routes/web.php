@@ -21,7 +21,6 @@
     Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
 
     Route::get('/',[function(){return view('Users.landing');}]);
-    Route::get('/kelas10',[function(){return view('Users.kelas10');}]);
 
     // Route Admin
     Route::middleware(['auth','role:Admin'])->group(function(){
@@ -47,5 +46,7 @@
 
     // Route Murid
     Route::middleware('auth')->group(function(){
-
+        Route::get('/kelas10',[function(){return view('Users.kelas10');}]);
+        Route::get('/kelas11',[function(){return view('Users.kelas11');}]);
+        Route::get('/kelas12',[function(){return view('Users.kelas12');}]);
     });
