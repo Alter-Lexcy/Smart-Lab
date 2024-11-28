@@ -12,6 +12,22 @@
                 </svg>
             </button>
         </form>
+
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Kesalahan Validasi:</strong>
+            <ul class="list-disc ml-5 mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button onclick="this.parentElement.style.display='none'"
+                class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 rounded-lg">
                 <thead class="bg-gradient-to-r from-sky-200 to-blue-300 ">
