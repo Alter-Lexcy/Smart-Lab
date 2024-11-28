@@ -45,7 +45,6 @@
         transition: background-color 0.3s ease-in-out;
     }
 </style>
-
 <nav class="flex items-center px-5 py-3 mt-8 fixed top-0 left-0 right-0 z-modal">
     <!-- Logo -->
     <a href="#" class="absolute left-5 top-1/2 transform -translate-y-1/2 flex-shrink-0">
@@ -62,9 +61,9 @@
                 </button>
                 <div id="dropdown-menu" class="hidden absolute bg-white shadow-md rounded-lg mt-5 w-32 fadeindown">
                     <ul class="py-2">
-                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 10</a></li>
-                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 11</a></li>
-                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 12</a></li>
+                        <li><a href="/kelas10" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 10</a></li>
+                        <li><a href="/kelas11" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 11</a></li>
+                        <li><a href="/kelas12" class="block px-4 py-2 hover:bg-blue-100 text-gray-800">Kelas 12</a></li>
                     </ul>
                 </div>
             </li>
@@ -72,18 +71,48 @@
         </ul>
     </div>
 
-    <!-- User Icon Button with Link -->
-    <a href="/login" id="Login-button"
-        class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-blue-800 bg-white hover:bg-blue-300 transition"
-        style="border: 1px solid #7676762f;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-            <path fill-rule="evenodd"
-                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                clip-rule="evenodd" />
-        </svg>
-        <span class="text-lg font-medium">Sign-in</span>
-    </a>
+    <!-- Sign-in or Profile Button -->
+    @guest
+        @if (Route::has('login'))
+            <a href="/login" id="Login-button"
+                class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-blue-800 bg-white hover:bg-blue-300 transition"
+                style="border: 1px solid #7676762f;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-lg font-medium">Sign-in</span>
+            </a>
+        @endif
+        @else
+        <!-- Profile Button with Dropdown -->
+        <a href="#" id="profile-button"
+            class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 transition"
+            style="border: 1px solid #7676762f;" onclick="toggleDropdown()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                <path fill-rule="evenodd"
+                    d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span class="text-lg font-medium">
+                {{ Auth::user()->name }}
+            </span>
+        </a>
+
+        <!-- Dropdown Menu -->
+        <div id="dropdown-profile" class="absolute hidden bg-white shadow-lg rounded-md w-48 top-10 right-6 text-gray-800 text-sm">
+            <div class="px-4 py-2 border-b">Email: {{ Auth::user()->email }}</div>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-full py-2 hover:bg-gray-100">
+                    Logout
+                </button>
+            </form>
+        </div>
+    @endguest
 </nav>
+
 
 <script>
     // Optimized scroll detection with smooth animation
@@ -116,5 +145,13 @@
             menu.classList.add('hidden');
             menu.classList.remove('fadeindown');
         }
+    }
+</script>
+
+<!-- JavaScript to toggle dropdown visibility -->
+<script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("dropdown-profile");
+        dropdown.classList.toggle("hidden");
     }
 </script>
