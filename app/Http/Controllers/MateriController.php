@@ -8,6 +8,7 @@ use App\Models\Subject;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
+use Illuminate\Support\Str;
 
 class MateriController extends Controller
 {
@@ -19,6 +20,9 @@ class MateriController extends Controller
         $materis = Materi::with('Subject', 'Classes')->get();
         $subjects = Subject::all();
         $classes = Classes::all();
+        foreach ($materis as $materi) {
+            $materi->short_description = Str::limit($materi->description, 60, '...');
+        }
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
     }
 
