@@ -19,6 +19,7 @@
 
     Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
     Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
+    Route::post('');
 
     Route::get('/',[function(){return view('Users.landing');}]);
 
