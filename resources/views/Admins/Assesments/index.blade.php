@@ -46,7 +46,7 @@
                             <td class="border px-4 py-2 ">
                                 <!-- Edit button to open modal -->
                                 <button type="button" class="text-yellow-500 rounded-sm"
-                                    onclick="openModal('editAssessmentModal_{{ $assessment->id }}')">
+                                    onclick="openModal('editAssessmentModal-{{ $assessment->id }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                         class="size-6">
                                         <path
@@ -135,7 +135,7 @@
 
     <!-- Modals for editing each assessment -->
     @foreach ($assessments as $assessment)
-        <div id="editAssessmentModal_{{ $assessment->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto"
+        <div id="editAssessmentModal-{{ $assessment->id }}" class="assessmentModal hidden fixed inset-0 z-50 overflow-y-auto"
             style="display: none;">
             <div class="flex items-center justify-center min-h-screen px-4">
                 <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
@@ -183,7 +183,7 @@
 
                         <div class="flex justify-end gap-2">
                             <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded"
-                                onclick="document.getElementById('editAssessmentModal_{{ $assessment->id }}').classList.add('hidden')">Batal</button>
+                                onclick="document.getElementById('editAssessmentModal-{{ $assessment->id }}').classList.add('hidden')">Batal</button>
                             <button type="submit"
                                 class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Simpan</button>
                         </div>
