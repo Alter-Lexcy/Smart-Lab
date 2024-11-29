@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class StudentController extends Controller
                 $query->where('name', '!=', 'Murid'); // Pastikan tidak memiliki role lain
             })->get();
 
-        return view('Admins.Students.index', compact('students'));
+            $classes = Classes::all();
+        return view('Admins.Students.index', compact('students','classes'));
 
     }
 }
