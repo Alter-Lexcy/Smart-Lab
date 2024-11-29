@@ -19,6 +19,7 @@
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Nama Siswa</th>
                         <th class="px-4 py-2 border">Email Siswa</th>
+                        <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,7 +28,59 @@
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $student->name }}</td>
                             <td class="px-4 py-2 border">{{ $student->email }}</td>
+                            <td class="px-4 py-2 border">
+                                <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
+                                    onclick="openModal('assignModal-{{ $student->id }}')">
+                                    Penempatan
+                                </button>
+                            </td>
                         </tr>
+                        <div id="assignModal-{{ $teacher->id }}"
+                            class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
+                            style="display: none">
+                            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
+                                <div class="p-5">
+                                    <h5 class="text-lg font-bold">Tambah Kelas</h5>
+                                    <form action="{{ route('assignTeacher', $teacher->id) }}" method="POST" class="mt-4">
+                                        @method('PUT')
+                                        @csrf
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700">Mapel</label>
+                                            <select id="name_subject" name="subject_id"
+                                                class="w-full border rounded px-3 py-2">
+                                                <option value="" disabled selected>Pilih Nama Mapel</option>
+                                                @foreach ($subjects as $mapel)
+                                                    <option value="{{ $mapel->id }}"
+                                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
+                                                        {{ $mapel->name_subject }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700">Nama Kelas</label>
+                                            <select name="classes_id" id="classes_id"
+                                                class="w-full px-3 py-2 border rounded">
+                                                <option value="" disabled selected>Pilih Kelas</option>
+                                                @foreach ($classes as $class)
+                                                    <option value="{{ $class->id }}"
+                                                        {{ old('classes_id') == $class->id ? 'selected' : '' }}>
+                                                        {{ $class->name_class }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                        <div class="mt-4 flex justify-end space-x-2">
+                                            <button type="button" onclick="closeModal('assignModal-{{ $teacher->id }}')"
+                                                class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
+                                            <button type="submit"
+                                                class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>

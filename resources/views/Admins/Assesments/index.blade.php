@@ -42,31 +42,45 @@
                 </button>
             </div>
         @endif
-        <!-- Tabel Materi -->
-        <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
-            <h6 class="font-semibold p-3 text-sm ps-5">Daftar Penilaian</h6>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white text-center rounded-lg">
-                    <thead>
-                        <tr class="border">
-                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
-                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Tugas</th>
-                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Siswa</th>
-                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Mark Task</th>
-                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($assessments as $index => $assessment)
-                            <tr>
-                                <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                                <td class="border px-4 py-2">{{ $assessment->Task->title_task ?? 'Tidak tersedia' }}</td>
-                                <td class="border px-4 py-2">{{ $assessment->User->name ?? 'Tidak tersedia' }}</td>
-                                <td class="border px-4 py-2">{{ $assessment->mark_task }}</td>
-                                <td class="border px-4 py-2 ">
-                                    <!-- Edit button to open modal -->
-                                    <button type="button" class="text-yellow-500 rounded-sm"
-                                        onclick="openModal('editAssessmentModal_{{ $assessment->id }}')">
+        <!-- Table of assessments -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white text-center border border-gray-200">
+                <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
+                    <tr>
+                        <th class="border px-4 py-2">No</th>
+                        <th class="border px-4 py-2">Tugas</th>
+                        <th class="border px-4 py-2">Siswa</th>
+                        <th class="border px-4 py-2">Mark Task</th>
+                        <th class="border px-4 py-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($assessments as $index => $assessment)
+                        <tr>
+                            <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                            <td class="border px-4 py-2">{{ $assessment->Task->title_task ?? 'Tidak tersedia' }}</td>
+                            <td class="border px-4 py-2">{{ $assessment->User->name ?? 'Tidak tersedia' }}</td>
+                            <td class="border px-4 py-2">{{ $assessment->mark_task }}</td>
+                            <td class="border px-4 py-2 ">
+                                <!-- Edit button to open modal -->
+                                <button type="button" class="text-yellow-500 rounded-sm"
+                                    onclick="openModal('editAssessmentModal-{{ $assessment->id }}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="size-6">
+                                        <path
+                                            d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                        <path
+                                            d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </button>
+
+                                <!-- Delete form -->
+                                <form action="{{ route('assesments.destroy', $assessment->id) }}" method="POST"
+                                    class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 rounded-sm"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus assessment ini?')">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="size-6">
                                             <path
@@ -99,8 +113,10 @@
             </div>
         </div>
 
-        <!-- Modal for adding a new assessment -->
-        <div id="assessmentModal" class="hidden fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+    <!-- Modals for editing each assessment -->
+    @foreach ($assessments as $assessment)
+        <div id="editAssessmentModal-{{ $assessment->id }}" class="assessmentModal hidden fixed inset-0 z-50 overflow-y-auto"
+            style="display: none;">
             <div class="flex items-center justify-center min-h-screen px-4">
                 <div class="bg-white rounded-lg shadow-lg w-full p-6">
                     <h5 class="text-xl font-semibold mb-4">Tambah Assessment</h5>
@@ -147,10 +163,14 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Tambah
-                            Penilaian</button>
-                        <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded"
-                            onclick="closeModal('assessmentModal')">Batal</button>
+                        <div class="flex justify-end gap-2">
+                            <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded"
+                                onclick="document.getElementById('editAssessmentModal-{{ $assessment->id }}').classList.add('hidden')">Batal</button>
+                            <button type="submit"
+                                class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Simpan</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
