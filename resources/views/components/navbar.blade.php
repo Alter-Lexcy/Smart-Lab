@@ -85,11 +85,11 @@
                 <span class="text-lg font-medium">Sign-in</span>
             </a>
         @endif
-        @else
-        <!-- Profile Button with Dropdown -->
+    @else
+        <!-- Profile Button -->
         <a href="#" id="profile-button"
             class="absolute top-[0.6rem] right-5 flex items-center gap-2 rounded-full transform -translate-y-1/2 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 transition"
-            style="border: 1px solid #7676762f;" onclick="toggleDropdown()">
+            style="border: 1px solid #7676762f;" onclick="toggleDropdown('dropdown-profile')">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
                 <path fill-rule="evenodd"
                     d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
@@ -100,16 +100,16 @@
             </span>
         </a>
 
-        <!-- Dropdown Menu -->
-        <div id="dropdown-profile" class="absolute hidden bg-white shadow-lg rounded-md w-48 top-10 right-6 text-gray-800 text-sm">
+        <!-- Dropdown Profile -->
+        <div id="dropdown-profile"
+            class="absolute hidden bg-white shadow-lg rounded-md w-48 top-12 right-6 text-gray-800 text-sm">
             <div class="px-4 py-2 border-b">Email: {{ Auth::user()->email }}</div>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="w-full py-2 hover:bg-gray-100">
-                    Logout
-                </button>
+                <button type="submit" class="w-full py-2 hover:bg-gray-100">Logout</button>
             </form>
         </div>
+
     @endguest
 </nav>
 
@@ -133,25 +133,24 @@
     });
 </script>
 
-
 <script>
-    function toggleDropdown(id) {
-        const menu = document.getElementById(id);
+    function toggleDropdown(dropdownId) {
+        const dropdown = document.getElementById(dropdownId);
 
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-            menu.classList.add('fadeindown');
+        if (dropdown.classList.contains('hidden')) {
+            dropdown.classList.remove('hidden'); // Tampilkan dropdown
         } else {
-            menu.classList.add('hidden');
-            menu.classList.remove('fadeindown');
+            dropdown.classList.add('hidden'); // Sembunyikan dropdown
         }
     }
-</script>
 
-<!-- JavaScript to toggle dropdown visibility -->
-<script>
-    function toggleDropdown() {
-        var dropdown = document.getElementById("dropdown-profile");
-        dropdown.classList.toggle("hidden");
-    }
+    // Klik di luar dropdown untuk menutupnya
+    window.addEventListener('click', function(event) {
+        const profileButton = document.getElementById('profile-button');
+        const profileDropdown = document.getElementById('dropdown-profile');
+
+        if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+            profileDropdown.classList.add('hidden'); // Sembunyikan dropdown jika klik di luar
+        }
+    });
 </script>

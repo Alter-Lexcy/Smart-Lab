@@ -194,6 +194,24 @@
     <!-- MAIN JS -->
     <script src="assets/js/main.js"></script>
 
+    <script>
+        window.onload = function() {
+          // Pastikan posisi halaman berada di atas saat halaman dimuat
+          window.scrollTo(0, 0);
+
+          // Nonaktifkan pengguliran dengan menyembunyikan overflow pada body
+          document.body.style.overflow = "hidden";
+
+          // Setel timer 2 detik
+          setTimeout(() => {
+            // Aktifkan kembali pengguliran
+            document.body.style.overflow = "auto";
+          }, 3000); // 2000ms = 2 detik
+        };
+      </script>
+
+
+
 </body>
 
 </html>
