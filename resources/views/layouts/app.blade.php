@@ -23,6 +23,15 @@
     <!-- Preline Select CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.css">
 
+    {{-- font poppins --}}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+        </style>
+
     <!-- Preline Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.js"></script>
     <script>
@@ -42,7 +51,7 @@
     </script>
 </head>
 
-<body class="bg-gray-100 font-sans ">
+<body class="bg-gray-50  font-sans ">
     <div class="flex h-auto">
         <!-- Sidebar -->
         <aside
@@ -274,7 +283,7 @@
         <!-- Page Content  -->
         <div class="flex-1 p-4 ml-14">
             <nav id="navbar"
-                class="flex items-center justify-between bg-white shadow-lg rounded-xl  z-10 transition-all duration-300">
+                class="flex items-center justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
                 <!-- Search Input -->
                 <form action="{{ route('search') }}" method="GET" class="flex items-center ml-4 mt-4">
                     <input type="text" name="search" placeholder="Search..."
