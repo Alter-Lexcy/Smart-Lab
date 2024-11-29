@@ -52,7 +52,7 @@ class User extends Authenticatable
     }
 
     public function class(){
-        return $this->belongsTo(Classes::class, 'classes_id');
+        return $this->belongsToMany(Classes::class, 'teacher_classes','user_id','classes_id');
     }
 }
 

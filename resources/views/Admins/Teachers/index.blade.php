@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+
+    {{-- Script Select2 --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Daftar Guru</h1>
         <form action="" method="GET" class="flex items-center mr-full   ">
@@ -54,7 +62,9 @@
                             <td class="px-4 py-2 border">{{ $teacher->name }}</td>
                             <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                             <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
-                            <td class="px-4 py-2 border"> {{ $teacher->class->name_class ?? 'kosong' }}</td>
+                            <td class="px-4 py-2 border">
+                                {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
+                            </td>
                             </td>
                             <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                             <td class="px-4 py-2 border">
@@ -81,7 +91,7 @@
                                                 <option value="" disabled selected>Pilih Nama Mapel</option>
                                                 @foreach ($subjects as $mapel)
                                                     <option value="{{ $mapel->id }}"
-                                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
+                                                        {{ old('subject_id', $mapel->subject_id) == $mapel->id ? 'selected' : '' }}>
                                                         {{ $mapel->name_subject }}
                                                     </option>
                                                 @endforeach
@@ -89,16 +99,16 @@
                                         </div>
                                         <div class="mb-4">
                                             <label class="block text-gray-700">Nama Kelas</label>
-                                            <select name="classes_id" id="classes_id"
-                                                class="w-full px-3 py-2 border rounded">
-                                                <option value="" disabled selected>Pilih Kelas</option>
+                                            <select name="classes_id[]" id="classes_id"
+                                                class="w-full px-3 py-2 border rounded js-example-basic-multiple"
+                                                multiple="multiple">
+                                                <option value="" disabled>Pilih Kelas</option>
                                                 @foreach ($classes as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ old('classes_id') == $class->id ? 'selected' : '' }}>
+                                                        {{ in_array($class->id, old('classes_id', [$class->classes_id])) ? 'selected' : '' }}>
                                                         {{ $class->name_class }}
                                                     </option>
                                                 @endforeach
-
                                             </select>
                                         </div>
                                         <div class="mt-4 flex justify-end space-x-2">
@@ -138,5 +148,18 @@
                 closeModal('subjectModal'); // Menutup modal setelah data berhasil ditambah
             });
         @endif
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+
+        $(document).ready(function() {
+            // Inisialisasi untuk input Select2
+            $('#classes_id').select2({
+                placeholder: "Pilih Kelas",
+                width: '100%' // Gunakan full width dari kontainer
+            });
+
+        });
     </script>
 @endsection
