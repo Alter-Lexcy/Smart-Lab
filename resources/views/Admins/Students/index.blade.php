@@ -3,7 +3,7 @@
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Daftar Siswa</h1>
         <form action="" method="GET" class="flex items-center mr-full   ">
-            <input type="text" name="search" placeholder="Search..."
+            <input type="text" name="search" placeholder="Cari..."
                 class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
             <button type="submit" class="p-2 border-2 border-l-0 bg-white text-white rounded-r-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
