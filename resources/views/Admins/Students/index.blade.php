@@ -35,28 +35,15 @@
                                 </button>
                             </td>
                         </tr>
-                        <div id="assignModal-{{ $teacher->id }}"
+                        <div id="assignModal-{{ $student->id }}"
                             class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
                             style="display: none">
                             <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                                 <div class="p-5">
                                     <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                                    <form action="{{ route('assignTeacher', $teacher->id) }}" method="POST" class="mt-4">
+                                    <form action="" method="POST" class="mt-4">
                                         @method('PUT')
                                         @csrf
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700">Mapel</label>
-                                            <select id="name_subject" name="subject_id"
-                                                class="w-full border rounded px-3 py-2">
-                                                <option value="" disabled selected>Pilih Nama Mapel</option>
-                                                @foreach ($subjects as $mapel)
-                                                    <option value="{{ $mapel->id }}"
-                                                        {{ $mapel->subject_id == $mapel->id ? 'selected' : '' }}>
-                                                        {{ $mapel->name_subject }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                         <div class="mb-4">
                                             <label class="block text-gray-700">Nama Kelas</label>
                                             <select name="classes_id" id="classes_id"
@@ -72,7 +59,7 @@
                                             </select>
                                         </div>
                                         <div class="mt-4 flex justify-end space-x-2">
-                                            <button type="button" onclick="closeModal('assignModal-{{ $teacher->id }}')"
+                                            <button type="button" onclick="closeModal('assignModal-{{ $student->id }}')"
                                                 class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
                                             <button type="submit"
                                                 class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
@@ -86,4 +73,19 @@
             </table>
         </div>
     </div>
+    <script>
+        function openModal(id) {
+            console.log(`Opening modal: ${id}`);
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function closeModal(id) {
+            console.log(`Closing modal: ${id}`);
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
 @endsection
