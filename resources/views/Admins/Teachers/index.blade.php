@@ -64,7 +64,7 @@
                             <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
                             <td class="px-4 py-2 border">
                                 {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
-                            </td>
+                            </td>   
                             </td>
                             <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                             <td class="px-4 py-2 border">
