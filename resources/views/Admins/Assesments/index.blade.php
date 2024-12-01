@@ -50,7 +50,7 @@
                         <th class="border px-4 py-2">No</th>
                         <th class="border px-4 py-2">Tugas</th>
                         <th class="border px-4 py-2">Siswa</th>
-                        <th class="border px-4 py-2">Mark Task</th>
+                        <th class="border px-4 py-2">Nilai Tugas</th>
                         <th class="border px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
@@ -113,13 +113,12 @@
             </div>
         </div>
 
-    <!-- Modals for editing each assessment -->
-    @foreach ($assessments as $assessment)
-        <div id="editAssessmentModal-{{ $assessment->id }}" class="assessmentModal hidden fixed inset-0 z-50 overflow-y-auto"
+    <!-- Modals for add each assessment -->
+        <div id="assessmentModal" class="assessmentModal hidden fixed inset-0 z-50 overflow-y-auto"
             style="display: none;">
             <div class="flex items-center justify-center min-h-screen px-4">
                 <div class="bg-white rounded-lg shadow-lg w-full p-6">
-                    <h5 class="text-xl font-semibold mb-4">Tambah Assessment</h5>
+                    <h5 class="text-xl font-semibold mb-4">Tambah Penilaian</h5>
                     <form action="{{ route('assesments.store') }}" method="POST">
                         @csrf
                         <div class="mb-4">
@@ -165,7 +164,7 @@
 
                         <div class="flex justify-end gap-2">
                             <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded"
-                                onclick="document.getElementById('editAssessmentModal-{{ $assessment->id }}').classList.add('hidden')">Batal</button>
+                            onclick="closeModal('assessmentModal')">Batal</button>
                             <button type="submit"
                                 class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Simpan</button>
                         </div>
@@ -174,7 +173,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Modals for editing each assessment -->
         @foreach ($assessments as $assessment)
             <div id="editAssessmentModal_{{ $assessment->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto"
@@ -217,8 +215,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="mark_task_{{ $assessment->id }}" class="block font-semibold">Mark
-                                    Task</label>
+                                <label for="mark_task_{{ $assessment->id }}" class="block font-semibold">Nilai Tugas</label>
                                 <input type="text" class="w-full mt-1 p-2 border border-gray-300 rounded"
                                     id="mark_task_{{ $assessment->id }}" name="mark_task"
                                     value="{{ $assessment->mark_task }}">
