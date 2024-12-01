@@ -61,6 +61,7 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATERI</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">FILE MATERI</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">DESKRIPSI</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">TANGGAL PEMBUATAN</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">AKSI</th>
                             </tr>
                         </thead>
@@ -85,7 +86,9 @@
                                             <p class="text-red-500">Format file tidak didukung.</p>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-2 border-b">{{ $materi->description ?? 'Kosong' }}</td>
+                                    <td class="px-4 py-2 border-b">{{ $materi->short_description = Str::limit($materi->description, 20, '...')  ?? 'Kosong' }}</td>
+                                    <td class="px-4 py-2 border-b">
+                                        {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}</td>
                                     <td class="px-4 py-2">
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
@@ -99,7 +102,7 @@
 
                                             <!-- Edit button -->
                                             <button type="button" class="text-yellow-500 rounded-sm"
-                                                onclick="openModal('editAssessmentModal_{{ $materi->id }}')">
+                                                onclick="openModal('materiModal-{{ $materi->id }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mt-1">
                                                     <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                                     <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
@@ -107,7 +110,7 @@
                                             </button>
 
                                             <!-- Delete form -->
-                                            <form action="{{ route('assesments.destroy', $materi->id) }}" method="POST" class="inline">
+                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-500 rounded-sm"
@@ -148,7 +151,7 @@
                                     <option value="" disabled>Pilih Nama Mapel</option>
                                     @foreach ($subjects as $mapel)
                                         <option value="{{ $mapel->id }}"
-                                            {{ $materi->subject_id == $mapel->id ? 'selected' : '' }}>
+                                            {{ old('subjec_id',$materi->subject_id) == $mapel->id ? 'selected' : '' }}>
                                             {{ $mapel->name_subject }}
                                         </option>
                                     @endforeach
@@ -161,7 +164,7 @@
                                     <option value="" disabled>Pilih Kelas</option>
                                     @foreach ($classes as $kelas)
                                         <option value="{{ $kelas->id }}"
-                                            {{ $materi->classes_id == $kelas->id ? 'selected' : '' }}>
+                                            {{ old('classes_id',$materi->classes_id) == $kelas->id ? 'selected' : '' }}>
                                             {{ $kelas->name_class }}
                                         </option>
                                     @endforeach
@@ -173,13 +176,13 @@
                             <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
                                 Materi</label>
                             <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
-                                class="w-full border rounded px-3 py-2" value="{{ $materi->title_materi }}">
+                                class="w-full border rounded px-3 py-2" value="{{old('title_materi',$materi->title_materi) }}">
                         </div>
 
                         <div class="mb-3 mr-6">
                             <label for="description-{{ $materi->id }}" class="block font-medium mb-1">Deskripsi</label>
                             <textarea id="description-{{ $materi->id }}" rows="2" name="description"
-                                class="w-full px-3 py-2 border rounded" value="{{ $materi->description }}">{{ old('description') }}</textarea>
+                                class="w-full px-3 py-2 border rounded">{{ old('description',$materi->description) }}</textarea>
                         </div>
                         <div class="mb-3 mr-6">
                             <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
@@ -191,15 +194,15 @@
                                         $fileExtension = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
                                     @endphp
                                     @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                        <p class="mb-3">Gambar Sebelumnya</p>
+                                        <center><p class="mb-3">Gambar Sebelumnya</p>
                                         <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="Preview"
-                                            class="w-32 mb-3">
+                                            class="w-32 mb-3"></center>
                                     @elseif ($fileExtension === 'pdf')
-                                        <p class="mb-3">PDf Sebelumnya</p>
+                                        <center><p class="mb-3">PDf Sebelumnya</p>
                                         <embed src="{{ asset('storage/' . $materi->file_materi) }}"
-                                            type="application/pdf" class="w-full h-32 mb-2" />
+                                            type="application/pdf" class="w-full h-32 mb-2" /></center>
                                     @else
-                                        <p class="text-red-500">Format file tidak didukung.</p>
+                                        <center><p class="text-red-500">Format file tidak didukung.</p></center>
                                     @endif
                                 @endif
                             </div>
@@ -260,10 +263,12 @@
                     <div class="mb-3 mr-6">
                         <label for="file_materi" class="block font-medium mb-1">File Materi</label>
                         <!-- Image preview -->
-                        <div id="file-preview" class="mt-2">
-                            <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
-                        </div>
-                        <input type="file" id="file_materi-new" name="file_materi"
+                        <center>
+                            <div id="file-preview" class="mt-2">
+                                <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;" alt="Preview" />
+                            </div>
+                        </center>
+                        <input type="file" id="file_materi" name="file_materi"
                             class="w-full border rounded px-3 py-2">
                     </div>
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
@@ -273,104 +278,6 @@
             </div>
         </div>
 
-        {{-- @foreach ($materis as $materi)
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
-            <div class="relative mx-auto w-full max-w-sm">
-                <div class="shadow-md p-4 rounded-lg bg-white">
-                    <!-- File Preview -->
-                    <div class="flex justify-center relative rounded-lg overflow-hidden h-48 w-48 mx-auto bg-gray-100">
-                        <div class="transition-transform duration-500 transform ease-in-out hover:scale-110 w-full h-full">
-                            @php
-                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                            @endphp
-                            @if (in_array($file, ['jpg', 'png', 'jpeg']))
-                                <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
-                                    class="object-cover w-full h-full">
-                            @elseif($file === 'pdf')
-                                <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
-                                    class="w-full h-full" />
-                            @else
-                                <div class="flex items-center justify-center w-full h-full bg-gray-200 text-gray-600">
-                                    <p>Format file tidak didukung</p>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Title -->
-                    <div class="mt-2 mb-3">
-                        <h2 class="font-semibold uppercase text-lg text-gray-800 line-clamp-1 text-center">
-                            {{ $materi->title_materi }}
-                        </h2>
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="mt-2 ">
-                        <p class="text-gray-600 text-sm">
-                            <span class="font-medium">Mapel:</span> {{ $materi->subject->name_subject }}
-                        </p>
-                    </div>
-
-                    <!-- Class -->
-                    <div class="mt-2 ">
-                        <p class="text-gray-600 text-sm">
-                            <span class="font-medium">Kelas:</span> {{ $materi->classes->name_class }}
-                        </p>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="mt-2 text-sm text-gray-700">
-                        <p id="description-{{ $materi->id }}" class="inline">
-                            {{ $materi->short_description }}
-                        </p>
-                        @if (Str::length($materi->description) > 60)
-                            <button onclick="showFullDescription('{{ $materi->id }}', '{{ $materi->description }}')"
-                                class="text-blue-500 hover:underline ">
-                                Lihat Selengkapnya
-                            </button>
-                        @endif
-                    </div>
-
-                    <button class="mt-3 font-medium text-black border-2 border-blue-500 px-4 py-2 rounded-xl">
-                        viewmore
-                    </button>
-                    <script>
-                        function showFullDescription(id, description) {
-                            console.log(`Opening modal for ID: ${id}`); // Debugging
-                            if (!document.getElementById(`modal-${id}`)) {
-                                const modal = document.createElement('div');
-                                modal.id = `modal-${id}`;
-                                modal.className = "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
-                                modal.innerHTML = `
-            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <h2 class="text-lg font-semibold mb-4">Deskripsi Lengkap</h2>
-                <p class="text-gray-700 mb-4">${description}</p>
-<button data-modal-id="{{ $materi->id }}"
-        class="close-modal-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-    Tutup
-</button>
-
-            </div>
-        `;
-                                document.body.appendChild(modal);
-                            }
-                        }
-
-                        document.addEventListener('click', function(event) {
-                            if (event.target.matches('.close-modal-button')) {
-                                const modalId = event.target.getAttribute('data-modal-id');
-                                const modal = document.getElementById(`modal-${modalId}`);
-                                if (modal) {
-                                    modal.remove();
-                                }
-                            }
-                        });
-                    </script>
-
-                </div>
-            </div>
-        </div>
-        @endforeach --}}
         <script>
             // Seleksi elemen secara unik untuk modal tertentu
             document.querySelectorAll('input[type="file"]').forEach(input => {

@@ -20,9 +20,6 @@ class MateriController extends Controller
         $materis = Materi::with('Subject', 'Classes')->get();
         $subjects = Subject::all();
         $classes = Classes::all();
-        foreach ($materis as $materi) {
-            $materi->short_description = Str::limit($materi->description, 60, '...');
-        }
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
     }
 
@@ -73,18 +70,12 @@ class MateriController extends Controller
     public function destroy(Materi $materi)
 {
     try {
-        // Periksa apakah ada file yang terkait dengan data
-        if ($materi->file_materi) {
-            // Hapus file dari penyimpanan
-            Storage::disk('public')->delete($materi->file_materi);
-        }
-
-        // Hapus data dari database
+        $fileName = $materi->file_materi;
         $materi->delete();
-
+        Storage::disk('public')->delete($fileName);
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
     } catch (\Exception $e) {
-        return redirect()->route('materis.index')->withErrors('Data gagal dihapus: ' . $e->getMessage());
+        return redirect()->route('materis.index')->withErrors('Data gagal dihapus Karena Masih Digunakan    ');
     }
 }
 }

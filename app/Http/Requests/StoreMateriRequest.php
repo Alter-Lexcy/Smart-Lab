@@ -26,7 +26,7 @@ class StoreMateriRequest extends FormRequest
             'classes_id'=>['required','exists:classes,id'],
             'title_materi'=>['required','unique:materis,title_materi'],
             'file_materi'=>['required','mimes:png,jpg,pdf','max:3072'],
-            'description'=>['max:255']
+            'description'=>['max:500']
         ];
     }
     public function messages()
@@ -42,7 +42,7 @@ class StoreMateriRequest extends FormRequest
             'file_materi.required'=>'File Materi Belum Di-isi',
             'file_materi.mimes'=>'File Materi Harus Bertipe jpg,png,pdf',
             'file_materi.max'=>'File Materi Harus Dibawah 3 MB',
-            'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
+            'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 500 Karakter)'
         ];
     }
 }
