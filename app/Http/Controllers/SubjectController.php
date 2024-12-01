@@ -77,7 +77,7 @@ class SubjectController extends Controller
             $subject->delete();
             return redirect()->route('subject.index')->with('success','Data Berhasil Di-Hapus');
         }catch(\Exception $e){
-            return redirect()->route('subject.index')->with('Data Gagal Dihapus');
+            return redirect()->route('subject.index')->withErrors('Data Gagal Dihapus');
         }
     }
 }

@@ -27,6 +27,7 @@ class StoreTaskRequest extends FormRequest
             'materi_id'=>['required','exists:materis,id'],
             'title_task'=>['required','string','unique:tasks,title_task'],
             'file_task'=>['required','mimes:png,jpg,pdf,tmp','max:3072'],
+            'description_task'=>['max:500'],
             'date_collection'=>['required','date','after:now']
         ];
     }
@@ -46,6 +47,7 @@ class StoreTaskRequest extends FormRequest
             'file_task.required'=>'File Tugas Belum Di-isi',
             'file_task.mimes'=>'File Tugas Harus Bertipe png,jpg,pdf',
             'file_task.max'=>'File Tugas Melewati batas (Batas: 3MB)',
+            'description_task.max'=>'Deskripsi Sudah Melebihi Karakter',
             'date_collection.required'=>'Tanggal Pengumpulan Belum Di-Isi',
             'date_collection.after'=>'Tanggal Harus Setelah Hari ini',
         ];

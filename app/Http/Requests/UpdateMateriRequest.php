@@ -27,7 +27,7 @@ class UpdateMateriRequest extends FormRequest
             'classes_id' => ['required', 'exists:classes,id'],
             'title_materi' => ['required','string','max:255',Rule::unique('materis', 'title_materi')->ignore($this->materi)],
             'file_materi' => ['nullable', 'mimes:png,jpg,pdf', 'max:3072'],
-            'description' => ['nullable', 'max:255'],
+            'description' => ['nullable', 'max:500'],
         ];
     }
 
