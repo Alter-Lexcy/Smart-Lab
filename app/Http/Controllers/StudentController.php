@@ -10,13 +10,27 @@ class StudentController extends Controller
 {
     public function User()
     {
-        $students = \App\Models\User::role('Murid') // Hanya ambil user dengan role Murid
+        $students = User::role('Murid') // Hanya ambil user dengan role Murid
             ->whereDoesntHave('roles', function ($query) {
                 $query->where('name', '!=', 'Murid'); // Pastikan tidak memiliki role lain
-            })->get();
+            })->orderByRaw('(SELECT COUNT(*) FROM teacher_classes WHERE teacher_classes.user_id = users.id) = 0 DESC')
+              ->orderBy('created_at','desc')->get();
 
             $classes = Classes::all();
         return view('Admins.Students.index', compact('students','classes'));
+    }
 
+    public function assign(Request $request, $id){
+        $students = User::findOrFail($id);
+
+        $request->validate([
+            'classes_id'=>'required'
+        ],[
+            'classes_id.required'=>'Kelas Belum Dipilih'
+        ]);
+
+        $students->class()->sync($request->classes_id);
+
+        return redirect()->back()->with('success','Data Berhasil Ter-Update');
     }
 }

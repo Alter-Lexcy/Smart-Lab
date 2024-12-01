@@ -17,37 +17,51 @@
 
     Auth::routes();
 
+
+    // Proses
     Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
     Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
-    Route::post('');
+    Route::middleware('auth')->group(function () {
+        Route::put('/update/{student}', [StudentController::class, 'assign'])->name('assignMurid');
+        Route::put('/update/{user}', [TeacherController::class, 'assign'])->name('assignTeacher');
+    });
 
-    Route::get('/',[function(){return view('Users.landing');}]);
+
+    // Landing
+    Route::get('/', [function () {
+        return view('Users.landing');
+    }]);
 
     // Route Admin
-    Route::middleware(['auth','role:Admin'])->group(function(){
+    Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('/admin', [HomeController::class, 'index'])->name('home');
-        Route::resource('subject',SubjectController::class);
+        Route::resource('subject', SubjectController::class);
         Route::resource('classes', ClassesController::class);
-        Route::resource('materis',MateriController::class);
+        Route::resource('materis', MateriController::class);
         Route::resource('tasks', TaskController::class);
         Route::resource('assesments', AssessmentController::class);
         Route::resource('comments', CommentController::class);
         Route::resource('teachers', TeacherController::class);
         Route::get('/search', [SearchController::class, 'index'])->name('search');
-        Route::get('/Students',[StudentController::class,'User'])->name('Students');
-        Route::put('/update/{user}', [TeacherController::class, 'assign'])->name('assignTeacher');
+        Route::get('/Students', [StudentController::class, 'User'])->name('Students');
     });
 
     // Route Guru
-    Route::middleware(['auth','role:Guru|Admin'])->group(function(){
-        Route::get('/guru',function(){
+    Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
+        Route::get('/guru', function () {
             return view('Guru.index');
         });
     });
 
     // Route Murid
-    Route::middleware('auth')->group(function(){
-        Route::get('/kelas10',[function(){return view('Users.kelas10');}]);
-        Route::get('/kelas11',[function(){return view('Users.kelas11');}]);
-        Route::get('/kelas12',[function(){return view('Users.kelas12');}]);
+    Route::middleware('auth')->group(function () {
+        Route::get('/kelas10', [function () {
+            return view('Users.kelas10');
+        }]);
+        Route::get('/kelas11', [function () {
+            return view('Users.kelas11');
+        }]);
+        Route::get('/kelas12', [function () {
+            return view('Users.kelas12');
+        }]);
     });

@@ -12,6 +12,27 @@
                 </svg>
             </button>
         </form>
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">{{ session('success') }}</strong>
+                <button onclick="this.parentElement.style.display='none'" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Kesalahan Validasi:</strong>
+                <ul class="list-disc ml-5 mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button onclick="this.parentElement.style.display='none'" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
                 <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
@@ -19,6 +40,7 @@
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Nama Siswa</th>
                         <th class="px-4 py-2 border">Email Siswa</th>
+                        <th class="px-4 py-2 border">Kelas</th>
                         <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                 </thead>
@@ -28,6 +50,9 @@
                             <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">{{ $student->name }}</td>
                             <td class="px-4 py-2 border">{{ $student->email }}</td>
+                            <td class="px-4 py-2 border">
+                                {{ $student->class->isNotEmpty() ? $student->class->pluck('name_class')->implode(' ') : 'Kosong' }}
+                            </td>
                             <td class="px-4 py-2 border">
                                 <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
                                     onclick="openModal('assignModal-{{ $student->id }}')">
@@ -41,21 +66,20 @@
                             <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                                 <div class="p-5">
                                     <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                                    <form action="" method="POST" class="mt-4">
+                                    <form action="{{ route('assignMurid', $student->id) }}" method="POST" class="mt-4">
                                         @method('PUT')
                                         @csrf
                                         <div class="mb-4">
                                             <label class="block text-gray-700">Nama Kelas</label>
                                             <select name="classes_id" id="classes_id"
                                                 class="w-full px-3 py-2 border rounded">
-                                                <option value="" disabled selected>Pilih Kelas</option>
+                                                <option value="" disabled {{ $student->class->isEmpty() ? 'selected' : '' }}>Pilih Kelas</option>
                                                 @foreach ($classes as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ old('classes_id') == $class->id ? 'selected' : '' }}>
+                                                        {{ old('classes_id', $student->classes_id) == $class->id ? 'selected' : '' }}>
                                                         {{ $class->name_class }}
                                                     </option>
                                                 @endforeach
-
                                             </select>
                                         </div>
                                         <div class="mt-4 flex justify-end space-x-2">
