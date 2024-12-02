@@ -58,7 +58,7 @@ class RegisterController extends Controller
 
         Auth::login($guru);
 
-        return redirect('/guru');
+        return redirect('/dashboard');
     }
 
     /**

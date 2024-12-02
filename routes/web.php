@@ -34,7 +34,7 @@
 
     // Route Admin
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+        Route::get('/admin', [HomeController::class, 'index'])->name('home');
         Route::resource('subject', SubjectController::class);
         Route::resource('classes', ClassesController::class);
         Route::resource('materis', MateriController::class);
