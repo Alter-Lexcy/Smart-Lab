@@ -34,7 +34,7 @@
 
     // Route Admin
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        Route::get('/admin', [HomeController::class, 'index'])->name('home');
+        Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('home');
         Route::resource('subject', SubjectController::class);
         Route::resource('classes', ClassesController::class);
         Route::resource('materis', MateriController::class);
@@ -47,8 +47,8 @@
     });
 
     // Route Guru
-    Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
-        Route::get('/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
+    Route::middleware(['auth', 'role:Guru'])->group(function () {
+        Route::get('/teacher/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
     });
 
     // Route Murid
