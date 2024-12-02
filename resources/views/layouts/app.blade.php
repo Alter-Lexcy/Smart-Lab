@@ -79,7 +79,7 @@
             </div>
             <!-- MAX SIDEBAR-->
             <div class= "max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
-                <a href="{{ route('home') }}"
+                <a href="/admin"
                     class="flex hover:ml-4 w-[90%] hover:text-blue-500 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex-row items-center space-x-3 before:transition-all {{ request()->routeIs('home') ? 'text-blue-600 ' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
