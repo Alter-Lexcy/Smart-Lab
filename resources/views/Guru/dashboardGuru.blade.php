@@ -1,4 +1,4 @@
-@extends('layouts.appGuru')
+@extends('layouts.appTeacher')
 
 @section('content')
     <div class="container mx-auto py-8">

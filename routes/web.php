@@ -13,7 +13,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SearchController;
-
+    use App\Http\Controllers\HomeguruController;
 
     Auth::routes();
 
@@ -34,7 +34,7 @@
 
     // Route Admin
     Route::middleware(['auth', 'role:Admin'])->group(function () {
-        Route::get('/admin', [HomeController::class, 'index'])->name('home');
+        Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
         Route::resource('subject', SubjectController::class);
         Route::resource('classes', ClassesController::class);
         Route::resource('materis', MateriController::class);
@@ -48,9 +48,7 @@
 
     // Route Guru
     Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
-        Route::get('/guru', function () {
-            return view('Guru.index');
-        });
+        Route::get('/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
     });
 
     // Route Murid

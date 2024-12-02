@@ -70,8 +70,7 @@
             </div>
             <!-- MAX SIDEBAR-->
             <div class= "max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
-                <a href="{{ route('home') }}"
-                    class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+                <a href="{{route('homeguru')}}" class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -82,29 +81,7 @@
                         Dashboard
                     </div>
                 </a>
-                <a href="{{ route('teachers.index') }}"
-                    class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                            clip-rule="evenodd"  />
-                    </svg>
-                    <div>
-                        Guru
-                    </div>
-                </a>
-                <a href="{{ route('classes.index') }}"
-                    class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
-                            clip-rule="evenodd"  />
-                    </svg>
-                    <div>
-                        Kelas
-                    </div>
-                </a>
-                <a href="{{ route('moduls.index') }}"
+                <a href="{{route('materis.index')}}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -116,7 +93,7 @@
                         Materi
                     </div>
                 </a>
-                <a href="{{ route('tasks.index') }}"
+                <a href="{{route('tasks.index')}}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -130,19 +107,7 @@
                         Tugas
                     </div>
                 </a>
-                <a href="{{ route('collections.index') }}"
-                    class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path
-                            d="M9.97.97a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72v3.44h-1.5V3.31L8.03 5.03a.75.75 0 0 1-1.06-1.06l3-3ZM9.75 6.75v6a.75.75 0 0 0 1.5 0v-6h3a3 3 0 0 1 3 3v7.5a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3h3Z" />
-                        <path
-                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z" />
-                    </svg>
-                    <div>
-                        Pengumpulan
-                    </div>
-                </a>
-                <a href="{{ route('assessments.index') }}"
+                <a href="{{route('assesments.index')}}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -159,8 +124,7 @@
             </div>
             <!-- MINI SIDEBAR-->
             <div class= "mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
-                <button onclick="window.location.href='{{ route('home') }}'"
-                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+                <button onclick="window.location.href='{{route('homeguru')}}'" class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -168,23 +132,7 @@
                             d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('teachers.index') }}'"
-                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                            clip-rule="evenodd"  />
-                    </svg>
-                </button>
-                <button onclick="window.location.href='{{ route('classes.index') }}'"
-                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M4.5 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5h-.75V3.75a.75.75 0 0 0 0-1.5h-15ZM9 6a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm-.75 3.75A.75.75 0 0 1 9 9h1.5a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM9 12a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H9Zm3.75-5.25A.75.75 0 0 1 13.5 6H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM13.5 9a.75.75 0 0 0 0 1.5H15A.75.75 0 0 0 15 9h-1.5Zm-.75 3.75a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM9 19.5v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-4.5A.75.75 0 0 1 9 19.5Z"
-                            clip-rule="evenodd"  />
-                    </svg>
-                </button>
-                <button onclick="window.location.href='{{ route('moduls.index') }}'"
+                <button onclick="window.location.href='{{route('materis.index')}}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -193,7 +141,7 @@
                         <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z"   />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('tasks.index') }}'"
+                <button onclick="window.location.href='{{route('tasks.index')}}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -204,16 +152,7 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('collections.index') }}'"
-                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path
-                            d="M9.97.97a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72v3.44h-1.5V3.31L8.03 5.03a.75.75 0 0 1-1.06-1.06l3-3ZM9.75 6.75v6a.75.75 0 0 0 1.5 0v-6h3a3 3 0 0 1 3 3v7.5a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3h3Z" />
-                        <path
-                            d="M7.151 21.75a2.999 2.999 0 0 0 2.599 1.5h7.5a3 3 0 0 0 3-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 0 1-4.5 4.5H7.151Z" />
-                    </svg>
-                </button>
-                <button onclick="window.location.href='{{ route('assessments.index') }}'"
+                <button onclick="window.location.href='{{route('assesments.index')}}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -230,8 +169,21 @@
 
         <!-- Page Content  -->
         <div class="flex-1 p-4 ml-14">
-            <nav class="flex items-center justify-between bg-white p-4 shadow-lg rounded-lg relative z-10">
-                <div class="ml-auto relative flex">
+            <nav id="navbar"
+                class="flex items-center pb-4 justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
+                <!-- Search Input -->
+                <form action="{{ route('search') }}" method="GET" class="flex items-center ml-4 mt-4">
+                    <input type="text" name="search" placeholder="Search..."
+                        class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" />
+                    <button type="submit" class="ml-2 p-2 bg-blue-300 text-white rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+                            <path fill="black"
+                                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="ml-auto relative flex mt-3">
                     <!-- Inbox Icon Button -->
                     <button class="mr-4 border-2 rounded-lg p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -254,7 +206,7 @@
                     <!-- User Profile Dropdown -->
                     <div class="relative">
                         <div id="dropdownMenu"
-                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-14 w-80 bg-white rounded-lg shadow-lg z-50">
+                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-14 w-96 bg-white rounded-lg shadow-lg z-50">
                             <div class="py-2 px-4">
                                 <h5 class="text-xl mt-2 ml-2 font-semibold">User Profile</h5>
                             </div>
@@ -263,15 +215,8 @@
                                     height="80" alt="">
                                 <div class="ms-3">
                                     <h5 class="mb-1 font-medium"><span
-                                            class="uppercase">{{ Auth::user()->name }}</span></h5>
-                                    {{-- @php
-                                        $roles = Auth::user()->getRoleNames()->filter(fn($role) => $role !== 'murid');
-                                        $lastRole = $roles->last();
-                                    @endphp
-                                    <span class="mb-2 text-md">
-                                        <span class="badge bg-primary">{{ $lastRole }}</span>
-                                    </span> --}}
-
+                                            class="uppercase">{{ Auth::user()->name }}</span>
+                                    </h5>
                                     @foreach (Auth::user()->getRoleNames() as $role)
                                         <span class="mb-2 text-md">{{ $role }}</span>
                                     @endforeach
@@ -288,10 +233,11 @@
 
                             <!-- Logout Button -->
                             <div class="grid p-2 text-center border-2 rounded-md  border-blue-200 my-4 mx-5">
-                                <a href="{{ url('/logout') }}"
+                                <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="hidden">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="hidden">
                                     {{ csrf_field() }}
                                 </form>
                             </div>
@@ -300,6 +246,20 @@
                 </div>
             </nav>
 
+            <script>
+                const navbar = document.getElementById("navbar");
+                const initialNavOffset = navbar.offsetTop; // Posisi awal navbar
+
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > initialNavOffset) {
+                        navbar.classList.add("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-10");
+                        navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
+                    } else {
+                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-10");
+                        navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
+                    }
+                });
+            </script>
             <script>
                 // Toggle dropdown visibility on button click
                 function toggleDropdown() {

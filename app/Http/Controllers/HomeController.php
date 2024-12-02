@@ -37,6 +37,6 @@ class HomeController extends Controller
         })->whereDoesntHave('roles',function($query){
             $query->where('name','Admin');
         })->count();
-        return view('home.dashboardAdmin', compact('totalMurid','totalguru'));
+        return view('Admins.dashboardAdmin', compact('totalMurid','totalguru'));
     }
 }
