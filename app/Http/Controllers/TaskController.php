@@ -19,11 +19,20 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('Classes','Subject','Materi')->get();
-        $classes = Classes::all();
-        $subjects = Subject::all();
-        $materis = Materi::all();
-        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
+        $user = auth()->user(); // Ambil data pengguna saat ini
+
+            $tasks = Task::all();
+            $classes = Classes::all();
+            $subjects = Subject::all();
+            $materis = Materi::all();
+
+        if ($user->hasRole('Admin')) {
+            return view('Admins.Tasks.index',compact('tasks','classes','subjects','materis'));
+        } elseif ($user->hasRole('Guru')) {
+            return view('Guru.Tasks.index',compact('tasks','classes','subjects','materis'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
     }
 
     /**
@@ -37,8 +46,8 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $validated = $request->validated();
-        if($request->hasFile('file_task')){
-            $file = $request->file('file_task')->store('file_task','public');
+        if ($request->hasFile('file_task')) {
+            $file = $request->file('file_task')->store('file_task', 'public');
             $validated['file_task'] = $file;
         }
 
@@ -71,11 +80,11 @@ class TaskController extends Controller
 
         $validated = $request->validated();
 
-        if($request->hasFile('file_task')){
-            if($task->file_task){
+        if ($request->hasFile('file_task')) {
+            if ($task->file_task) {
                 Storage::disk('public')->delete($task->file_task);
             }
-            $file = $request->file('file_task')->store('file_task','public');
+            $file = $request->file('file_task')->store('file_task', 'public');
             $validated['file_task'] = $file;
         }
 

@@ -17,10 +17,19 @@ class MateriController extends Controller
      */
     public function index()
     {
+        $user = auth()->user(); // Ambil data pengguna saat ini
+
         $materis = Materi::with('Subject', 'Classes')->get();
         $subjects = Subject::all();
         $classes = Classes::all();
-        return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
+
+        if ($user->hasRole('Admin')) {
+            return view('Admins.Materi.index',compact('materis', 'subjects', 'classes'));
+        } elseif ($user->hasRole('Guru')) {
+            return view('Guru.Materi.index',compact('materis', 'subjects', 'classes'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
     }
 
     /**
