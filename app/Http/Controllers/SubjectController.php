@@ -14,11 +14,17 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::all();
-        return view('Admins.Subject.index',compact('subjects'));
+        $order = $request->input('order', 'desc');
+        $subjects = Subject::orderBy('name_subject', $order)->get();
+
+        // Kirim data ke view
+        return view('Admins.Subject.index', compact('subjects', 'order'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +42,7 @@ class SubjectController extends Controller
 
         Subject::create($request->all());
 
-        return redirect()->route('subject.index')->with('success','Data Sudah Bertambah');
+        return redirect()->route('subject.index')->with('success', 'Data Sudah Bertambah');
     }
 
     /**
@@ -64,7 +70,7 @@ class SubjectController extends Controller
         $subject = Subject::findOrFail($id);
         $subject->update($request->all());
 
-        return redirect()->route('subject.index')->with('success','Data Berhasil Diubah');
+        return redirect()->route('subject.index')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -72,11 +78,11 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try {
             $subject = Subject::findOrFail($id);
             $subject->delete();
-            return redirect()->route('subject.index')->with('success','Data Berhasil Di-Hapus');
-        }catch(\Exception $e){
+            return redirect()->route('subject.index')->with('success', 'Data Berhasil Di-Hapus');
+        } catch (\Exception $e) {
             return redirect()->route('subject.index')->withErrors('Data Gagal Dihapus');
         }
     }

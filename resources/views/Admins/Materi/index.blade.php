@@ -6,7 +6,7 @@
             <div class="flex items-center space-x-2">
                 <h1 class="text-2xl font-bold mr-auto">Materi</h1>
                 <!-- Tombol Search -->
-                <form action="" method="GET">
+                <form action="" method="GET" class="mt-1">
                     <button type="submit"
                         class="p-2 h-10 mt-4 border-2 bg-white text-black rounded-lg flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
@@ -16,15 +16,31 @@
                     </button>
                 </form>
 
-                <button type="submit"
-                    class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
-                    <svg class="w-[15px] h-[15px] fill-[#000000]" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-
-                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                        <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z"></path>
-
-                      </svg>
-                </button>
+                <form action="{{ route('materis.index') }}" method="GET" class="mt-5">
+                    @php
+                        $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
+                    @endphp
+                    <input type="hidden" name="order" value="{{ $nextOrder }}">
+                    <button type="submit"
+                        class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
+                        @if (request('order', 'desc') === 'desc')
+                            <svg class="w-[15px] h-[15px] fill-[#000000]" viewBox="0 0 576 512"
+                            xmlns="http://www.w3.org/2000/svg">
+                                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path
+                                    d="M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3 96 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-301.7 32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 480l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-160 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l224 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32z" />
+                            </svg>
+                        @else
+                            <svg class="w-[15px] h-[15px] fill-[#000000]" viewBox="0 0 576 512"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <path
+                                    d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z">
+                                </path>
+                            </svg>
+                        @endif
+                    </button>
+                </form>
 
                 <!-- Tombol Tambah Materi -->
                 <a class="w-40 h-10 p-2 border-2 text-xs text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition"
@@ -101,13 +117,13 @@
                                             <embed src="{{ asset('storage/' . $materi->file_materi) }}"
                                                 type="application/pdf" class="mx-auto" width="100px" height="100px">
                                         @else
-                                            <p class="text-red-500">Format file tidak didukung.</p>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-2 border-b">{{ $materi->short_description = Str::limit($materi->description, 20, '...')  ?? 'Kosong' }}</td>
-                                    <td class="px-4 py-2 border-b">
-                                        {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}</td>
-                                    <td class="px-4 py-2">
+                                                <p class="text-red-500">Format file tidak didukung.</p>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-2 border-b">{{ $materi->short_description = Str::limit($materi->description, 20, '...')  ?? 'Kosong' }}</td>
+                                        <td class="px-4 py-2 border-b">
+                                            {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}</td>
+                                        <td class="px-4 py-2">
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->

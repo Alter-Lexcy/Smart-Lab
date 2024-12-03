@@ -8,6 +8,7 @@ use App\Models\Subject;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreMateriRequest;
 use App\Http\Requests\UpdateMateriRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class MateriController extends Controller
@@ -15,13 +16,19 @@ class MateriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materis = Materi::with('Subject', 'Classes')->get();
+        $order = $request->input('order', 'desc');
+
+        // Query dengan order yang valid
+        $materis = Materi::with('Subject', 'Classes')->orderBy('created_at', $order)->get();
+
         $subjects = Subject::all();
         $classes = Classes::all();
+
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -51,12 +58,12 @@ class MateriController extends Controller
 
         $validated  = $request->validated();
 
-        if($request->hasFile('file_materi')){
-            if($materi->file_materi){
+        if ($request->hasFile('file_materi')) {
+            if ($materi->file_materi) {
                 Storage::disk('public')->delete($materi->file_materi);
             }
 
-            $file = $request->file('file_materi')->store('file_materi','public');
+            $file = $request->file('file_materi')->store('file_materi', 'public');
             $validated['file_materi'] = $file;
         }
 
@@ -68,14 +75,14 @@ class MateriController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Materi $materi)
-{
-    try {
-        $fileName = $materi->file_materi;
-        $materi->delete();
-        Storage::disk('public')->delete($fileName);
-        return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
-    } catch (\Exception $e) {
-        return redirect()->route('materis.index')->withErrors('Data gagal dihapus Karena Masih Digunakan    ');
+    {
+        try {
+            $fileName = $materi->file_materi;
+            $materi->delete();
+            Storage::disk('public')->delete($fileName);
+            return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
+        } catch (\Exception $e) {
+            return redirect()->route('materis.index')->withErrors('Data gagal dihapus Karena Masih Digunakan    ');
+        }
     }
-}
 }
