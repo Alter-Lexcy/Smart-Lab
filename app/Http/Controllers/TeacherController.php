@@ -16,9 +16,6 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
         $query = User::role('Guru')
-            ->whereDoesntHave('roles', function ($query) {
-                $query->where('name', 'Admin');
-            })
             ->orderByRaw('subject_id IS NOT NULL')
             ->orderByRaw('(SELECT COUNT(*) FROM teacher_classes WHERE teacher_classes.user_id = users.id) = 0 DESC')
             ->orderBy('created_at', 'desc');
