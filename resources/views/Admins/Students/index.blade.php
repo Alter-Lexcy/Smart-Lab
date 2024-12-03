@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Daftar Siswa</h1>
-        <form action="" method="GET" class="flex items-center mr-full   ">
+        <h1 class="text-2xl font-bold mb-4">Siswa</h1>
+        <form action="" method="GET" class="flex items-center mr-full">
             <input type="text" name="search" placeholder="Cari..."
                 class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
             <button type="submit" class="p-2 border-2 border-l-0 bg-white text-white rounded-r-lg">
@@ -33,15 +33,17 @@
                 </button>
             </div>
         @endif
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white text-center border border-gray-300 border-collapse">
-                <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
+        <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
+            <h6 class="font-semibold p-3 text-sm ps-5">Daftar Siswa</h6>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white text-center rounded-lg">
+                    <thead>
                     <tr class="border">
-                        <th class="px-4 py-2 border">No</th>
-                        <th class="px-4 py-2 border">Nama Siswa</th>
-                        <th class="px-4 py-2 border">Email Siswa</th>
-                        <th class="px-4 py-2 border">Kelas</th>
-                        <th class="px-4 py-2 border">Aksi</th>
+                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
+                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Email Siswa</th>
+                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
+                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container mx-auto p-4">
-        <!-- Search Input -->
         <div class="container mx-auto pt-2">
             <div class="flex items-center space-x-2">
                 <h1 class="text-2xl font-bold mr-auto">Materi</h1>
@@ -17,10 +16,29 @@
                     </button>
                 </form>
 
+                <button type="submit"
+                    class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
+                    <svg class="w-[15px] h-[15px] fill-[#000000]" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z"></path>
+
+                      </svg>
+                </button>
+
                 <!-- Tombol Tambah Materi -->
                 <a class="w-40 h-10 p-2 border-2 text-xs text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition"
                     onclick="openModal('materiModal')">
-                    Tambah Materi
+                    <svg class="w-[15px] h-[15px] fill-[#ffffff] me-2" viewBox="0 0 448 512"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z">
+                        </path>
+
+                    </svg>
+                    Tambah
                 </a>
             </div>
             @if (session('success'))
@@ -54,7 +72,7 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white text-center rounded-lg">
                         <thead>
-                            <tr class="border-y">
+                            <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">NO</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATA PELAJARAN</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">KELAS</th>

@@ -9,7 +9,7 @@
 
 
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Daftar Guru</h1>
+        <h1 class="text-2xl font-bold mb-4">Guru</h1>
         <form action="" method="GET" class="flex items-center mr-full   ">
             <input type="text" name="search" placeholder="Cari..."
                 class="w-64 p-2 border-2 border-r-0 rounded-l-lg focus:outline-none  " />
@@ -42,124 +42,127 @@
             </div>
         @endif
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white text-center border border-gray-300 rounded-lg">
-                <thead class="bg-gradient-to-r from-sky-200 to-blue-300 ">
-                    <tr class="border ">
-                        <th class="px-4 py-2 border">No</th>
-                        <th class="px-4 py-2 border">Nama Guru</th>
-                        <th class="px-4 py-2 border">Email Guru</th>
-                        <th class="px-4 py-2 border">NIP</th>
-                        <th class="px-4 py-2 border">Kelas</th>
-                        <th class="px-4 py-2 border">Mapel</th>
-                        <th class="px-4 py-2 border">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($teachers as $teacher)
-                        <tr class="border">
-                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->name }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->email }}</td>
-                            <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
-                            <td class="px-4 py-2 border">
-                                {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
-                            </td>   
-                            </td>
-                            <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
-                            <td class="px-4 py-2 border">
-                                <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
-                                    onclick="openModal('assignModal-{{ $teacher->id }}')">
-                                    Penempatan
-                                </button>
-                            </td>
+        <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
+            <h6 class="font-semibold p-3 text-sm ps-5">Daftar Guru</h6>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white text-center rounded-lg">
+                    <thead>
+                        <tr class="border ">
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Guru</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Email Guru</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">NIP</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Mapel</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                         </tr>
-                        <div id="assignModal-{{ $teacher->id }}"
-                            class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
-                            style="display: none">
-                            <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
-                                <div class="p-5">
-                                    <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                                    <form action="{{ route('assignTeacher', $teacher->id) }}" method="POST"
-                                        class="mt-4">
-                                        @method('PUT')
-                                        @csrf
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700">Mapel</label>
-                                            <select id="name_subject" name="subject_id"
-                                                class="w-full border rounded px-3 py-2">
-                                                <option value="" disabled selected>Pilih Nama Mapel</option>
-                                                @foreach ($subjects as $mapel)
-                                                    <option value="{{ $mapel->id }}"
-                                                        {{ old('subject_id', $mapel->subject_id) == $mapel->id ? 'selected' : '' }}>
-                                                        {{ $mapel->name_subject }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="block text-gray-700">Nama Kelas</label>
-                                            <select name="classes_id[]" id="classes_id"
-                                                class="w-full px-3 py-2 border rounded js-example-basic-multiple"
-                                                multiple="multiple">
-                                                <option value="" disabled>Pilih Kelas</option>
-                                                @foreach ($classes as $class)
-                                                    <option value="{{ $class->id }}"
-                                                        {{ in_array($class->id, old('classes_id', [$class->classes_id])) ? 'selected' : '' }}>
-                                                        {{ $class->name_class }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mt-4 flex justify-end space-x-2">
-                                            <button type="button" onclick="closeModal('assignModal-{{ $teacher->id }}')"
-                                                class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
-                                            <button type="submit"
-                                                class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
-                                        </div>
-                                    </form>
+                    </thead>
+                    <tbody>
+                        @foreach ($teachers as $teacher)
+                            <tr class="border">
+                                <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-2 border">{{ $teacher->name }}</td>
+                                <td class="px-4 py-2 border">{{ $teacher->email }}</td>
+                                <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
+                                <td class="px-4 py-2 border">
+                                    {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
+                                </td>
+                                </td>
+                                <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
+                                <td class="px-4 py-2 border">
+                                    <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
+                                        onclick="openModal('assignModal-{{ $teacher->id }}')">
+                                        Penempatan
+                                    </button>
+                                </td>
+                            </tr>
+                            <div id="assignModal-{{ $teacher->id }}"
+                                class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
+                                style="display: none">
+                                <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
+                                    <div class="p-5">
+                                        <h5 class="text-lg font-bold">Tambah Kelas</h5>
+                                        <form action="{{ route('assignTeacher', $teacher->id) }}" method="POST"
+                                            class="mt-4">
+                                            @method('PUT')
+                                            @csrf
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700">Mapel</label>
+                                                <select id="name_subject" name="subject_id"
+                                                    class="w-full border rounded px-3 py-2">
+                                                    <option value="" disabled selected>Pilih Nama Mapel</option>
+                                                    @foreach ($subjects as $mapel)
+                                                        <option value="{{ $mapel->id }}"
+                                                            {{ old('subject_id', $mapel->subject_id) == $mapel->id ? 'selected' : '' }}>
+                                                            {{ $mapel->name_subject }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="block text-gray-700">Nama Kelas</label>
+                                                <select name="classes_id[]" id="classes_id"
+                                                    class="w-full px-3 py-2 border rounded js-example-basic-multiple"
+                                                    multiple="multiple">
+                                                    <option value="" disabled>Pilih Kelas</option>
+                                                    @foreach ($classes as $class)
+                                                        <option value="{{ $class->id }}"
+                                                            {{ in_array($class->id, old('classes_id', [$class->classes_id])) ? 'selected' : '' }}>
+                                                            {{ $class->name_class }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="mt-4 flex justify-end space-x-2">
+                                                <button type="button"
+                                                    onclick="closeModal('assignModal-{{ $teacher->id }}')"
+                                                    class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
+                                                <button type="submit"
+                                                    class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
         </div>
+        <script>
+            function openModal(id) {
+                console.log(`Opening modal: ${id}`);
+                document.getElementById(id).style.display = 'flex';
+            }
 
-    </div>
-    <script>
-        function openModal(id) {
-            console.log(`Opening modal: ${id}`);
-            document.getElementById(id).style.display = 'flex';
-        }
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
+            function closeModal(id) {
+                console.log(`Closing modal: ${id}`);
+                document.getElementById(id).style.display = 'none';
+            }
 
-        function closeModal(id) {
-            console.log(`Closing modal: ${id}`);
-            document.getElementById(id).style.display = 'none';
-        }
+            // Open the modal if validation fails
+            @if (session('success'))
+                document.addEventListener("DOMContentLoaded", function() {
+                    closeModal('subjectModal'); // Menutup modal setelah data berhasil ditambah
+                });
+            @endif
 
-        // Open the modal if validation fails
-        @if (session('success'))
-            document.addEventListener("DOMContentLoaded", function() {
-                closeModal('subjectModal'); // Menutup modal setelah data berhasil ditambah
-            });
-        @endif
-
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-
-        $(document).ready(function() {
-            // Inisialisasi untuk input Select2
-            $('#classes_id').select2({
-                placeholder: "Pilih Kelas",
-                width: '100%' // Gunakan full width dari kontainer
+            $(document).ready(function() {
+                $('.js-example-basic-multiple').select2();
             });
 
-        });
-    </script>
-@endsection
+            $(document).ready(function() {
+                // Inisialisasi untuk input Select2
+                $('#classes_id').select2({
+                    placeholder: "Pilih Kelas",
+                    width: '100%' // Gunakan full width dari kontainer
+                });
+
+            });
+        </script>
+    @endsection
