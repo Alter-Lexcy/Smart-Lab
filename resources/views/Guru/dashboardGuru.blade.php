@@ -23,11 +23,11 @@
             </div>
         </div>
 
-        <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-            <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6 mt-5">
+            <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 ">
                 <div class="flex items-center">
-                    <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
-                        <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    <div class="w-12 h-12 rounded-lg bg-gray-100  flex items-center justify-center me-3">
+                        <svg class="w-6 h-6 text-gray-500" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
                             <path
                                 d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z" />
@@ -36,41 +36,19 @@
                         </svg>
                     </div>
                     <div>
-                        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">3.4k</h5>
-                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated per week</p>
+                        <h5 class="leading-none text-lg font-semibold text-gray-900 pb-1">Data Siswa Menyelesaikan Tugas</h5>
+                        <p class="text-sm font-normal text-gray-500 ">Bulan ini</p>
                     </div>
                 </div>
-                <div>
-                    <span
-                        class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
-                        <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 13V1m0 0L1 5m4-4 4 4" />
-                        </svg>
-                        42.5%
-                    </span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2">
-                <dl class="flex items-center">
-                    <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Money spent:</dt>
-                    <dd class="text-gray-900 text-sm dark:text-white font-semibold">$3,232</dd>
-                </dl>
-                <dl class="flex items-center justify-end">
-                    <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Conversion rate:</dt>
-                    <dd class="text-gray-900 text-sm dark:text-white font-semibold">1.2%</dd>
-                </dl>
             </div>
 
             <div id="column-chart"></div>
-            <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+            <div class="grid grid-cols-1 items-center border-gray-200 border-t  justify-between">
                 <div class="flex justify-between items-center pt-5">
                     <!-- Button -->
                     <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
                         data-dropdown-placement="bottom"
-                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+                        class="text-sm font-medium text-gray-500 hover:text-gray-900 text-center inline-flex items-center "
                         type="button">
                         Last 7 days
                         <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -81,29 +59,29 @@
                     </button>
                     <!-- Dropdown menu -->
                     <div id="lastDaysdropdown"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                                    class="block px-4 py-2 hover:bg-gray-100">Yesterday</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                                    class="block px-4 py-2 hover:bg-gray-100">Today</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
                                     7 days</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
                                     30 days</a>
                             </li>
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
                                     90 days</a>
                             </li>
                         </ul>
@@ -201,7 +179,7 @@
             const options = {
                 colors: ["#1A56DB", "#00BFFF"],
                 series: [{
-                        name: "Organic",
+                        name: "Mengumpulan",
                         color: "#1A56DB",
                         data: [{
                                 x: "Minggu 1",
@@ -223,7 +201,7 @@
                         ],
                     },
                     {
-                        name: "Social media",
+                        name: "Belum Mengumpulkan",
                         color: "#00BFFF",
                         data: [{
                                 x: "Minggu 1",
@@ -255,7 +233,7 @@
                 plotOptions: {
                     bar: {
                         horizontal: false,
-                        columnWidth: "70%",
+                        columnWidth: "40%",
                         borderRadiusApplication: "end",
                         borderRadius: 8,
                     },

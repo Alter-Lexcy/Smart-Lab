@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Requests\StoreAssessmentRequest;
 use App\Http\Requests\UpdateAssessmentRequest;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class AssessmentController extends Controller
 {
@@ -16,7 +17,8 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $user = auth()->user(); // Ambil data pengguna saat ini
+        $user = auth()->user();
+        // Ambil data pengguna saat ini
         
         $assessments = Assessment::with('User', 'Task')->get();
         $users = User::whereHas('roles', function ($query) {
