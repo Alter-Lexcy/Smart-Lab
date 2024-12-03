@@ -27,8 +27,8 @@ class MateriController extends Controller
         $subjects = Subject::all();
         $classes = Classes::all();
 
+        $user = auth()->user(); 
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
-        $user = auth()->user(); // Ambil data pengguna saat ini
 
         if ($user->hasRole('Admin')) {
             return view('Admins.Materi.index',compact('materis', 'subjects', 'classes'));

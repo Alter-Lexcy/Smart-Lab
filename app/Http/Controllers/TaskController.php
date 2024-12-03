@@ -23,20 +23,20 @@ class TaskController extends Controller
 
         $order = $request->input('order','desc');
         $tasks = Task::with('Classes','Subject','Materi')->orderBy('created_at',$order)->get();
-
         $classes = Classes::all();
         $subjects = Subject::all();
         $materis = Materi::all();
-        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
 
-        $user = auth()->user(); 
+        $user = auth()->user();
+
+        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
         if ($user->hasRole('Admin')) {
             return view('Admins.Tasks.index',compact('tasks','classes','subjects','materis'));
         } elseif ($user->hasRole('Guru')) {
             return view('Guru.Tasks.index',compact('tasks','classes','subjects','materis'));
         } else {
             abort(403, 'Unauthorized');
-        }yy
+        }
     }
 
     /**
