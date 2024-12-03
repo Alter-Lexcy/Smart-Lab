@@ -47,7 +47,7 @@
     });
 
     // Route Guru
-    Route::middleware(['auth', 'role:Guru'])->group(function () {
+    Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
         Route::get('/teacher/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
         Route::resource('materis', MateriController::class);
         Route::resource('tasks', TaskController::class);
