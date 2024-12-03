@@ -19,11 +19,21 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+
         $tasks = Task::with('Classes','Subject','Materi')->get();
         $classes = Classes::all();
         $subjects = Subject::all();
         $materis = Materi::all();
-        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
+
+        if ($user->hasRole('Admin')) {
+            return view('Admins.Tasks.index', compact('tasks', 'classes', 'materis', 'subjects'));
+        } elseif ($user->hasRole('Guru')) {
+            return view('Guru.Tasks.index', compact('tasks', 'classes', 'materis', 'subjects'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
+
     }
 
     /**

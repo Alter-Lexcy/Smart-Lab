@@ -49,6 +49,9 @@
     // Route Guru
     Route::middleware(['auth', 'role:Guru'])->group(function () {
         Route::get('/teacher/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
+        Route::resource('materis', MateriController::class);
+        Route::resource('tasks', TaskController::class);
+        Route::resource('assesments', AssessmentController::class);
     });
 
     // Route Murid

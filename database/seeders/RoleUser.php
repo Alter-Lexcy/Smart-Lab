@@ -23,7 +23,7 @@ class RoleUser extends Seeder
             'NIP'=>'123456789',
             'password'=>Hash::make('123456789'),
             'subject_id'=>null,
-        ])->assignRole('Admin','Guru','Murid');
+        ])->assignRole('Admin');
 
 
     }
