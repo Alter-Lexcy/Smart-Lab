@@ -22,22 +22,75 @@
                 </dotlottie-player>
             </div>
         </div>
-        <div class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mt-5">
-            <div
-                class="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center">
 
-                <div>
-                    <h6
-                        class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
-                        Jumlah Siswa yang Mengumpulkan Tugas
-                    </h6>
+        <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6 mt-5">
+            <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 ">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-lg bg-gray-100  flex items-center justify-center me-3">
+                        <svg class="w-6 h-6 text-gray-500" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
+                            <path
+                                d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z" />
+                            <path
+                                d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="leading-none text-lg font-semibold text-gray-900 pb-1">Data Siswa Menyelesaikan Tugas</h5>
+                        <p class="text-sm font-normal text-gray-500 ">Bulan ini</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="column-chart"></div>
+            <div class="grid grid-cols-1 items-center border-gray-200 border-t  justify-between">
+                <div class="flex justify-between items-center pt-5">
+                    <!-- Button -->
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
+                        data-dropdown-placement="bottom"
+                        class="text-sm font-medium text-gray-500 hover:text-gray-900 text-center inline-flex items-center "
+                        type="button">
+                        Last 7 days
+                        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="lastDaysdropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100">Yesterday</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100">Today</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
+                                    7 days</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
+                                    30 days</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100">Last
+                                    90 days</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             </div>
-            <div class="pt-6 px-2 pb-0">
-                <div id="bar-chart"></div>
-            </div>
         </div>
+
         <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 mt-5">
 
             <div class="flex justify-between mb-3">
@@ -72,23 +125,6 @@
                     plotOptions: {
                         pie: {
                             donut: {
-                                labels: {
-                                    show: true,
-                                    name: {
-                                        show: true,
-                                        fontFamily: "Inter, sans-serif",
-                                        offsetY: 20,
-                                    },
-
-                                    value: {
-                                        show: true,
-                                        fontFamily: "Inter, sans-serif",
-                                        offsetY: -20,
-                                        formatter: function(value) {
-                                            return value + ""
-                                        },
-                                    },
-                                },
                                 size: "65%",
                             },
                         },
@@ -140,113 +176,130 @@
 
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
-            const chartConfig = {
+            const options = {
+                colors: ["#1A56DB", "#00BFFF"],
                 series: [{
-                    name: "Siswa",
-                    data: [36, 30, 33, 35, 20, 34],
-                }, ],
+                        name: "Mengumpulan",
+                        color: "#1A56DB",
+                        data: [{
+                                x: "Minggu 1",
+                                y: 231
+                            },
+                            {
+                                x: "Minggu 2",
+                                y: 122
+                            },
+                            {
+                                x: "Minggu 3",
+                                y: 63
+                            },
+                            {
+                                x: "Minggu 4",
+                                y: 421
+                            },
+
+                        ],
+                    },
+                    {
+                        name: "Belum Mengumpulkan",
+                        color: "#00BFFF",
+                        data: [{
+                                x: "Minggu 1",
+                                y: 232
+                            },
+                            {
+                                x: "Minggu 2",
+                                y: 113
+                            },
+                            {
+                                x: "Minggu 3",
+                                y: 341
+                            },
+                            {
+                                x: "Minggu 4",
+                                y: 224
+                            },
+                        ],
+                    },
+                ],
                 chart: {
                     type: "bar",
-                    height: 240,
+                    height: "320px",
+                    fontFamily: "Inter, sans-serif",
                     toolbar: {
                         show: false,
                     },
                 },
-                title: {
-                    show: "",
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: "40%",
+                        borderRadiusApplication: "end",
+                        borderRadius: 8,
+                    },
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    style: {
+                        fontFamily: "Inter, sans-serif",
+                    },
+                },
+                states: {
+                    hover: {
+                        filter: {
+                            type: "darken",
+                            value: 1,
+                        },
+                    },
+                },
+                stroke: {
+                    show: true,
+                    width: 0,
+                    colors: ["transparent"],
+                },
+                grid: {
+                    show: false,
+                    strokeDashArray: 4,
+                    padding: {
+                        left: 2,
+                        right: 2,
+                        top: -14
+                    },
                 },
                 dataLabels: {
                     enabled: false,
                 },
-                colors: ["#6495ED"],
-                plotOptions: {
-                    bar: {
-                        columnWidth: "40%",
-                        borderRadius: 2,
-                    },
+                legend: {
+                    show: false,
                 },
                 xaxis: {
-                    axisTicks: {
-                        show: false,
+                    floating: false,
+                    labels: {
+                        show: true,
+                        style: {
+                            fontFamily: "Inter, sans-serif",
+                            cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                        }
                     },
                     axisBorder: {
                         show: false,
                     },
-                    labels: {
-                        style: {
-                            colors: "#616161",
-                            fontSize: "12px",
-                            fontFamily: "inherit",
-                            fontWeight: 400,
-                        },
+                    axisTicks: {
+                        show: false,
                     },
-                    categories: [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30",
-                    ],
                 },
                 yaxis: {
-                    labels: {
-                        style: {
-                            colors: "#616161",
-                            fontSize: "12px",
-                            fontFamily: "inherit",
-                            fontWeight: 400,
-                        },
-                    },
-                },
-                grid: {
-                    show: true,
-                    borderColor: "#dddddd",
-                    strokeDashArray: 5,
-                    xaxis: {
-                        lines: {
-                            show: true,
-                        },
-                    },
-                    padding: {
-                        top: 5,
-                        right: 20,
-                    },
+                    show: false,
                 },
                 fill: {
-                    opacity: 0.8,
+                    opacity: 1,
                 },
-                tooltip: {
-                    theme: "dark",
-                },
-            };
+            }
 
-            const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
-
-            chart.render();
+            if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(document.getElementById("column-chart"), options);
+                chart.render();
+            }
         </script>
     @endsection

@@ -18,6 +18,7 @@ class MateriController extends Controller
      */
     public function index(Request $request)
     {
+
         $order = $request->input('order', 'desc');
 
         // Query dengan order yang valid
@@ -27,6 +28,16 @@ class MateriController extends Controller
         $classes = Classes::all();
 
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
+        $user = auth()->user(); // Ambil data pengguna saat ini
+
+        if ($user->hasRole('Admin')) {
+            return view('Admins.Materi.index',compact('materis', 'subjects', 'classes'));
+        } elseif ($user->hasRole('Guru')) {
+            return view('Guru.Materi.index',compact('materis', 'subjects', 'classes'));
+        } else {
+            abort(403, 'Unauthorized');
+        }
+
     }
 
 
