@@ -20,20 +20,37 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->input('search');
+        $order = $request->input('order', 'desc');
 
-        $order = $request->input('order','desc');
-        $tasks = Task::with('Classes','Subject','Materi')->orderBy('created_at',$order)->get();
+        $tasks = Task::with('Classes', 'Subject', 'Materi')
+            ->where(function ($query) use ($search) {
+                $query->whereHas('Classes', function ($q) use ($search) {
+                    $q->where('name_class', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('Materi', function ($q) use ($search) {
+                        $q->where('title_materi', 'like', '%' . $search . '%');
+                    });
+            })->orWhere('title_task','Like','%'.$search.'%')
+            ->orderBy('created_at', $order)
+            ->get();
+
+
+
         $classes = Classes::all();
         $subjects = Subject::all();
         $materis = Materi::all();
 
         $user = auth()->user();
 
-        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
+        return view('Admins.Tasks.index', compact('tasks', 'classes', 'materis', 'subjects'));
         if ($user->hasRole('Admin')) {
-            return view('Admins.Tasks.index',compact('tasks','classes','subjects','materis'));
+            return view('Admins.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
         } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Tasks.index',compact('tasks','classes','subjects','materis'));
+            return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
         } else {
             abort(403, 'Unauthorized');
         }

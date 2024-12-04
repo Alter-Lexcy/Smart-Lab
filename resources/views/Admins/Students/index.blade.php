@@ -23,13 +23,14 @@
                     </button>
 
                     <!-- Form Pencarian -->
-                    <form id="searchForm" action="" method="GET"
+                    <form id="searchForm" action="{{route('Students')}}" method="GET" name="search"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
                         <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
                 </div>
             </div>
+
             @if (session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
                     role="alert">

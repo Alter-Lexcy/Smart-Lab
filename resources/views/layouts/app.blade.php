@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Students"
+                        <a href="/Students"
                             class="hover:ml-6 ml-4 w-[80%]  hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out flex-row items-center space-x-3 flex text-base font-normal transition duration-75 group before:transition-all {{ request()->routeIs('Students') ? 'text-blue-600 ' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="size-6 mr-3">
@@ -218,7 +218,7 @@
                             d="M208 352c-2.39 0-4.78.35-7.06 1.09C187.98 357.3 174.35 360 160 360c-14.35 0-27.98-2.7-40.95-6.91-2.28-.74-4.66-1.09-7.05-1.09C49.94 352-.33 402.48 0 464.62.14 490.88 21.73 512 48 512h224c26.27 0 47.86-21.12 48-47.38.33-62.14-49.94-112.62-112-112.62zm-48-32c53.02 0 96-42.98 96-96s-42.98-96-96-96-96 42.98-96 96 42.98 96 96 96zM592 0H208c-26.47 0-48 22.25-48 49.59V96c23.42 0 45.1 6.78 64 17.8V64h352v288h-64v-64H384v64h-76.24c19.1 16.69 33.12 38.73 39.69 64H592c26.47 0 48-22.25 48-49.59V49.59C640 22.25 618.47 0 592 0z" />
                     </svg>
                 </button>
-                <button onclick="window.location.href='Students'"
+                <button onclick="window.location.href='/Students'"
                     class= "hover:ml-4 justify-end pr-3  hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex before:transition-all {{ request()->routeIs('Students') ? 'text-blue-600 ' : 'text-white' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
@@ -290,7 +290,8 @@
                     <form action="{{ route('search') }}" method="GET" class="flex items-center mt-4 me-3">
                         <div class="relative w-64">
                             <input type="text" name="search" placeholder="Search..."
-                                class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" />
+                            class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value="{{ request('search') }}" />
                             <button type="submit"
                                 class="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-800 to-sky-300 text-white rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24">
