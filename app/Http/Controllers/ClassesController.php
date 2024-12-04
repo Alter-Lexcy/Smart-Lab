@@ -16,11 +16,12 @@ class ClassesController extends Controller
      */
     public function index(Request $request)
     {
-        $order = $request->get('order', 'asc'); // Default: asc
-        $classes = Classes::orderBy('created_at', $order)->get();
+        $search = $request->input('search');
+        $order = $request->input('order', 'desc');
+        $classes = Classes::where('name_class','Like','%'.$search.'%')->orderBy('created_at', $order)->get();
         return view('Admins.Classes.index', compact('classes', 'order'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.

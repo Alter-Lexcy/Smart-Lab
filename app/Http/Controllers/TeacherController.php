@@ -15,27 +15,21 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->input('search');
         $query = User::role('Guru')
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'Admin');
+            })
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('NIP', 'like', '%' . $search . '%');
+            })
             ->orderByRaw('subject_id IS NOT NULL')
             ->orderByRaw('(SELECT COUNT(*) FROM teacher_classes WHERE teacher_classes.user_id = users.id) = 0 DESC')
             ->orderBy('created_at', 'desc');
 
-        // Full-text search
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%")
-                    ->orWhere('email', 'like', "%$search%");
-            });
-        }
 
-        // Filter by subject
-        if ($request->filled('subject_id')) {
-            $subjectId = $request->input('subject_id');
-            $query->whereHas('subjects', function ($q) use ($subjectId) {
-                $q->where('id', $subjectId);
-            });
-        }
 
         $teachers = $query->get();
 
@@ -58,11 +52,11 @@ class TeacherController extends Controller
         ]);
 
         $existingUser = User::where('id', '!=', $user->id)
-        ->where('subject_id', $request->subject_id)
-        ->whereHas('class', function ($query) use ($request) {
-            $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
-        })
-        ->first();
+            ->where('subject_id', $request->subject_id)
+            ->whereHas('class', function ($query) use ($request) {
+                $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
+            })
+            ->first();
 
         if ($existingUser) {
             return redirect()->back()->withErrors(['error' => 'Kombinasi Kelas dan Mapel sudah digunakan oleh pengguna lain']);
