@@ -10,6 +10,7 @@ use App\Models\Materi;
 use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
@@ -17,15 +18,18 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user(); // Ambil data pengguna saat ini
 
-            $tasks = Task::all();
-            $classes = Classes::all();
-            $subjects = Subject::all();
-            $materis = Materi::all();
+        $order = $request->input('order','desc');
+        $tasks = Task::with('Classes','Subject','Materi')->orderBy('created_at',$order)->get();
+        $classes = Classes::all();
+        $subjects = Subject::all();
+        $materis = Materi::all();
 
+        $user = auth()->user();
+
+        return view('Admins.Tasks.index', compact('tasks','classes','materis','subjects'));
         if ($user->hasRole('Admin')) {
             return view('Admins.Tasks.index',compact('tasks','classes','subjects','materis'));
         } elseif ($user->hasRole('Guru')) {
