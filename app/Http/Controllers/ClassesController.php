@@ -14,11 +14,13 @@ class ClassesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classes = Classes::all();
-        return view('Admins.Classes.index', compact('classes'));
+        $order = $request->get('order', 'asc'); // Default: asc
+        $classes = Classes::orderBy('created_at', $order)->get();
+        return view('Admins.Classes.index', compact('classes', 'order'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

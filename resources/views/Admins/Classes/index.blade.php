@@ -15,15 +15,27 @@
                     </button>
                 </form>
 
-                <button type="submit"
-                    class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
-                    <svg class="w-[15px] h-[15px] fill-[#8e8e8e]" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-
-                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                        <path d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z"></path>
-
-                      </svg>
+                <button id="orderButton" class="p-1 border-2 bg-white text-black rounded-lg flex items-center justify-center">
+                    @if ($order === 'asc')
+                        <!-- Ikon Ascending -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+                          </svg>                          
+                    @else
+                        <!-- Ikon Descending -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+                          </svg> 
+                    @endif
                 </button>
+                
+                <script>
+                    document.getElementById('orderButton').addEventListener('click', function () {
+                        const currentOrder = "{{ $order }}"; // Ambil nilai order dari backend
+                        const newOrder = currentOrder === 'asc' ? 'desc' : 'asc'; // Ubah order
+                        window.location.href = "{{ route('classes.index') }}" + "?order=" + newOrder; // Redirect dengan order baru
+                    });
+                </script>
 
                 <!-- Tombol Tambah Materi -->
                 <a class="w-40 h-10 p-2 border-2 text-xs text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition"
@@ -185,6 +197,23 @@
                     </div>
                 </div>
                 <script>
+                    document.getElementById("toggleButton").addEventListener("click", function() {
+                        const iconUp = document.getElementById("iconUp");
+                        const iconDown = document.getElementById("iconDown");
+
+                        // Toggle visibility
+                        if (iconDown.classList.contains("hidden")) {
+                            iconDown.classList.remove("hidden");
+                            iconUp.classList.add("hidden");
+                        } else {
+                            iconDown.classList.add("hidden");
+                            iconUp.classList.remove("hidden");
+                        }
+
+                        // Example: Update data sorting logic here
+                        console.log(iconDown.classList.contains("hidden") ? "Data terbaru" : "Data terlama");
+                    });
+
                     function openModal(id) {
                         console.log(`Opening modal: ${id}`);
                         document.getElementById(id).style.display = 'flex';
