@@ -2,6 +2,9 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    safelist: [
+        "bg-[url('/image/patern.png')]"
+    ],
     content: [
         './resources/**/*.blade.php',
         './resources/**/*.js',
@@ -10,6 +13,11 @@ export default {
     ],
     theme: {
         extend: {
+            
+            colors: {
+                'custom-blue': '#3572EF',
+                'deep-blue': '#050C9C',
+              },
             inset: {
                 '18': '4.5rem',
               },
