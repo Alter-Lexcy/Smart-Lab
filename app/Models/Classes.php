@@ -16,4 +16,4 @@ class Classes extends Model
     public function Task(){
         return $this->belongsTo(Task::class);
     }
-}
+}   

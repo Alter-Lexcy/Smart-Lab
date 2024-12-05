@@ -29,10 +29,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-        *{
+        * {
             font-family: 'Poppins', sans-serif;
         }
-        </style>
+    </style>
 
     <!-- Preline Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.js"></script>
@@ -122,7 +122,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Students"
+                        <a href="/Students"
                             class="hover:ml-6 ml-4 w-[80%]  hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out flex-row items-center space-x-3 flex text-base font-normal transition duration-75 group before:transition-all {{ request()->routeIs('Students') ? 'text-blue-600 ' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="size-6 mr-3">
@@ -180,7 +180,7 @@
                             clip-rule="evenodd" />
                         <path fill-rule="evenodd"
                             d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                            clip-rule="evenodd"/>
+                            clip-rule="evenodd" />
                     </svg>
                     <div>
                         Tugas
@@ -220,7 +220,7 @@
                             d="M208 352c-2.39 0-4.78.35-7.06 1.09C187.98 357.3 174.35 360 160 360c-14.35 0-27.98-2.7-40.95-6.91-2.28-.74-4.66-1.09-7.05-1.09C49.94 352-.33 402.48 0 464.62.14 490.88 21.73 512 48 512h224c26.27 0 47.86-21.12 48-47.38.33-62.14-49.94-112.62-112-112.62zm-48-32c53.02 0 96-42.98 96-96s-42.98-96-96-96-96 42.98-96 96 42.98 96 96 96zM592 0H208c-26.47 0-48 22.25-48 49.59V96c23.42 0 45.1 6.78 64 17.8V64h352v288h-64v-64H384v64h-76.24c19.1 16.69 33.12 38.73 39.69 64H592c26.47 0 48-22.25 48-49.59V49.59C640 22.25 618.47 0 592 0z" />
                     </svg>
                 </button>
-                <button onclick="window.location.href='Students'"
+                <button onclick="window.location.href='/Students'"
                     class= "hover:ml-4 justify-end pr-3  hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex before:transition-all {{ request()->routeIs('Students') ? 'text-blue-600 ' : 'text-white' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
@@ -286,32 +286,30 @@
         <div class="flex-1 p-4 ml-14">
             <nav id="navbar"
                 class="flex items-center justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
-                <!-- Search Input -->
-                <form action="{{ route('search') }}" method="GET" class="flex items-center ml-4 mt-4">
-                    <input type="text" name="search" placeholder="Search..."
-                        class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" />
-                    <button type="submit" class="ml-2 p-2 bg-blue-300 text-white rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
-                            <path fill="black"
-                                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
-                        </svg>
-                    </button>
-                </form>
 
                 <div class="ml-auto relative flex">
-                    <!-- Inbox Icon Button -->
-                    <button class="mr-4 border-2 rounded-lg p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
-                        </svg>
-                    </button>
+                    <!-- Search Input -->
+                    <form action="{{ route('search') }}" method="GET" class="flex items-center mt-4 me-3">
+                        <div class="relative w-64">
+                            <input type="text" name="search" placeholder="Search..."
+                            class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value="{{ request('search') }}" />
+                            <button type="submit"
+                                class="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-800 to-sky-300 text-white rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+
+
 
                     <!-- User Icon Button -->
                     <button id="userDropdown" onclick="toggleDropdown()" class="text-gray-700 mr-5">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="size-8 border-2 rounded-full">
+                            class="size-10 border-2 rounded-md">
                             <path fill-rule="evenodd"
                                 d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
                                 clip-rule="evenodd" />

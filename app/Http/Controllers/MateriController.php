@@ -18,26 +18,33 @@ class MateriController extends Controller
      */
     public function index(Request $request)
     {
-
+        $search = $request->input('search');
         $order = $request->input('order', 'desc');
-
-        // Query dengan order yang valid
-        $materis = Materi::with('Subject', 'Classes')->orderBy('created_at', $order)->get();
+        $materis = Materi::with('Classes', 'Subject')
+            ->where(function ($query) use ($search) {
+                $query->whereHas('Classes', function ($q) use ($search) {
+                    $q->where('name_class', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    });
+            })->orWhere('title_materi','Like','%'.$search.'%')
+            ->orderBy('created_at', $order)
+            ->get();
 
         $subjects = Subject::all();
         $classes = Classes::all();
 
-        $user = auth()->user(); 
+        $user = auth()->user();
         return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
 
         if ($user->hasRole('Admin')) {
-            return view('Admins.Materi.index',compact('materis', 'subjects', 'classes'));
+            return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
         } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Materi.index',compact('materis', 'subjects', 'classes'));
+            return view('Guru.Materi.index', compact('materis', 'subjects', 'classes'));
         } else {
             abort(403, 'Unauthorized');
         }
-
     }
 
 

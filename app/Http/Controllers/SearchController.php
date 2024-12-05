@@ -9,7 +9,7 @@ use function Ramsey\Uuid\v1;
 class SearchController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         // Normalisasi input menjadi huruf kecil
         $query = strtolower($request->input('search'));
 
