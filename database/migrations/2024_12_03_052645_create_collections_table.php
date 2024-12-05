@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('assesment_id')->constrained('assesments');
+            $table->foreignId('assessment_id')->constrained('assessments');
             $table->enum('status',['Belum mengumpulkan','Sudah mengumpulkan'])->nullable();
             $table->foreignId('task_id')->constrained();
             $table->timestamps();
