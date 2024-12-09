@@ -11,23 +11,6 @@
     @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
     <!-- ICONS BOXICONS -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <style>
-        @keyframes fadeindown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fadeindown {
-            animation: fadeindown 0.3s ease-in-out;
-        }
-    </style>
 
 </head>
 
@@ -46,8 +29,9 @@
             <div class="parallax home__parallax home__parallax-img3" data-rellax-speed="-3"></div>
             <div class="parallax home__parallax home__parallax-img4" data-rellax-speed="0"></div>
 
-            <h1 class="parallax home__title relative font-poppins" data-rellax-speed="-6">SMART-LAB</h1>
-            <span class="parallax home__subtitle" data-rellax-speed="-5">Smart People, Smart Learning</span>
+            <div class="parallax home__title bottom-64" data-rellax-speed="-6">
+                <img src="image/Smart.png" alt="">
+            </div>
 
             <div class="home__scroll">
                 <a href="#section"><i class='bx bx-mouse'></i></a>

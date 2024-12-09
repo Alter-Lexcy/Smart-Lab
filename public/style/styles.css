@@ -142,9 +142,6 @@ a {
 }
 
 .home__title {
-  top: 32%;
-  font-size: var(--biggest-font-size);
-  font-weight: 600;
   z-index: var(--z-normal);
   color: var(--first-color);
 }
