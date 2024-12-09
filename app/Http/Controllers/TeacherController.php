@@ -40,33 +40,33 @@ class TeacherController extends Controller
         return view('Admins.Teachers.index', compact('teachers', 'subjects', 'classes'));
     }
 
-    public function assign(Request $request, User $user)
-    {
-
+    public function updateAssign(Request $request,$id){
+        $teacher = User::findOrFail($id);
+        // dd($teacher);
         $request->validate([
             'classes_id' => 'required',
-            'subject_id' => 'required'
+            'subject_id' => 'required',
         ], [
-            'classes_id.required' => 'Kelas Belum Di-pilih',
-            'subject_id.required' => 'Mapel Belum Di-pilih'
+            'classes_id.required' => 'Kelas Belum Dipilih',
+            'subject_id.required' => 'Mapel Belum Dipilih',
         ]);
 
-        $existingUser = User::where('id', '!=', $user->id)
-            ->where('subject_id', $request->subject_id)
-            ->whereHas('class', function ($query) use ($request) {
-                $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
-            })
-            ->first();
+
+        $existingUser = User::where('id', '!=', $teacher->id)
+        ->where('subject_id', $request->subject_id)
+        ->whereHas('class', function ($query) use ($request) {
+            $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
+        })
+        ->first();
 
         if ($existingUser) {
             return redirect()->back()->withErrors(['error' => 'Kombinasi Kelas dan Mapel sudah digunakan oleh pengguna lain']);
         }
 
-        $user->update([
+        $teacher->update([
             'subject_id' => $request->subject_id
         ]);
-        $user->class()->sync($request->classes_id);
-
+        $teacher->class()->sync($request->classes_id);
         return redirect()->back()->with('success', 'Data Sudah Ter-Update');
     }
 }

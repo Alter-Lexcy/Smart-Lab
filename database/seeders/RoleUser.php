@@ -22,7 +22,6 @@ class RoleUser extends Seeder
             'email'=>'admin123@gmail.com',
             'NIP'=>'123456789',
             'password'=>Hash::make('123456789'),
-            'subject_id'=>null,
         ])->assignRole('Admin');
 
 

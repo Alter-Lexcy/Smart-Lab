@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('NIP')->nullable();
-            $table->foreignId('subject_id')->nullable()->constrained();
+            $table->foreignId('subject_id')->nullable()->constrained('subjects');
             $table->rememberToken();
             $table->timestamps();
         });
