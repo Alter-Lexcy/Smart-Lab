@@ -11,7 +11,7 @@
             @endif
 
             <div
-                class="flex flex-col md:flex-row items-start md:items-center h-32 w-full py-4 space-y-3 md:space-y-0 md:space-x-4">
+                class="flex flex-col md:flex-row items-start md:items-center h-32 w-full py-4 space-y-3 md:space-y-0 md:space-x-4 justify-between">
                 <!-- Welcome text -->
                 <div class="flex flex-col space-y-2">
                     <p class="text-3xl font-medium font-poppins text-gray-700 ml-8">
@@ -24,7 +24,7 @@
 
                 <!-- SVG illustration -->
                 <div>
-                    <svg width="200" height="200" class="ml-[570px] mt-[100px]" viewBox="0 0 250 250" fill="none"
+                    <svg width="200" height="200" class="mt-[100px]" viewBox="0 0 250 250" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <rect y="0.541992" width="200" height="170" fill="url(#pattern0_20_269)" />
                         <defs>
@@ -41,10 +41,10 @@
 
         </div>
         <div class="grid mt-7 grid-cols-3 gap-4">
-            <div class="h-36 w-[383px] bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
+            <div class="h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
                 <!-- SVG Icon -->
                 <div class="absolute">
-                    <svg width="383px" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx="" fill="url(#pattern0_20_250)" />
                         <defs>
@@ -83,10 +83,10 @@
                 </div>
             </div>
 
-            <div class="h-36 w-[383px] bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
+            <div class="h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
                 <!-- SVG Icon -->
                 <div class="absolute">
-                    <svg width="383px" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx="" fill="url(#pattern0_20_250)" />
                         <defs>
@@ -123,9 +123,9 @@
                 </div>
             </div>
 
-            <div class=" h-36 w-[383px] bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm  rounded-xl flex items-center">
+            <div class=" h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm  rounded-xl flex items-center">
                 <div class="absolute">
-                    <svg width="383px" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx=""
                             fill="url(#pattern0_20_250)" />
@@ -168,9 +168,9 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap justify-center mt-5 gap-5">
+        <div class="flex mt-5 gap-5">
             <!-- Line Chart -->
-            <div class="flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md w-[800]">
+            <div class="flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md w-full">
                 <div
                     class="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center">
                     <div>
@@ -180,13 +180,13 @@
                         </h6>
                     </div>
                 </div>
-                <div class="pt-6 px-2 pb-0">
-                    <div id="bar-chart"></div>
+                <div class="pt-6 ps-6">
+                    <div id="bar-chart" class="w-auto"></div>
                 </div>
             </div>
-        
+
             <!-- Donut Chart -->
-            <div class="max-w-sm w-full md:w-1/2 bg-white rounded-lg shadow  p-4 md:p-6">
+            <div class="max-w-sm w-auto bg-white rounded-lg shadow  p-4 md:p-6">
                 <div class="flex justify-between mb-3">
                     <div class="flex justify-center items-center">
                         <h5 class="text-xl font-medium leading-none text-gray-900  pe-1">Data Pengumpulan Tugas
@@ -196,7 +196,7 @@
                 <!-- Donut Chart -->
                 <div class="py-6" id="donut-chart"></div>
             </div>
-        </div>        
+        </div>
 
         <script>
             const getChartOptions = () => {
@@ -274,7 +274,7 @@
                 chart: {
                     type: "bar",
                     height: 320,
-                    width: 750,
+                    width: "100%",
                     toolbar: {
                         show: false,
                     },

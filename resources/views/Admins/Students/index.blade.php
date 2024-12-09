@@ -64,8 +64,8 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Email Siswa</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Tanggal Lulus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,51 +78,14 @@
                                     <td class="px-4 py-2 border">{{ $student->name }}</td>
                                     <td class="px-4 py-2 border">{{ $student->email }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{ $student->class->isNotEmpty() ? $student->class->pluck('name_class')->implode(' ') : 'Kosong' }}
+                                        {{-- Menampilkan status --}}
+                                        {{ $student->status }}
                                     </td>
                                     <td class="px-4 py-2 border">
-                                        <button class="bg-green-400 px-4 py-2 text-white font-medium rounded-md"
-                                            onclick="openModal('assignModal-{{ $student->id }}')">
-                                            Penempatan
-                                        </button>
+                                        {{-- Menampilkan tanggal lulus jika ada --}}
+                                        {{ $student->graduation_date ? \Carbon\Carbon::parse($student->graduation_date)->translatedFormat('H:i l, j F Y') : 'Belum Lulus ' }}
                                     </td>
                                 </tr>
-                                <div id="assignModal-{{ $student->id }}"
-                                    class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
-                                    style="display: none">
-                                    <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
-                                        <div class="p-5">
-                                            <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                                            <form action="{{ route('murid.assignMurid', $student->id) }}" method="POST"
-                                                class="mt-4">
-                                                @method('PUT')
-                                                @csrf
-                                                <div class="mb-4">
-                                                    <label class="block text-gray-700">Nama Kelas</label>
-                                                    <select name="classes_id" id="classes_id"
-                                                        class="w-full px-3 py-2 border rounded">
-                                                        <option value="" disabled
-                                                            {{ $student->class->isEmpty() ? 'selected' : '' }}>Pilih Kelas
-                                                        </option>
-                                                        @foreach ($classes as $class)
-                                                            <option value="{{ $class->id }}"
-                                                                {{ old('classes_id', $student->classes_id) == $class->id ? 'selected' : '' }}>
-                                                                {{ $class->name_class }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="mt-4 flex justify-end space-x-2">
-                                                    <button type="button"
-                                                        onclick="closeModal('assignModal-{{ $student->id }}')"
-                                                        class="px-4 py-2 bg-gray-500 text-white rounded-md">Batal</button>
-                                                    <button type="submit"
-                                                        class="px-4 py-2 bg-green-500 text-white rounded-md">Kirim</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
                         </tbody>
                     </table>

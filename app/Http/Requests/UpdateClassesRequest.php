@@ -20,22 +20,31 @@ class UpdateClassesRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    protected function prepareForValidation()
+    {
+        // Gabungkan name_class[0] dan name_class[1] sebelum validasi
+        $this->merge([
+            'name_class_combined' => $this->input('name_class.0') . '-' . $this->input('name_class.1'),
+        ]);
+    }
     public function rules(): array
     {
         return [
-            'name_class' => [
-                'required','string',Rule::unique('classes','name_class')->ignore($this->route('class'))
+            'name_class.0' => ['required', 'string'], // Validasi untuk angkatan
+            'name_class.1' => ['required', 'string'], // Validasi untuk nama kelas
+            'description' => ['nullable', 'max:255'],
+            'name_class_combined' => [
+                'unique:classes,name_class,' . $this->route('class'), // Abaikan ID saat update
             ],
-            'description' => 'nullable|string',
         ];
     }
     public function messages()
     {
         return [
-            'name_class.required' => 'Nama Kelas Belum Di-isi',
-            'name_class.string' => 'Nama Kelas Harus Berformat String',
-            'name_class.unique' => 'Nama Kelas Sudah Ada',
-            'description.max' => 'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
+            'name_class.0.required' => 'Angkatan belum diisi.',
+            'name_class.1.required' => 'Nama kelas belum diisi.',
+            'name_class_combined.unique' => 'Kombinasi angkatan dan nama kelas sudah ada.',
+            'description.max' => 'Deskripsi kelas terlalu panjang (maksimal 255 karakter).',
         ];
     }
 }

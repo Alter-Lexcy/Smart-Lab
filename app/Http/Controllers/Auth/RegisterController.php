@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -26,13 +27,13 @@ class RegisterController extends Controller
      */
     public function registerMurid(Request $request)
     {
-        // Validasi data murid
-        $this->validateMurid($request);
 
         // Buat user baru
         $murid = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'status'=>'siswa',
+            'graduation_date'=>Carbon::now()->addYears(3),
             'password' => Hash::make($request->password),
         ])->assignRole('Murid');
         Auth::login($murid);
