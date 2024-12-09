@@ -48,41 +48,19 @@ class RegisterController extends Controller
         // Validasi data guru
         $this->validateGuru($request);
 
-        // Buat user baru dengan role guru
+        // Buat user baru dengan role Guru
         $guru = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'NIP' => $request->NIP,
             'password' => Hash::make($request->password),
-        ])->assignRole('Guru','Murid');
+        ])->assignRole('Guru'); // Role hanya untuk Guru
 
+        // Login user baru
         Auth::login($guru);
 
-        return redirect('/teacher/dashboard');
-    }
-
-    /**
-     * Validasi data Murid.
-     */
-    protected function validateMurid(Request $request)
-    {
-        return $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [
-            'name.required' => 'Nama Belum Di-isi',
-            'name.string' => 'Nama Harus Bertipe Huruf',
-            'name.max' => 'Nama Melebihi Batas',
-            'email.required' => 'Email Belum Di-isi',
-            'email.email' => 'Email Harus Berformat Email ( @ )',
-            'email.max' => 'Email Melebihi Batas',
-            'email.unique' => 'Email Sudah Digunakan',
-            'password.required' => 'Password Belum Di-isi',
-            'password.string' => 'Password Harus Bertipe Huruf',
-            'password.min' => 'Minimal Password 8 Karakter',
-            'password.confirmed' => 'Password Tidak Sama dengan Konfirmasi',
-        ]);
+        // Redirect ke dashboard Guru
+        return redirect('/teacher/dashboard/')->with('success', 'Registrasi Guru berhasil!');
     }
 
     /**
@@ -93,26 +71,29 @@ class RegisterController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'NIP' => ['required', 'string', 'max:50', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'NIP' => ['required', 'numeric', 'digits_between:1,18', 'unique:users,NIP'],
         ], [
-            'name.required' => 'Nama Belum Di-isi',
-            'name.string' => 'Nama Harus Bertipe Huruf',
-            'name.max' => 'Nama Melebihi Batas',
-            'email.required' => 'Email Belum Di-isi',
-            'email.email' => 'Email Harus Berformat Email ( @ )',
-            'email.max' => 'Email Melebihi Batas',
-            'email.unique' => 'Email Sudah Digunakan',
-            'password.required' => 'Password Belum Di-isi',
-            'password.string' => 'Password Harus Bertipe Huruf',
-            'password.min' => 'Minimal Password 8 Karakter',
-            'password.confirmed' => 'Password Tidak Sama dengan Konfirmasi',
-            'NIP.required' => 'NIP Belum Di-isi',
-            'NIP.numeric' => 'NIP harus Bertipe Angka',
-            'NIP.digits_between' => 'NIP Tidak Valid (1-18 Digit)',
-            'NIP.unique' => 'NIP Sudah Digunakan',
+            'name.required' => 'Nama belum diisi.',
+            'name.string' => 'Nama harus berupa huruf.',
+            'name.max' => 'Nama terlalu panjang.',
+            'email.required' => 'Email belum diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.max' => 'Email terlalu panjang.',
+            'email.unique' => 'Email sudah digunakan.',
+            'NIP.required' => 'NIP belum diisi.',
+            'NIP.string' => 'NIP harus berupa string.',
+            'NIP.max' => 'NIP terlalu panjang.',
+            'NIP.unique' => 'NIP sudah digunakan.',
+            'password.required' => 'Password belum diisi.',
+            'password.string' => 'Password harus berupa huruf.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Password tidak cocok dengan konfirmasi.',
         ]);
     }
+    /**
+     * Validasi data Guru.
+     */
 
     /**
      * Handle the user after login based on role.

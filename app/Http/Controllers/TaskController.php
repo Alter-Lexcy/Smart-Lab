@@ -46,7 +46,6 @@ class TaskController extends Controller
 
         $user = auth()->user();
 
-        return view('Admins.Tasks.index', compact('tasks', 'classes', 'materis', 'subjects'));
         if ($user->hasRole('Admin')) {
             return view('Admins.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
         } elseif ($user->hasRole('Guru')) {
