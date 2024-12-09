@@ -10,10 +10,11 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
         './resources/css/**/*.css',
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     ],
     theme: {
         extend: {
-            
+
             colors: {
                 'custom-blue': '#3572EF',
                 'deep-blue': '#050C9C',

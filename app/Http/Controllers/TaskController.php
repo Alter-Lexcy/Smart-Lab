@@ -36,7 +36,7 @@ class TaskController extends Controller
                     });
             })->orWhere('title_task','Like','%'.$search.'%')
             ->orderBy('created_at', $order)
-            ->get();
+            ->simplePaginate(5);
 
 
 
@@ -46,7 +46,6 @@ class TaskController extends Controller
 
         $user = auth()->user();
 
-        return view('Admins.Tasks.index', compact('tasks', 'classes', 'materis', 'subjects'));
         if ($user->hasRole('Admin')) {
             return view('Admins.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
         } elseif ($user->hasRole('Guru')) {

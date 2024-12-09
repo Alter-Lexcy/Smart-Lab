@@ -23,7 +23,7 @@
                     </button>
 
                     <!-- Form Pencarian -->
-                    <form id="searchForm" action="{{route('Students')}}" method="GET" name="search"
+                    <form id="searchForm" action="{{ route('Students') }}" method="GET" name="search"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
                         <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -69,9 +69,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $offset = ($students->currentPage() - 1) * $students->perPage();
+                            @endphp
                             @foreach ($students as $student)
                                 <tr class="border">
-                                    <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset }}</td>
                                     <td class="px-4 py-2 border">{{ $student->name }}</td>
                                     <td class="px-4 py-2 border">{{ $student->email }}</td>
                                     <td class="px-4 py-2 border">
@@ -146,4 +149,9 @@
                     form.classList.toggle('show'); // Toggle class "show"
                 });
             </script>
-        @endsection
+        </div>
+        <div class="mt-3">
+            {{ $students->links() }}
+        </div>
+    </div>
+@endsection

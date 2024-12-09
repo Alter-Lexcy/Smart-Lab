@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- CSS -->
-<style>
-    #searchForm.show {
-        opacity: 1;
-        visibility: visible;
-    }
-</style>
+    <!-- CSS -->
+    <style>
+        #searchForm.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
     <div class="container mx-auto p-4">
         <div class="container mx-auto pt-2">
             <div class="flex items-center space-x-2">
@@ -24,7 +24,7 @@
                     </button>
 
                     <!-- Form Pencarian -->
-                    <form id="searchForm" action="{{route('materis.index')}}" method="GET" name="search"
+                    <form id="searchForm" action="{{ route('materis.index') }}" method="GET" name="search"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
                         <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -115,9 +115,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $offset = ($materis->currentPage() - 1) * $materis->perPage();
+                            @endphp
                             @foreach ($materis as $index => $materi)
                                 <tr class="">
-                                    <td class="px-4 py-2 ">{{ $index + 1 }}</td>
+                                    <td class="px-4 py-2 ">{{$offset + $index + 1 }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->subject->name_subject }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->name_class }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
@@ -258,6 +261,9 @@
                     onclick="closeModal('materiModal-{{ $materi->id }}')">Batal</button>
                 </form>
             </div>
+            <div class="mt-3">
+                {{ $materis->links() }}
+            </div> 
     </div>
     @endforeach
 

@@ -30,14 +30,13 @@ class MateriController extends Controller
                     });
             })->orWhere('title_materi','Like','%'.$search.'%')
             ->orderBy('created_at', $order)
-            ->get();
+            ->simplePaginate(5);
 
         $subjects = Subject::all();
         $classes = Classes::all();
 
         $user = auth()->user();
-        return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
-
+        
         if ($user->hasRole('Admin')) {
             return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
         } elseif ($user->hasRole('Guru')) {
