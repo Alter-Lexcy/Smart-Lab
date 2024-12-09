@@ -193,3 +193,60 @@ body{
     transition: all 0.3s ease-in-out;
     z-index: 50;
 }
+
+#collectionModal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+}
+
+.collectionModal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+}
+
+@media (min-width: 768px) {
+    .custom-max-w {
+      max-width: 1000px;
+    }
+  }
+
+  .svg-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #000;
+}
+
+.first-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.second-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}

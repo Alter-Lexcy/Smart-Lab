@@ -70,7 +70,8 @@
             </div>
             <!-- MAX SIDEBAR-->
             <div class= "max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
-                <a href="{{route('homeguru')}}" class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+                <a href="{{ route('homeguru') }}"
+                    class =  "hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -81,7 +82,7 @@
                         Dashboard
                     </div>
                 </a>
-                <a href="{{route('materis.index')}}"
+                <a href="{{ route('materis.index') }}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -93,7 +94,7 @@
                         Materi
                     </div>
                 </a>
-                <a href="{{route('tasks.index')}}"
+                <a href="{{ route('tasks.index') }}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -107,7 +108,7 @@
                         Tugas
                     </div>
                 </a>
-                <a href="{{route('assesments.index')}}"
+                <a href="{{ route('assesments.index') }}"
                     class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -121,10 +122,25 @@
                         Penilaian
                     </div>
                 </a>
+                <a href="{{ route('collections.index') }}"
+                    class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd"
+                            d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                            clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
+                            clip-rule="evenodd"  />
+                    </svg>
+                    <div>
+                        Pengumpulan
+                    </div>
+                </a>
             </div>
             <!-- MINI SIDEBAR-->
             <div class= "mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
-                <button onclick="window.location.href='{{route('homeguru')}}'" class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+                <button onclick="window.location.href='{{ route('homeguru') }}'"
+                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -132,7 +148,7 @@
                             d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{route('materis.index')}}'"
+                <button onclick="window.location.href='{{ route('materis.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -141,7 +157,7 @@
                         <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z"   />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{route('tasks.index')}}'"
+                <button onclick="window.location.href='{{ route('tasks.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -152,7 +168,18 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{route('assesments.index')}}'"
+                <button onclick="window.location.href='{{ route('assesments.index') }}'"
+                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd"
+                            d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                            clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
+                            clip-rule="evenodd"  />
+                    </svg>
+                </button>
+                <button onclick="window.location.href='{{ route('collections.index') }}'"
                     class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                         <path fill-rule="evenodd"
@@ -252,10 +279,10 @@
 
                 window.addEventListener("scroll", () => {
                     if (window.scrollY > initialNavOffset) {
-                        navbar.classList.add("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-10");
+                        navbar.classList.add("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-20");
                         navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
                     } else {
-                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-10");
+                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-20");
                         navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
                     }
                 });
