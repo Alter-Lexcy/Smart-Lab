@@ -36,8 +36,7 @@ class MateriController extends Controller
         $classes = Classes::all();
 
         $user = auth()->user();
-        return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
-
+        
         if ($user->hasRole('Admin')) {
             return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
         } elseif ($user->hasRole('Guru')) {
