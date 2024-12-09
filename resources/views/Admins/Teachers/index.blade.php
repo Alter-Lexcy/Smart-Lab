@@ -76,9 +76,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $offset = ($teachers->currentPage() - 1) * $teachers->perPage();
+                            @endphp
                             @foreach ($teachers as $teacher)
                                 <tr class="border">
-                                    <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset}}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->name }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
@@ -150,7 +153,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                {{ $teachers->links() }}
             </div>
             <script>
                 function openModal(id) {

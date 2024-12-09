@@ -18,7 +18,7 @@ class ClassesController extends Controller
     {
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
-        $classes = Classes::where('name_class','Like','%'.$search.'%')->orderBy('created_at', $order)->get();
+        $classes = Classes::where('name_class','Like','%'.$search.'%')->orderBy('created_at', $order)->simplePaginate(5);
         return view('Admins.Classes.index', compact('classes', 'order'));
     }
 

@@ -30,7 +30,7 @@ class MateriController extends Controller
                     });
             })->orWhere('title_materi','Like','%'.$search.'%')
             ->orderBy('created_at', $order)
-            ->get();
+            ->simplePaginate(5);
 
         $subjects = Subject::all();
         $classes = Classes::all();

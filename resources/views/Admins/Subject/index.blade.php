@@ -14,7 +14,7 @@
                 <!-- Tombol Search dengan Form Animasi -->
                 <div class="relative flex items-center">
                     <!-- Tombol Search -->
-                    <form action="{{route('subject.index')}}" method="GET" class="mt-4">
+                    <form action="{{ route('subject.index') }}" method="GET" class="mt-4">
                         <button id="searchButton" name="search"
                             class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-[14px] w-[14px]" viewBox="0 0 24 24">
@@ -110,9 +110,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $offset = ($subjects->currentPage() - 1) * $subjects->perPage();
+                        @endphp
                         @foreach ($subjects as $subject)
                             <tr class="border">
-                                <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-2 border">{{ $loop->iteration + $offset }}</td>
                                 <td class="px-4 py-2 border">{{ $subject->name_subject }}</td>
                                 <td class="px-4 py-2 border space-x-5">
                                     <!-- Tombol Ubah untuk Modal -->
@@ -220,4 +223,8 @@
                 form.classList.toggle('show'); // Toggle class "show"
             });
         </script>
+        <div class="mt-3">
+            {{ $subjects->links() }}
+        </div>
+    </div>
     @endsection

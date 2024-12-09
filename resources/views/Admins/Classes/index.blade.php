@@ -14,7 +14,7 @@
                     <!-- Tombol Search dengan Form Animasi -->
                     <div class="relative flex items-center">
                         <!-- Tombol Search -->
-                        <form action="{{route('classes.index')}}" method="GET" class="mt-4">
+                        <form action="{{ route('classes.index') }}" method="GET" class="mt-4">
                             <button id="searchButton" name="search"
                                 class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-[14px] w-[14px]" viewBox="0 0 24 24">
@@ -112,9 +112,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $offset = ($classes->currentPage() - 1) * $classes->perPage();
+                                @endphp
                                 @foreach ($classes as $index => $class)
                                     <tr class="border">
-                                        <td class="py-2 px-4 border">{{ $index + 1 }}</td>
+                                        <td class="px-4 py-2 border">{{ $offset + $index + 1 }}</td>
                                         <td class="py-2 px-4 border">{{ $class->name_class }}</td>
                                         <td class="py-2 px-4 border">{{ $class->description ?? 'Kosong' }}</td>
                                         <td class="py-2 px-4 border space-x-5">
@@ -264,4 +267,10 @@
                             form.classList.toggle('show'); // Toggle class "show"
                         });
                     </script>
-                @endsection
+                </div>
+            </div>
+            <div class="mt-3">
+                {{ $classes->links() }}
+            </div>
+        </div>
+    @endsection
