@@ -19,7 +19,7 @@ class StudentController extends Controller
                 ->orWhere('email', 'like', '%' . $search . '%');
             })
             ->orderByRaw('(SELECT COUNT(*) FROM teacher_classes WHERE teacher_classes.user_id = users.id) = 0 DESC')
-            ->orderBy('created_at','desc')->get();
+            ->orderBy('created_at','desc')->simplePaginate(5);
 
             $classes = Classes::all();
         return view('Admins.Students.index', compact('students','classes'));

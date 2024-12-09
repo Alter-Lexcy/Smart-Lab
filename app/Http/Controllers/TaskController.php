@@ -36,7 +36,7 @@ class TaskController extends Controller
                     });
             })->orWhere('title_task','Like','%'.$search.'%')
             ->orderBy('created_at', $order)
-            ->get();
+            ->simplePaginate(5);
 
 
 

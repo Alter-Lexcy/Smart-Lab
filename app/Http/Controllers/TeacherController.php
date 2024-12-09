@@ -31,7 +31,7 @@ class TeacherController extends Controller
 
 
 
-        $teachers = $query->get();
+        $teachers = $query->simplePaginate(5);
 
         // Get all subjects for the dropdown
         $classes = Classes::all();
