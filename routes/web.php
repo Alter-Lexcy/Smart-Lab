@@ -32,6 +32,10 @@
         return view('Users.landing');
     }]);
 
+    Route::get('/beranda', [function () {
+        return view('Users.beranda');
+    }]);
+
     // Route Admin
     Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('home');
