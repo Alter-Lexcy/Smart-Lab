@@ -14,6 +14,7 @@
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SearchController;
     use App\Http\Controllers\HomeguruController;
+    use App\Http\Controllers\CollectionController;
 
     Auth::routes();
 
@@ -56,6 +57,7 @@
         Route::resource('materis', MateriController::class);
         Route::resource('tasks', TaskController::class);
         Route::resource('assesments', AssessmentController::class);
+        Route::resource('collections', CollectionController::class);
     });
 
     // Route Murid
