@@ -48,7 +48,7 @@ class User extends Authenticatable
     }
 
     public function subject(){
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 
     public function class(){

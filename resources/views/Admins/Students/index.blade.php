@@ -90,7 +90,7 @@
                                     <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                                         <div class="p-5">
                                             <h5 class="text-lg font-bold">Tambah Kelas</h5>
-                                            <form action="{{ route('assignMurid', $student->id) }}" method="POST"
+                                            <form action="{{ route('murid.assignMurid', $student->id) }}" method="POST"
                                                 class="mt-4">
                                                 @method('PUT')
                                                 @csrf

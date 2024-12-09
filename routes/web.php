@@ -21,10 +21,10 @@
     // Proses
     Route::post('register-murid', [RegisterController::class, 'registerMurid'])->name('register_murid');
     Route::post('register-guru', [RegisterController::class, 'registerGuru'])->name('register_guru');
-    Route::middleware('auth')->group(function () {
-        Route::put('/update/{student}', [StudentController::class, 'assign'])->name('assignMurid');
-        Route::put('/update/{user}', [TeacherController::class, 'assign'])->name('assignTeacher');
-    });
+    Route::put('/update/{teacher}', [TeacherController::class, 'updateAssign'])->name('teacher.updateAssign');
+    Route::put('/student/{student}', [StudentController::class, 'assign'])->name('murid.assignMurid');
+    // Route::put('/update/{teacher}', [TeacherController::class, 'updateAssign'])->name('teacher.updateAssign');
+
 
 
     // Landing
