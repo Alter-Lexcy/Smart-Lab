@@ -29,11 +29,11 @@
 
 
     // Landing
-    Route::get('/', [function () {
+    Route::get('/landing', [function () {
         return view('Users.landing');
     }]);
 
-    Route::get('/beranda', [function () {
+    Route::get('/', [function () {
         return view('Users.beranda');
     }]);
 
