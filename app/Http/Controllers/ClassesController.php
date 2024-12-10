@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Classes;
+use App\Models\Subject;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
-use Illuminate\Http\Request;
-use App\Models\Subject;
-use Exception;
 
 class ClassesController extends Controller
 {
@@ -18,7 +19,7 @@ class ClassesController extends Controller
     {
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
-        $classes = Classes::where('name_class','Like','%'.$search.'%')->orderBy('created_at', $order)->simplePaginate(5);
+        $classes = Classes::where('name_class', 'Like', '%' . $search . '%')->orderBy('created_at', $order)->simplePaginate(5);
         return view('Admins.Classes.index', compact('classes', 'order'));
     }
 
@@ -36,7 +37,12 @@ class ClassesController extends Controller
      */
     public function store(StoreClassesRequest $request)
     {
-        Classes::create($request->all());
+        DB::table('classes')->insert([
+            'name_class' => $request->input('name_class_combined'),
+            'description' => $request->input('description', null),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
         return redirect()->route('classes.index')->with('success', 'Data Kelas Baru Berhasil Dtambahkan');
     }
 
@@ -61,9 +67,20 @@ class ClassesController extends Controller
      */
     public function update(UpdateClassesRequest $request, $id)
     {
+        $nameClassCombined = $request->input('name_class.0') . '-' . $request->input('name_class.1');
+        
+        $class = DB::table('classes')->where('id', $id)->first();
 
-        $class = Classes::findOrFail($id);
-        $class->update($request->all());
+        if (!$class) {
+            return redirect()->route('classes.index')->with('error', 'Data kelas tidak ditemukan.');
+        }
+
+        // Update data kelas
+        DB::table('classes')->where('id', $id)->update([
+            'name_class' => $nameClassCombined,
+            'description' => $request->input('description', null),
+            'updated_at' => now(),
+        ]);
 
         return redirect()->route('classes.index')->with('success', 'Kelas Yang Dipilih Berhasil Diperbarui');
     }

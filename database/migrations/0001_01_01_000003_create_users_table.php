@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('NIP')->nullable();
             $table->foreignId('subject_id')->nullable()->constrained('subjects');
+            $table->string('status')->default('siswa');
+            $table->date('graduation_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -49,5 +51,8 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::table('users',function(Blueprint $table){
+            $table->dropColumn(['status','graduation_date']);
+        });
     }
 };

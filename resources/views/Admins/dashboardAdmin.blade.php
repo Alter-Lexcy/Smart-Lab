@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto py-8 max-w-full md:max-w-6xl overflow-hidden">
+    <div class="container mx-auto py-8 max-w-6xl lg:max-w-full overflow-hidden">
         <div class="max-w-full bg-white p-0 rounded-lg shadow-lg">
 
             @if (session('status'))
@@ -10,10 +10,10 @@
                 </div>
             @endif
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-36 w-full py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg">
-                <svg width="1148" height="150" viewBox="0 0 1148 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-36 w-full py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg" class="overflow-hidden">
+                <svg viewBox="0 0 1420 148" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" class="w-[1148px] h-[152] lg:w-full ">
                     <!-- Background -->
-                    <rect opacity="0.1" height="152" width="1148"rx="10" fill="url(#pattern0_189_185)" class="w-full" />
+                    <rect opacity="0.08" height="152" width="1148" rx="10" fill="url(#pattern0_189_185)" class="w-full" />
                     <defs>
                         <pattern id="pattern0_189_185" patternContentUnits="objectBoundingBox" width="1"
                             height="1">
@@ -33,7 +33,7 @@
                 <!-- SVG illustration -->
                 <div class="absolute w-auto z-10 ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170"
-                        fill="none" class="mb-6 mr-10 ml-[900px]">
+                        fill="none" class="mb-6 mr-10 ml-[900px] lg:ml-[1200px]">
                         <path d="M24.9368 127.964L27.8728 133.597H50.5891L45.4749 123.411L24.9368 127.964Z"
                             fill="#084EEE" />
                         <path
@@ -225,7 +225,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 mt-[-10px] border-2 rounded-lg">
+                    <div class="grid grid-cols-1 mt-[-40px] border-2 rounded-lg">
                         <div class="max-w-full w-full bg-white rounded-lg shadow-lg p-4 md:p-6">
                             <div class="flex justify-between border-b">
                                 <div>
