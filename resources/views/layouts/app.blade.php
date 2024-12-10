@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css">
-    
+
     <!-- Preline Select CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.css">
 
@@ -290,13 +290,13 @@
                 <div class="ml-auto relative flex">
                     <!-- Search Input -->
                     <form action="{{ route('search') }}" method="GET" class="flex items-center mt-4 me-3">
-                        <div class="relative w-64">
+                        <div class="relative w-64 ">
                             <input type="text" name="search" placeholder="Search..."
-                            class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-100"
                             value="{{ request('search') }}" />
                             <button type="submit"
-                                class="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 bg-gradient-to-r from-blue-800 to-sky-300 text-white rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24">
+                                class="absolute top-1/2 right-2 transform -translate-y-1/2 p-1 bg-gradient-to-r from-blue-800 to-sky-300 text-white rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
                                 </svg>
@@ -307,9 +307,9 @@
 
 
                     <!-- User Icon Button -->
-                    <button id="userDropdown" onclick="toggleDropdown()" class="text-gray-700 mr-5">
+                    <button id="userDropdown" onclick="toggleDropdown()" class="my-5 focus:outline-none focus:ring-2 focus:ring-transparent mr-5">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="size-10 border-2 rounded-md">
+                            class="size-10 border-2 bg-gray-100 rounded-lg">
                             <path fill-rule="evenodd"
                                 d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
                                 clip-rule="evenodd" />
