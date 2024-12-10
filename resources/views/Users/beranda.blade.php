@@ -15,14 +15,62 @@
 </head>
 
 <body>
-    <section class="bg-gradient-to-r from-red-500 to-yellow-500">
-        <div>
-            <h1><span class="judul-biru">Platform LMS gratis</span>
-                <span class="judul">yang membuat belajar lebih menarik</span>
-            </h1>
+    <div class="navbar-container">
+        <x-navbar></x-navbar>
+    </div>
+
+    <section class="h-screen"
+        style="background: url('image/bc atas.svg') no-repeat center center; background-size: cover;">
+        <div class="absolute text-white font-poppins text-5xl font-bold text-center">
+            <h1 class="mb-3">Platform LMS gratis yang</h1>
+            <h1 class="mb-3">membuat belajar lebih menarik</h1>
+            <p
+                style="
+                background-color: #174091;
+                border-radius: 10px;
+                color: #ffffff;
+                text-align: center;
+                font-family: Poppins;
+                font-size: 23px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 45px; /* 225% */">
+                Akses materi belajar interaktif kapan saja, di mana saja.
+            </p>
+
+            <div style="position: relative; bottom: 50px; margin-top: 100px">
+                <button type="button"
+                    class="text-white text-xl bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-16 py-3 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-8">Daftar</button>
+                <button type="button"
+                    class="text-white text-xl bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-16 py-3 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-8">Masuk</button>
+            </div>
+        </div>
+
+        <div style="position: relative; z-index: 2; width: 500px; right: 250px; top: 150px">
+            <img src="image/orang wedok.svg" alt="orangwedok">
+        </div>
+
+        <div style="position: relative; z-index: 2; width: 500px; left: 300px; top:150px">
+            <img src="image/element laki.svg" alt="wonglanang">
         </div>
     </section>
-    <section class="h-screen bg-gray-100 flex items-center justify-center">
+
+    <div class="jumlah-container">
+        <img src="image/jumlah.svg" alt="Jumlah Pengguna" class="jumlah-gambar">
+        <div class="jumlah-teks">
+            <div class="jumlahsiswa">
+                <h1>+5jt</h1>
+                <p>Siswa Bergabung</p>
+            </div>
+            <div class="jumlahguru">
+                <h1>+40</h1>
+                <p>Guru Aktif</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="h-screen"
+        style="background: url('image/landing 2.svg') no-repeat center center; background-size: cover;">
         <div id="default-carousel" class="relative w-full" style="margin-inline: 150px;" data-carousel="slide">
             <!-- Carousel wrapper with border-radius -->
             <div class="relative overflow-hidden border-md shadow-lg" style="height: 450px; border-radius: 30px;">
