@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -67,21 +68,19 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6',
-        ], [
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'password.required' => 'Kata sandi wajib diisi.',
-            'password.min' => 'Kata sandi harus terdiri dari minimal 6 karakter.',
+            'password' => 'required',
         ]);
 
-        if (!auth()->attempt($request->only('email', 'password'))) {
-            return back()->withErrors([
-                'email' => 'Kredensial ini tidak cocok dengan catatan kami.',
-            ]);
+        if (Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])) {
+            return redirect()->intended('dashboard');
         }
 
-        return $this->traitLogin($request);
+        return back()->withErrors([
+            'email' => 'Kredensial ini tidak cocok dengan catatan kami.',
+        ]);
     }
 
     /**
