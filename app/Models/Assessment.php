@@ -13,13 +13,19 @@ class Assessment extends Model
     ];
 
 
-    public function User() {
+    public function User()
+    {
         return $this->belongsTo(User::class, 'user_id')->whereDoesntHave('roles', function ($query) {
             $query->where('name', '!=', 'Murid');
         });
     }
 
-    public function Task(){
-        return $this->belongsTo(Task::class,'task_id');
+    public function Task()
+    {
+        return $this->belongsTo(Task::class, 'task_id');
+    }
+    public function collection()
+    {
+        return $this->belongsTo(Collection::class);
     }
 }
