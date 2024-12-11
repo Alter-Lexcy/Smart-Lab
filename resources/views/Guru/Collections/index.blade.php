@@ -42,7 +42,7 @@
             @endif
             <!-- Table of assessments -->
             <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
-                <h6 class="font-semibold p-3 text-sm ps-5">Daftar Tugas</h6>
+                <h6 class="font-semibold p-3 text-sm ps-5">Daftar Pengumpulan</h6>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white text-center rounded-lg">
                         <thead>
