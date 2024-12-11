@@ -77,13 +77,9 @@
                                     <td class="px-4 py-2 border">{{ $loop->iteration + $offset }}</td>
                                     <td class="px-4 py-2 border">{{ $student->name }}</td>
                                     <td class="px-4 py-2 border">{{ $student->email }}</td>
+                                    <td class="px-4 py-2 border">{{ $student->status }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{-- Menampilkan status --}}
-                                        {{ $student->status }}
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        {{-- Menampilkan tanggal lulus jika ada --}}
-                                        {{ $student->graduation_date ? \Carbon\Carbon::parse($student->graduation_date)->translatedFormat('H:i l, j F Y') : 'Belum Lulus ' }}
+                                        {{ $student->graduation_date ? \Carbon\Carbon::parse($student->graduation_date)->translatedFormat('j F Y') : 'Belum Lulus' }}
                                     </td>
                                 </tr>
                             @endforeach

@@ -54,6 +54,16 @@ class User extends Authenticatable
     public function class(){
         return $this->belongsToMany(Classes::class, 'teacher_classes','user_id','classes_id');
     }
+
+    protected static function boot(){
+        parent::boot();
+
+        static::updated(function($user){
+            if($user->isDirty('status') && $user->status === 'lulus'){
+                $user->class()->detach();
+            }
+        });
+    }
 }
 
 

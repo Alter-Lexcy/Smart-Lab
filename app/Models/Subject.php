@@ -21,4 +21,7 @@ class Subject extends Model
     public function Task(){
         return $this->hasMany(Task::class);
     }
+    public function user(){
+        return $this->hasMany(User::class);
+    }
 }

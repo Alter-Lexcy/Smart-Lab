@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Materi extends Model
 {
     protected $fillable = [
-        'subject_id',
         'classes_id',
         'title_materi',
         'file_materi',
         'description'
     ];
 
-    public function Subject(){
-        return $this->belongsTo(Subject::class,'subject_id');
-    }
     public function Classes(){
         return $this->belongsTo(Classes::class,'classes_id');
     }

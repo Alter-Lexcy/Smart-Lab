@@ -20,31 +20,31 @@ class MateriController extends Controller
     {
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
-        $materis = Materi::with('Classes', 'Subject')
+        $user = auth()->user();
+
+        // Filter dan Search Materi
+        $materis = Materi::with('Classes')
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('Subject', function ($q) use ($search) {
-                        $q->where('name_subject', 'like', '%' . $search . '%');
-                    });
-            })->orWhere('title_materi','Like','%'.$search.'%')
+                })->orWhere('title_materi', 'like', '%' . $search . '%');
+            })
             ->orderBy('created_at', $order)
             ->simplePaginate(5);
 
-        $subjects = Subject::all();
-        $classes = Classes::all();
+        // Filter Dropdown Kelas
+        $classes = $user->class()->get();
 
-        $user = auth()->user();
-        
+        // Return View berdasarkan Role
         if ($user->hasRole('Admin')) {
-            return view('Admins.Materi.index', compact('materis', 'subjects', 'classes'));
+            return view('Admins.Materi.index', compact('materis', 'classes'));
         } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Materi.index', compact('materis', 'subjects', 'classes'));
+            return view('Guru.Materi.index', compact('materis', 'classes'));
         } else {
             abort(403, 'Unauthorized');
         }
     }
+
 
 
     /**
@@ -60,7 +60,6 @@ class MateriController extends Controller
             'title_materi' => $request->title_materi,
             'file_materi' => $img,
             'description' => $request->description,
-            'subject_id' => $request->subject_id,
             'classes_id' => $request->classes_id,
         ]);
 
