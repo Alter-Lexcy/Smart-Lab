@@ -68,7 +68,6 @@ class ClassesController extends Controller
     public function update(UpdateClassesRequest $request, $id)
     {
         $nameClassCombined = $request->input('name_class.0') . '-' . $request->input('name_class.1');
-        
         $class = DB::table('classes')->where('id', $id)->first();
 
         if (!$class) {

@@ -105,7 +105,6 @@
                         <thead>
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">NO</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATA PELAJARAN</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">KELAS</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATERI</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">FILE MATERI</th>
@@ -121,7 +120,6 @@
                             @foreach ($materis as $index => $materi)
                                 <tr class="">
                                     <td class="px-4 py-2 ">{{$offset + $index + 1 }}</td>
-                                    <td class="px-4 py-2 ">{{ $materi->subject->name_subject }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->name_class }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
                                     <td class="px-4 py-2 ">
@@ -194,21 +192,6 @@
                         @csrf
                         @method('PUT')
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="mb-3">
-                                <label for="name_subject-{{ $materi->id }}" class="block font-medium mb-1">Nama
-                                    Mapel</label>
-                                <select id="name_subject-{{ $materi->id }}" name="subject_id"
-                                    class="w-full border rounded px-3 py-2">
-                                    <option value="" disabled>Pilih Nama Mapel</option>
-                                    @foreach ($subjects as $mapel)
-                                        <option value="{{ $mapel->id }}"
-                                            {{ old('subjec_id', $materi->subject_id) == $mapel->id ? 'selected' : '' }}>
-                                            {{ $mapel->name_subject }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
                             <div class="mb-3 mr-6">
                                 <label for="classes_id" class="block font-medium mb-1">Kelas</label>
                                 <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
@@ -263,7 +246,7 @@
             </div>
             <div class="mt-3">
                 {{ $materis->links() }}
-            </div> 
+            </div>
     </div>
     @endforeach
 
@@ -275,17 +258,6 @@
                 class="overflow-y-auto h-[70%]">
                 @csrf
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-3">
-                        <label for="subject_id" class="block font-medium mb-1">Pilih Mapel</label>
-                        <select id="subject_id" name="subject_id" class="w-full border rounded px-3 py-2">
-                            <option value="" disabled selected>Pilih Nama Mapel</option>
-                            @foreach ($subjects as $mapel)
-                                <option value="{{ $mapel->id }}">{{ $mapel->name_subject }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-
                     <div class="mb-3 mr-6">
                         <label for="classes_id" class="block font-medium mb-1">Kelas</label>
                         <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">

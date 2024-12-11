@@ -15,10 +15,10 @@
                 <!-- Welcome text -->
                 <div class="flex flex-col space-y-2">
                     <p class="text-3xl font-medium font-poppins text-gray-700 ml-8">
-                        Hallo, <span class="uppercase">{{ Auth::user()->name }}</span>
+                        Hai, <span class="uppercase">{{ Auth::user()->name }}</span>
                     </p>
                     <p class="text-xl font-normal font-poppins text-gray-700 ml-8">
-                        Siap untuk Mengelola Data hari ini?
+                        Selamat Datang, Semangat Bekerja 😊
                     </p>
                 </div>
 

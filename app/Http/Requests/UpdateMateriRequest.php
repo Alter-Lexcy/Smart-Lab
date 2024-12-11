@@ -23,7 +23,6 @@ class UpdateMateriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id' => ['required', 'exists:subjects,id'],
             'classes_id' => ['required', 'exists:classes,id'],
             'title_materi' => ['required','string','max:255',Rule::unique('materis', 'title_materi')->ignore($this->materi)],
             'file_materi' => ['nullable', 'mimes:pdf', 'max:10240'],
@@ -34,8 +33,6 @@ class UpdateMateriRequest extends FormRequest
     public function messages()
     {
         return [
-            'subject_id.required'=>'Mata Pembelajaran Belum Di-Pilih',
-            'subject_id.exists'=>'Mata Pembelajaran Tidak Ada',
             'classes_id.required'=>'Kelas Belum Di-Pilih',
             'classes_id.exists'=>'Kelas Tidak Ada',
             'title_materi.required'=>'Judul Materi Belum Di-isi',

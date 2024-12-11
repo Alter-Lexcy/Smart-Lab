@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('NIP')->nullable();
             $table->foreignId('subject_id')->nullable()->constrained('subjects');
-            $table->string('status')->default('siswa');
+            $table->enum('status', ['siswa', 'lulus']);
             $table->date('graduation_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
