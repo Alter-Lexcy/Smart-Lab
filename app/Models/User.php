@@ -47,23 +47,34 @@ class User extends Authenticatable
         ];
     }
 
-    public function subject(){
+    public function subject()
+    {
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
-    public function class(){
-        return $this->belongsToMany(Classes::class, 'teacher_classes','user_id','classes_id');
+    public function class()
+    {
+        return $this->belongsToMany(Classes::class, 'teacher_classes', 'user_id', 'classes_id');
+    }
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
     }
 
-    protected static function boot(){
+    public function assessments()
+    {
+        return $this->hasMany(Assessment::class);
+    }
+
+
+    protected static function boot()
+    {
         parent::boot();
 
-        static::updated(function($user){
-            if($user->isDirty('status') && $user->status === 'lulus'){
+        static::updated(function ($user) {
+            if ($user->isDirty('status') && $user->status === 'lulus') {
                 $user->class()->detach();
             }
         });
     }
 }
-
-
