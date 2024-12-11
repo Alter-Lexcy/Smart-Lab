@@ -56,8 +56,8 @@
 
         <!-- Form Register Siswa -->
         <div id="siswa-tab" class="tab-content active">
-            <div class="register-form" style="height: 310px; overflow: auto; padding: 10px; box-sizing: border-box; ">
-                <form action="{{ route('register_murid') }}" method="POST">
+            <div class="register-form" style="height: 310px; overflow: auto; padding: 20px; box-sizing: border-box;">
+                <form action="{{ route('register_murid') }}" method="POST" style="overflow: auto;">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
@@ -139,7 +139,7 @@
 
         <!-- Form Register Guru -->
         <div id="guru-tab" class="tab-content">
-            <div class="register-form" style="height: 500px; overflow: auto; padding: 20px; box-sizing: border-box;">
+            <div class="register-form" style="height: 370px; overflow: auto; padding: 20px; box-sizing: border-box;">
                 <form action="{{ route('register_guru') }}" method="POST" style="overflow: auto;">
                     @csrf
                     <table class="form-table">
