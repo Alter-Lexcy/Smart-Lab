@@ -43,10 +43,10 @@
                     <table class="min-w-full bg-white text-center rounded-lg">
                         <thead>
                             <tr class="border">
-                                <th class="border px-4 py-2">Nama Siswa</th>
-                                <th class="border px-4 py-2">File</th>
-                                <th class="border px-4 py-2">Nilai</th>
-                                <th class="border px-4 py-2">Aksi</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">File</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
