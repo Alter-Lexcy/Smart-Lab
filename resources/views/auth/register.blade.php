@@ -42,8 +42,7 @@
         </div>
     </div>
 
-    <div
-        style="display: flex; flex-direction:column; width: 50%; justify-content:center; align-items:center; padding-top: 40px; padding-bottom: 30px;">
+    <div style="display: flex; flex-direction:column; width: 50%; justify-content:center; align-items:center;">
         <h2>Daftar</h2>
         <h5>Selamat Datang!</h5>
         <p>Buat akun baru dengan mengisi informasi di bawah ini</p>
@@ -56,8 +55,8 @@
 
         <!-- Form Register Siswa -->
         <div id="siswa-tab" class="tab-content active">
-            <div class="register-form" style="height: 310px; overflow: auto; padding: 20px; box-sizing: border-box;">
-                <form action="{{ route('register_murid') }}" method="POST" style="overflow: auto;">
+            <div class="register-form">
+                <form action="{{ route('register_murid') }}" method="POST">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
@@ -70,16 +69,12 @@
                                     <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
-                                @error('name')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <!-- Input Email -->
                         <tr>
                             <td colspan="2">
+
                                 <span
                                     style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-envelope"
@@ -87,11 +82,6 @@
                                     <input type="email" id="email" name="email" placeholder="Email"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
-                                @error('email')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <!-- Password dan Konfirmasi Password -->
@@ -119,11 +109,6 @@
                                             style="cursor: pointer; font-size: 16px; padding-left: 10px; margin-right: 10px; color: #666;"></i>
                                     </span>
                                 </div>
-                                @error('password')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <tr>
@@ -139,13 +124,14 @@
 
         <!-- Form Register Guru -->
         <div id="guru-tab" class="tab-content">
-            <div class="register-form" style="height: 370px; overflow: auto; padding: 20px; box-sizing: border-box;">
-                <form action="{{ route('register_guru') }}" method="POST" style="overflow: auto;">
+            <div class="register-form">
+                <form action="{{ route('register_guru') }}" method="POST">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
                         <tr>
                             <td colspan="2">
+
                                 <span
                                     style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
 
@@ -153,11 +139,6 @@
                                     <input type="text" id="name" name="name" placeholder="Nama"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
-                                @error('name')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <!-- Input Email -->
@@ -171,11 +152,6 @@
                                     <input type="email" id="email" name="email" placeholder="Email"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
-                                @error('email')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <!-- Input NIP -->
@@ -189,11 +165,6 @@
                                     <input type="text" id="nip" name="NIP" placeholder="NIP"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
-                                @error('NIP')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <!-- Password dan Konfirmasi Password -->
@@ -221,11 +192,6 @@
                                             style="cursor: pointer; font-size: 16px; padding-left: 10px; margin-right: 10px; color: #666;"></i>
                                     </span>
                                 </div>
-                                @error('password')
-                                    <div class="error-message">
-                                        <i class='bx bx-error-circle'></i>{{ $message }}
-                                    </div>
-                                @enderror
                             </td>
                         </tr>
                         <tr>
@@ -242,7 +208,7 @@
 
     <script>
         // Siswa: Show/Hide Password
-        document.getElementById('toggleSiswaPassword').addEventListener('click', function() {
+        document.getElementById('toggleSiswaPassword').addEventListener('click', function () {
             const passwordField = document.getElementById('siswa_password');
             const type = passwordField.type === 'password' ? 'text' : 'password';
             passwordField.type = type;
@@ -250,7 +216,7 @@
             this.classList.toggle('bx-hide');
         });
 
-        document.getElementById('toggleSiswaPasswordConfirmation').addEventListener('click', function() {
+        document.getElementById('toggleSiswaPasswordConfirmation').addEventListener('click', function () {
             const passwordField = document.getElementById('siswa_password_confirmation');
             const type = passwordField.type === 'password' ? 'text' : 'password';
             passwordField.type = type;
@@ -259,7 +225,7 @@
         });
 
         // Guru: Show/Hide Password
-        document.getElementById('toggleGuruPassword').addEventListener('click', function() {
+        document.getElementById('toggleGuruPassword').addEventListener('click', function () {
             const passwordField = document.getElementById('guru_password');
             const type = passwordField.type === 'password' ? 'text' : 'password';
             passwordField.type = type;
@@ -267,7 +233,7 @@
             this.classList.toggle('bx-hide');
         });
 
-        document.getElementById('toggleGuruPasswordConfirmation').addEventListener('click', function() {
+        document.getElementById('toggleGuruPasswordConfirmation').addEventListener('click', function () {
             const passwordField = document.getElementById('guru_password_confirmation');
             const type = passwordField.type === 'password' ? 'text' : 'password';
             passwordField.type = type;
@@ -288,12 +254,6 @@
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
             });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const activeTab = "{{ session('activeTab', 'murid') }}"; // Default to "murid"
-            const tabToActivate = activeTab === 'guru' ? 'guru-tab' : 'siswa-tab';
-            document.querySelector(`button[data-tab="${tabToActivate}"]`).click();
         });
     </script>
 

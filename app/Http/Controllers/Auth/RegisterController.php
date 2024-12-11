@@ -27,71 +27,43 @@ class RegisterController extends Controller
      */
     public function registerMurid(Request $request)
     {
-        try {
-            $this->validateMurid($request);
 
-            // Buat user baru
-            $murid = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'status' => 'siswa',
-                'graduation_date' => Carbon::now()->addYears(3),
-                'password' => Hash::make($request->password),
-            ])->assignRole('Murid');
+        // Buat user baru
+        $murid = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'status'=>'siswa',
+            'graduation_date'=>Carbon::now()->addYears(3),
+            'password' => Hash::make($request->password),
+        ])->assignRole('Murid');
+        Auth::login($murid);
 
-            Auth::login($murid);
-            return redirect('/');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return back()
-                ->withInput()
-                ->withErrors($e->errors())
-                ->with('activeTab', 'murid'); // Menyimpan informasi tab aktif
-        }
+        return redirect('/');
     }
 
+    /**
+     * Validasi dan Registrasi Guru.
+     */
     public function registerGuru(Request $request)
     {
-        try {
-            $this->validateGuru($request);
+        // Validasi data guru
+        $this->validateGuru($request);
 
-            // Buat user baru
-            $guru = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'NIP' => $request->NIP,
-                'password' => Hash::make($request->password),
-            ])->assignRole('Guru');
+        // Buat user baru dengan role Guru
+        $guru = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'NIP' => $request->NIP,
+            'password' => Hash::make($request->password),
+        ])->assignRole('Guru'); // Role hanya untuk Guru
 
-            Auth::login($guru);
-            return redirect('/teacher/dashboard/')->with('success', 'Registrasi Guru berhasil!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return back()
-                ->withInput()
-                ->withErrors($e->errors())
-                ->with('activeTab', 'guru'); // Menyimpan informasi tab aktif
-        }
+        // Login user baru
+        Auth::login($guru);
+
+        // Redirect ke dashboard Guru
+        return redirect('/teacher/dashboard/')->with('success', 'Registrasi Guru berhasil!');
     }
 
-    protected function validateMurid(Request $request)
-    {
-        return $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [
-            'name.required' => 'Nama belum diisi.',
-            'name.string' => 'Nama harus berupa huruf.',
-            'name.max' => 'Nama terlalu panjang.',
-            'email.required' => 'Email belum diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.max' => 'Email terlalu panjang.',
-            'email.unique' => 'Email sudah digunakan.',
-            'password.required' => 'Password belum diisi.',
-            'password.string' => 'Password harus berupa huruf.',
-            'password.min' => 'Password minimal 8 karakter.',
-            'password.confirmed' => 'Password tidak cocok dengan konfirmasi.',
-        ]);
-    }
     /**
      * Validasi data Guru.
      */

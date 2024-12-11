@@ -9,17 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -30,10 +19,10 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     /**
-     * Handle redirection after successful authentication based on user role.
+     * Handle authentication redirection based on user roles.
      *
      * @param Request $request
-     * @param $user
+     * @param mixed $user
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function authenticated(Request $request, $user)
@@ -48,6 +37,36 @@ class LoginController extends Controller
     }
 
     /**
+     * Custom login method with validation in Bahasa Indonesia.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {
+        // Validasi input login
+        $request->validate([
+            'email' => 'required|email', // Email harus valid
+            'password' => 'required|min:6', // Password minimal 6 karakter
+        ], [
+            'email.required' => 'Alamat email wajib diisi.',
+            'email.email' => 'Masukkan alamat email yang valid.',
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi harus terdiri dari minimal 6 karakter.',
+        ]);
+
+        // Jika kredensial salah
+        if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return back()->withErrors([
+                'email' => 'Alamat email atau kata sandi salah.',
+            ])->withInput($request->except('password')); // Kembalikan input kecuali password
+        }
+
+        // Berhasil login
+        return $this->sendLoginResponse($request);
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -56,55 +75,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
-    }
-
-    /**
-     * Override the login method to add custom validation messages.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (Auth::attempt([
-            'email' => $request->email,
-            'password' => $request->password,
-        ])) {
-            return redirect()->intended('dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'Kredensial ini tidak cocok dengan catatan kami.',
-        ]);
-    }
-
-    /**
-     * Override the logout method to add any additional functionality if needed.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
-
-    /**
-     * Provide the guard instance for authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return auth()->guard();
     }
 }
