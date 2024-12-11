@@ -62,6 +62,9 @@
 
     // Route Murid
     Route::middleware('auth')->group(function () {
+        Route::get('/kelas', [function () {
+            return view('Users.kelas');
+        }]);
         Route::get('/kelas10', [function () {
             return view('Users.kelas10');
         }]);
