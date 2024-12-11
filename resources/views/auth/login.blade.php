@@ -55,7 +55,7 @@
                                 style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 15px;">
                                 <i class='bx bxs-envelope'
                                     style="font-size: 24px; color: gray; padding-right: 10px;"></i>
-                                <input type="email" id="email"  name="email" placeholder="Email"
+                                <input type="email" id="email" name="email" placeholder="Email"
                                     style="border: none; outline: none; flex: 1;">
                             </span>
                             <!-- Pesan Error Email -->
@@ -74,7 +74,7 @@
                                 style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 15px;">
                                 <i class='bx bxs-lock-open'
                                     style="font-size: 24px; color: gray; padding-right: 10px;"></i>
-                                <input type="password" id="password"  name="password" placeholder="Password"
+                                <input type="password" id="password" name="password" placeholder="Password"
                                     style="border: none;  outline: none; flex: 1;">
                                 <i class='bx bxs-show' id="toggle-password"
                                     style="font-size: 24px; color: gray; cursor: pointer; padding-left: 10px;"></i>
@@ -102,7 +102,7 @@
     </div>
 
     <script>
-        document.getElementById('toggle-password').addEventListener('click', function () {
+        document.getElementById('toggle-password').addEventListener('click', function() {
             const passwordField = document.getElementById('password');
             const icon = this;
             if (passwordField.type === 'password') {
