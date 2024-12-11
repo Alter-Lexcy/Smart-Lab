@@ -41,14 +41,16 @@
                 </div>
             @endif
             <!-- Table of assessments -->
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white text-center border border-gray-200">
-                    <thead class="bg-gradient-to-r from-sky-200 to-blue-300">
-                        <tr>
-                            <th class="border px-4 py-2">No</th>
-                            <th class="border px-4 py-2">Nama Tugas</th>
-                            <th class="border px-4 py-2">Status</th>
-                            <th class="border px-4 py-2">Nilai Tugas</th>
+            <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
+                <h6 class="font-semibold p-3 text-sm ps-5">Daftar Tugas</h6>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white text-center rounded-lg">
+                        <thead>
+                            <tr class="border">
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai Tugas</th>
                         </tr>
                     </thead>
                     <tbody>
