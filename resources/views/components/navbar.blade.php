@@ -29,6 +29,7 @@
             <a href="#" class="font-bold hover:text-gray-200">Beranda</a>
             <a href="#" class="font-bold hover:text-gray-200">Kelas</a>
             <a href="#" class="font-bold hover:text-gray-200">Tugas</a>
+            <a href="/PilihKelas" class="font-bold hover:text-gray-200">Pilih Kelas</a>
         </div>
 
 
