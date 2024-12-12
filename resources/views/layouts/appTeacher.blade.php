@@ -43,7 +43,7 @@
 </head>
 
 <body class="bg-gray-100 font-sans ">
-    <div class="flex h-auto overflow-hidden w-8xl">
+    <div class="flex h-auto">
         <!-- Sidebar -->
         <aside
             class = "w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
@@ -277,10 +277,10 @@
 
                 window.addEventListener("scroll", () => {
                     if (window.scrollY > initialNavOffset) {
-                        navbar.classList.add("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-20");
+                        navbar.classList.add("fixed", "top-2", "left-18", "w-[1480px]", "border-2", "z-20");
                         navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
                     } else {
-                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[93%]", "border-2", "z-20");
+                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[1480px]", "border-2", "z-20");
                         navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
                     }
                 });

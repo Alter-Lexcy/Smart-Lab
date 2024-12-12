@@ -38,13 +38,12 @@
                     </svg>
                 </div>
             </div>
-
         </div>
         <div class="grid mt-7 grid-cols-3 gap-4">
-            <div class="h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
+            <div class="h-36 bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
                 <!-- SVG Icon -->
                 <div class="absolute">
-                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="165%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx="" fill="url(#pattern0_20_250)" />
                         <defs>
@@ -83,10 +82,10 @@
                 </div>
             </div>
 
-            <div class="h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
+            <div class="h-36 bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm rounded-xl flex items-center">
                 <!-- SVG Icon -->
                 <div class="absolute">
-                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="165%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx="" fill="url(#pattern0_20_250)" />
                         <defs>
@@ -123,9 +122,9 @@
                 </div>
             </div>
 
-            <div class=" h-36 w-auto bg-gradient-to-r from-[#050C9C] to-[#3572EF] shadow-sm  rounded-xl flex items-center">
+            <div class=" h-36 bg-gradient-to-r from-[#3438b4] to-[#3572EF] shadow-sm  rounded-xl flex items-center">
                 <div class="absolute">
-                    <svg width="200%" height="100%" viewBox="0 0 300 135" fill="none"
+                    <svg width="165%" height="100%" viewBox="0 0 300 135" fill="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <rect opacity="0.2" width="300" height="135" rx=""
                             fill="url(#pattern0_20_250)" />
@@ -197,162 +196,180 @@
                 <div class="py-6" id="donut-chart"></div>
             </div>
         </div>
-
-        <script>
-            const getChartOptions = () => {
-                return {
-                    series: [16, 20],
-                    colors: ["#3572EF", "#60a5fa"],
-                    chart: {
-                        height: 320,
-                        width: "100%",
-                        type: "donut",
-                    },
-                    stroke: {
-                        colors: ["transparent"],
-                        lineCap: "",
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                size: "65%",
-                            },
-                        },
-                    },
-                    grid: {
-                        padding: {
-                            top: -2,
-                        },
-                    },
-                    labels: ["Mengumpulkan", "Tidak Mengumpulkan"],
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    legend: {
-                        position: "bottom",
-                        fontFamily: "Inter, sans-serif",
-                    },
-                    yaxis: {
-                        labels: {
-                            formatter: function(value) {
-                                return value + ""
-                            },
-                        },
-                    },
-                    xaxis: {
-                        labels: {
-                            formatter: function(value) {
-                                return value + ""
-                            },
-                        },
-                        axisTicks: {
-                            show: false,
-                        },
-                        axisBorder: {
-                            show: false,
-                        },
-                    },
-                }
-            }
-
-            if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("donut-chart"), getChartOptions());
-                chart.render();
-
-                // Get all the checkboxes by their class name
-                const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
-            }
-        </script>
-
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script>
-            const chartConfig = {
-                series: [{
-                    name: "Sales",
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-                }, ],
+    </div>
+    <script>
+        const getChartOptions = () => {
+            return {
+                series: [16, 20],
                 chart: {
-                    type: "bar",
                     height: 320,
                     width: "100%",
-                    toolbar: {
-                        show: false,
+                    type: "donut",
+                },
+                colors: ["#3572EF", "#050C9C"], // Warna awal untuk masing-masing seri
+                fill: {
+                    type: "gradient", // Mengaktifkan gradient
+                    gradient: {
+                        shade: "light",
+                        type: "diagonal1", // Arah gradient (bisa "vertical", "horizontal", atau lainnya)
+                        gradientToColors: ["#050C9C", "#3572EF"], // Warna akhir untuk masing-masing seri
+                        stops: [0, 100], // Posisi awal (0%) dan akhir (100%)
                     },
                 },
-                title: {
-                    show: "",
+                stroke: {
+                    colors: ["transparent"],
+                    lineCap: "round", // Efek ujung pada stroke
                 },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: "65%",
+                        },
+                    },
+                },
+                grid: {
+                    padding: {
+                        top: -2,
+                    },
+                },
+                labels: ["Mengumpulkan", "Tidak Mengumpulkan"],
                 dataLabels: {
                     enabled: false,
                 },
-                colors: ["#020617"],
-                plotOptions: {
-                    bar: {
-                        columnWidth: "40%",
-                        borderRadius: 2,
+                legend: {
+                    position: "bottom",
+                    fontFamily: "Inter, sans-serif",
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return value + "";
+                        },
                     },
                 },
                 xaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return value + "";
+                        },
+                    },
                     axisTicks: {
                         show: false,
                     },
                     axisBorder: {
                         show: false,
                     },
-                    labels: {
-                        style: {
-                            colors: "#616161",
-                            fontSize: "12px",
-                            fontFamily: "inherit",
-                            fontWeight: 400,
-                        },
-                    },
-                    categories: [
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec",
-                    ],
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: "#616161",
-                            fontSize: "12px",
-                            fontFamily: "inherit",
-                            fontWeight: 400,
-                        },
-                    },
-                },
-                grid: {
-                    show: true,
-                    borderColor: "#dddddd",
-                    strokeDashArray: 5,
-                    xaxis: {
-                        lines: {
-                            show: true,
-                        },
-                    },
-                    padding: {
-                        top: 5,
-                        right: 20,
-                    },
-                },
-                fill: {
-                    opacity: 0.8,
-                },
-                tooltip: {
-                    theme: "dark",
                 },
             };
+        };
 
-            const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
 
+        if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("donut-chart"), getChartOptions());
             chart.render();
-        </script>
-    @endsection
+
+            // Get all the checkboxes by their class name
+            const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        const chartConfig = {
+            series: [{
+                name: "Sales",
+                data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+            }],
+            chart: {
+                type: "bar",
+                height: 320,
+                width: "100%",
+                toolbar: {
+                    show: false,
+                },
+            },
+            title: {
+                show: "",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: "40%",
+                    borderRadius: 2,
+                },
+            },
+            colors: ["#050C9C"], // Warna awal gradient
+            xaxis: {
+                axisTicks: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
+                },
+                categories: [
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                ],
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
+                },
+            },
+            grid: {
+                show: true,
+                borderColor: "#dddddd",
+                strokeDashArray: 5,
+                xaxis: {
+                    lines: {
+                        show: true,
+                    },
+                },
+                padding: {
+                    top: 5,
+                    right: 20,
+                },
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shade: "light",
+                    type: "vertical", // Bisa juga "horizontal"
+                    gradientToColors: ["#3572EF"], // Warna akhir gradient
+                    stops: [0, 100], // Posisi awal (0%) dan akhir (100%)
+                },
+            },
+            tooltip: {
+                theme: "dark",
+            },
+        };
+
+
+
+        const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
+
+        chart.render();
+    </script>
+@endsection
