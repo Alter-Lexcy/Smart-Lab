@@ -6,6 +6,7 @@
             right: 0;
             z-index: 1000;
             /* memastikan navbar di atas konten lainnya */
+            background-color: white;
             /* sesuaikan dengan warna navbar */
         }
 
