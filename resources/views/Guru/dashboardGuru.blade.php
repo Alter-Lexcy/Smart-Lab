@@ -1,7 +1,7 @@
 @extends('layouts.appTeacher')
 
 @section('content')
-    <div class="container mx-auto py-5">
+    <div class="container mx-auto py-5 overflow-x-hidden">
         <div class="max-w-full bg-white p-0 rounded-lg shadow-lg">
 
             @if (session('status'))
