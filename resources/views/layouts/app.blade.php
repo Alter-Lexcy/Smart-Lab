@@ -54,10 +54,10 @@
 </head>
 
 <body class="bg-gray-50  font-sans ">
-    <div class="flex h-auto overflow-auto">
+    <div class="flex h-auto w-8xl overflow-auto">
         <!-- Sidebar -->
         <aside
-            class = "w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
+            class = "w-60 -translate-x-44 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
             <!-- open sidebar button -->
             <div
                 class = "max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white   absolute top-2 rounded-full h-12">
@@ -319,7 +319,7 @@
                     <!-- User Profile Dropdown -->
                     <div class="relative">
                         <div id="dropdownMenu"
-                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-14 w-96 bg-white rounded-lg shadow-lg z-50">
+                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-20 w-96 border-2  bg-white rounded-lg shadow-lg z-50">
                             <div class="py-2 px-4">
                                 <h5 class="text-xl mt-2 ml-2 font-semibold">User Profile</h5>
                             </div>
@@ -420,9 +420,9 @@
 
 
         function openNav() {
-            if (sidebar.classList.contains('-translate-x-48')) {
+            if (sidebar.classList.contains('-translate-x-44')) {
                 // max sidebar
-                sidebar.classList.remove("-translate-x-48")
+                sidebar.classList.remove("-translate-x-44")
                 sidebar.classList.add("translate-x-none")
                 maxSidebar.classList.remove("hidden")
                 maxSidebar.classList.add("flex")
@@ -435,7 +435,7 @@
                 content.classList.add("ml-12", "md:ml-60")
             } else {
                 // mini sidebar
-                sidebar.classList.add("-translate-x-48")
+                sidebar.classList.add("-translate-x-44")
                 sidebar.classList.remove("translate-x-none")
                 maxSidebar.classList.add("hidden")
                 maxSidebar.classList.remove("flex")

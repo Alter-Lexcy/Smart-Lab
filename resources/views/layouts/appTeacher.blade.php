@@ -43,7 +43,7 @@
 </head>
 
 <body class="bg-gray-100 font-sans ">
-    <div class="flex h-auto">
+    <div class="flex h-auto overflow-hidden w-8xl">
         <!-- Sidebar -->
         <aside
             class = "w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
