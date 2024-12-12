@@ -63,15 +63,15 @@
                         <!-- Dropdown menu -->
                         <div id="dropdownHover1"
                             class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
+                            @foreach ($kelas10 as $kelas)
                             <ul class="py-2 text-sm text-gray-700">
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel1', '10-A')">10-A</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel1', '10-B')">10-B</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel1', '10-C')">10-C</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel1', '10-D')">10-D</a></li>
+                                <li>
+                                    <a class="block px-4 py-2 hover:bg-gray-100"
+                                    onclick="selectClass('dropdownLabel1', '{{ $kelas->nama_kelas }}')">
+                                    {{$kelas->name_class}}
+                                </a>
+                            </li>
+                            @endforeach
                             </ul>
                         </div>
 
@@ -112,16 +112,16 @@
                         <!-- Dropdown menu -->
                         <div id="dropdownHover2"
                             class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
+                            @foreach ($kelas11 as $kelas)
                             <ul class="py-2 text-sm text-gray-700">
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel2', '11-A')">11-A</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel2', '11-B')">11-B</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel2', '11-C')">11-C</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel2', '11-D')">11-D</a></li>
+                                <li>
+                                    <a class="block px-4 py-2 hover:bg-gray-100"
+                                    onclick="selectClass('dropdownLabel2', '{{ $kelas->nama_kelas }}')">
+                                        {{$kelas->name_class}}
+                                    </a>
+                                </li>
                             </ul>
+                            @endforeach
                         </div>
 
                         <button type="button"
@@ -161,16 +161,16 @@
                         <!-- Dropdown menu -->
                         <div id="dropdownHover3"
                             class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
+                            @foreach ($kelas12 as $kelas)
                             <ul class="py-2 text-sm text-gray-700">
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel3', '12-A')">12-A</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel3', '12-B')">12-B</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel3', '12-C')">12-C</a></li>
-                                <li><a class="block px-4 py-2 hover:bg-gray-100"
-                                        onclick="selectClass('dropdownLabel3', '12-D')">12-D</a></li>
+                                <li>
+                                    <a class="block px-4 py-2 hover:bg-gray-100"
+                                    onclick="selectClass('dropdownLabel3', '{{ $kelas->nama_kelas }}')">
+                                        {{$kelas->name_class}}
+                                    </a>
+                                </li>
                             </ul>
+                            @endforeach
                         </div>
 
                         <button type="button"

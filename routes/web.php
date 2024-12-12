@@ -1,5 +1,6 @@
-    <?php
+<?php
 
+use App\Http\Controllers\SelectClassController;
     use App\Http\Controllers\AssessmentController;
     use App\Http\Controllers\Auth\RegisterController;
     use App\Http\Controllers\ClassesController;
@@ -62,9 +63,7 @@
 
     // Route Murid
     Route::middleware('auth')->group(function () {
-        Route::get('/kelas', [function () {
-            return view('Users.kelas');
-        }]);
+        Route::get('/PilihKelas',[SelectClassController::class,'index'])->name('SelectClass');
         Route::get('/kelas10', [function () {
             return view('Users.kelas10');
         }]);
