@@ -1,20 +1,20 @@
 <style>
     .navbar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            /* memastikan navbar di atas konten lainnya */
-            background-color: white;
-            /* sesuaikan dengan warna navbar */
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        /* memastikan navbar di atas konten lainnya */
+        background-color: white;
+        /* sesuaikan dengan warna navbar */
+    }
 
-        /* Tambahkan padding top pada konten agar tidak tertutup navbar */
-        .content {
-            padding-top: 60px;
-            /* sesuaikan dengan tinggi navbar */
-        }
+    /* Tambahkan padding top pada konten agar tidak tertutup navbar */
+    .content {
+        padding-top: 60px;
+        /* sesuaikan dengan tinggi navbar */
+    }
 </style>
 
 <nav class="bg-white px-5 py-2">
@@ -29,7 +29,9 @@
             <a href="#" class="font-bold hover:text-gray-200">Beranda</a>
             <a href="#" class="font-bold hover:text-gray-200">Kelas</a>
             <a href="#" class="font-bold hover:text-gray-200">Tugas</a>
-            <a href="/PilihKelas" class="font-bold hover:text-gray-200">Pilih Kelas</a>
+            @if (!$hasClass)
+                <a href="/PilihKelas" class="font-bold hover:text-gray-200">Pilih Kelas</a>
+            @endif
         </div>
 
 
