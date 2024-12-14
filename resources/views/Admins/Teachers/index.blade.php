@@ -30,7 +30,7 @@
                     </button>
                     <form id="searchForm" action="{{ route('teachers.index') }}" method="GET"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
-                        <input type="text" name="search" placeholder="Cari..."
+                        <input type="text" name="search_teacher" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
                 </div>
@@ -81,7 +81,7 @@
                             @endphp
                             @foreach ($teachers as $teacher)
                                 <tr class="border">
-                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset}}</td>
+                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->name }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
@@ -109,13 +109,11 @@
                                                 @csrf
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Kelas</label>
-                                                    <select name="classes_id[]" id="classes_id"
-                                                        class="w-full px-3 py-2 border rounded js-example-basic-multiple"
-                                                        multiple="multiple">
+                                                    <select name="classes_id[]" id="classes_id" class="w-full px-3 py-2 border rounded js-example-basic-multiple" multiple="multiple">
                                                         <option value="" disabled>Pilih Kelas</option>
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
-                                                                {{ in_array($class->id, old('classes_id', [$class->classes_id])) ? 'selected' : '' }}>
+                                                                {{ in_array($class->id, old('classes_id', $teacher->classes->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                                 {{ $class->name_class }}
                                                             </option>
                                                         @endforeach
@@ -129,7 +127,6 @@
                                                             {{ $teacher->subject_id == null ? 'selected' : '' }}>Pilih
                                                             Kelas
                                                         </option>
-
                                                         @foreach ($subjects as $mapel)
                                                             <option value="{{ $mapel->id }}"
                                                                 {{ old('subject_id', $teacher->subject_id) == $mapel->id ? 'selected' : '' }}>

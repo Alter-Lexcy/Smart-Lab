@@ -16,12 +16,17 @@ class ClassesController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $search = $request->input('search');
-        $order = $request->input('order', 'desc');
-        $classes = Classes::where('name_class', 'Like', '%' . $search . '%')->orderBy('created_at', $order)->simplePaginate(5);
-        return view('Admins.Classes.index', compact('classes', 'order'));
-    }
+{
+    $search = $request->input('search_class', '');
+    $order = $request->input('order', 'desc');
+
+    $classes = Classes::when($search, function ($query, $search) {
+        return $query->where('name_class', 'like', '%' . $search . '%');
+    })->orderBy('created_at', $order)->simplePaginate(5);
+
+    return view('Admins.Classes.index', compact('classes', 'order', 'search'));
+}
+
 
 
     /**
