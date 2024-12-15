@@ -148,7 +148,7 @@
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->
-                                            <button type="button" class="text-blue-500 rounded-sm mt-1"
+                                            <button type="button" class="text-blue-500 rounded-sm mt-1.5"
                                                 onclick="openModal('Assessment_{{ $task->id }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px"
                                                     viewBox="0 -960 960 960" width="24px" fill="#255290">
@@ -388,40 +388,49 @@
 
     {{-- Modal Assessment(Penilaian) --}}
     @foreach ($tasks as $task)
-    <div id="Assessment_{{ $task->id }}"
-        class="Assessment fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 overflow-auto"
-        style="display: none">
-        <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
-            <h5 class="text-xl font-bold mb-4">Penilaian</h5>
-            <form action="" method="POST" class="overflow-y-auto">
-                @csrf
-                <div class="grid grid-cols-1 gap-4">
-                    <div class="relative">
-                        <label for="" class="mb-2">Pilih Murid</label>
-                        <div class="w-full">
-                            <button type="button" onclick="showCheckboxes()"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-left focus:outline-none focus:ring focus:ring-blue-300">
-                                Pilih Opsi
-                            </button>
-                        </div>
+        <div id="Assessment_{{ $task->id }}"
+            class="Assessment fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 overflow-auto"
+            style="display: none">
+            <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
+                <h5 class="text-xl font-bold mb-4">Penilaian</h5>
+                <form action="" method="POST" class="overflow-y-auto">
+                    @csrf
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="relative">
+                            <label for="" class="mb-2">Pilih Murid</label>
+                            <div class="w-full">
+                                <button type="button" onclick="showCheckboxes()"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-left focus:outline-none focus:ring focus:ring-blue-300">
+                                    Pilih Opsi
+                                </button>
+                            </div>
 
-                        <!-- Checkboxes Dropdown -->
-                        <div id="checkboxes" class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                            <label for="satu" class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
-                                <input type="checkbox" id="satu" name="pilih[]" value="1" class="mr-2" />
-                                Pilihan Pertama
-                            </label>
+                            <!-- Checkboxes Dropdown -->
+                            <div id="checkboxes"
+                                class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                                <label for="satu" class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
+                                    <input type="checkbox" id="satu" name="pilih[]" value="1"
+                                        class="mr-2" />
+                                    Pilihan Pertama
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-4 mr-6">
+                            <label for="" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
+                            <input type="number" id="" name="" class="w-full px-3 py-2 border rounded"
+                                value="">
                         </div>
                     </div>
-                    <div class="mb-4 mr-6">
-                        <label for="" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
-                        <input type="number" id="" name=""
-                            class="w-full px-3 py-2 border rounded" value="">
+                    <div class="flex justify-between">
+                        <button type="button"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
+                        onclick="closeModal('Assessment_{{ $task->id }}')">Batal</button>
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
     @endforeach
 @endsection
 
