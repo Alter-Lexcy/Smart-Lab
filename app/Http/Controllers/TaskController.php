@@ -22,6 +22,7 @@ class TaskController extends Controller
         $order = $request->input('order', 'desc');
 
         $tasks = Task::with('Classes', 'Subject', 'Materi')
+            ->where('user_id',auth()->id())
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
@@ -78,7 +79,8 @@ class TaskController extends Controller
             'file_task' => $validated['file_task'] ?? null,
             'description_task' => $validated['description_task'],
             'date_collection' => $validated['date_collection'],
-            'subject_id'=>$task->id
+            'subject_id'=>$task->id,
+            'user_id'=>auth()->id(),
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
@@ -125,7 +127,8 @@ class TaskController extends Controller
             'file_task' => $validated['file_task'] ?? null,
             'description_task' => $validated['description_task'],
             'date_collection' => $validated['date_collection'],
-            'subject_id'=>$subject->id
+            'subject_id'=>$subject->id,
+            'user_id'=>auth()->id(),
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');

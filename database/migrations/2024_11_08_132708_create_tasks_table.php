@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('class_id')->constrained('classes');
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('materi_id')->constrained('materis');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('title_task');
             $table->string('file_task')->nullable();
             $table->text('description_task')->nullable();
