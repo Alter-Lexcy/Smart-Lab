@@ -54,6 +54,7 @@ class MateriController extends Controller
     {
         $validated = $request->validated();
 
+        $subject = auth()->user()->subject;
         $img = $request->file_materi->store('file_materi', 'public');
 
         Materi::create([
@@ -61,7 +62,12 @@ class MateriController extends Controller
             'file_materi' => $img,
             'description' => $request->description,
             'classes_id' => $request->classes_id,
+            'subject_id'=>$subject->id,
         ]);
+
+        if(!$subject){
+            return redirect()->back()->withErrors('Materi tidak bisa dibikin karena anda tidak ada mapel');
+        }
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Ditambahkan');
     }
@@ -83,7 +89,15 @@ class MateriController extends Controller
             $validated['file_materi'] = $file;
         }
 
-        $materi->update($validated);
+        $subject = auth()->user()->subject;
+
+        $materi->update([
+            'title_materi' => $validated['title_materi'],
+            'file_materi' => $validated['file_materi'],
+            'description' => $validated['description'],
+            'classes_id' => $validated['classes_id'],
+            'subject_id'=>$subject->id,
+        ]);
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
 
