@@ -148,12 +148,12 @@
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->
-                                            <button type="button" class="text-blue-500 rounded-sm"
-                                                onclick="openModal('showAssessmentModal_{{ $task->id }}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="size-7 mt-1">
+                                            <button type="button" class="text-blue-500 rounded-sm mt-1"
+                                                onclick="openModal('Assessment_{{ $task->id }}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                                    viewBox="0 -960 960 960" width="24px" fill="#255290">
                                                     <path
-                                                        d="M12 4.5c-4.136 0-7.528 2.783-9.17 6.621a1.507 1.507 0 0 0 0 1.757C4.472 16.717 7.864 19.5 12 19.5s7.528-2.783 9.17-6.621a1.507 1.507 0 0 0 0-1.757C19.528 7.283 16.136 4.5 12 4.5Zm0 1.5c3.464 0 6.342 2.32 7.845 5.627a.082.082 0 0 1 0 .074C18.342 14.18 15.464 16.5 12 16.5s-6.342-2.32-7.845-5.627a.082.082 0 0 1 0-.074C5.658 8.32 8.536 6 12 6Zm0 2.25A3.75 3.75 0 1 0 12 15a3.75 3.75 0 0 0 0-7.5Zm0 1.5a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5Z" />
+                                                        d="M620-163 450-333l56-56 114 114 226-226 56 56-282 282Zm220-397h-80v-200h-80v120H280v-120h-80v560h240v80H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v200ZM480-760q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z" />
                                                 </svg>
                                             </button>
 
@@ -277,13 +277,13 @@
                         <button type="button"
                             class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
                             onclick="closeModal('taskModal')">Batal</button>
-                        </form>
-                    </div>
+                    </form>
                 </div>
+            </div>
 
 
-                <!-- Modal Update -->
-                @foreach ($tasks as $task)
+            <!-- Modal Update -->
+            @foreach ($tasks as $task)
                 <div id="editTaskModal{{ $task->id }}"
                     class="taskModal fixed inset-0 z-50 hidden  items-center justify-center bg-black "
                     style="display: none;">
@@ -299,13 +299,13 @@
                                     <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
                                         <option value="" disabled selected>Pilih Kelas</option>
                                         @foreach ($classes as $class)
-                                        <option value="{{ $class->id }}"
+                                            <option value="{{ $class->id }}"
                                                 {{ $task->class_id == $class->id ? 'selected' : '' }}>
                                                 {{ $class->name_class }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('class_id')
-                                            <div class="text-red-500">{{ $message }}</div>
+                                        @endforeach
+                                    </select>
+                                    @error('class_id')
+                                        <div class="text-red-500">{{ $message }}</div>
                                     @enderror
                                 </div>p
                                 <div class="mb-4 ">
@@ -316,12 +316,12 @@
                                             <option value="{{ $materi->id }}"
                                                 {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
                                                 {{ $materi->title_materi }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('materi_id')
+                                        @endforeach
+                                    </select>
+                                    @error('materi_id')
                                         <div class="text-red-500">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    @enderror
+                                </div>
                                 <div class="mb-4 mr-6">
                                     <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
                                     <input type="text" id="title_task" name="title_task"
@@ -335,7 +335,7 @@
                                 <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
                                 <div id="file-preview-{{ $task->id }}" class="mt-2">
                                     @if ($task->file_task)
-                                    @php
+                                        @php
                                             $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
                                         @endphp
                                         @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
@@ -346,15 +346,15 @@
                                             <p class="mb-3">PDF Sebelumnya</p>
                                             <embed src="{{ asset('storage/' . $task->file_task) }}"
                                                 type="application/pdf" class="w-full h-32 mb-2" />
-                                                @else
-                                                <p class="text-red-500">Format file tidak didukung.</p>
-                                                @endif
-                                                @endif
-                                            </div>
+                                        @else
+                                            <p class="text-red-500">Format file tidak didukung.</p>
+                                        @endif
+                                    @endif
+                                </div>
                                 <input type="File" id="file_task-{{ $task->id }}" name="file_task"
                                     class="w-full px-3 py-2 border rounded">
                                 @error('file_task')
-                                <div class="text-red-500">{{ $message }}</div>
+                                    <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-4 mr-6">
@@ -368,112 +368,163 @@
                                 <label for="date_collection" class="block text-gray-700 font-bold mb-2">Tanggal
                                     Pengumpulan
                                     Tugas</label>
-                                    <input type="datetime-local" id="date_collection" name="date_collection"
+                                <input type="datetime-local" id="date_collection" name="date_collection"
                                     class="w-full px-3 py-2 border rounded" value="{{ $task->date_collection }}">
-                                    @error('date_collection')
+                                @error('date_collection')
                                     <div class="text-red-500">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <button type="submit"
+                                @enderror
+                            </div>
+                            <button type="submit"
                                 class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
-                                <button type="button"
+                            <button type="button"
                                 class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
                                 onclick="closeModal('editTaskModal{{ $task->id }}')">Batal</button>
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                 </div>
             @endforeach
         </div>
     </div>
-    @endsection
 
-    <script>
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', function(event) {
+    {{-- Modal Assessment(Penilaian) --}}
+    @foreach ($tasks as $task)
+    <div id="Assessment_{{ $task->id }}"
+        class="Assessment fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 overflow-auto"
+        style="display: none">
+        <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
+            <h5 class="text-xl font-bold mb-4">Penilaian</h5>
+            <form action="" method="POST" class="overflow-y-auto">
+                @csrf
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="relative">
+                        <label for="" class="mb-2">Pilih Murid</label>
+                        <div class="w-full">
+                            <button type="button" onclick="showCheckboxes()"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-left focus:outline-none focus:ring focus:ring-blue-300">
+                                Pilih Opsi
+                            </button>
+                        </div>
 
-                const previewId = this.id.replace('file_task',
-                    'file-preview'); // Mengganti nama preview ID
-                const filePreview = document.getElementById(previewId); // Elemen untuk preview
-                const file = event.target.files[0];
+                        <!-- Checkboxes Dropdown -->
+                        <div id="checkboxes" class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                            <label for="satu" class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
+                                <input type="checkbox" id="satu" name="pilih[]" value="1" class="mr-2" />
+                                Pilihan Pertama
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4 mr-6">
+                        <label for="" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
+                        <input type="number" id="" name=""
+                            class="w-full px-3 py-2 border rounded" value="">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endforeach
+@endsection
 
-                if (file) {
-                    const fileExtension = file.name.split('.').pop()
-                        .toLowerCase(); // Dapatkan ekstensi file
-                    const reader = new FileReader();
+<script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function(event) {
 
-                    if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
-                        // Jika file adalah gambar
-                        reader.onload = function(e) {
-                            filePreview.innerHTML =
-                                `<p>File Sekarang</p>
+            const previewId = this.id.replace('file_task',
+                'file-preview'); // Mengganti nama preview ID
+            const filePreview = document.getElementById(previewId); // Elemen untuk preview
+            const file = event.target.files[0];
+
+            if (file) {
+                const fileExtension = file.name.split('.').pop()
+                    .toLowerCase(); // Dapatkan ekstensi file
+                const reader = new FileReader();
+
+                if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+                    // Jika file adalah gambar
+                    reader.onload = function(e) {
+                        filePreview.innerHTML =
+                            `<p>File Sekarang</p>
                                     <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
-                        };
-                    } else if (fileExtension === 'pdf') {
-                        // Jika file adalah PDF
-                        reader.onload = function(e) {
-                            filePreview.innerHTML =
-                                `<p>File Sekarang</p>
+                    };
+                } else if (fileExtension === 'pdf') {
+                    // Jika file adalah PDF
+                    reader.onload = function(e) {
+                        filePreview.innerHTML =
+                            `<p>File Sekarang</p>
                                     <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
-                        };
-                    } else {
-                        // Jika format tidak didukung
-                        filePreview.innerHTML = `<p class="text-red-500">Format file tidak didukung.</p>`;
-                    }
-
-                    reader.readAsDataURL(file); // Membaca file sebagai URL data
+                    };
                 } else {
-                    filePreview.innerHTML = ''; // Kosongkan preview jika file dihapus
+                    // Jika format tidak didukung
+                    filePreview.innerHTML = `<p class="text-red-500">Format file tidak didukung.</p>`;
                 }
-            });
+
+                reader.readAsDataURL(file); // Membaca file sebagai URL data
+            } else {
+                filePreview.innerHTML = ''; // Kosongkan preview jika file dihapus
+            }
         });
+    });
 
 
 
-        function openModal(id) {
-            console.log(`Opening modal: ${id}`);
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.style.display = 'flex';
-            } else {
-                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
-            }
+    function openModal(id) {
+        console.log(`Opening modal: ${id}`);
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.style.display = 'flex';
+        } else {
+            console.error(`Modal dengan ID ${id} tidak ditemukan.`);
         }
+    }
 
-        function closeModal(id) {
-            console.log(`Closing modal: ${id}`);
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.style.display = 'none';
-            } else {
-                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
-            }
+    function closeModal(id) {
+        console.log(`Closing modal: ${id}`);
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.style.display = 'none';
+        } else {
+            console.error(`Modal dengan ID ${id} tidak ditemukan.`);
         }
+    }
 
-        // Open the modal if validation fails
-        @if (session('success'))
-            document.addEventListener("DOMContentLoaded", function() {
-                closeModal('taskModal'); // Menutup modal setelah data berhasil ditambah
-            });
-        @endif
-    </script>
-
-    <script>
+    // Open the modal if validation fails
+    @if (session('success'))
         document.addEventListener("DOMContentLoaded", function() {
-            const searchButton = document.getElementById("searchButton");
-            const searchForm = document.getElementById("searchForm");
-
-            searchButton.addEventListener("click", function(event) {
-                event.stopPropagation(); // Mencegah klik tombol menutup form
-                searchForm.classList.toggle("show");
-            });
-
-            document.addEventListener("click", function() {
-                searchForm.classList.remove("show");
-            });
-
-            searchForm.addEventListener("click", function(event) {
-                event.stopPropagation(); // Mencegah klik pada form menutup form
-            });
+            closeModal('taskModal'); // Menutup modal setelah data berhasil ditambah
         });
-    </script>
+    @endif
+</script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchButton = document.getElementById("searchButton");
+        const searchForm = document.getElementById("searchForm");
+
+        searchButton.addEventListener("click", function(event) {
+            event.stopPropagation(); // Mencegah klik tombol menutup form
+            searchForm.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function() {
+            searchForm.classList.remove("show");
+        });
+
+        searchForm.addEventListener("click", function(event) {
+            event.stopPropagation(); // Mencegah klik pada form menutup form
+        });
+    });
+</script>
+<script>
+    var expanded = false;
+
+    function showCheckboxes() {
+        var checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    }
+</script>
