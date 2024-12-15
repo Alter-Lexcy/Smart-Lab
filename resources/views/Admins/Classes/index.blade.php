@@ -27,7 +27,7 @@
                         <!-- Form Pencarian -->
                         <form id="searchForm" action="" method="GET"
                             class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
-                            <input type="text" name="search" placeholder="Cari..."
+                            <input type="text" name="search_class" placeholder="Cari..."
                                 class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </form>
                     </div>

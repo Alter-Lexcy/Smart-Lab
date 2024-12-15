@@ -29,8 +29,6 @@ class StudentController extends Controller
             ->orderBy('users.created_at', 'desc')
             ->simplePaginate(5);
 
-
-
         foreach ($students as $student) {
             $createdAt = Carbon::parse($student->created_at);
             $graduationDate = $createdAt->addYears(3);
@@ -85,6 +83,7 @@ class StudentController extends Controller
         $approval = ClassApproval::findOrFail($id);
         $approval->update(['status' => 'rejected']);
 
+        $approval->delete();
         return redirect()->back()->with('success', 'Kelas telah ditolak.');
     }
 }
