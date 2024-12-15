@@ -291,7 +291,7 @@
                     <!-- Search Input -->
                     <form action="{{ route('search') }}" method="GET" class="flex items-center mt-4 me-3">
                         <div class="relative w-64 ">
-                            <input type="text" name="search" placeholder="Search..."
+                            <input type="text" name="search" placeholder="Cari..."
                             class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-100"
                             value="{{ request('search') }}" />
                             <button type="submit"
