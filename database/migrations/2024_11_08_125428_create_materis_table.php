@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('classes_id')->constrained('classes');
             $table->foreignId('subject_id')->constrained('subjects');
             $table->string('title_materi');
