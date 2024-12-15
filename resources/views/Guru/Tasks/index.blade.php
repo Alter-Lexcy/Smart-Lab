@@ -111,7 +111,6 @@
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Mapel</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Materi</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Judul Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">FIle Tugas</th>
@@ -125,7 +124,6 @@
                                 <tr class="border border-gray-300">
                                     <td class="py-3 px-6">{{ $loop->iteration }}</td>
                                     <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
-                                    <td class="py-3 px-6">{{ $task->Subject->name_subject }}</td>
                                     <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
                                     <td class="py-3 px-6">{{ $task->title_task }}</td>
                                     <td class="py-3 px-6">
@@ -219,20 +217,6 @@
                                     <div class="text-red-500 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-4 mr-6">
-                                <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
-                                <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
-                                    <option value="" disabled selected>Pilih Mapel</option>
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}"
-                                            {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
-                                            {{ $subject->name_subject }}</option>
-                                    @endforeach
-                                </select>
-                                @error('subject_id')
-                                    <div class="text-red-500">{{ $message }}</div>
-                                @enderror
-                            </div>
                             <div class="mb-4">
                                 <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                 <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
@@ -323,21 +307,7 @@
                                             @error('class_id')
                                             <div class="text-red-500">{{ $message }}</div>
                                     @enderror
-                                </div>
-                                <div class="mb-4 mr-6">
-                                    <label for="subject_id" class="block text-gray-700 font-bold mb-2">Mapel</label>
-                                    <select name="subject_id" id="subject_id" class="w-full px-3 py-2 border rounded">
-                                        <option value="" disabled selected>Pilih Mapel</option>
-                                        @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}"
-                                            {{ $task->subject_id == $subject->id ? 'selected' : '' }}>
-                                                {{ $subject->name_subject }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('subject_id')
-                                        <div class="text-red-500">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                </div>p
                                 <div class="mb-4 ">
                                     <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                     <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">

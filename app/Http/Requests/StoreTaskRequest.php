@@ -23,7 +23,6 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'class_id'=>['required','exists:classes,id'],
-            'subject_id'=>['required','exists:subjects,id'],
             'materi_id'=>['required','exists:materis,id'],
             'title_task'=>['required','string','unique:tasks,title_task'],
             'file_task'=>['required','mimes:png,jpg,pdf,tmp','max:3072'],
@@ -37,8 +36,6 @@ class StoreTaskRequest extends FormRequest
         return[
             'class_id.required'=>'Kelas Belum Di-Pilih',
             'class_id.exists'=>'Kelas Tidak Ada',
-            'subject_id.required'=>'Mata Pembelajaran Belum Di-Pilih',
-            'subject_id.exists'=>'Mata Pembelajaran Tidak Ada',
             'materi_id.required'=>'Materi Belum Di-Pilih',
             'materi_id.exists'=>'Materi Tidak Ada',
             'title_task.required'=>'Judul Tugas Belum Di-Isi',

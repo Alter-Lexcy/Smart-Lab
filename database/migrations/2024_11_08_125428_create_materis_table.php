@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classes_id')->constrained('classes');
+            $table->foreignId('subject_id')->constrained('subjects');
             $table->string('title_materi');
             $table->string('file_materi');
             $table->text('description')->nullable();
