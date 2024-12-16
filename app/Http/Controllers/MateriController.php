@@ -34,7 +34,7 @@ class MateriController extends Controller
             ->simplePaginate(5);
 
         // Filter Dropdown Kelas
-        $classes = $user->classes()->get();
+        $classes = $user->class()->get();
         return view('Guru.Materi.index', compact('materis', 'classes'));
     }
 
