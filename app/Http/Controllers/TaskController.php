@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
-use App\Models\Classes;
+use App\Models\User;
 use App\Models\Materi;
+use App\Models\Classes;
 use App\Models\Subject;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Requests\StoreTaskRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
@@ -39,10 +41,9 @@ class TaskController extends Controller
         ->orderBy('created_at', $order)
         ->simplePaginate(5);
 
-    // Ambil semua siswa yang sudah mengumpulkan tugas (submissions)
     $collections = Collection::with('user')
         ->get()
-        ->groupBy('task_id'); // Kelompokkan berdasarkan task_id
+        ->groupBy('task_id');
 
     $classes = Classes::all();
     $subjects = Subject::all();
@@ -70,7 +71,7 @@ class TaskController extends Controller
 
         $task = auth()->user()->Subject;
 
-        Task::create([
+       $tasks = Task::create([
             'class_id' => $validated['class_id'],
             'materi_id' => $validated['materi_id'],
             'title_task' => $validated['title_task'],
@@ -80,6 +81,24 @@ class TaskController extends Controller
             'subject_id'=>$task->id,
             'user_id'=>auth()->id(),
         ]);
+
+
+        $students = User::whereHas('class', function ($query) use ($tasks) {
+            $query->where('classes.id', $tasks->class_id);
+        })->get();
+
+
+        foreach ($students as $student) {
+            if (!$student->hasRole('Guru')) {
+                Collection::create([
+                    'user_id' => $student->id,
+                    'task_id' => $tasks->id,
+                    'file_collection' => null,
+                    'status' => 'Belum mengumpulkan'
+                ]);
+            }
+        }
+
 
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
     }
