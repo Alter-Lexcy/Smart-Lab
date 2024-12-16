@@ -21,6 +21,7 @@ class navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar');
+        $hasClass = auth()->check() ? auth()->user()->classes()->exists() : false;
+        return view('components.navbar', compact('hasClass'));
     }
 }

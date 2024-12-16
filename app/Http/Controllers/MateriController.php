@@ -24,6 +24,7 @@ class MateriController extends Controller
 
         // Filter dan Search Materi
         $materis = Materi::with('Classes')
+            ->where('user_id',auth()->id())
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
@@ -54,14 +55,25 @@ class MateriController extends Controller
     {
         $validated = $request->validated();
 
+        $subject = auth()->user()->subject;
         $img = $request->file_materi->store('file_materi', 'public');
+
+        if (!auth()->check()) {
+            return redirect()->back()->withErrors('Anda harus login untuk membuat materi.');
+        }
 
         Materi::create([
             'title_materi' => $request->title_materi,
             'file_materi' => $img,
             'description' => $request->description,
             'classes_id' => $request->classes_id,
+            'subject_id'=>$subject->id,
+            'user_id' => auth()->id(),
         ]);
+
+        if(!$subject){
+            return redirect()->back()->withErrors('Materi tidak bisa dibikin karena anda tidak ada mapel');
+        }
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Ditambahkan');
     }
@@ -83,7 +95,16 @@ class MateriController extends Controller
             $validated['file_materi'] = $file;
         }
 
-        $materi->update($validated);
+        $subject = auth()->user()->subject;
+
+        $materi->update([
+            'title_materi' => $validated['title_materi'],
+            'file_materi' => $validated['file_materi'],
+            'description' => $validated['description'],
+            'classes_id' => $validated['classes_id'],
+            'subject_id'=>$subject->id,
+            'user_id'=>auth()->id(),
+        ]);
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
 

@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('class_approvals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained('classes');
-            $table->foreignId('subject_id')->constrained('subjects');
-            $table->foreignId('materi_id')->constrained('materis');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('title_task');
-            $table->string('file_task')->nullable();
-            $table->text('description_task')->nullable();
-            $table->timestamp('date_collection');
+            $table->enum('status',['pending','approved','rejected'])->default('pending');
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('class_approvals');
     }
 };

@@ -10,6 +10,7 @@ class Task extends Model
         'class_id',
         'subject_id',
         'materi_id',
+        'user_id',
         'title_task',
         'file_task',
         'description_task',

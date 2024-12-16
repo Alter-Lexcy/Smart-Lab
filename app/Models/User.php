@@ -52,10 +52,15 @@ class User extends Authenticatable
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
-    public function class()
+    public function classess()
     {
         return $this->belongsToMany(Classes::class, 'teacher_classes', 'user_id', 'classes_id');
     }
+
+    public function classes(){
+        return $this->belongsToMany(Classes::class,'class_approvals','user_id','class_id');
+    }
+
     public function collections()
     {
         return $this->hasMany(Collection::class);

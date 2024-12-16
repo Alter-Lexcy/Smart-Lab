@@ -8,9 +8,11 @@ class Materi extends Model
 {
     protected $fillable = [
         'classes_id',
+        'subject_id',
         'title_materi',
         'file_materi',
-        'description'
+        'description',
+        'user_id'
     ];
 
     public function Classes(){

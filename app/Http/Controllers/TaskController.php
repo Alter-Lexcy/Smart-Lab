@@ -8,8 +8,6 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Classes;
 use App\Models\Materi;
 use App\Models\Subject;
-use Carbon\Carbon;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,6 +22,7 @@ class TaskController extends Controller
         $order = $request->input('order', 'desc');
 
         $tasks = Task::with('Classes', 'Subject', 'Materi')
+            ->where('user_id',auth()->id())
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
@@ -71,7 +70,18 @@ class TaskController extends Controller
             $validated['file_task'] = $file;
         }
 
-        Task::create($validated);
+        $task = auth()->user()->Subject;
+
+        Task::create([
+            'class_id' => $validated['class_id'],
+            'materi_id' => $validated['materi_id'],
+            'title_task' => $validated['title_task'],
+            'file_task' => $validated['file_task'] ?? null,
+            'description_task' => $validated['description_task'],
+            'date_collection' => $validated['date_collection'],
+            'subject_id'=>$task->id,
+            'user_id'=>auth()->id(),
+        ]);
 
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
     }
@@ -108,7 +118,18 @@ class TaskController extends Controller
             $validated['file_task'] = $file;
         }
 
-        $task->update($validated);
+        $subject = auth()->user()->Subject;
+
+        $task->update([
+            'class_id' => $validated['class_id'],
+            'materi_id' => $validated['materi_id'],
+            'title_task' => $validated['title_task'],
+            'file_task' => $validated['file_task'] ?? null,
+            'description_task' => $validated['description_task'],
+            'date_collection' => $validated['date_collection'],
+            'subject_id'=>$subject->id,
+            'user_id'=>auth()->id(),
+        ]);
 
         return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');
     }

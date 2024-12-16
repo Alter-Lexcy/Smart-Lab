@@ -81,12 +81,12 @@
                             @endphp
                             @foreach ($teachers as $teacher)
                                 <tr class="border">
-                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset}}</td>
+                                    <td class="px-4 py-2 border">{{ $loop->iteration + $offset }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->name }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
+                                        {{ $teacher->classess->isNotEmpty() ? $teacher->classess->pluck('name_class')->implode(', ') : 'kosong' }}
                                     </td>
                                     <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                                     <td class="px-4 py-2 border">
@@ -110,12 +110,11 @@
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Kelas</label>
                                                     <select name="classes_id[]" id="classes_id"
-                                                        class="w-full px-3 py-2 border rounded js-example-basic-multiple"
+                                                        class="w-full px-3 py-5 border rounded js-example-basic-multiple"
                                                         multiple="multiple">
-                                                        <option value="" disabled>Pilih Kelas</option>
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
-                                                                {{ in_array($class->id, old('classes_id', [$class->classes_id])) ? 'selected' : '' }}>
+                                                                {{ in_array($class->id, old('classes_id', $teachers->pluck('classess')->collapse()->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                                 {{ $class->name_class }}
                                                             </option>
                                                         @endforeach
@@ -156,6 +155,7 @@
                 {{ $teachers->links() }}
             </div>
             <script>
+
                 function openModal(id) {
                     console.log(`Opening modal: ${id}`);
                     document.getElementById(id).style.display = 'flex';
@@ -181,7 +181,7 @@
                     // Inisialisasi untuk input Select2
                     $('#classes_id').select2({
                         placeholder: "Pilih Kelas",
-                        width: '100%' // Gunakan full width dari kontainer
+                        width: '100%'
                     });
 
                 });

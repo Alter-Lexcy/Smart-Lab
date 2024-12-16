@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto py-8 max-w-6xl lg:max-w-full overflow-hidden">
+    <div class="container mx-3 py-8 max-w-6xl lg:max-w-full overflow-hidden">
         <div class="max-w-full bg-white p-0 rounded-lg shadow-lg">
 
             @if (session('status'))
@@ -10,10 +10,13 @@
                 </div>
             @endif
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-36 w-full py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg" class="overflow-hidden">
-                <svg viewBox="0 0 1420 148" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" class="w-[1148px] h-[152] lg:w-full ">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-40 w-full py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg"
+                class="overflow-hidden">
+                <svg viewBox="0 0 1485 155" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+                    class="w-[1485px] h-[155px]">
                     <!-- Background -->
-                    <rect opacity="0.08" height="152" width="1148" rx="10" fill="url(#pattern0_189_185)" class="w-full" />
+                    <rect opacity="0.08" height="152" width="1148" rx="10" fill="url(#pattern0_189_185)"
+                        class="w-full" />
                     <defs>
                         <pattern id="pattern0_189_185" patternContentUnits="objectBoundingBox" width="1"
                             height="1">
@@ -242,120 +245,120 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-
-        <script>
-            const getChartOptions = () => {
-                return {
-                    series: [{{ $assignCount ?? 0 }}, {{ $notAssignCount ?? 0 }}],
-                    colors: ["#3572EF", "#5784ea"],
-                    chart: {
-                        height: 350,
-                        width: "100%",
-                        type: "pie",
-                    },
-                    stroke: {
-                        colors: ["#fff"],
-                        width: "1",
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                size: '60%', // Adjust this value for the thickness of the donut
-                                background: 'transparent', // Make the center transparent
-                            },
-                            labels: {
-                                show: false,
-                            },
-                            size: "100%",
-                            dataLabels: {
-                                offset: -25
-                            }
+    <script>
+        const getChartOptions = () => {
+            return {
+                series: [{{ $assignCount ?? 0 }}, {{ $notAssignCount ?? 0 }}],
+                colors: ["#3572EF", "#5784ea"],
+                chart: {
+                    height: 350,
+                    width: "100%",
+                    type: "pie",
+                },
+                stroke: {
+                    colors: ["#fff"],
+                    width: "1",
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '60%', // Adjust this value for the thickness of the donut
+                            background: 'transparent', // Make the center transparent
                         },
-                    },
-                    labels: ["Sudah Ditempatkan", " Belum ditempatkan"],
-                    dataLabels: {
-                        enabled: false,
-                        style: {
-                            fontFamily: "Inter, sans-serif",
-                        },
-                    },
-                    legend: {
-                        show: false, // Hilangkan legend dengan mengatur ini ke false
-                    },
-
-                };
-            };
-
-            if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
-                chart.render();
-            }
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const totals = {!! json_encode($totals) !!}
-
-                const chartConfig = {
-                    series: [{
-                        name: "Total Murid",
-                        data: totals,
-                    }],
-                    chart: {
-                        type: "bar",
-                        height: 240,
-                        toolbar: {
+                        labels: {
                             show: false,
                         },
+                        size: "100%",
+                        dataLabels: {
+                            offset: -25
+                        }
                     },
-                    dataLabels: {
-                        enabled: false,
+                },
+                labels: ["Sudah Ditempatkan", " Belum ditempatkan"],
+                dataLabels: {
+                    enabled: false,
+                    style: {
+                        fontFamily: "Inter, sans-serif",
                     },
-                    colors: ["#050C9C"],
-                    plotOptions: {
-                        bar: {
-                            columnWidth: "40%",
-                            borderRadius: 2,
-                        },
-                    },
-                    xaxis: {
-                        categories: ['2024', '2025', '2026', '2027', '2028'], // Data tahun
-                        labels: {
-                            style: {
-                                colors: "#616161",
-                                fontSize: "12px",
-                                fontFamily: "inherit",
-                                fontWeight: 400,
-                            },
-                        },
-                    },
-                    yaxis: {
-                        min: 0, // Nilai minimum y-axis
-                        max: 1000, // Nilai maksimum y-axis
-                        tickAmount: 4,
-                        labels: {
-                            style: {
-                                colors: "#616161",
-                                fontSize: "12px",
-                                fontFamily: "inherit",
-                                fontWeight: 400,
-                            },
-                        },
-                    },
-                    grid: {
-                        borderColor: "#dddddd",
-                        strokeDashArray: 5,
-                    },
-                    tooltip: {
-                        theme: "dark",
-                    },
-                };
+                },
+                legend: {
+                    show: false, // Hilangkan legend dengan mengatur ini ke false
+                },
 
-                const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
-                chart.render();
+            };
+        };
 
-            });
-        </script>
-    @endsection
+        if (document.getElementById("pie-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
+            chart.render();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const totals = {!! json_encode($totals) !!}
+
+            const chartConfig = {
+                series: [{
+                    name: "Total Murid",
+                    data: totals,
+                }],
+                chart: {
+                    type: "bar",
+                    height: 240,
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                colors: ["#050C9C"],
+                plotOptions: {
+                    bar: {
+                        columnWidth: "40%",
+                        borderRadius: 2,
+                    },
+                },
+                xaxis: {
+                    categories: ['2024', '2025', '2026', '2027', '2028'], // Data tahun
+                    labels: {
+                        style: {
+                            colors: "#616161",
+                            fontSize: "12px",
+                            fontFamily: "inherit",
+                            fontWeight: 400,
+                        },
+                    },
+                },
+                yaxis: {
+                    min: 0, // Nilai minimum y-axis
+                    max: 1000, // Nilai maksimum y-axis
+                    tickAmount: 4,
+                    labels: {
+                        style: {
+                            colors: "#616161",
+                            fontSize: "12px",
+                            fontFamily: "inherit",
+                            fontWeight: 400,
+                        },
+                    },
+                },
+                grid: {
+                    borderColor: "#dddddd",
+                    strokeDashArray: 5,
+                },
+                tooltip: {
+                    theme: "dark",
+                },
+            };
+
+            const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
+            chart.render();
+
+        });
+    </script>
+@endsection
