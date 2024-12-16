@@ -205,20 +205,19 @@
                             enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                             @csrf
                             @method('PUT')
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="mb-3 mr-6">
-                                    <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                                    <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
-                                        <option value="" disabled>Pilih Kelas</option>
-                                        @foreach ($classes as $kelas)
-                                            <option value="{{ $kelas->id }}"
-                                                {{ old('classes_id', $materi->classes_id) == $kelas->id ? 'selected' : '' }}>
-                                                {{ $kelas->name_class }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="mb-3 mr-6">
+                                <label for="classes_id" class="block font-medium mb-1">Kelas</label>
+                                <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
+                                    <option value="" disabled>Pilih Kelas</option>
+                                    @foreach ($classes as $kelas)
+                                        <option value="{{ $kelas->id }}"
+                                            {{ old('classes_id', $materi->classes_id) == $kelas->id ? 'selected' : '' }}>
+                                            {{ $kelas->name_class }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
+
 
                             <div class="mb-3 mr-6">
                                 <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
@@ -265,7 +264,6 @@
                                 <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
                                     class="w-full border rounded px-3 py-2">
                             </div>
-
                             <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan
                                 Perubahan</button>
                             <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
@@ -276,50 +274,68 @@
             @endforeach
 
             <!-- Modal Tambah -->
-            <div id="materiModal" class="fixed inset-0 flex items-center justify-center " style="display: none;">
-                <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg ">
+            <div id="materiModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
+                <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
+
                     <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data"
-                        class="overflow-y-auto h-[70%]">
+                        class="overflow-y-auto h-[56%]">
                         @csrf
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="mb-3 mr-6">
-                                <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                                <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
-                                    <option value="" disabled selected>Pilih Kelas</option>
-                                    @foreach ($classes as $kelas)
-                                        <option value="{{ $kelas->id }}">{{ $kelas->name_class }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+
+                        <!-- Kelas -->
+                        <div class="mb-3 mr-6">
+                            <label for="classes_id" class="block font-medium mb-1">Kelas</label>
+                            <select id="classes_id" name="classes_id" class="w-full border rounded px-3 py-2">
+                                <option value="" disabled {{ old('classes_id') ? '' : 'selected' }}>Pilih Kelas
+                                </option>
+                                @foreach ($classes as $kelas)
+                                    <option value="{{ $kelas->id }}"
+                                        {{ old('classes_id') == $kelas->id ? 'selected' : '' }}>
+                                        {{ $kelas->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
+                        <!-- Nama Materi -->
                         <div class="mb-3 mr-6">
                             <label for="title_materi" class="block font-medium mb-1">Nama Materi</label>
                             <input type="text" id="title_materi" name="title_materi"
-                                class="w-full border rounded px-3 py-2">
+                                class="w-full border rounded px-3 py-2" value="{{ old('title_materi') }}">
                         </div>
 
+                        <!-- Deskripsi -->
                         <div class="mb-3 mr-6">
                             <label for="description" class="block font-medium mb-1">Deskripsi</label>
                             <textarea id="description" rows="2" name="description" class="w-full px-3 py-2 border rounded">{{ old('description') }}</textarea>
                         </div>
 
+                        <!-- File Materi -->
                         <div class="mb-3 mr-6">
                             <label for="file_materi" class="block font-medium mb-1">File Materi</label>
-                            <!-- Image preview -->
-                            <center>
-                                <div id="file-preview" class="mt-2">
-                                    <img id="image-preview" class="mt-2 w-32 mb-2" style="display: none;"
-                                        alt="Preview" />
+
+                            @if (isset($materi) && $materi->file_path)
+                                <!-- Menampilkan file lama jika sudah ada -->
+                                <div class="mt-2">
+                                    <p>File Lama:</p>
+                                    <a href="{{ asset('storage/' . $materi->file_path) }}" target="_blank"
+                                        class="text-blue-500 underline">{{ basename($materi->file_path) }}</a>
                                 </div>
-                            </center>
+                            @endif
+
+                            <!-- Input File -->
                             <input type="file" id="file_materi" name="file_materi"
-                                class="w-full border rounded px-3 py-2">
+                                class="w-full border rounded px-3 py-2 mt-2">
                         </div>
-                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Tambah Materi</button>
+
+                        <!-- Tombol Submit -->
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                            Tambah Materi
+                        </button>
                         <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
-                            onclick="closeModal('materiModal')">Batal</button>
+                            onclick="closeModal('materiModal')">
+                            Batal
+                        </button>
                     </form>
                 </div>
             </div>
