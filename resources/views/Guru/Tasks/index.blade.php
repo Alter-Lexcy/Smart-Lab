@@ -293,7 +293,6 @@
                             enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                             @csrf
                             @method('PUT')
-                            <div class="grid grid-cols-2 gap-4">
                                 <div class="mb-4">
                                     <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
                                     <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
@@ -307,7 +306,6 @@
                                     @error('class_id')
                                         <div class="text-red-500">{{ $message }}</div>
                                     @enderror
-                                </div>p
                                 <div class="mb-4 ">
                                     <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                     <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
