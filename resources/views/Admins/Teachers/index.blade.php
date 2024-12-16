@@ -30,7 +30,7 @@
                     </button>
                     <form id="searchForm" action="{{ route('teachers.index') }}" method="GET"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
-                        <input type="text" name="search_teacher" placeholder="Cari..."
+                        <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
                 </div>
@@ -86,7 +86,7 @@
                                     <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
+                                        {{ $teacher->classess->isNotEmpty() ? $teacher->classess->pluck('name_class')->implode(', ') : 'kosong' }}
                                     </td>
                                     <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                                     <td class="px-4 py-2 border">
@@ -109,11 +109,12 @@
                                                 @csrf
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Kelas</label>
-                                                    <select name="classes_id[]" id="classes_id" class="w-full px-3 py-2 border rounded js-example-basic-multiple" multiple="multiple">
-                                                        <option value="" disabled>Pilih Kelas</option>
+                                                    <select name="classes_id[]" id="classes_id"
+                                                        class="w-full px-3 py-5 border rounded js-example-basic-multiple"
+                                                        multiple="multiple">
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
-                                                                {{ in_array($class->id, old('classes_id', $teacher->classes->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                                                {{ in_array($class->id, old('classes_id', $teachers->pluck('classess')->collapse()->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                                 {{ $class->name_class }}
                                                             </option>
                                                         @endforeach
@@ -127,6 +128,7 @@
                                                             {{ $teacher->subject_id == null ? 'selected' : '' }}>Pilih
                                                             Kelas
                                                         </option>
+
                                                         @foreach ($subjects as $mapel)
                                                             <option value="{{ $mapel->id }}"
                                                                 {{ old('subject_id', $teacher->subject_id) == $mapel->id ? 'selected' : '' }}>
@@ -153,6 +155,7 @@
                 {{ $teachers->links() }}
             </div>
             <script>
+
                 function openModal(id) {
                     console.log(`Opening modal: ${id}`);
                     document.getElementById(id).style.display = 'flex';
@@ -178,7 +181,7 @@
                     // Inisialisasi untuk input Select2
                     $('#classes_id').select2({
                         placeholder: "Pilih Kelas",
-                        width: '100%' // Gunakan full width dari kontainer
+                        width: '100%'
                     });
 
                 });

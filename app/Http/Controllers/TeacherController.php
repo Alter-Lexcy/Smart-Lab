@@ -49,29 +49,28 @@ class TeacherController extends Controller
     {
         $teacher = User::findOrFail($id);
         $request->validate([
-            'classes_id' => 'required',
+            'classes_id' => 'required',      
             'subject_id' => 'required',
         ], [
             'classes_id.required' => 'Kelas Belum Dipilih',
             'subject_id.required' => 'Mapel Belum Dipilih',
         ]);
 
-
         $existingUser = User::where('id', '!=', $teacher->id)
             ->where('subject_id', $request->subject_id)
-            ->whereHas('class', function ($query) use ($request) {
+            ->whereHas('classess', function ($query) use ($request) {
                 $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
             })
             ->first();
 
         if ($existingUser) {
-            return redirect()->back()->withErrors(['error' => 'Kombinasi Kelas dan Mapel sudah digunakan oleh pengguna lain']);
+            return back()->withInput()->withErrors(['error' => 'Kombinasi Kelas dan Mapel sudah digunakan oleh pengguna lain']);
         }
 
         $teacher->update([
             'subject_id' => $request->subject_id
         ]);
-        $teacher->class()->sync($request->classes_id);
+        $teacher->classess()->sync($request->classes_id);
         return redirect()->back()->with('success', 'Data Sudah Ter-Update');
     }
 }

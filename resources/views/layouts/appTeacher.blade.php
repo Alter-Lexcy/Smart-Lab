@@ -197,8 +197,8 @@
             <nav id="navbar"
                 class="flex items-center pb-4 justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
                 <!-- Search Input -->
-                <form action="{{ route('search') }}" method="GET" class="flex items-center ml-4 mt-4">
-                    <input type="text" name="search" placeholder="Search..."
+                <form action="{{ route('cari') }}" method="GET" class="flex items-center ml-4 mt-4">
+                    <input type="text" name="search" placeholder="Cari..."
                         class="w-64 p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" />
                     <button type="submit" class="ml-2 p-2 bg-blue-300 text-white rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
