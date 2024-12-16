@@ -1,0 +1,8 @@
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:active {
+    transform: scale(0.98); /* Membuat card sedikit mengecil ketika di klik */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan ketika card diklik */
+}

@@ -117,32 +117,36 @@
     </script>
     <!--end::Theme mode setup on page load-->
 
+    <x-navbarsiswa></x-navbarsiswa>
 
     <!--begin::App-->
-    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-        <!--begin::Page-->
-        <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
-            <x-navbarsiswa></x-navbarsiswa>
-            <div class="bg-gray-100 flex items-center justify-center min-h-screen">
-                <div class="grid grid-cols-3 gap-4 max-w-screen-lg w-full">
-                    <!-- Card besar di kiri atas -->
-                    <div class="col-span-2 row-span-2 bg-white shadow-md rounded-lg h-96 flex items-center justify-center">
-                        <span class="text-gray-700 font-bold">Letak Chart</span>
-                    </div>
+    <div class="container mt-5">
+        <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+            <!--begin::Page-->
+            <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
+                <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+                    <div class="grid grid-cols-3 gap-4 max-w-screen-lg w-full">
+                        <!-- Card besar di kiri atas -->
+                        <div
+                            class="col-span-2 row-span-2 bg-white shadow-md rounded-lg h-96 flex items-center justify-center">
+                            <span class="text-gray-700 font-bold">Letak Chart</span>
+                        </div>
 
-                    <!-- Card Profile memenuhi seluruh tinggi kanan -->
-                    <div class="col-span-1 row-span-3 bg-white shadow-md rounded-lg flex items-center justify-center">
-                        <span class="text-gray-700 font-bold">Profile Siswa</span>
-                    </div>
+                        <!-- Card Profile memenuhi seluruh tinggi kanan -->
+                        <div
+                            class="col-span-1 row-span-3 bg-white shadow-md rounded-lg flex items-center justify-center">
+                            <span class="text-gray-700 font-bold">Profile Siswa</span>
+                        </div>
 
-                    <!-- Card kecil bawah kiri -->
-                    <div class="col-span-1 bg-white shadow-md rounded-lg h-48 flex items-center justify-center">
-                        <span class="text-gray-700 font-bold">Tugas Belum Dikerjakan</span>
-                    </div>
+                        <!-- Card kecil bawah kiri -->
+                        <div class="col-span-1 bg-white shadow-md rounded-lg h-48 flex items-center justify-center">
+                            <span class="text-gray-700 font-bold">Tugas Belum Dikerjakan</span>
+                        </div>
 
-                    <!-- Card kecil bawah kanan -->
-                    <div class="col-span-1 bg-white shadow-md rounded-lg h-48 flex items-center justify-center">
-                        <span class="text-gray-700 font-bold">Tugas Sudah Dikerjakan</span>
+                        <!-- Card kecil bawah kanan -->
+                        <div class="col-span-1 bg-white shadow-md rounded-lg h-48 flex items-center justify-center">
+                            <span class="text-gray-700 font-bold">Tugas Sudah Dikerjakan</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,22 +173,7 @@
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="https://class.hummatech.com/user-assets/plugins/global/plugins.bundle.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
-    <!--end::Global Javascript Bundle-->
-
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="https://class.hummatech.com/app-assets/js/widgets.bundle.js"></script>
-    <script src="https://class.hummatech.com/app-assets/js/custom/widgets.js"></script>
-    <script src="https://class.hummatech.com/app-assets/js/custom/apps/chat/chat.js"></script>
-    <script src="https://class.hummatech.com/app-assets/js/custom/utilities/modals/create-app.js"></script>
-    <script src="https://class.hummatech.com/app-assets/js/custom/utilities/modals/create-campaign.js"></script>
-    <script src="https://class.hummatech.com/app-assets/js/custom/utilities/modals/users-search.js"></script>
-    <!--end::Custom Javascript-->
-
-
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
         var options = {
