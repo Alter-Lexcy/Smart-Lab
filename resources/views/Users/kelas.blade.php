@@ -100,33 +100,28 @@
                     </h1>
 
                     <!-- Dropdown menu and button container -->
-                    <div
-                        style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                        <label id="dropdownLabel2" data-dropdown-toggle="dropdownHover2"
-                            class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                            type="button">
-                            Pilih Kelas
-                            <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 1l4 4 4-4" />
-                            </svg>
-                        </label>
-
-                        <!-- Dropdown menu -->
-                        <div id="dropdownHover2"
-                            class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
-                            @foreach ($kelas11 as $kelas)
+                    <form method="POST" action="{{ route('class.approval.store') }}">
+                        @csrf
+                        <input type="hidden" id="class_id" name="class_id">
+                        <div id="dropdownHover1"
+                            class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2" name="class_id">
                             <ul class="py-2 text-sm text-gray-700">
+                                @foreach ($kelas11 as $kelas)
                                 <li>
                                     <a class="block px-4 py-2 hover:bg-gray-100"
-                                    onclick="selectClass('dropdownLabel2', '{{ $kelas->nama_kelas }}')">
-                                        {{$kelas->name_class}}
+                                       onclick="selectClass('dropdownLabel1', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
+                                       {{ $kelas->name_class }}
                                     </a>
                                 </li>
+                                @endforeach
                             </ul>
-                            @endforeach
                         </div>
+
+                        <button type="submit"
+                            class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
+                            Pilih
+                        </button>
+                    </form>
 
                         <button type="button"
                             class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
@@ -149,39 +144,28 @@
                     </h1>
 
                     <!-- Dropdown menu and button container -->
-                    <div
-                        style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                        <label id="dropdownLabel3" data-dropdown-toggle="dropdownHover3"
-                            class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                            type="button">
-                            Pilih Kelas
-                            <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 1l4 4 4-4" />
-                            </svg>
-                        </label>
-
-                        <!-- Dropdown menu -->
-                        <div id="dropdownHover3"
-                            class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
-                            @foreach ($kelas12 as $kelas)
+                    <form method="POST" action="{{ route('class.approval.store') }}">
+                        @csrf
+                        <input type="hidden" id="class_id" name="class_id">
+                        <div id="dropdownHover1"
+                            class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2" name="class_id">
                             <ul class="py-2 text-sm text-gray-700">
+                                @foreach ($kelas12 as $kelas)
                                 <li>
                                     <a class="block px-4 py-2 hover:bg-gray-100"
-                                    onclick="selectClass('dropdownLabel3', '{{ $kelas->nama_kelas }}')">
-                                        {{$kelas->name_class}}
+                                       onclick="selectClass('dropdownLabel1', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
+                                       {{ $kelas->name_class }}
                                     </a>
                                 </li>
+                                @endforeach
                             </ul>
-                            @endforeach
                         </div>
 
-                        <button type="button"
+                        <button type="submit"
                             class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
                             Pilih
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
