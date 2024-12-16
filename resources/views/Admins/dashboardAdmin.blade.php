@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto py-8 max-w-6xl lg:max-w-full overflow-hidden">
+    <div class="container mx-3 py-8 max-w-6xl lg:max-w-full overflow-hidden">
         <div class="max-w-full bg-white p-0 rounded-lg shadow-lg">
 
             @if (session('status'))

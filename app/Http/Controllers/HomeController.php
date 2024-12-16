@@ -46,7 +46,7 @@ class HomeController extends Controller
                 $query->where('name', 'Admin');
             })
             ->whereNotNull('subject_id')
-            ->whereHas('class')
+            ->whereHas('classess')
             ->count();
 
         // Buat Hitung Guru yang belum di Assign
@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $query->where('name', 'Admin');
             })
             ->where(function ($query) {
-                $query->whereNull('subject_id')->orWhereDoesntHave('class');
+                $query->whereNull('subject_id')->orWhereDoesntHave('classess');
             })
             ->count();
 
