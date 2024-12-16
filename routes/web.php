@@ -65,16 +65,17 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     Route::resource('collections', CollectionController::class);
 });
 
-// Route Murid
-Route::middleware('auth')->group(function () {
-    Route::get('/PilihKelas', [SelectClassController::class, 'index'])->name('SelectClass');
-    Route::get('/kelas10', [function () {
-        return view('Users.kelas10');
-    }]);
-    Route::get('/kelas11', [function () {
-        return view('Users.kelas11');
-    }]);
-    Route::get('/kelas12', [function () {
-        return view('Users.kelas12');
-    }]);
-});
+    // Route Murid
+    Route::middleware('auth')->group(function () {
+        Route::get('/PilihKelas',[SelectClassController::class,'index'])->name('SelectClass');
+        Route::get('/dashboard', [function () {
+            return view('Siswa.dashboard');
+        }]);
+        Route::get('/mapel', [function () {
+            return view('Siswa.mapel');
+        }]);
+
+        Route::get('/materi', [function () {
+            return view('Siswa.materi');
+        }]);
+    });
