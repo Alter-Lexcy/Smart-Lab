@@ -34,16 +34,8 @@ class MateriController extends Controller
             ->simplePaginate(5);
 
         // Filter Dropdown Kelas
-        $classes = $user->class()->get();
-
-        // Return View berdasarkan Role
-        if ($user->hasRole('Admin')) {
-            return view('Admins.Materi.index', compact('materis', 'classes'));
-        } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Materi.index', compact('materis', 'classes'));
-        } else {
-            abort(403, 'Unauthorized');
-        }
+        $classes = $user->classes()->get();
+        return view('Guru.Materi.index', compact('materis', 'classes'));
     }
 
 
