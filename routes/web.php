@@ -64,13 +64,14 @@ use App\Http\Controllers\SelectClassController;
     // Route Murid
     Route::middleware('auth')->group(function () {
         Route::get('/PilihKelas',[SelectClassController::class,'index'])->name('SelectClass');
-        Route::get('/kelas10', [function () {
-            return view('Users.kelas10');
+        Route::get('/dashboard', [function () {
+            return view('Siswa.dashboard');
         }]);
-        Route::get('/kelas11', [function () {
-            return view('Users.kelas11');
+        Route::get('/mapel', [function () {
+            return view('Siswa.mapel');
         }]);
-        Route::get('/kelas12', [function () {
-            return view('Users.kelas12');
+
+        Route::get('/tugas', [function () {
+            return view('Siswa.tugas');
         }]);
     });

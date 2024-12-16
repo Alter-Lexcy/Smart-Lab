@@ -58,28 +58,26 @@
                         </defs>
                     </svg>
                 </div>
-                <div class="w-24 h-24 bg-white rounded-xl ml-6 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-16 my-4 mx-4">
-                        <defs>
-                            <!-- Linear Gradient Definition -->
-                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#3572EF" />
-                                <stop offset="100%" stop-color="#050C9C" />
-                            </linearGradient>
-                        </defs>
-                        <!-- Main Shape -->
-                        <path fill="url(#gradient1)" fill-rule="evenodd"
-                            d="M4.125 3C3.089 3 2.25 3.84 2.25 4.875V18a3 3 0 0 0 3 3h15a3 3 0 0 1-3-3V4.875C17.25 3.839 16.41 3 15.375 3H4.125ZM12 9.75a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H12Zm-.75-2.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5H12a.75.75 0 0 1-.75-.75ZM6 12.75a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5H6Zm-.75 3.75a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1-.75-.75ZM6 6.75a.75.75 0 0 0-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-3A.75.75 0 0 0 9 6.75H6Z"
-                            clip-rule="evenodd" />
-                        <!-- Secondary Shape -->
-                        <path fill="url(#gradient1)"
-                            d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z" />
-                    </svg>
-                </div>
-                <!-- Text Content -->
-                <div class="space-y-4 ml-4">
-                    <div class="text-4xl font-bold text-white ">0</div>
-                    <div class="text-md  text-white font-normal">Jumlah Materi</div>
+                <div class="relative flex items-center ">
+                    <div class="w-24 h-24 bg-white rounded-xl ml-6 flex
+                    justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="54" viewBox="0 0 16 16">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#050C9C;" />
+                                    <stop offset="100%" style="stop-color:#3572EF" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#grad1)"
+                                d="M4 9V8h1v1zM1 4a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v6.5a.5.5 0 0 0 1 0V4a2 2 0 0 1 2 2v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 10.5zm2.5 1a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5zm4 0a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                        </svg>
+                    </div>
+
+                    <!-- Text Content -->
+                    <div class="space-y-4 ml-4">
+                        <div class="text-4xl font-bold text-white ">0</div>
+                        <div class="text-md  text-white font-normal">Jumlah Materi</div>
+                    </div>
                 </div>
             </div>
 
@@ -100,21 +98,24 @@
                         </defs>
                     </svg>
                 </div>
-                <div class="w-24 h-24 bg-white rounded-xl ml-6 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-16 my-4 mx-4 ">
-                        <defs>
-                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#3572EF" />
-                                <stop offset="100%" stop-color="#050C9C" />
-                            </linearGradient>
-                        </defs>
-                        <path fill="url(#gradient1)" fill-rule="evenodd"
-                            d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                            clip-rule="evenodd" />
-                        <path fill="url(#gradient1)" fill-rule="evenodd"
-                            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                            clip-rule="evenodd"  />
-                    </svg>
+                <div class="relative flex items-center ">
+                    <div class="w-24 h-24 bg-white rounded-xl ml-6 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-16 my-4 mx-4 ">
+                            <defs>
+                                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%"
+                                    y2="0%">
+                                    <stop offset="0%" stop-color="#050C9C" />
+                                    <stop offset="100%" stop-color="#3572EF" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#gradient1)" fill-rule="evenodd"
+                                d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                clip-rule="evenodd" />
+                            <path fill="url(#gradient1)" fill-rule="evenodd"
+                                d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
+                                clip-rule="evenodd"  />
+                        </svg>
+                    </div>
                 </div>
                 <!-- Text Content -->
                 <div class="space-y-4 ml-4">
@@ -143,12 +144,12 @@
                 <!-- Content Box -->
                 <div class="relative flex items-center ">
                     <div class="w-24 h-24 bg-white rounded-xl ml-6 flex justify-center items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-16 h-16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="54" viewBox="0 0 24 24">
                             <defs>
-                                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%"
+                                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%%"
                                     y2="0%">
-                                    <stop offset="0%" stop-color="#3572EF" />
-                                    <stop offset="100%" stop-color="#050C9C" />
+                                    <stop offset="0%" stop-color="#050C9C" />
+                                    <stop offset="100%"stop-color="#3572EF" />
                                 </linearGradient>
                             </defs>
                             <path fill="url(#gradient1)" fill-rule="evenodd"
