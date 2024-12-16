@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Classes;
 use App\Models\Materi;
 use App\Models\Subject;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,42 +18,39 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $search = $request->input('search');
-        $order = $request->input('order', 'desc');
+{
+    $search = $request->input('search');
+    $order = $request->input('order', 'desc');
 
-        $tasks = Task::with('Classes', 'Subject', 'Materi')
-            ->where('user_id',auth()->id())
-            ->where(function ($query) use ($search) {
-                $query->whereHas('Classes', function ($q) use ($search) {
-                    $q->where('name_class', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('Subject', function ($q) use ($search) {
-                        $q->where('name_subject', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('Materi', function ($q) use ($search) {
-                        $q->where('title_materi', 'like', '%' . $search . '%');
-                    });
-            })->orWhere('title_task','Like','%'.$search.'%')
-            ->orderBy('created_at', $order)
-            ->simplePaginate(5);
+    // Ambil semua tugas dengan relasi Classes, Subject, Materi
+    $tasks = Task::with('Classes', 'Subject', 'Materi')
+        ->where('user_id', auth()->id())
+        ->where(function ($query) use ($search) {
+            $query->whereHas('Classes', function ($q) use ($search) {
+                $q->where('name_class', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('Subject', function ($q) use ($search) {
+                $q->where('name_subject', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('Materi', function ($q) use ($search) {
+                $q->where('title_materi', 'like', '%' . $search . '%');
+            });
+        })->orWhere('title_task', 'like', '%' . $search . '%')
+        ->orderBy('created_at', $order)
+        ->simplePaginate(5);
 
+    // Ambil semua siswa yang sudah mengumpulkan tugas (submissions)
+    $collections = Collection::with('user')
+        ->get()
+        ->groupBy('task_id'); // Kelompokkan berdasarkan task_id
 
+    $classes = Classes::all();
+    $subjects = Subject::all();
+    $materis = Materi::all();
+    $collections = Collection::all();
 
-        $classes = Classes::all();
-        $subjects = Subject::all();
-        $materis = Materi::all();
-
-        $user = auth()->user();
-
-        if ($user->hasRole('Admin')) {
-            return view('Admins.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
-        } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis'));
-        } else {
-            abort(403, 'Unauthorized');
-        }
-    }
+    return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
+}
 
     /**
      * Show the form for creating a new resource.
