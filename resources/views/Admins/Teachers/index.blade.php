@@ -86,7 +86,7 @@
                                     <td class="px-4 py-2 border">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2 border">{{ $teacher->NIP }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{ $teacher->classess->isNotEmpty() ? $teacher->classess->pluck('name_class')->implode(', ') : 'kosong' }}
+                                        {{ $teacher->class->isNotEmpty() ? $teacher->class->pluck('name_class')->implode(', ') : 'kosong' }}
                                     </td>
                                     <td class="px-4 py-2 border">{{ $teacher->subject->name_subject ?? 'kosong' }}</td>
                                     <td class="px-4 py-2 border">
@@ -114,7 +114,7 @@
                                                         multiple="multiple">
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
-                                                                {{ in_array($class->id, old('classes_id', $teachers->pluck('classess')->collapse()->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                                                {{ in_array($class->id, old('classes_id', $teachers->pluck('class')->collapse()->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                                 {{ $class->name_class }}
                                                             </option>
                                                         @endforeach
@@ -126,7 +126,7 @@
                                                         class="w-full px-3 py-2 border rounded ">
                                                         <option value="" disabled
                                                             {{ $teacher->subject_id == null ? 'selected' : '' }}>Pilih
-                                                            Kelas
+                                                            Mapel
                                                         </option>
 
                                                         @foreach ($subjects as $mapel)

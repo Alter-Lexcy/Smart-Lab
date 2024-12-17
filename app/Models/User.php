@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
-    public function classess()
+    public function class()
     {
         return $this->belongsToMany(Classes::class, 'teacher_classes', 'user_id', 'classes_id');
     }
@@ -73,13 +73,25 @@ class User extends Authenticatable
 
 
     protected static function boot()
-    {
-        parent::boot();
+{
+    parent::boot();
 
-        static::updated(function ($user) {
-            if ($user->isDirty('status') && $user->status === 'lulus') {
+    static::retrieved(function ($user) {
+        if ($user->created_at) { 
+            $createDate = $user->created_at;
+            if ($createDate->lte(now()->subYear(1))) {
                 $user->class()->detach();
             }
-        });
-    }
+            if ($createDate->lte(now()->subYears(2))) {
+                $user->class()->detach();
+            }
+        }
+    });
+
+    static::updated(function ($user) {
+        if ($user->isDirty('status') && $user->status === 'lulus') {
+            $user->class()->detach();
+        }
+    });
+}
 }

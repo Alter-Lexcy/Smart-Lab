@@ -17,7 +17,7 @@
     <div class="container mx-auto p-4">
         <div class="container mx-auto pt-2">
             <div class="flex items-center space-x-2">
-                <h1 class="text-2xl font-bold mr-auto">Tugas</h1>
+                <h1 class="text-2xl font-bold mr-auto">Pengumpulan</h1>
                 <!-- Tombol Search dengan Form Animasi -->
                 <div class="relative flex items-center">
                     <!-- Tombol Search -->
@@ -95,6 +95,7 @@
                         <thead>
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Murid</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai Tugas</th>
@@ -105,12 +106,13 @@
                                 <tr>
                                     <td class="border px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="border px-4 py-2">{{ $collection->Task->title_task }}</td>
+                                    <td class="border px-4 py-2">{{ $collection->user->name }}</td>
                                     <td class="border px-4 py-2">{{ $collection->status }}</td>
                                     <td class="border px-4 py-2">{{ $collection->Assesment->mark_task ?? 'Tidak tersedia' }}
                                     </td>
                                     <td class="border px-4 py-2 ">
                                         <!-- Delete form -->
-                                        <form action="{{ route('collection.destroy', $collection->id) }}" method="POST"
+                                        <form action="{{ route('collections.destroy', $collection->id) }}" method="POST"
                                             class="inline">
                                             @csrf
                                             @method('DELETE')
@@ -132,7 +134,7 @@
                     </table>
                 </div>
 
-                <!-- Modals for editing each assessment -->
+                {{-- <!-- Modals for editing each assessment -->
                 @foreach ($collections as $collection)
                     <div id="editCollectionModal_{{ $collection->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto"
                         style="display: none;">
@@ -192,7 +194,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
             </div>
         </div>
     @endsection

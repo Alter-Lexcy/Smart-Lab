@@ -49,7 +49,7 @@ class TeacherController extends Controller
     {
         $teacher = User::findOrFail($id);
         $request->validate([
-            'classes_id' => 'required',      
+            'classes_id' => 'required',
             'subject_id' => 'required',
         ], [
             'classes_id.required' => 'Kelas Belum Dipilih',
@@ -58,7 +58,7 @@ class TeacherController extends Controller
 
         $existingUser = User::where('id', '!=', $teacher->id)
             ->where('subject_id', $request->subject_id)
-            ->whereHas('classess', function ($query) use ($request) {
+            ->whereHas('class', function ($query) use ($request) {
                 $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
             })
             ->first();
@@ -70,7 +70,7 @@ class TeacherController extends Controller
         $teacher->update([
             'subject_id' => $request->subject_id
         ]);
-        $teacher->classess()->sync($request->classes_id);
+        $teacher->class()->sync($request->classes_id);
         return redirect()->back()->with('success', 'Data Sudah Ter-Update');
     }
 }

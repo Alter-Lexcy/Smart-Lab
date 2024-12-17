@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
-   protected $fillable = ['assesment_id', 'status', 'task_id'];
+   protected $table = 'collections';
+   protected $fillable = ['user_id','status', 'task_id','file_collection'];
 
    public function task()
    {

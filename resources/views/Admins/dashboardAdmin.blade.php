@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-3 py-8 max-w-6xl lg:max-w-full overflow-hidden">
-        <div class="max-w-full bg-white p-0 rounded-lg shadow-lg">
+    <div class="container mx-1 py-8 max-w-6xl lg:max-w-full overflow-hidden">
+        <div class="max-w-[1485px] bg-white p-0 rounded-lg shadow-lg">
 
             @if (session('status'))
                 <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
@@ -10,13 +10,13 @@
                 </div>
             @endif
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-40 w-full py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg"
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center z-0 h-40 w-[1485px] py-4 space-y-2 md:space-y-0 md:space-x-4 border-2 rounded-lg"
                 class="overflow-hidden">
-                <svg viewBox="0 0 1485 155" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
-                    class="w-[1485px] h-[155px]">
+                <svg viewBox="0 0 1483 160"  xmlns="http://www.w3.org/2000/svg"
+                    class="w-[1485px] h-[160px]">
                     <!-- Background -->
-                    <rect opacity="0.08" height="152" width="1148" rx="10" fill="url(#pattern0_189_185)"
-                        class="w-full" />
+                    <rect opacity="0.08" height="160" width="1485" rx="10" fill="url(#pattern0_189_185)"
+                        class="w-[1485px]" />
                     <defs>
                         <pattern id="pattern0_189_185" patternContentUnits="objectBoundingBox" width="1"
                             height="1">
@@ -36,7 +36,7 @@
                 <!-- SVG illustration -->
                 <div class="absolute w-auto z-10 ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170"
-                        fill="none" class="mb-6 mr-10 ml-[900px] lg:ml-[1200px]">
+                        fill="none" class="mb-5 mr-10 ml-[900px] lg:ml-[1200px]">
                         <path d="M24.9368 127.964L27.8728 133.597H50.5891L45.4749 123.411L24.9368 127.964Z"
                             fill="#084EEE" />
                         <path
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="container my-5">
-            <div class="flex gap-5">
+            <div class="flex gap-5 max-w-[1485px]">
                 <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-4 md:p-6 h-[590px] mt-[30px] border-2 ">
                     <div class="flex justify-between items-start w-full border-b mb-3">
                         <div class="flex-col items-center">
