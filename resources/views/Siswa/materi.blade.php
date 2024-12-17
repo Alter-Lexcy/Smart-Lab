@@ -37,6 +37,10 @@
     {{-- flowbite --}}
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 
+    <!-- Link Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
     <style>
         @media (max-width: 639px) {
             .covercard {
@@ -131,13 +135,25 @@
             </div>
         </div>
 
-        <h1 class="my-8 text-2xl text-gray-700 font-poppins font-bold">
-            Daftar Mata Pelajaran
-        </h1>
+        <div class="flex justify-between items-center my-8">
+            <h1 class="text-2xl text-gray-700 font-poppins font-bold">
+                Daftar Mata Pelajaran
+            </h1>
+
+            <!-- Form pencarian berada di kanan -->
+            <form action="your_search_url" method="GET" class="flex items-center">
+                <input type="text" id="search" name="search" placeholder="Search..." class="rounded-xl border-gray-300 p-3">
+                <!-- Tombol search dengan icon -->
+                <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                    <i class="fas fa-search text-white"></i>
+                </button>
+            </form>
+        </div>
 
         <div class="grid grid-cols-1 gap-10">
             <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                <div class="bg-white shadow-md py-10 px-5"
+                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
                         Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
@@ -155,7 +171,8 @@
             </div>
 
             <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                <div class="bg-white shadow-md py-10 px-5"
+                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
                         Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
@@ -173,7 +190,8 @@
             </div>
 
             <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                <div class="bg-white shadow-md py-10 px-5"
+                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
                         Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
@@ -191,7 +209,8 @@
             </div>
 
             <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                <div class="bg-white shadow-md py-10 px-5"
+                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
                         Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
@@ -209,7 +228,8 @@
             </div>
 
             <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                <div class="bg-white shadow-md py-10 px-5"
+                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
                         Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
@@ -225,37 +245,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Container Card -->
-            {{-- <div class="grid grid-cols-1 gap-6">
-            <!-- Card -->
-            <div class="relative flex items-center justify-center bg-blue-500 shadow-xl" style="height: 150px; border-radius: 15px">
-                <div class="absolute top-0 h-full bg-white shadow-md"
-                style="width: 100rem; border-top-right-radius: 15px; border-bottom-right-radius: 15px; left: 40px;">
-                    Card 1
-                </div>
-            </div>
-
-            <div class="shadow-lg flex items-center justify-center text-xl font-semibold text-white"
-                style="background: linear-gradient(to bottom right, #3572EF, #3ABEF9); padding: 70px; border-radius: 15px;">
-                Card 2
-            </div>
-            <div class="shadow-lg flex items-center justify-center text-xl font-semibold text-white"
-                style="background: linear-gradient(to bottom right, #3572EF, #3ABEF9); padding: 70px; border-radius: 15px;">
-                Card 3
-            </div>
-            <div class="shadow-lg flex items-center justify-center text-xl font-semibold text-white"
-                style="background: linear-gradient(to bottom right, #3572EF, #3ABEF9); padding: 70px; border-radius: 15px;">
-                Card 4
-            </div>
-            <div class="shadow-lg flex items-center justify-center text-xl font-semibold text-white"
-                style="background: linear-gradient(to bottom right, #3572EF, #3ABEF9); padding: 70px; border-radius: 15px;">
-                Card 5
-            </div>
-            <div class="shadow-lg flex items-center justify-center text-xl font-semibold text-white"
-                style="background: linear-gradient(to bottom right, #3572EF, #3ABEF9); padding: 70px; border-radius: 15px;">
-                Card 6
-            </div>
-        </div> --}}
         </div>
 
         <!--begin::Scrolltop-->
@@ -274,7 +263,8 @@
         </div>
 
         <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
+
 
         <script>
             var options = {

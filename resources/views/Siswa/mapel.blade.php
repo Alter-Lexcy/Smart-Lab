@@ -18,10 +18,6 @@
 
     <link rel="stylesheet" href="style/siswa.css">
 
-    <link rel="icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png"
-        type="image/png" />
-    <link rel="shortcut icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png" />
-
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
 
@@ -125,18 +121,21 @@
     <div class="container p-10">
         <div class="d-flex flex-column flex-root">
             <div class="flex w-full position-relative" style="position: relative;">
-                <img src="image/siswa/banner mapel.svg" alt="banner mapel" style="width: 100%; height: auto;">
-                <p class="absolute text-3xl font-poppins text-white font-bold"
-                    style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                    <span class="uppercase">hai, {{ Auth::user()->name }}</span>
+                <img src="image/banner mapel.svg" alt="banner mapel" style="width: 100%; height: auto;">
+                <p class="namasiswa">
+                    <span class="span-nama">Hai, {{ Auth::user()->name }}</span>
+                </p>
+                <p class="deskripsi">
+                    Belajar adalah perjalanan tanpa akhir. Mari jadikan setiap hari kesempatan untuk menambah wawasan dan pengalaman.
                 </p>
             </div>
         </div>
     </div>
 
-    <h1 class="text-center text-2xl mb-4 text-gray-700 font-poppins font-bold">
+    <h1 class="text-center text-3xl mb-4 text-gray-700 font-poppins font-bold">
         Daftar Mata Pelajaran
     </h1>
+    <hr class="w-10 mx-auto border-t-2 border-gray-700">
 
     <!-- Container Card -->
     <div class="container mx-auto p-10">
@@ -322,7 +321,7 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
 
     <script>
         var options = {
