@@ -21,7 +21,7 @@
     <div class="container mx-auto flex items-center justify-between">
         <!-- Kiri: Logo -->
         <div class="flex justify-start text-center">
-            <img src="image/Smart-Lab blue.png" alt="Logo" class="h-10 w-auto">
+            <img src="image/SMART-LAB.png" alt="Logo" class="h-10 w-auto">
         </div>
 
         <!-- Tengah: Menu -->

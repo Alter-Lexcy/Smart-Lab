@@ -78,4 +78,8 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
         Route::get('/materi', [function () {
             return view('Siswa.materi');
         }]);
+
+        Route::get('/tugas', [function () {
+            return view('Siswa.tugas');
+        }]);
     });
