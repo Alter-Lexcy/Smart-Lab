@@ -140,232 +140,109 @@
             </form>
         </div>
 
-        <div class="grid grid-cols-1 gap-10">
+        @forelse ($tasks as $task)
             <div style="position: relative;">
                 <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
+                    <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
                     <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
-                    </p>
-
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-green-400 mt-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Sudah Dikerjakan</span>
-                    </div>
-
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
-                    </div>
-
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
-                    </p>
-
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-red-400 mt-10">
-                        <!-- Ikon dengan ukuran yang lebih besar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Tidak Dikerjakan</span>
-                    </div>
-
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
-                    </div>
-
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
+                        {{ $task->short_description = Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
                     </p>
 
                     <!-- Status Sudah Dikerjakan dengan ikon -->
                     <div class="flex items-center text-yellow-300 mt-10">
                         <!-- Ikon dengan ukuran yang lebih besar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 mr-2">
+                            <path fill-rule="evenodd"
+                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+                                clip-rule="evenodd" />
                         </svg>
-                        <span>Belum Mengerjakan</span>
+                        <span>{{ $task->collections->first()->status ?? 'Tidak ada status' }}</span>
                     </div>
 
                     <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                            detail</button>
+                        <button
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl">Pengumpulan
+                            Tugas</button>
                     </div>
-
                     <!-- Tanggal di kanan atas -->
                     <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
+                        <span class="text-danger">Deadline
+                        </span>{{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l,j F Y') }}
                     </div>
                 </div>
             </div>
+        @empty
+        @endforelse
+        <!--begin::Scrolltop-->
+        <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+            <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                        transform="rotate(90 13 6)" fill="currentColor" />
+                    <path
+                        d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                        fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
 
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
-                    </p>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
 
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-green-400 mt-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Sudah Dikerjakan</span>
-                    </div>
-
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
-                    </div>
-
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
-                    </p>
-
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-green-400 mt-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Sudah Dikerjakan</span>
-                    </div>
-
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
-                    </div>
-
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Kerjakan 10 soal berikut dengan baik dan benar
-                    </p>
-
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-green-400 mt-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Sudah Dikerjakan</span>
-                    </div>
-
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat detail</button>
-                    </div>
-
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline </span>16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <!--begin::Scrolltop-->
-            <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                            transform="rotate(90 13 6)" fill="currentColor" />
-                        <path
-                            d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                            fill="currentColor" />
-                    </svg>
-                </span>
-                <!--end::Svg Icon-->
-            </div>
-
-            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-            <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
-
-            <script>
-                var options = {
-                    series: [44, 55, 41, 17, 15],
-                    chart: {
-                        type: 'donut',
-                    },
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200
-                            },
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }]
-                };
-
-                var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
-                chart.render();
-            </script>
-            <!--end::Javascript-->
-            <script>
-                $('.notification-link').click(function(e) {
-                    $.ajax({
-                        url: '/delete-notification/' + e.target.id,
-                        type: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        <script>
+            var options = {
+                series: [44, 55, 41, 17, 15],
+                chart: {
+                    type: 'donut',
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
                         },
-                        // success: function(response) {
-                        //     // Redirect ke halaman tujuan setelah penghapusan berhasil
-                        //     window.location.href = $(this).attr('href');
-                        // },
-                        error: function(xhr) {
-                            // Tangani kesalahan jika terjadi
-                            console.error(xhr.responseText);
+                        legend: {
+                            position: 'bottom'
                         }
-                    });
-                })
-            </script>
-            <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-                integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-                data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
-                crossorigin="anonymous"></script>
+                    }
+                }]
+            };
 
-            <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-            {{-- npm flowbite --}}
+            var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
+            chart.render();
+        </script>
+        <!--end::Javascript-->
+        <script>
+            $('.notification-link').click(function(e) {
+                $.ajax({
+                    url: '/delete-notification/' + e.target.id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    // success: function(response) {
+                    //     // Redirect ke halaman tujuan setelah penghapusan berhasil
+                    //     window.location.href = $(this).attr('href');
+                    // },
+                    error: function(xhr) {
+                        // Tangani kesalahan jika terjadi
+                        console.error(xhr.responseText);
+                    }
+                });
+            })
+        </script>
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+            integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+            data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+            crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+        
 </body>
 <!--end::Body-->
 

@@ -141,10 +141,8 @@
     <!-- Container Card -->
     <div class="container mx-auto p-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-            
             @forelse($subjects as $subject)
-            <a href="/materi" class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
+            <a href="{{ route('Materi',['materi_id'=>$subject->id])}}" class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
                 style="background-image: url('image/siswa/cardmapel.svg'); background-size: cover; background-position: center; border-radius: 15px; padding: 20px; text-decoration: none;">
 
                 <!-- Judul Matematika besar dan bold, berada di tengah kiri -->
