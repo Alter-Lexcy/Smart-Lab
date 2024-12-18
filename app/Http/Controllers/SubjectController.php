@@ -15,19 +15,15 @@ class SubjectController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $search = $request->input('search');
-    $order = $request->input('order', 'desc');
-    $kelasId = auth()->user()->classes->pluck('id');
-    
-    $subjects = Subject::withCount(['Materi' => function ($query) use ($kelasId) {
-        $query->whereIn('classes_id', $kelasId);
-    }])
-    ->where('name_subject', 'LIKE', '%' . $search . '%') 
-    ->orderBy('name_subject', $order)
-    ->simplePaginate(5);
-    return view('Siswa.mapel', compact('subjects', 'order'));
-}
+    {
+        $search = $request->input('search');
+        $order = $request->input('order', 'desc');
+
+        $subjects = Subject::where('name_subject','Like','%'.$search.'%')->orderBy('name_subject', $order)->simplePaginate(5);
+
+        // Kirim data ke view
+        return view('Admins.Subject.index', compact('subjects', 'order'));
+    }
 
 
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users');
+            $table->enum('status',['Belum Di-nilai','Sudah Di-nilai']);
             $table->string('mark_task');
             $table->timestamps();
         });
