@@ -94,18 +94,18 @@
                                     Jumlah Murid: {{ $teacherClass->class->users->count() }}
                                 </div>
                             </div>
-                            <div class="relative ml-[97px] mt-20 mr-3">
+                            <div class="relative ml-[145px] mt-24 mr-3">
                                 <button type="button"
-                                    class="flex font-semibold space-x-2 border-2 border-gray-300 bg-white text-gray-900 px-3 py-1 rounded-lg"
+                                    class="flex font-semibold border-2 border-gray-300 bg-white text-gray-900 px-2 py-2 rounded-lg space-x-0.5"
                                     onclick="openModal('detailModal-{{ $teacherClass->class->id }}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-5 mt-0">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                </svg>
                                     <div class="text-sm font-poppins">
                                         Lihat Murid
                                     </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-5 mt-0">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -117,12 +117,12 @@
             <div class="mt-5">
                 {{ $teacherClasses->links() }}
             </div>
-            
+
         </div>
 
         <!-- Modal Detail -->
         @foreach ($teacherClasses as $teacherClass)
-            <div id="detailModal-{{ $teacherClass->class->id }}" 
+            <div id="detailModal-{{ $teacherClass->class->id }}"
                 class="detailModal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;"
                 role="dialog" aria-hidden="true">
                 <div class="bg-white rounded-lg w-[60%] h-auto max-h-[95%] p-4">
@@ -161,7 +161,7 @@
                                             </td>
                                     @endif
                                 </tbody>
-                            </table>                           
+                            </table>
                         </div>
                     </div>
                     {{ $teacherClass->class->users()->simplePaginate(5)->links() }}
@@ -177,7 +177,7 @@
             const modal = document.getElementById(id);
             if (modal) {
                 modal.style.display = 'flex';
-                document.body.style.overflow = "hidden"; 
+                document.body.style.overflow = "hidden";
             } else {
                 console.error(`Modal dengan ID ${id} tidak ditemukan.`);
             }

@@ -168,7 +168,7 @@ body{
     z-index: 50;
 }
 
-#materiModal {
+.tugasModal {
     top: 0;
     left: 0;
     right: 0;
