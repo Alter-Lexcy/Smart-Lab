@@ -14,7 +14,7 @@ class Subject extends Model
     public function Classes(){
         return $this->hasMany(Classes::class);
     }
-    public function Materi(){
+    public function materi(){
         return $this->hasMany(Materi::class);
     }
 

@@ -20,4 +20,8 @@ class Classes extends Model
     public function Task(){
         return $this->belongsTo(Task::class);
     }
+
+    public function materi(){
+        return $this->hasMany(Materi::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CariController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MateriController;
@@ -16,8 +17,7 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\SelectClassController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ClassApprovalController;
-use App\Http\Controllers\CariController;
+use App\Http\Controllers\UserPageController;
 
 Auth::routes();
 
@@ -68,16 +68,9 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     // Route Murid
     Route::middleware('auth')->group(function () {
         Route::get('/PilihKelas',[SelectClassController::class,'index'])->name('SelectClass');
-        Route::get('/dashboard', [function () {
-            return view('Siswa.dashboard');
-        }]);
-        Route::get('/mapel', [function () {
-            return view('Siswa.mapel');
-        }]);
-
-        Route::get('/materi', [function () {
-            return view('Siswa.materi');
-        }]);
+        Route::get('/dashboard', [function () {return view('Siswa.dashboard');}]);
+        Route::get('/mapel', [UserPageController::class, 'showSubject'])->name('Subject');
+        Route::get('/materi/{materi_id}', [UserPageController::class,'showMateri'])->name('Materi');
 
         Route::get('/tugas', [function () {
             return view('Siswa.tugas');

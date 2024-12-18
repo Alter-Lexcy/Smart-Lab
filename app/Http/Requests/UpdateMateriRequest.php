@@ -26,7 +26,7 @@ class UpdateMateriRequest extends FormRequest
             'classes_id' => ['required', 'exists:classes,id'],
             'title_materi' => ['required','string','max:255',Rule::unique('materis', 'title_materi')->ignore($this->materi)],
             'file_materi' => ['nullable', 'mimes:pdf', 'max:10240'],
-            'description' => ['nullable', 'max:500'],
+            'description' => ['nullable'],
         ];
     }
 
@@ -40,7 +40,6 @@ class UpdateMateriRequest extends FormRequest
             'title_materi.unique'=>'Judul Materi Sudah Ada',
             'file_materi.mimes'=>'File Materi Harus Bertipe PDF',
             'file_materi.max'=>'File Materi Harus Dibawah 10 MB',
-            'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 255 Karakter)'
         ];
     }
 }

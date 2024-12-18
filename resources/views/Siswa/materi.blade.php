@@ -124,197 +124,126 @@
     <x-navbarsiswa></x-navbarsiswa>
 
     <!--begin::App-->
-    <div class="container p-10">
-        <div class="d-flex flex-column flex-root">
-            <div class="flex w-full position-relative" style="position: relative;">
-                <img src="image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
-                <p class="absolute text-5xl font-poppins text-white font-bold"
-                    style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%); text-align: center;">
-                    <span>MATEMATIKA</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="flex justify-between items-center my-8">
-            <h1 class="text-2xl text-gray-700 font-poppins font-bold">
-                Daftar Mata Pelajaran
-            </h1>
-
-            <!-- Form pencarian berada di kanan -->
-            <form action="your_search_url" method="GET" class="flex items-center">
-                <input type="text" id="search" name="search" placeholder="Search..." class="rounded-xl border-gray-300 p-3">
-                <!-- Tombol search dengan icon -->
-                <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
-                    <i class="fas fa-search text-white"></i>
-                </button>
-            </form>
-        </div>
-
-        <div class="grid grid-cols-1 gap-10">
-            <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5"
-                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
-                        menggunakan metode sederhana dan ilustrasi menarik.
+    @forelse ($materis as $materi)
+        <div class="container p-10">
+            <div class="d-flex flex-column flex-root">
+                <div class="flex w-full position-relative" style="position: relative;">
+                    <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
+                    <p class="absolute text-5xl font-poppins text-white font-bold"
+                        style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%); text-align: center;">
+                        <span>{{ $materi->subject->name_subject }}</span>
                     </p>
-                    <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        16 Desember 2024
-                    </div>
                 </div>
             </div>
 
-            <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5"
-                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
-                        menggunakan metode sederhana dan ilustrasi menarik.
-                    </p>
-                    <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        16 Desember 2024
-                    </div>
-                </div>
+            <div class="flex justify-between items-center my-8">
+                <h1 class="text-2xl text-gray-700 font-poppins font-bold">
+                    Daftar Materi
+                </h1>
+
+                <!-- Form pencarian berada di kanan -->
+                <form action="your_search_url" method="GET" class="flex items-center">
+                    <input type="text" id="search" name="search" placeholder="Search..."
+                        class="rounded-xl border-gray-300 p-3">
+                    <!-- Tombol search dengan icon -->
+                    <button type="submit"
+                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </form>
             </div>
 
-            <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5"
-                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
-                        menggunakan metode sederhana dan ilustrasi menarik.
-                    </p>
-                    <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5"
-                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
-                        menggunakan metode sederhana dan ilustrasi menarik.
-                    </p>
-                    <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        16 Desember 2024
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                <div class="bg-white shadow-md py-10 px-5"
-                    style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">Dasar-Dasar Perkalian</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        Belajar memahami konsep dasar perkalian, termasuk cara menghitung hasil kali angka-angka kecil
-                        menggunakan metode sederhana dan ilustrasi menarik.
-                    </p>
-                    <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        16 Desember 2024
+            <div class="grid grid-cols-1 gap-10">
+                <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5"
+                        style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            {{ $materi->short_description = Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
+                        </p>
+                        <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                detail</button>
+                        </div>
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    @empty
+    @endforelse
+    <!--begin::Scrolltop-->
+    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+        <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                    transform="rotate(90 13 6)" fill="currentColor" />
+                <path
+                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                    fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->
+    </div>
 
-        <!--begin::Scrolltop-->
-        <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-            <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                        transform="rotate(90 13 6)" fill="currentColor" />
-                    <path
-                        d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                        fill="currentColor" />
-                </svg>
-            </span>
-            <!--end::Svg Icon-->
-        </div>
-
-        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-        <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
 
 
-        <script>
-            var options = {
-                series: [44, 55, 41, 17, 15],
-                chart: {
-                    type: 'donut',
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
-
-            var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
-            chart.render();
-        </script>
-        <!--end::Javascript-->
-        <script>
-            $('.notification-link').click(function(e) {
-                $.ajax({
-                    url: '/delete-notification/' + e.target.id,
-                    type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    <script>
+        var options = {
+            series: [44, 55, 41, 17, 15],
+            chart: {
+                type: 'donut',
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
                     },
-                    // success: function(response) {
-                    //     // Redirect ke halaman tujuan setelah penghapusan berhasil
-                    //     window.location.href = $(this).attr('href');
-                    // },
-                    error: function(xhr) {
-                        // Tangani kesalahan jika terjadi
-                        console.error(xhr.responseText);
+                    legend: {
+                        position: 'bottom'
                     }
-                });
-            })
-        </script>
-        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-            integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-            data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
-            crossorigin="anonymous"></script>
+                }
+            }]
+        };
 
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-        {{-- npm flowbite --}}
+        var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
+        chart.render();
+    </script>
+    <!--end::Javascript-->
+    <script>
+        $('.notification-link').click(function(e) {
+            $.ajax({
+                url: '/delete-notification/' + e.target.id,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                // success: function(response) {
+                //     // Redirect ke halaman tujuan setelah penghapusan berhasil
+                //     window.location.href = $(this).attr('href');
+                // },
+                error: function(xhr) {
+                    // Tangani kesalahan jika terjadi
+                    console.error(xhr.responseText);
+                }
+            });
+        })
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    {{-- npm flowbite --}}
 </body>
 <!--end::Body-->
 
