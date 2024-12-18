@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
 use App\Models\Materi;
 use App\Models\Subject;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class UserPageController extends Controller
@@ -25,10 +27,19 @@ class UserPageController extends Controller
         $user = auth()->user();
         $kelasID = $user->classes->pluck('id');
         $materis = Materi::whereIn('classes_id', $kelasID)
-            ->where('subject_id', $materi_id) 
-            ->with('subject', 'Classes')     
-            ->simplePaginate(5);          
+            ->where('subject_id', $materi_id)
+            ->with('subject', 'Classes')
+            ->simplePaginate(5);
 
         return view('Siswa.materi', compact('materis'));
+    }
+
+    public function showTask(){
+        $user = auth()->user();
+        $kelasId = $user->classes->pluck('id');
+        $collections = Collection::all();
+        $tasks = Task::with('collections')->whereIn('class_id', $kelasId)->simplePaginate(5);
+
+        return view('Siswa.tugas',compact('tasks','collections'));
     }
 }

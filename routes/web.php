@@ -68,17 +68,8 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     // Route Murid
     Route::middleware('auth')->group(function () {
         Route::get('/PilihKelas',[SelectClassController::class,'index'])->name('SelectClass');
-
-        Route::get('/dashboard', [function () {
-            return view('Siswa.dashboard');
-        }]);
+        Route::get('/dashboard', [function () {return view('Siswa.dashboard');}]);
         Route::resource('mapel', SubjectController::class);
-
-        Route::get('/materi', [function () {
-            return view('Siswa.materi');
-        }]);
-
-        Route::get('/tugas', [function () {
-            return view('Siswa.tugas');
-        }]);
+        Route::get('/materi/{materi_id}', [UserPageController::class,'showMateri'])->name('Materi');
+        Route::get('/tugas', [UserPageController::class,'showTask'])->name('Tugas');
     });

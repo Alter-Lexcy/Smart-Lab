@@ -293,19 +293,19 @@
                             enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                             @csrf
                             @method('PUT')
-                                <div class="mb-4">
-                                    <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
-                                    <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
-                                        <option value="" disabled selected>Pilih Kelas</option>
-                                        @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}"
-                                                {{ $task->class_id == $class->id ? 'selected' : '' }}>
-                                                {{ $class->name_class }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('class_id')
-                                        <div class="text-red-500">{{ $message }}</div>
-                                    @enderror
+                            <div class="mb-4">
+                                <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
+                                <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
+                                    <option value="" disabled selected>Pilih Kelas</option>
+                                    @foreach ($classes as $class)
+                                        <option value="{{ $class->id }}"
+                                            {{ $task->class_id == $class->id ? 'selected' : '' }}>
+                                            {{ $class->name_class }}</option>
+                                    @endforeach
+                                </select>
+                                @error('class_id')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                                 <div class="mb-4 ">
                                     <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                     <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
@@ -392,38 +392,43 @@
             <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
                 <h5 class="text-xl font-bold mb-4">Penilaian</h5>
                 <form action="{{ route('assesments.store', $task->id) }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-1 gap-4">
-                <!-- Checkbox Section -->
-                <div class="relative">
-                    <label for="" class="mb-2">Pilih Murid</label>
-                    <button type="button" onclick="showCheckboxes()" ...>Pilih Opsi</button>
-                    <div id="checkboxes" class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-    @if(isset($submissions[$task->id]))
-        @foreach ($submissions[$task->id] as $submission)
-            <label for="student_{{ $submission->user->id }}" class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
-                <input type="checkbox" id="student_{{ $submission->user->id }}" name="students[]" value="{{ $submission->user->id }}" class="mr-2" />
-                {{ $submission->user->name }}
-            </label>
-        @endforeach
-    @else
-        <p class="px-4 py-2 text-gray-500">Belum ada siswa yang mengumpulkan tugas.</p>
-    @endif
-</div>
+                    @csrf
+                    <div class="grid grid-cols-1 gap-4">
+                        <!-- Checkbox Section -->
+                        <div class="relative">
+                            <label for="" class="mb-2">Pilih Murid</label>
+                            <button type="button" onclick="showCheckboxes()" ...>Pilih Opsi</button>
+                            <div id="checkboxes"
+                                class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                                @if (isset($submissions[$task->id]))
+                                    @foreach ($submissions[$task->id] as $submission)
+                                        <label for="student_{{ $submission->user->id }}"
+                                            class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
+                                            <input type="checkbox" id="student_{{ $submission->user->id }}"
+                                                name="students[]" value="{{ $submission->user->id }}" class="mr-2" />
+                                            {{ $submission->user->name }}
+                                        </label>
+                                    @endforeach
+                                @else
+                                    <p class="px-4 py-2 text-gray-500">Belum ada siswa yang mengumpulkan tugas.</p>
+                                @endif
+                            </div>
 
-                </div>
-                <!-- Input Nilai -->
-                <div>
-                    <label for="score" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
-                    <input type="number" name="score" id="score" class="w-full px-3 py-2 border rounded" required>
-                </div>
-            </div>
-            <!-- Buttons -->
-            <div class="flex justify-between">
-                <button type="button" onclick="closeModal('Assessment_{{ $task->id }}')">Batal</button>
-                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
-            </div>
-        </form>
+                        </div>
+                        <!-- Input Nilai -->
+                        <div>
+                            <label for="score" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
+                            <input type="number" name="score" id="score" class="w-full px-3 py-2 border rounded"
+                                required>
+                        </div>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="flex justify-between">
+                        <button type="button" onclick="closeModal('Assessment_{{ $task->id }}')">Batal</button>
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
+                    </div>
+                </form>
             </div>
         </div>
     @endforeach
