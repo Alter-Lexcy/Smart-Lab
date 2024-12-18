@@ -24,7 +24,7 @@ class MateriController extends Controller
 
         // Filter dan Search Materi
         $materis = Materi::with('Classes')
-            ->where('user_id',auth()->id())
+            ->where('user_id',auth()->id()) 
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
