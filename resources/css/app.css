@@ -194,7 +194,9 @@ body{
     z-index: 50;
 }
 
-#collectionModal {
+/* Mengatur modal agar tidak overflow */
+.detailModal {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -202,9 +204,28 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+    background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
     z-index: 50;
+    overflow: hidden;
+}
+
+/* Container modal */
+.detailModal .modal-content {
+    background-color: white;
+    overflow: hidden;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Scroll vertikal dalam modal */
+.detailModal .overflow-content {
+    overflow-y: auto;
+    max-height: 70vh;
 }
 
 .collectionModal {

@@ -21,4 +21,7 @@ class Materi extends Model
     public function Task(){
         return $this->hasMany(Task::class);
     }
+    public function subject(){
+        return $this->belongsTo(subject::class,'subject_id');
+    }
 }

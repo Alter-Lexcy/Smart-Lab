@@ -16,7 +16,7 @@ class LoginController extends Controller
      *=
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Handle authentication redirection based on user roles.
@@ -33,7 +33,7 @@ class LoginController extends Controller
             return redirect()->route('homeguru');
         }
 
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     /**

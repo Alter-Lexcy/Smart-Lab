@@ -126,7 +126,8 @@
                     <span class="span-nama">Hai, {{ Auth::user()->name }}</span>
                 </p>
                 <p class="deskripsi">
-                    Belajar adalah perjalanan tanpa akhir. Mari jadikan setiap hari kesempatan untuk menambah wawasan dan pengalaman.
+                    Belajar adalah perjalanan tanpa akhir. Mari jadikan setiap hari kesempatan untuk menambah wawasan
+                    dan pengalaman.
                 </p>
             </div>
         </div>
@@ -140,6 +141,7 @@
     <!-- Container Card -->
     <div class="container mx-auto p-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
             
             @forelse($subjects as $subject)
             <a href="/materi" class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
@@ -176,6 +178,7 @@
             @empty
             <h1>kosong</h1>
             @endforelse
+
         </div>
     </div>
 

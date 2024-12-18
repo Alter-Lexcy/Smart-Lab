@@ -25,7 +25,6 @@ class StoreMateriRequest extends FormRequest
             'classes_id'=>['required','exists:classes,id'],
             'title_materi'=>['required','unique:materis,title_materi'],
             'file_materi'=>['required','mimes:pdf','max:10240'],
-            'description'=>['max:500']
         ];
     }
     public function messages()
@@ -39,7 +38,6 @@ class StoreMateriRequest extends FormRequest
             'file_materi.required'=>'File Materi Belum Di-isi',
             'file_materi.mimes'=>'File Materi Harus Bertipe PDF',
             'file_materi.max'=>'File Materi Harus Dibawah 10 MB',
-            'description.max'=>'Deskripsi Kelas Terlalu Panjang (Batas : 500 Karakter)'
         ];
     }
 }

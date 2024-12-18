@@ -75,31 +75,44 @@ class MateriController extends Controller
      */
     public function update(UpdateMateriRequest $request, Materi $materi)
     {
-
-        $validated  = $request->validated();
-
+        // Validasi input
+        $validated = $request->validated();
+    
+        // Cek apakah ada file yang diunggah
         if ($request->hasFile('file_materi')) {
+            // Hapus file lama jika ada
             if ($materi->file_materi) {
                 Storage::disk('public')->delete($materi->file_materi);
             }
-
+    
+            // Simpan file baru dan tambahkan ke array $validated
             $file = $request->file('file_materi')->store('file_materi', 'public');
             $validated['file_materi'] = $file;
         }
-
+    
+        // Ambil subject user yang sedang login
         $subject = auth()->user()->subject;
-
-        $materi->update([
+    
+        // Update data materi, hanya tambahkan file_materi jika ada
+        $updateData = [
             'title_materi' => $validated['title_materi'],
-            'file_materi' => $validated['file_materi'],
             'description' => $validated['description'],
             'classes_id' => $validated['classes_id'],
-            'subject_id'=>$subject->id,
-            'user_id'=>auth()->id(),
-        ]);
+            'subject_id' => $subject->id,
+            'user_id' => auth()->id(),
+        ];
+    
+        // Tambahkan file_materi jika ada dalam $validated
+        if (isset($validated['file_materi'])) {
+            $updateData['file_materi'] = $validated['file_materi'];
+        }
+    
+        // Lakukan update
+        $materi->update($updateData);
+    
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
