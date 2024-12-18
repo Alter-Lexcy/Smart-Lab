@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\TeacherClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeguruController extends Controller
 {
-        /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -24,7 +25,13 @@ class HomeguruController extends Controller
      */
     public function index()
     {
-        return view('Guru.dashboardGuru');
-    }
-
+        $teacherId = Auth::id();
+    
+        // Mengambil data kelas beserta relasi yang diperlukan
+        $teacherClasses = TeacherClass::with('class.users') // Pastikan properti 'class.users' ter-load
+            ->where('user_id', $teacherId)
+            ->paginate(6); // Gunakan paginate tanpa get()
+    
+        return view('Guru.dashboardGuru', compact('teacherClasses'));
+    }     
 }

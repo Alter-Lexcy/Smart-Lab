@@ -145,7 +145,7 @@
                                     <td class="px-4 py-2 border-b">
                                         {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                     </td>
-                                    <td class="px-4 py-2">
+                                    <td class="px-4 py-2 space-x-3">
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->
@@ -193,6 +193,65 @@
                     </table>
                 </div>
             </div>
+
+            {{-- Modal Show --}}
+            @foreach ($materis as $materi)
+            <div id="showAssessmentModal_{{ $materi->id }}"
+                class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                style="display:none;">
+                <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-10 pl-6 mr-6">
+                    {{-- Header Modal --}}
+                    <div class="flex justify-between items-center border-b pb-4 mr-6">
+                        <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                        <button type="button" class="text-gray-700 hover:text-gray-900"
+                            onclick="closeModal('showAssessmentModal_{{ $materi->id }}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+        
+                    {{-- Content Modal --}}
+                    <div class="mt-4 space-y-4 overflow-y-auto h-[80%] max-h-[80%]">
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
+                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
+                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
+                            <p class="text-gray-700">
+                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                            </p>
+                        </div>
+                        <div>
+                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
+                            <p class="text-gray-600">{{ $materi->description }}</p>
+                        </div>
+                        <div class="mr-6">
+                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi</h6>
+                            @php
+                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                            @endphp
+                            @if (in_array($file, ['jpg', 'png']))
+                                <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
+                                    class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                            @elseif($file === 'pdf')
+                                <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
+                                    class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                            @else
+                                <p class="text-red-500">Format file tidak didukung.</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        
 
             <!-- Modal Edit -->
             @foreach ($materis as $materi)
