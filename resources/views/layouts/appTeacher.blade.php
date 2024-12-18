@@ -48,8 +48,7 @@
         <aside
             class = "w-60 -translate-x-48 fixed transition transform ease-in-out duration-1000 z-50 flex h-screen bg-[#1E293B] ">
             <!-- open sidebar button -->
-            <div
-                class = "max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12">
+            <div class ="max-toolbar translate-x-24 scale-x-0 w-full -right-6 transition transform ease-in duration-300 flex items-center justify-between border-4 border-white dark:border-[#0F172A] bg-[#1E293B]  absolute top-2 rounded-full h-12">
 
                 <div class="flex pl-4 items-center space-x-2 ">
                 </div>
@@ -193,7 +192,7 @@
         </aside>
 
         <!-- Page Content  -->
-        <div class="flex-1 p-4 ml-14">
+        <div class="flex-1 p-4 ml-16">
             <nav id="navbar"
                 class="flex items-center pb-4 justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
                 <!-- Search Input -->
