@@ -23,18 +23,6 @@
         <div class="flex justify-start text-center">
             <img src="image/SMART-LAB.png" alt="Logo" class="h-10 w-auto">
         </div>
-
-        <!-- Tengah: Menu -->
-        <div class="flex space-x-8 text-blue-800">
-            <a href="#" class="font-bold hover:text-gray-200">Beranda</a>
-            <a href="#" class="font-bold hover:text-gray-200">Kelas</a>
-            <a href="#" class="font-bold hover:text-gray-200">Tugas</a>
-            @if (!$hasClass)
-                <a href="/PilihKelas" class="font-bold hover:text-gray-200">Pilih Kelas</a>
-            @endif
-        </div>
-
-
         <!-- buttons -->
         <div class="flex justify-end">
             <!-- Sign-in or Profile Button -->

@@ -142,39 +142,44 @@
     <div class="container mx-auto p-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @forelse($subjects as $subject)
-            <a href="{{ route('Materi',['materi_id'=>$subject->id])}}" class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
-                style="background-image: url('image/siswa/cardmapel.svg'); background-size: cover; background-position: center; border-radius: 15px; padding: 20px; text-decoration: none;">
+                <a href="{{ route('Materi', ['materi_id' => $subject->id]) }}"
+                    class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
+                    style="background-image: url('image/siswa/cardmapel.svg'); background-size: cover; background-position: center; border-radius: 15px; padding: 20px; text-decoration: none;">
 
-                <!-- Judul Matematika besar dan bold, berada di tengah kiri -->
-                <div class="absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl font-bold">
-                    {{ $subject->name_subject }}
-                </div>
+                    <!-- Judul Matematika besar dan bold, berada di tengah kiri -->
+                    <div class="absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl font-bold">
+                        {{ $subject->name_subject }}
+                    </div>
 
-                <!-- 3 Materi di pojok kanan atas -->
-                <div class="absolute top-5 right-5 text-md font-semibold bg-blue-800 px-3 py-2 rounded-xl">
-                    {{$subject->materi_count}} Materi
-                </div>
+                    <!-- 3 Materi di pojok kanan atas -->
+                    <div class="absolute top-5 right-5 text-md font-semibold bg-blue-800 px-3 py-2 rounded-xl">
+                        {{ $subject->materi_count }} Materi
+                    </div>
 
-                <div class="absolute bottom-5 left-7 text-lg flex items-center space-x-2">
-                    <!-- Ikon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                        class="size-6 w-6 h-6">
-                        <path fill-rule="evenodd"
-                            d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                            clip-rule="evenodd" />
-                    </svg>
+                    <div class="absolute bottom-5 left-7 text-lg flex items-center space-x-2">
+                        <!-- Ikon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-6 w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
 
-                    <!-- Nama guru -->
-                     @forelse($subject->user as $user)
-                    <span class="text-lg">{{$user->name}}</span>
-                    @empty
-                    <span class="text-lg">Belum ada guru</span>
-                    @endforelse
+                        <!-- Nama guru -->
+                        @if (auth()->user() && auth()->user()->class()->exists())
+                            @forelse($subject->user as $user)
+                                <span class="text-lg">{{ $user->name }}</span>
+                            @empty
+                                <span class="text-lg">Belum ada guru</span>
+                            @endforelse
+                        @else
+                            <span class="text-lg">Anda Harus Mendapatkan Kelas</span>
+                        @endif
 
-                </div>
-            </a>
+                    </div>
+                </a>
             @empty
-            <h1>kosong</h1>
+                <h1>kosong</h1>
             @endforelse
 
         </div>

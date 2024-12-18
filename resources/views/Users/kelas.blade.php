@@ -128,21 +128,25 @@
                     <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
                     <img src="/image/X.svg" alt=""
                         class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
-
-                    <div
-                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
-                        <h2 class="text-2xl font-semibold mb-6">Kelas 10</h2>
-                        <select
-                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
-                            <option value="10-A">10-A</option>
-                            <option value="10-B">10-B</option>
-                            <option value="10-C">10-C</option>
-                        </select>
-                        <button
-                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                            Submit
-                        </button>
-                    </div>
+                    <form action="{{ route('class.approval.store') }}" method="POST">
+                        @csrf
+                        <div
+                            class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                            <h2 class="text-2xl font-semibold mb-6">Kelas 10</h2>
+                            <select name="class_id"
+                                class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                                @foreach ($kelas10 as $kelas)
+                                    <option value="{{ $kelas->id }}"
+                                        {{ old('class_id') == $kelas->id ? 'selected' : '' }}>{{ $kelas->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="submit"
+                                class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Card untuk Kelas 11 -->
@@ -151,21 +155,25 @@
                     <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
                     <img src="/image/XI.svg" alt=""
                         class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
-
-                    <div
-                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
-                        <h2 class="text-2xl font-semibold mb-6">Kelas 11</h2>
-                        <select
-                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
-                            <option value="11-A">11-A</option>
-                            <option value="11-B">11-B</option>
-                            <option value="11-C">11-C</option>
-                        </select>
-                        <button
-                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                            Submit
-                        </button>
-                    </div>
+                    <form action="{{ route('class.approval.store') }}" method="POST">
+                        @csrf
+                        <div
+                            class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                            <h2 class="text-2xl font-semibold mb-6">Kelas 11</h2>
+                            <select name="class_id"
+                                class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                                @foreach ($kelas11 as $kelas)
+                                    <option value="{{ $kelas->id }}"
+                                        {{ old('class_id') == $kelas->id ? 'selected' : '' }}>{{ $kelas->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="submit"
+                                class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Card untuk Kelas 12 -->
@@ -174,21 +182,25 @@
                     <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
                     <img src="/image/XII.svg" alt=""
                         class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
-
-                    <div
-                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
-                        <h2 class="text-2xl font-semibold mb-6">Kelas 12</h2>
-                        <select
-                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
-                            <option value="12-A">12-A</option>
-                            <option value="12-B">12-B</option>
-                            <option value="12-C">12-C</option>
-                        </select>
-                        <button
-                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                            Submit
-                        </button>
-                    </div>
+                    <form action="{{ route('class.approval.store') }}" method="POST">
+                        @csrf
+                        <div
+                            class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                            <h2 class="text-2xl font-semibold mb-6">Kelas 12</h2>
+                            <select name="class_id"
+                                class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                                @foreach ($kelas12 as $kelas)
+                                    <option value="{{ $kelas->id }}"
+                                        {{ old('class_id') == $kelas->id ? 'selected' : '' }}>{{ $kelas->name_class }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button
+                                class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
