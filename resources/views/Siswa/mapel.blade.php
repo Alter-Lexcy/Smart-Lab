@@ -179,7 +179,20 @@
                     </div>
                 </a>
             @empty
-                <h1>kosong</h1>
+
+            <div class="bg-gray-100 flex items-center justify-center h-screen">
+                <div class="text-center">
+                    <div class="text-red-500 mb-5" style="justify-self: center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-28 h-28">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 text-3xl font-semibold">Belum Ada Mata Pelajaran</p>
+                </div>
+            </div>
+
             @endforelse
 
         </div>
