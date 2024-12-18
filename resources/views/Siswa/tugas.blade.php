@@ -16,6 +16,8 @@
     <meta name="csrf-token" content="8IMVNabevkMVEFpvO472s41XBcvpCVja5sJxIXQO">
     <meta property="og:description" content="Improve your skill with hummatech internship.">
 
+    @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
+
     <link rel="icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png"
         type="image/png" />
     <link rel="shortcut icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png" />
@@ -163,9 +165,10 @@
                     <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
                             detail</button>
-                        <button
-                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl">Pengumpulan
-                            Tugas</button>
+
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
+                            onclick="openModal('tugasModal-{{ $task->id }}')">Pengumpulan Tugas</button>
+
                     </div>
                     <!-- Tanggal di kanan atas -->
                     <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
@@ -176,6 +179,48 @@
             </div>
         @empty
         @endforelse
+        <div id="tugasModal-{{ $task->id }}" class="tugasModal fixed inset-0 flex items-center justify-center"
+            style="display: none;">
+            <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
+                <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
+
+                <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                    onclick="closeModal('tugasModal-{{ $task->id }}')">
+                    &times;
+                </button>
+
+                <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data"
+                    class="overflow-y-auto h-[56%]">
+                    @csrf
+
+                    <!-- Input File -->
+                    <div class="mb-3">
+                        <label class="block font-medium mb-1">Upload File (PDF atau Gambar)</label>
+                        <div class="relative">
+                            <input type="file" id="file_tugas-{{ $task->id }}" name="file_tugas" class="hidden"
+                                accept=".pdf,image/*" onchange="updateFileName(this)">
+                            <label for="file_tugas-{{ $task->id }}"
+                                class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer inline-block">
+                                Pilih File
+                            </label>
+                            <span id="file-name-{{ $task->id }}" class="ml-2 text-gray-500">Tidak ada file yang
+                                dipilih</span>
+                        </div>
+                        <small class="text-gray-500">Format file: PDF, JPG, PNG. Maksimal ukuran 2MB.</small>
+                    </div>
+
+                    <!-- Tombol Submit -->
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                        Unggah Tugas
+                    </button>
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                        onclick="closeModal('tugasModal-{{ $task->id }}')">
+                        Batal
+                    </button>
+                </form>
+            </div>
+        </div>
+
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -193,6 +238,27 @@
 
         <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
         <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
+        <script>
+            function updateFileName(input) {
+                const fileNameSpan = document.getElementById(`file-name-${input.id.split('-')[1]}`);
+                const fileName = input.files[0]?.name || 'Tidak ada file yang dipilih';
+                fileNameSpan.textContent = fileName;
+            }
+
+            function openModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex'; // Tampilkan modal
+                }
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'none'; // Sembunyikan modal
+                }
+            }
+        </script>
 
         <script>
             var options = {
@@ -242,7 +308,7 @@
             crossorigin="anonymous"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-        
+
 </body>
 <!--end::Body-->
 
