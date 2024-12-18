@@ -175,6 +175,7 @@
             </div>
         </div>
     @empty
+    <h1 class="text-5xl font-bold">MATERI TIDAK ADA</h1>
     @endforelse
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">

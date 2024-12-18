@@ -16,14 +16,18 @@
     <meta name="csrf-token" content="8IMVNabevkMVEFpvO472s41XBcvpCVja5sJxIXQO">
     <meta property="og:description" content="Improve your skill with hummatech internship.">
 
+    <link rel="stylesheet" href="style/siswa.css">
+
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
+
 
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="https://class.hummatech.com/user-assets/plugins/global/plugins.bundle.css" rel="stylesheet"
         type="text/css" />
     <link href="https://class.hummatech.com/user-assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+
 
     <link href="https://class.hummatech.com/user-assets/plugins/custom/datatables/datatables.bundle.css"
         rel="stylesheet" type="text/css" />
@@ -79,389 +83,187 @@
     </style>
 
 </head>
+<!--end::Head-->
 
-<body>
-    <x-navbar></x-navbar>
+<!--begin::Body-->
 
-    <img src="image/Group 2051.svg" alt="bannerkelas" class="w-full">
+<body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true"
+    data-kt-app-sidebar-push-footer="true" data-kt-app-sidebar-stacked="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
 
-    <h1 class="absolute text-blue-800 text-4xl font-bold"
-        style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%); z-index: 10;">
-        Mulai Belajar & Tingkatkan Prestasimu!
-    </h1>
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
 
-    <section class="h-screen"
-        style="background: url('image/landing 2.svg') no-repeat center center; background-size: cover; position: relative;">
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
 
-        <h1 class="absolute text-white text-4xl font-bold"
-            style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-            Pilih Kelas Anda!
-        </h1>
-        <div class="underline"
-            style="position: absolute; top: 150px; left: 50%; transform: translateX(-50%); width: 200px; /* Ubah nilai ini untuk panjang garis */ height: 3px; background-color: white; z-index: 10;">
-        </div>
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+    </script>
+    <!--end::Theme mode setup on page load-->
 
-        <div class="container" style="padding: 20px;">
-            <div class="card-container" style="display: flex; gap: 50px; justify-content: center; flex-wrap: wrap;">
-                <!-- Card 1 -->
-                <div class="card" style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                    <div class="card-body shadow-lg"
-                        style="border-radius: 10px; background: white; text-align: center;">
-                        <img src="image/Frame 2056.svg" alt="Image 1"
-                            style="width: 100%; height: auto; border-radius: 10px;">
+    <x-navbarsiswa></x-navbarsiswa>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="flex flex-col items-center justify-center" style="margin-top: 100px">
+            <h1 class="text-5xl font-bold font-poppins text-blue-700 mb-4">Daftar Siswa</h1>
+            <!-- Garis di bawah teks -->
+            <div class="w-48 h-1 bg-blue-700 mb-10"></div>
+            <div class="flex gap-10">
+                <!-- Card untuk Kelas 10 -->
+                <div class="relative w-96 h-96 bg-cover bg-center rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                    style="background-image: url('image/Frame 2056.svg');">
+                    <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
+                    <img src="/image/X.svg" alt=""
+                        class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
 
-                        <!-- Posisi tulisan di atas gambar -->
-                        <h1 class="absolute text-blue-800 text-4xl font-bold"
-                            style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                            Kelas 10
-                        </h1>
-
-                        <!-- Dropdown menu and button container -->
-                        <div
-                            style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                            <label id="dropdownLabel1" data-dropdown-toggle="dropdownHover1"
-                                class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                type="button">
-                                Pilih Kelas
-                                <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M1 1l4 4 4-4" />
-                                </svg>
-                            </label>
-
-                            <!-- Dropdown menu -->
-                            <form method="POST" action="{{ route('class.approval.store') }}">
-                                @csrf
-                                <input type="hidden" id="class_id" name="class_id">
-                                <div id="dropdownHover1"
-                                    class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2"
-                                    name="class_id">
-                                    <ul class="py-2 text-sm text-gray-700">
-                                        @foreach ($kelas10 as $kelas)
-                                            <li>
-                                                <a class="block px-4 py-2 hover:bg-gray-100"
-                                                    onclick="selectClass('dropdownLabel1', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
-                                                    {{ $kelas->name_class }}
-                                                    ```html
-                                                    <!-- Card 1 -->
-                                                    <div class="card"
-                                                        style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                                                        <div class="card-body shadow-lg"
-                                                            style="border-radius: 10px; background: white; text-align: center;">
-                                                            <img src="image/Frame 2056.svg" alt="Image 1"
-                                                                style="width: 100%; height: auto; border-radius: 10px;">
-
-                                                            <!-- Posisi tulisan di atas gambar -->
-                                                            <h1 class="absolute text-blue-800 text-4xl font-bold"
-                                                                style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                                                                Kelas 10
-                                                            </h1>
-
-                                                            <!-- Dropdown menu and button container -->
-                                                            <div
-                                                                style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                                                                <label id="dropdownLabel1"
-                                                                    data-dropdown-toggle="dropdownHover1"
-                                                                    class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                                                    type="button">
-                                                                    Pilih Kelas
-                                                                    <svg class="w-3 h-3 ml-2" aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none" viewBox="0 0 10 6">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M1 1l4 4 4-4" />
-                                                                    </svg>
-                                                                </label>
-
-                                                                <!-- Dropdown menu -->
-                                                                <form method="POST"
-                                                                    action="{{ route('class.approval.store') }}">
-                                                                    @csrf
-                                                                    <input type="hidden" id="class_id"
-                                                                        name="class_id">
-                                                                    <div id="dropdownHover1"
-                                                                        class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2"
-                                                                        name="class_id">
-                                                                        <ul class="py-2 text-sm text-gray-700">
-                                                                            @foreach ($kelas10 as $kelas)
-                                                                                <li>
-                                                                                    <a class="block px-4 py-2 hover:bg-gray-100"
-                                                                                        onclick="selectClass('dropdownLabel1', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
-                                                                                        {{ $kelas->name_class }}
-                                                                                    </a>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </div>
-
-                                                                    <button type="submit"
-                                                                        class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                                                        Pilih
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Card 2 -->
-                                                    <div class="card"
-                                                        style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                                                        <div class="card-body shadow-lg"
-                                                            style="border-radius: 10px; background: white; text-align: center;">
-                                                            <img src="image/Frame 2056.svg" alt="Image 2"
-                                                                style="width: 100%; height: auto; border-radius: 10px;">
-
-                                                            <!-- Posisi tulisan di atas gambar -->
-                                                            <h1 class="absolute text-blue-800 text-4xl font-bold"
-                                                                style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                                                                Kelas 11
-                                                            </h1>
-
-                                                            <!-- Dropdown menu and button container -->
-                                                            <div
-                                                                style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                                                                <label id="dropdownLabel2"
-                                                                    data-dropdown-toggle="dropdownHover2"
-                                                                    class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                                                    type="button">
-                                                                    Pilih Kelas
-                                                                    <svg class="w-3 h-3 ml-2" aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none" viewBox="0 0 10 6">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M1 1l4 4 4-4" />
-                                                                    </svg>
-                                                                </label>
-
-                                                                <!-- Dropdown menu -->
-                                                                <form method="POST"
-                                                                    action="{{ route('class.approval.store') }}">
-                                                                    @csrf
-                                                                    <input type="hidden" id="class_id"
-                                                                        name="class_id">
-                                                                    <div id="dropdownHover2"
-                                                                        class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2"
-                                                                        name="class_id">
-                                                                        <ul class="py-2 text-sm text-gray-700">
-                                                                            @foreach ($kelas11 as $kelas)
-                                                                                <li>
-                                                                                    <a class="block px-4 py-2 hover:bg-gray-100"
-                                                                                        onclick="selectClass('dropdownLabel2', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
-                                                                                        {{ $kelas->name_class }}
-                                                                                    </a>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </div>
-
-                                                                    <button type="submit"
-                                                                        class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                                                        Pilih
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Card 3 -->
-                                                    <div class="card"
-                                                        style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                                                        <div class="card-body shadow-lg"
-                                                            style="border-radius: 10px; background: white; text-align: center;">
-                                                            <img src="image/Frame 2056.svg" alt="Image 3"
-                                                                style="width: 100%; height: auto; border-radius: 10px;">
-
-                                                            <!-- Posisi tulisan di atas gambar -->
-                                                            <h1 class="absolute text-blue-800 text-4xl font-bold"
-                                                                style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                                                                Kelas 12
-                                                            </h1>
-
-                                                            <!-- Dropdown menu and button container -->
-                                                            <div
-                                                                style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                                                                <label id="dropdownLabel3"
-                                                                    data-dropdown-toggle="dropdownHover3"
-                                                                    class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                                                    type="button">
-                                                                    Pilih Kelas
-                                                                    <svg class="w-3 h-3 ml-2" aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none" viewBox="0 0 10 6">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M1 1l4 4 4-4" />
-                                                                    </svg>
-                                                                </label>
-
-                                                                <!-- Dropdown menu -->
-                                                                <form method="POST"
-                                                                    action="{{ route('class.approval.store') }}">
-                                                                    @csrf
-                                                                    <input type="hidden" id="class_id"
-                                                                        name="class_id">
-                                                                    <div id="dropdownHover3"
-                                                                        class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2"
-                                                                        name="class_id">
-                                                                        <ul class="py-2 text-sm text-gray-700">
-                                                                            @foreach ($kelas12 as $kelas)
-                                                                                <li>
-                                                                                    <a class="block px-4 py-2 hover:bg-gray-100"
-                                                                                        onclick="selectClass('dropdownLabel3', '{{ $kelas->id }}', '{{ $kelas->name_class }}')">
-                                                                                        {{ $kelas->name_class }}
-                                                                                    </a>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </div>
-
-                                                                    <button type="submit"
-                                                                        class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                                                        Pilih
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    ```
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-
-                                <button type="submit"
-                                    class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                    Pilih
-                                </button>
-                            </form>
-                        </div>
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                        <h2 class="text-2xl font-semibold mb-6">Kelas 10</h2>
+                        <select
+                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                            <option value="10-A">10-A</option>
+                            <option value="10-B">10-B</option>
+                            <option value="10-C">10-C</option>
+                        </select>
+                        <button
+                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            Submit
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="card" style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                    <div class="card-body shadow-lg"
-                        style="border-radius: 10px; background: white; text-align: center;">
-                        <img src="image/Frame 2056.svg" alt="Image 2"
-                            style="width: 100%; height: auto; border-radius: 10px;">
+                <!-- Card untuk Kelas 11 -->
+                <div class="relative w-96 h-96 bg-cover bg-center rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                    style="background-image: url('image/Frame 2056.svg');">
+                    <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
+                    <img src="/image/XI.svg" alt=""
+                        class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
 
-                        <!-- Posisi tulisan di atas gambar -->
-                        <h1 class="absolute text-blue-800 text-4xl font-bold"
-                            style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                            Kelas 11
-                        </h1>
-
-                        <!-- Dropdown menu and button container -->
-                        <div
-                            style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                            <label id="dropdownLabel2" data-dropdown-toggle="dropdownHover2"
-                                class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                type="button">
-                                Pilih Kelas
-                                <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M1 1l4 4 4-4" />
-                                </svg>
-                            </label>
-
-                            <!-- Dropdown menu -->
-                            <div id="dropdownHover2"
-                                class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
-                                @foreach ($kelas11 as $kelas)
-                                    <ul class="py-2 text-sm text-gray-700">
-                                        <li>
-                                            <a class="block px-4 py-2 hover:bg-gray-100"
-                                                onclick="selectClass('dropdownLabel2', '{{ $kelas->nama_kelas }}')">
-                                                {{ $kelas->name_class }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endforeach
-                            </div>
-
-                            <button type="button"
-                                class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                Pilih
-                            </button>
-                        </div>
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                        <h2 class="text-2xl font-semibold mb-6">Kelas 11</h2>
+                        <select
+                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                            <option value="11-A">11-A</option>
+                            <option value="11-B">11-B</option>
+                            <option value="11-C">11-C</option>
+                        </select>
+                        <button
+                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            Submit
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="card" style="flex: 1; max-width: 300px; min-width: 200px; position: relative;">
-                    <div class="card-body shadow-lg"
-                        style="border-radius: 10px; background: white; text-align: center;">
-                        <img src="image/Frame 2056.svg" alt="Image 3"
-                            style="width: 100%; height: auto; border-radius: 10px;">
+                <!-- Card untuk Kelas 12 -->
+                <div class="relative w-96 h-96 bg-cover bg-center rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                    style="background-image: url('image/Frame 2056.svg');">
+                    <!-- Gambar lebih kecil dan diposisikan sedikit ke atas -->
+                    <img src="/image/XII.svg" alt=""
+                        class="absolute mt-10 left-0 right-0 m-auto w-1/4 h-auto z-0">
 
-                        <!-- Posisi tulisan di atas gambar -->
-                        <h1 class="absolute text-blue-800 text-4xl font-bold"
-                            style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                            Kelas 12
-                        </h1>
-
-                        <!-- Dropdown menu and button container -->
-                        <div
-                            style="position: absolute; top: 75%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 80%;">
-                            <label id="dropdownLabel3" data-dropdown-toggle="dropdownHover3"
-                                class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center shadow-md transition duration-300"
-                                type="button">
-                                Pilih Kelas
-                                <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M1 1l4 4 4-4" />
-                                </svg>
-                            </label>
-
-                            <!-- Dropdown menu -->
-                            <div id="dropdownHover3"
-                                class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-full mt-2">
-                                @foreach ($kelas12 as $kelas)
-                                    <ul class="py-2 text-sm text-gray-700">
-                                        <li>
-                                            <a class="block px-4 py-2 hover:bg-gray-100"
-                                                onclick="selectClass('dropdownLabel3', '{{ $kelas->nama_kelas }}')">
-                                                {{ $kelas->name_class }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endforeach
-                            </div>
-
-                            <button type="button"
-                                class="mt-3 text-white w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 shadow-md transition duration-300">
-                                Pilih
-                            </button>
-                        </div>
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end items-center p-6 text-white bg-gradient-to-t from-black/60 to-transparent rounded-lg z-10">
+                        <h2 class="text-2xl font-semibold mb-6">Kelas 12</h2>
+                        <select
+                            class="w-full py-3 px-4 rounded-lg bg-white text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 transition">
+                            <option value="12-A">12-A</option>
+                            <option value="12-B">12-B</option>
+                            <option value="12-C">12-C</option>
+                        </select>
+                        <button
+                            class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold shadow-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <!--begin::Scrolltop-->
+    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+        <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                    transform="rotate(90 13 6)" fill="currentColor" />
+                <path
+                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                    fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->
+    </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
 
     <script>
-        function selectClass(labelId, classId, className) {
-            document.getElementById(labelId).innerHTML = className +
-                ' <svg class="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l4 4 4-4" /></svg>';
+        var options = {
+            series: [44, 55, 41, 17, 15],
+            chart: {
+                type: 'donut',
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
 
-            document.getElementById('class_id').value = classId;
-
-            document.getElementById('dropdownHover1').classList.add('hidden');
-            document.getElementById('dropdownHover2').classList.add('hidden');
-            document.getElementById('dropdownHover3').classList.add('hidden');
-        }
+        var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
+        chart.render();
     </script>
+    <!--end::Javascript-->
+    <script>
+        $('.notification-link').click(function(e) {
+            $.ajax({
+                url: '/delete-notification/' + e.target.id,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                // success: function(response) {
+                //     // Redirect ke halaman tujuan setelah penghapusan berhasil
+                //     window.location.href = $(this).attr('href');
+                // },
+                error: function(xhr) {
+                    // Tangani kesalahan jika terjadi
+                    console.error(xhr.responseText);
+                }
+            });
+        })
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    {{-- npm flowbite --}}
+</body>
+<!--end::Body-->
+
+<!-- Mirrored from preview.keenthemes.com/metronic8/demo31/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Feb 2023 14:30:13 GMT -->
 
 </html>

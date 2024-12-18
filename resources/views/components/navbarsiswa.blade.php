@@ -159,7 +159,7 @@
                     </li>
                     <li class="nav-item py-1">
                         <a href="/PilihKelas"
-                            class="nav-link py-4 px-1 btn <?= request()->is('pilihkelas') ? 'active' : '' ?>">
+                            class="nav-link py-4 px-1 btn <?= request()->is('PilihKelas') ? 'active' : '' ?>">
                             <svg class="w-6 h-6 text-blue-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24">
                                 <path fill="currentColor"
