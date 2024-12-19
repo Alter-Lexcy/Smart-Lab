@@ -215,24 +215,6 @@
                 class="flex items-center justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
 
                 <div class="ml-auto relative flex">
-                    <!-- Search Input -->
-                    <form action="{{ route('search') }}" method="GET" class="flex items-center mt-4 me-3">
-                        <div class="relative w-64 ">
-                            <input type="text" name="search" placeholder="Cari..."
-                            class="w-full p-2 pr-12 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-100"
-                            value="{{ request('search') }}" />
-                            <button type="submit"
-                                class="absolute top-1/2 right-2 transform -translate-y-1/2 p-1 bg-gradient-to-r from-blue-800 to-sky-300 text-white rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14" />
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-
-
-
                     <!-- User Icon Button -->
                     <button id="userDropdown" onclick="toggleDropdown()" class="my-5 focus:outline-none focus:ring-2 focus:ring-transparent mr-5">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

@@ -99,7 +99,7 @@ class ClassesController extends Controller
             $classes = Classes::findOrFail($id);
             $classes->delete();
 
-            return redirect()->route('classes.index')->with('Sukses', 'Data Kelas Yang Dipilih Berhasil Dihapus');
+            return redirect()->route('classes.index')->with('success', 'Data Kelas Yang Dipilih Berhasil Dihapus');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('Data Masih Digunakan pada Data lain');
         }
