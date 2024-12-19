@@ -27,5 +27,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('role', RoleMiddleware::class);
         Paginator::useTailwind();
     }
-    
+
 }
