@@ -26,8 +26,9 @@
 
                         <!-- Form Pencarian -->
                         <form id="searchForm" action="" method="GET"
-                            class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
-                            <input type="text" name="search_class" placeholder="Cari..."
+                        class="absolute right-full mr-2 mt-4 transition-all duration-300
+                        {{ request('search') ? 'opacity-100 visible' : 'opacity-0 invisible' }}">
+                            <input type="text" name="search" placeholder="Cari..." value="{{old('search', request('search'))}}"
                                 class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </form>
                     </div>

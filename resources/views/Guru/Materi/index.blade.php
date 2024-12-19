@@ -145,40 +145,39 @@
                                     <td class="px-4 py-2 border-b">
                                         {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                     </td>
-                                    <td class="px-4 py-2 space-x-3">
+                                    <td class="px-4 py-2">
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->
-                                            <button type="button" class="text-blue-500 rounded-sm"
+                                            <button type="button" class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('showAssessmentModal_{{ $materi->id }}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="size-7 mt-1">
-                                                    <path
-                                                        d="M12 4.5c-4.136 0-7.528 2.783-9.17 6.621a1.507 1.507 0 0 0 0 1.757C4.472 16.717 7.864 19.5 12 19.5s7.528-2.783 9.17-6.621a1.507 1.507 0 0 0 0-1.757C19.528 7.283 16.136 4.5 12 4.5Zm0 1.5c3.464 0 6.342 2.32 7.845 5.627a.082.082 0 0 1 0 .074C18.342 14.18 15.464 16.5 12 16.5s-6.342-2.32-7.845-5.627a.082.082 0 0 1 0-.074C5.658 8.32 8.536 6 12 6Zm0 2.25A3.75 3.75 0 1 0 12 15a3.75 3.75 0 0 0 0-7.5Zm0 1.5a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5Z" />
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                        clip-rule="evenodd" />
                                                 </svg>
                                             </button>
 
                                             <!-- Edit button -->
-                                            <button type="button" class="text-yellow-500 rounded-sm"
+                                            <button type="button" class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('materiModal-{{ $materi->id }}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="size-6 mt-1">
-                                                    <path
-                                                        d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                                    <path
-                                                        d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                                                        clip-rule="evenodd" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                                                        clip-rule="evenodd" />
                                                 </svg>
                                             </button>
 
-                                            <!-- Delete form -->
-                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST"
-                                                class="inline">
+                                            <!-- Delete button -->
+                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST" class="inline m-0 p-0">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-500 rounded-sm"
+                                                <button type="submit" class="bg-red-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus materi ini?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        fill="currentColor" class="size-6 mt-5">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                                         <path fill-rule="evenodd"
                                                             d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
                                                             clip-rule="evenodd" />
@@ -196,62 +195,63 @@
 
             {{-- Modal Show --}}
             @foreach ($materis as $materi)
-            <div id="showAssessmentModal_{{ $materi->id }}"
-                class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-                style="display:none;">
-                <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-10 pl-6 mr-6">
-                    {{-- Header Modal --}}
-                    <div class="flex justify-between items-center border-b pb-4 mr-6">
-                        <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
-                        <button type="button" class="text-gray-700 hover:text-gray-900"
-                            onclick="closeModal('showAssessmentModal_{{ $materi->id }}')">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-        
-                    {{-- Content Modal --}}
-                    <div class="mt-4 space-y-4 overflow-y-auto h-[80%] max-h-[80%]">
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
-                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                <div id="showAssessmentModal_{{ $materi->id }}"
+                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                    style="display:none;">
+                    <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-10 pl-6 mr-6">
+                        {{-- Header Modal --}}
+                        <div class="flex justify-between items-center border-b pb-4 mr-6">
+                            <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                            <button type="button" class="text-gray-700 hover:text-gray-900"
+                                onclick="closeModal('showAssessmentModal_{{ $materi->id }}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
-                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
-                            <p class="text-gray-700">
-                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
-                            </p>
-                        </div>
-                        <div>
-                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
-                            <p class="text-gray-600">{{ $materi->description }}</p>
-                        </div>
-                        <div class="mr-6">
-                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi</h6>
-                            @php
-                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                            @endphp
-                            @if (in_array($file, ['jpg', 'png']))
-                                <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
-                                    class="mx-auto w-[90%] h-full border-2 rounded-lg">
-                            @elseif($file === 'pdf')
-                                <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
-                                    class="mx-auto w-[90%] h-full border-2 rounded-lg">
-                            @else
-                                <p class="text-red-500">Format file tidak didukung.</p>
-                            @endif
+
+                        {{-- Content Modal --}}
+                        <div class="mt-4 space-y-4 overflow-y-auto h-[80%] max-h-[80%]">
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
+                                <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
+                                <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
+                                <p class="text-gray-700">
+                                    {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                                </p>
+                            </div>
+                            <div>
+                                <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
+                                <p class="text-gray-600">{{ $materi->description }}</p>
+                            </div>
+                            <div class="mr-6">
+                                <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi</h6>
+                                >
+                                @php
+                                    $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($file, ['jpg', 'png']))
+                                    <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
+                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                @elseif($file === 'pdf')
+                                    <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
+                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                @else
+                                    <p class="text-red-500">Format file tidak didukung.</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-        
+            @endforeach
+
 
             <!-- Modal Edit -->
             @foreach ($materis as $materi)
@@ -296,6 +296,7 @@
                                 <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
                                     Materi
                                 </label>
+                                <small>File Harus Berformat PDF</small>
                                 <div id="file-preview-{{ $materi->id }}" class="mt-2">
                                     @if ($materi->file_materi)
                                         @php
@@ -372,7 +373,7 @@
                         <!-- File Materi -->
                         <div class="mb-3 mr-6">
                             <label for="file_materi" class="block font-medium mb-1">File Materi</label>
-
+                            <small>File Harus Berformat PDF</small>
                             @if (isset($materi) && $materi->file_path)
                                 <!-- Menampilkan file lama jika sudah ada -->
                                 <div class="mt-2">

@@ -71,6 +71,6 @@ class TeacherController extends Controller
             'subject_id' => $request->subject_id
         ]);
         $teacher->class()->sync($request->classes_id);
-        return redirect()->back()->with('success', 'Data Sudah Ter-Update');
+        return redirect()->back()->with('success', 'Guru Berhasil Ditempatkan');
     }
 }
