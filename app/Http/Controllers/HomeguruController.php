@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\TeacherClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,14 +25,19 @@ class HomeguruController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        $teacherId = Auth::id();
-    
-        // Mengambil data kelas beserta relasi yang diperlukan
-        $teacherClasses = TeacherClass::with('class.users') // Pastikan properti 'class.users' ter-load
-            ->where('user_id', $teacherId)
-            ->paginate(6); // Gunakan paginate tanpa get()
-    
-        return view('Guru.dashboardGuru', compact('teacherClasses'));
-    }     
+{
+    $teacherClasses = TeacherClass::where('user_id', auth()->id())->get();
+
+    $students = [];
+
+    foreach ($teacherClasses as $teacherClass) {
+        // Periksa apakah pagination dilakukan dengan benar untuk setiap kelas
+        $students[$teacherClass->class->id] = $teacherClass->class->users()->paginate(10);
+    }
+
+    return view('Guru.dashboardGuru', compact('teacherClasses', 'students'));
+}
+
+
+
 }
