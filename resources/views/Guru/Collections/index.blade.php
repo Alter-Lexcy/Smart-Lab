@@ -95,10 +95,9 @@
                         <thead>
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Murid</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Murid</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai Tugas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,7 +107,6 @@
                                     <td class="border px-4 py-2">{{ $collection->Task->title_task }}</td>
                                     <td class="border px-4 py-2">{{ $collection->user->name }}</td>
                                     <td class="border px-4 py-2">{{ $collection->status }}</td>
-                                    <td class="border px-4 py-2">{{ $collection->Assesment->mark_task ?? 'Tidak tersedia' }}
                                     </td>
                                     <td class="border px-4 py-2 ">
                                         <!-- Delete form -->

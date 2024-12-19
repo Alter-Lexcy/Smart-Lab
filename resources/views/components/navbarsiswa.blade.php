@@ -42,7 +42,7 @@
                         <p class="text-md font-medium font-poppins text-gray-700 ml-8">
                             <span class="uppercase">{{ Auth::user()->name }}</span>
                         </p>
-                        <span class="fs-8 badge badge-light-success">Siswa</span>
+                        <span class="fs-8 badge badge-light-success">{{ Auth::user()->getRoleNames()->first() }}</span>
                     </div>
 
                     <!-- Profile Button -->

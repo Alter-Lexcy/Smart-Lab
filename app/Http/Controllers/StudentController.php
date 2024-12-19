@@ -75,7 +75,7 @@ class StudentController extends Controller
         // Update status approval
         $approval->update(['status' => 'approved']);
 
-        return redirect()->route('dashboard')->with('success', 'Kelas telah disetujui dan ditambahkan ke sistem.');
+        return redirect()->back()->with('success', 'Kelas telah disetujui dan ditambahkan ke sistem.');
     }
 
     public function reject($id)
@@ -84,6 +84,6 @@ class StudentController extends Controller
         $approval->update(['status' => 'rejected']);
 
         $approval->delete();
-        return redirect()->route('dashboard')->with('success', 'Kelas telah ditolak.');
+        return redirect()->back()->with('success', 'Kelas telah ditolak.');
     }
 }
