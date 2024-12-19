@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('task_id')->constrained('tasks');
             $table->foreignId('user_id')->constrained('users'); // Siswa yang mengumpulkan tugas
             $table->string('file_collection')->nullable(); // File tugas yang dikumpulkan
-            $table->enum('status', ['Belum mengumpulkan', 'Sudah mengumpulkan'])->default('Belum mengumpulkan');
+            $table->enum('status', ['Belum mengumpulkan', 'Sudah mengumpulkan','Tidak mengumpulkan'])->default('Belum mengumpulkan');
             $table->timestamps();
         });
     }

@@ -141,7 +141,7 @@
                 </button>
             </form>
         </div>
-
+        @if(auth()->user() && auth()->user()->class()->exists())
         @forelse ($tasks as $task)
             <div style="position: relative;">
                 <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
@@ -178,7 +178,20 @@
                 </div>
             </div>
         @empty
-
+            <div class="bg-gray-100 flex items-center justify-center h-screen">
+                <div class="text-center">
+                    <div class="text-red-500 mb-5" style="justify-self: center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-28 h-28">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                </div>
+            </div>
+        @endforelse
+        @else
         <div class="bg-gray-100 flex items-center justify-center h-screen">
             <div class="text-center">
                 <div class="text-red-500 mb-5" style="justify-self: center">
@@ -188,52 +201,52 @@
                             d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                 </div>
-                <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                <p class="text-gray-700 text-3xl font-semibold">Anda Belum Ada Kelas</p>
             </div>
-        </div>
+        </div>           
+        @endif
+        @foreach ($tasks as $task)
+            <div id="tugasModal-{{ $task->id }}" class="tugasModal fixed inset-0 flex items-center justify-center"
+                style="display: none;">
+                <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
+                    <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
 
-        @endforelse
-        <div id="tugasModal-{{ $task->id }}" class="tugasModal fixed inset-0 flex items-center justify-center"
-            style="display: none;">
-            <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
-                <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
-
-                <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                    onclick="closeModal('tugasModal-{{ $task->id }}')">
-                    &times;
-                </button>
-
-                <form action="{{ route('materis.store') }}" method="POST" enctype="multipart/form-data"
-                    class="overflow-y-auto h-[56%]">
-                    @csrf
-
-                    <!-- Input File -->
-                    <div class="mb-3">
-                        <label class="block font-medium mb-1">Upload File (PDF atau Gambar)</label>
-                        <div class="relative">
-                            <input type="file" id="file_tugas-{{ $task->id }}" name="file_tugas" class="hidden"
-                                accept=".pdf,image/*" onchange="updateFileName(this)">
-                            <label for="file_tugas-{{ $task->id }}"
-                                class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer inline-block">
-                                Pilih File
-                            </label>
-                            <span id="file-name-{{ $task->id }}" class="ml-2 text-gray-500">Tidak ada file yang
-                                dipilih</span>
-                        </div>
-                        <small class="text-gray-500">Format file: PDF, JPG, PNG. Maksimal ukuran 2MB.</small>
-                    </div>
-
-                    <!-- Tombol Submit -->
-                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
-                        Unggah Tugas
-                    </button>
-                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                         onclick="closeModal('tugasModal-{{ $task->id }}')">
-                        Batal
+                        &times;
                     </button>
-                </form>
+
+                    <form id="form-{{ $task->id }}"
+                        action="{{ route('updateCollection', ['task_id' => $task->id]) }}" method="POST"
+                        enctype="multipart/form-data" class="overflow-y-auto h-[56%]">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-3">
+                            <label class="block font-medium mb-3">Upload File (PDF atau Gambar)</label>
+                            <div class="relative">
+                                <input type="file" id="file_collection-{{ $task->id }}"
+                                    name="file_collection" class="hidden" accept=".pdf,image/*"
+                                    onchange="updateFileName(this)">
+                                <label for="file_collection-{{ $task->id }}"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer inline-block">
+                                    Pilih File
+                                </label>
+                                <span id="file-name-{{ $task->id }}" class="ml-2 text-gray-500 mt-3">Tidak ada
+                                    file yang dipilih</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
+                                onclick="closeModal('tugasModal-{{ $task->id }}')">Batal</button>
+                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Unggah
+                                Tugas</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endforeach
 
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">

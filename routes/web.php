@@ -72,4 +72,6 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
         Route::get('/mapel', [UserPageController::class,'showSubject'])->name('mapel');
         Route::get('/materi/{materi_id}', [UserPageController::class,'showMateri'])->name('Materi');
         Route::get('/tugas', [UserPageController::class,'showTask'])->name('Tugas');
+        Route::put('/tasks/{task_id}/collection', [CollectionController::class,'updateCollection'])->name('updateCollection');
+
     });
