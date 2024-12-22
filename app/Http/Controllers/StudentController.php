@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Classes;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Models\ClassApproval;
 use Illuminate\Support\Facades\DB;
@@ -64,17 +66,37 @@ class StudentController extends Controller
     public function approve($id)
     {
         $approval = ClassApproval::findOrFail($id);
+        DB::table('teacher_classes')->updateOrInsert(
+            [
+                'user_id' => $approval->user_id,
+                'classes_id' => $approval->class_id,
+            ],
+            [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
 
-        DB::table('teacher_classes')->insert([
-            'user_id' => $approval->user_id,
-            'classes_id' => $approval->class_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Update status approval
-        $approval->update(['status' => 'approved']);
-
+        DB::table('class_approvals')
+            ->where('id', $id)
+            ->update(['status' => 'approved', 'updated_at' => now()]);
+        $tasks = DB::table('tasks')
+            ->where('class_id', $approval->class_id)
+            ->get();
+        foreach ($tasks as $task) {
+            DB::table('collections')->updateOrInsert(
+                [
+                    'user_id' => $approval->user_id,
+                    'task_id' => $task->id,
+                ],
+                [
+                    'file_collection' => null,
+                    'status' => 'Belum mengumpulkan',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
         return redirect()->back()->with('success', 'Kelas telah disetujui dan ditambahkan ke sistem.');
     }
 

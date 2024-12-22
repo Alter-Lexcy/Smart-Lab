@@ -334,7 +334,7 @@
             @endforeach
 
             <!-- Modal Tambah -->
-            <div id="materiModal" class="fixed inset-0 flex items-center justify-center" style="display: none;">
+            <div id="materiModal" class="fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto" style="display: none;">
                 <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
 

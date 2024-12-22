@@ -20,38 +20,38 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $search = $request->input('search');
-    $order = $request->input('order', 'desc');
+    {
+        $search = $request->input('search');
+        $order = $request->input('order', 'desc');
 
-    // Ambil semua tugas dengan relasi Classes, Subject, Materi
-    $tasks = Task::with('Classes', 'Subject', 'Materi')
-        ->where('user_id', auth()->id())
-        ->where(function ($query) use ($search) {
-            $query->whereHas('Classes', function ($q) use ($search) {
-                $q->where('name_class', 'like', '%' . $search . '%');
-            })
-            ->orWhereHas('Subject', function ($q) use ($search) {
-                $q->where('name_subject', 'like', '%' . $search . '%');
-            })
-            ->orWhereHas('Materi', function ($q) use ($search) {
-                $q->where('title_materi', 'like', '%' . $search . '%');
-            });
-        })->orWhere('title_task', 'like', '%' . $search . '%')
-        ->orderBy('created_at', $order)
-        ->simplePaginate(5);
+        // Ambil semua tugas dengan relasi Classes, Subject, Materi
+        $tasks = Task::with('Classes', 'Subject', 'Materi')
+            ->where('user_id', auth()->id())
+            ->where(function ($query) use ($search) {
+                $query->whereHas('Classes', function ($q) use ($search) {
+                    $q->where('name_class', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('Materi', function ($q) use ($search) {
+                        $q->where('title_materi', 'like', '%' . $search . '%');
+                    });
+            })->orWhere('title_task', 'like', '%' . $search . '%')
+            ->orderBy('created_at', $order)
+            ->simplePaginate(5);
 
-    $collections = Collection::with('user')
-        ->get()
-        ->groupBy('task_id');
+        $collections = Collection::with('user')
+            ->get()
+            ->groupBy('task_id');
 
-    $classes = Classes::all();
-    $subjects = Subject::all();
-    $materis = Materi::all();
-    $collections = Collection::all();
+        $classes = Classes::all();
+        $subjects = Subject::all();
+        $materis = Materi::all();
+        $collections = Collection::all();
 
-    return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
-}
+        return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -64,44 +64,53 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $validated = $request->validated();
+
+        // Proses upload file jika ada
         if ($request->hasFile('file_task')) {
             $file = $request->file('file_task')->store('file_task', 'public');
             $validated['file_task'] = $file;
         }
 
+        // Ambil data Subject yang terkait dengan user yang sedang login
         $task = auth()->user()->Subject;
 
-       $tasks = Task::create([
+        // Simpan data tugas baru
+        $tasks = Task::create([
             'class_id' => $validated['class_id'],
             'materi_id' => $validated['materi_id'],
             'title_task' => $validated['title_task'],
             'file_task' => $validated['file_task'] ?? null,
             'description_task' => $validated['description_task'],
             'date_collection' => $validated['date_collection'],
-            'subject_id'=>$task->id,
-            'user_id'=>auth()->id(),
+            'subject_id' => $task->id,
+            'user_id' => auth()->id(),
         ]);
-
 
         $students = User::whereHas('class', function ($query) use ($tasks) {
             $query->where('classes.id', $tasks->class_id);
         })->get();
 
-
         foreach ($students as $student) {
             if (!$student->hasRole('Guru')) {
-                Collection::create([
-                    'user_id' => $student->id,
-                    'task_id' => $tasks->id,
-                    'file_collection' => null,
-                    'status' => 'Belum mengumpulkan'
-                ]);
+                $existingCollection = Collection::where('user_id', $student->id)
+                    ->where('task_id', $tasks->id)
+                    ->first();
+
+                if (!$existingCollection) {
+                    Collection::create([
+                        'user_id' => $student->id,
+                        'task_id' => $tasks->id,
+                        'file_collection' => null,
+                        'status' => 'Belum mengumpulkan'
+                    ]);
+                }
             }
         }
 
-
+        // Redirect ke halaman tugas dengan pesan sukses
         return redirect()->route('tasks.index')->with('success', 'Data Tugas Baru Berhasil Ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -144,8 +153,8 @@ class TaskController extends Controller
             'file_task' => $validated['file_task'] ?? null,
             'description_task' => $validated['description_task'],
             'date_collection' => $validated['date_collection'],
-            'subject_id'=>$subject->id,
-            'user_id'=>auth()->id(),
+            'subject_id' => $subject->id,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Diperbarui');
