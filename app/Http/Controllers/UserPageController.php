@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collection;
+use App\Models\Task;
 use App\Models\Materi;
 use App\Models\Subject;
-use App\Models\Task;
+use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserPageController extends Controller
 {
@@ -34,12 +35,34 @@ class UserPageController extends Controller
         return view('Siswa.materi', compact('materis'));
     }
 
-    public function showTask(){
+    public function showTask()
+    {
         $user = auth()->user();
+        if (!$user->classes()->exists()) {
+            return view('Siswa.tugas', ['tasks' => collect(), 'collections' => collect()]);
+        }
         $kelasId = $user->classes->pluck('id');
-        $collections = Collection::all();
-        $tasks = Task::with('collections')->whereIn('class_id', $kelasId)->simplePaginate(5);
+        $tasks = Task::with(['collections' => function ($query) {
+            $query->where('user_id', Auth::id());
+        }])->simplePaginate(5);
 
-        return view('Siswa.tugas',compact('tasks','collections'));
+
+        $this->updateTaskStatus();
+
+        return view('Siswa.tugas', compact('tasks'));
+    }
+
+    private function updateTaskStatus()
+    {
+        $now = now();
+
+        // Perbarui status jika sudah melewati deadline
+        $collections = Collection::whereHas('task', function ($query) use ($now) {
+            $query->where('date_collection', '<', $now);
+        })->where('status', '!=', 'Tidak mengumpulkan')->get();
+
+        foreach ($collections as $collection) {
+            $collection->update(['status' => 'Tidak mengumpulkan']);
+        }
     }
 }

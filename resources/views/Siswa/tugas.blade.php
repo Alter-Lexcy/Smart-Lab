@@ -141,69 +141,116 @@
                 </button>
             </form>
         </div>
-        @if(auth()->user() && auth()->user()->class()->exists())
-        @forelse ($tasks as $task)
-            <div style="position: relative;">
-                <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                    <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
-                    <p class="text-gray-600" style="margin-right: 150px">
-                        {{ $task->short_description = Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
-                    </p>
+        @if (auth()->user() && auth()->user()->classes()->exists())
+            @forelse ($tasks as $task)
+                <div style="position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            {{ Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
+                        </p>
 
-                    <!-- Status Sudah Dikerjakan dengan ikon -->
-                    <div class="flex items-center text-yellow-300 mt-10">
-                        <!-- Ikon dengan ukuran yang lebih besar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="w-6 h-6 mr-2">
-                            <path fill-rule="evenodd"
-                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span>{{ $task->collections->first()->status ?? 'Tidak ada status' }}</span>
-                    </div>
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        @foreach ($tasks as $task)
+                            @php
+                                $status = $task->collections->first()->status ?? 'default';
+                            @endphp
 
-                    <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                            detail</button>
+                            @if ($status === 'Tidak mengumpulkan')
+                                <div class="flex items-center text-red-400 mt-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-6 h-6 mr-2">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>{{ $status }}</span>
+                                </div>
+                            @elseif ($status === 'Belum mengumpulkan')
+                                <div class="flex items-center text-yellow-300 mt-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-6 h-6 mr-2">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>{{ $status }}</span>
+                                </div>
+                            @elseif ($status === 'Sudah mengumpulkan')
+                                <div class="flex items-center text-green-400 mt-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-6 h-6 mr-2">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>{{ $status }}</span>
+                                </div>
+                            @else
+                                <div class="flex items-center text-gray-400 mt-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-6 h-6 mr-2">
+                                        <path
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12 16.5a.75.75 0 0 1 0-1.5h.008a.75.75 0 1 1 0 1.5H12ZM12 6a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 12 6Z" />
+                                    </svg>
+                                    <span>Status Tidak Diketahui</span>
+                                </div>
+                            @endif
+                        @endforeach
 
-                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
-                            onclick="openModal('tugasModal-{{ $task->id }}')">Pengumpulan Tugas</button>
+                        <!-- Tombol Aksi -->
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">
+                                Lihat detail
+                            </button>
+                            @foreach ($tasks as $task)
+                                @php
+                                    $status = $task->collections->first()->status ?? 'default';
+                                @endphp
+                                @if ($status === 'Belum mengumpulkan')
+                                    <button
+                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
+                                        onclick="openModal('tugasModal-{{ $task->id }}')">
+                                        Pengumpulan Tugas
+                                    </button>
+                                @endif
+                            @endforeach()
+                        </div>
 
-                    </div>
-                    <!-- Tanggal di kanan atas -->
-                    <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                        <span class="text-danger">Deadline
-                        </span>{{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l,j F Y') }}
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>
+                            {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
+                        </div>
                     </div>
                 </div>
-            </div>
-        @empty
+            @empty
+                <div class="bg-gray-100 flex items-center justify-center h-screen">
+                    <div class="text-center">
+                        <div class="text-red-500 mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                    </div>
+                </div>
+            @endforelse
+        @else
             <div class="bg-gray-100 flex items-center justify-center h-screen">
                 <div class="text-center">
                     <div class="text-red-500 mb-5" style="justify-self: center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-28 h-28">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                     </div>
-                    <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                    <p class="text-gray-700 text-3xl font-semibold">Anda Belum Ada Kelas</p>
                 </div>
             </div>
-        @endforelse
-        @else
-        <div class="bg-gray-100 flex items-center justify-center h-screen">
-            <div class="text-center">
-                <div class="text-red-500 mb-5" style="justify-self: center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-28 h-28">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </div>
-                <p class="text-gray-700 text-3xl font-semibold">Anda Belum Ada Kelas</p>
-            </div>
-        </div>           
         @endif
         @foreach ($tasks as $task)
             <div id="tugasModal-{{ $task->id }}" class="tugasModal fixed inset-0 flex items-center justify-center"
