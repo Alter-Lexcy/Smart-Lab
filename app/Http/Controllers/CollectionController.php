@@ -15,10 +15,16 @@ class CollectionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $collections = Collection::with(['user', 'task'])->get();
-        return view('Guru.Collections.index', compact('collections'));
-    }
+{
+    $collections = Collection::with(['user', 'task'])
+        ->orderByRaw("FIELD(status, 'Sudah mengumpulkan') DESC") // 'Sudah mengumpulkan' at the top
+        ->orderBy('status', 'asc') // Sort remaining statuses alphabetically or as needed
+        ->get();
+
+    return view('Guru.Collections.index', compact('collections'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -91,7 +97,7 @@ class CollectionController extends Controller
             }
             $collection->update([
                 'file_collection' => $filePath,
-                'status' => 'Sudah mengumpulkan', 
+                'status' => 'Sudah mengumpulkan',
             ]);
         }
 
