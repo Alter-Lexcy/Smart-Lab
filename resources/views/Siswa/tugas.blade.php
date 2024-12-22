@@ -142,16 +142,16 @@
             </form>
         </div>
         @if (auth()->user() && auth()->user()->classes()->exists())
-            @forelse ($tasks as $task)
-                <div style="position: relative;">
-                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                        <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
-                        <p class="text-gray-600" style="margin-right: 150px">
-                            {{ Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
-                        </p>
+            <div class="space-y-6">
+                @forelse ($tasks as $task)
+                    <div style="position: relative;">
+                        <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                            <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
+                            <p class="text-gray-600" style="margin-right: 150px">
+                                {{ Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
+                            </p>
 
-                        <!-- Status Sudah Dikerjakan dengan ikon -->
-                        @foreach ($tasks as $task)
+                            <!-- Status Sudah Dikerjakan dengan ikon -->
                             @php
                                 $status = $task->collections->first()->status ?? 'default';
                             @endphp
@@ -196,14 +196,12 @@
                                     <span>Status Tidak Diketahui</span>
                                 </div>
                             @endif
-                        @endforeach
 
-                        <!-- Tombol Aksi -->
-                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">
-                                Lihat detail
-                            </button>
-                            @foreach ($tasks as $task)
+                            <!-- Tombol Aksi -->
+                            <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">
+                                    Lihat detail
+                                </button>
                                 @php
                                     $status = $task->collections->first()->status ?? 'default';
                                 @endphp
@@ -214,41 +212,41 @@
                                         Pengumpulan Tugas
                                     </button>
                                 @endif
-                            @endforeach()
-                        </div>
+                            </div>
 
-                        <!-- Tanggal di kanan atas -->
-                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                            <span class="text-danger">Deadline </span>
-                            {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
+                            <!-- Tanggal di kanan atas -->
+                            <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                                <span class="text-danger">Deadline </span>
+                                {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
+                @empty
+                    <div class="bg-gray-100 flex items-center justify-center h-screen">
+                        <div class="text-center">
+                            <div class="text-red-500 mb-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                            </div>
+                            <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                        </div>
+                    </div>
+                @endforelse
+            @else
                 <div class="bg-gray-100 flex items-center justify-center h-screen">
                     <div class="text-center">
-                        <div class="text-red-500 mb-5">
+                        <div class="text-red-500 mb-5" style="justify-self: center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                         </div>
-                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                        <p class="text-gray-700 text-3xl font-semibold">Anda Belum Ada Kelas</p>
                     </div>
-                </div>
-            @endforelse
-        @else
-            <div class="bg-gray-100 flex items-center justify-center h-screen">
-                <div class="text-center">
-                    <div class="text-red-500 mb-5" style="justify-self: center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </div>
-                    <p class="text-gray-700 text-3xl font-semibold">Anda Belum Ada Kelas</p>
                 </div>
             </div>
         @endif

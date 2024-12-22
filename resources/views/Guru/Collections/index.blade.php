@@ -97,6 +97,7 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Murid</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
                             </tr>
                         </thead>
@@ -106,8 +107,12 @@
                                     <td class="border px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="border px-4 py-2">{{ $collection->Task->title_task }}</td>
                                     <td class="border px-4 py-2">{{ $collection->user->name }}</td>
-                                    <td class="border px-4 py-2">{{ $collection->status }}</td>
+                                    <td class="border px-4 py-2">
+                                        @foreach ($collection->user->class as $class)
+                                        {{ $class->name_class }}
+                                        @endforeach
                                     </td>
+                                    <td class="border px-4 py-2">{{ $collection->status }}</td>
                                     <td class="border px-4 py-2 ">
                                         <!-- Delete form -->
                                         <form action="{{ route('collections.destroy', $collection->id) }}" method="POST"

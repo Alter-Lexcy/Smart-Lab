@@ -41,14 +41,13 @@ class TaskController extends Controller
             ->orderBy('created_at', $order)
             ->simplePaginate(5);
 
-        $collections = Collection::with('user')
+        $collections = Collection::with('user')->where('status', 'Sudah mengumpulkan')
             ->get()
             ->groupBy('task_id');
 
         $classes = Classes::all();
         $subjects = Subject::all();
         $materis = Materi::all();
-        $collections = Collection::all();
 
         return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
     }
@@ -56,7 +55,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    
+
 
 
     public function store(StoreTaskRequest $request)

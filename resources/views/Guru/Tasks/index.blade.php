@@ -401,13 +401,16 @@
                     @csrf
                     <div class="grid grid-cols-1 gap-4">
                         <!-- Checkbox Section -->
-                        <div class="relative">
-                            <label for="" class="mb-2">Pilih Murid</label>
-                            <button type="button" onclick="showCheckboxes()" ...>Pilih Opsi</button>
+                        <label for="" class="block text-gray-700 font-bold mb-2">Pilih Murid</label>
+                        <div class="relative mt-[-20px]">
+                            <button type="button" onclick="showCheckboxes()"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md">
+                                Pilih Opsi
+                            </button>
                             <div id="checkboxes"
                                 class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                                @if (isset($submissions[$task->id]))
-                                    @foreach ($submissions[$task->id] as $submission)
+                                @if (isset($collections[$task->id]))
+                                    @foreach ($collections[$task->id] as $submission)
                                         <label for="student_{{ $submission->user->id }}"
                                             class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
                                             <input type="checkbox" id="student_{{ $submission->user->id }}"
@@ -419,7 +422,6 @@
                                     <p class="px-4 py-2 text-gray-500">Belum ada siswa yang mengumpulkan tugas.</p>
                                 @endif
                             </div>
-
                         </div>
                         <!-- Input Nilai -->
                         <div>
@@ -429,8 +431,9 @@
                         </div>
                     </div>
                     <!-- Buttons -->
-                    <div class="flex justify-between">
-                        <button type="button" onclick="closeModal('Assessment_{{ $task->id }}')">Batal</button>
+                    <div class="flex justify-between mt-3">
+                        <button type="button" onclick="closeModal('Assessment_{{ $task->id }}')"
+                            class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 rounded">Batal</button>
                         <button type="submit"
                             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
                     </div>
