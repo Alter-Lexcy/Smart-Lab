@@ -99,7 +99,7 @@
                                         Jumlah Murid: {{ $teacherClass->class->users->count() }}
                                     </div>
                                 </div>
-                                <div class="relative ml-[130px] mt-24 mr-3">
+                                <div class="relative ml-auto mt-24 mr-3">
                                     <button type="button"
                                         class="flex font-semibold border-2 border-gray-300 bg-white text-gray-900 px-2 py-2 rounded-lg space-x-0.5"
                                         onclick="openModal('detailModal-{{ $teacherClass->class->id }}')">
@@ -120,99 +120,51 @@
                     @endforeach
                 @endif
             </div>
-            <div class="mt-5">
-
-            </div>
         </div>
 
         <!-- Modal Detail -->
+        <!-- Modal Detail -->
         @foreach ($teacherClasses as $teacherClass)
             <div id="detailModal-{{ $teacherClass->class->id }}"
-                class="detailModal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 modal fade"
-                tabindex="-1" role="dialog" style="display: none;" role="dialog" aria-hidden="true">
-                <div class="bg-white rounded-lg w-[60%] h-auto max-h-[95%] p-4 modal-dialog" role="document">
-                    <div class=" modal-content block max-w-full bg-white rounded-lg shadow hover:bg-white">
-                        <div class="modal-header flex justify-between items-center">
-                            <h6 class="modal-title font-semibold pb-3 text-base p-3">Detail Kelas</h6>
-                            <button type="button" class="text-gray-700 mr-3 hover:text-gray-900"
-                                onclick="closeModal('detailModal-{{ $teacherClass->class->id }}')">
+                class="detailModal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+                style="display: none;">
+                <div class="bg-white rounded-lg w-[60%] h-auto max-h-[95%] overflow-y-auto p-4">
+                    <div class="modal-header block max-w bg-white rounded-lg shadow">
+                        <div class="flex justify-between items-center">
+                            <h6 class="modal-title font-semibold p-3 text-base ps-5">Detail Kelas</h6>
+                            <button type="button" onclick="closeModal('detailModal-{{ $teacherClass->class->id }}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div id="table-container">
-                                <div class="overflow-x-auto">
-                                    <table class="min-w-full bg-white text-center rounded-lg">
-                                        <thead>
-                                            <tr class="border">
-                                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
-                                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
-                                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Email</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($students as $classId => $studentsPage)
-                                            <div>
-                                                <h3>Kelas ID: {{ $classId }}</h3>
-                                                @if ($studentsPage->count() > 0)
-                                                    @foreach($studentsPage as $student)
-                                                        <tr class="border border-gray-300">
-                                                            <td class="py-3 px-6">{{ $loop->iteration }}</td>
-                                                            <td class="py-3 px-6">{{ $student->name }}</td>
-                                                            <td class="py-3 px-6">{{ $student->email }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                    {{-- Menampilkan pagination untuk setiap kelas --}}
-                                                    <div class="pagination">
-                                                        {{ $studentsPage->links() }}
-                                                    </div>
-                                                @else
-                                                    <p>Tidak ada siswa di kelas ini.</p>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-
-                            </div>
+                        <div id="table-container-{{ $teacherClass->class->id }}">
+                            @include('partials.studentList', [
+                                'students' => $students[$teacherClass->class->id],
+                            ]);
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
+
     </div>
     <script>
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href'); // Ambil URL dari link pagination
-            var classId = $(this).data('class-id'); // Ambil ID kelas jika diperlukan
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault(); // Mencegah default redirect
+
+            let url = $(this).attr('href'); // Ambil URL dari link pagination
+            let classId = url.split('/classes/')[1].split('/students')[0]; // Mendapatkan class ID dari URL
 
             $.ajax({
                 url: url,
-                type: 'GET',
                 success: function(data) {
-                    // Update konten siswa berdasarkan data yang diterima
-                    $('#student-list-' + classId).html(data);
-                }
-            });
-        });
-
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href'); // Ambil URL dari link pagination
-            var classId = $(this).data('class-id'); // Ambil ID kelas jika diperlukan
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(data) {
-                    // Update konten siswa berdasarkan data yang diterima
-                    $('#student-list-' + classId).html(data);
-                    // Reset halaman pagination jika perlu
-                    window.history.pushState({}, "", url);
+                    // Mengupdate bagian tabel siswa berdasarkan classId
+                    $(`#table-container-${classId}`).html(data);
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat memuat data.');
                 }
             });
         });

@@ -32,7 +32,7 @@ class HomeguruController extends Controller
 
     foreach ($teacherClasses as $teacherClass) {
         // Periksa apakah pagination dilakukan dengan benar untuk setiap kelas
-        $students[$teacherClass->class->id] = $teacherClass->class->users()->paginate(10);
+        $students[$teacherClass->class->id] = $teacherClass->class->users()->paginate(2);
     }
 
     return view('Guru.dashboardGuru', compact('teacherClasses', 'students'));

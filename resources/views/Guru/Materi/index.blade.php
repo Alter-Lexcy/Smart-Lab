@@ -191,6 +191,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="px-5 py-3">
+                    {{ $materis->links() }}
+                </div>
             </div>
 
             {{-- Modal Show --}}

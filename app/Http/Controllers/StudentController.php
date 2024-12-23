@@ -29,7 +29,7 @@ class StudentController extends Controller
             ->select('users.*', 'class_approvals.status as approval_status')
             ->orderByRaw("FIELD(class_approvals.status, 'pending', 'approved') ASC")
             ->orderBy('users.created_at', 'desc')
-            ->simplePaginate(5);
+            ->paginate(5);
 
         foreach ($students as $student) {
             $createdAt = Carbon::parse($student->created_at);

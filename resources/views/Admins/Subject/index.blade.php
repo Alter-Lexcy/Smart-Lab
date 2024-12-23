@@ -177,6 +177,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="px-5 py-3">
+                {{ $subjects->links() }}
+            </div>
         </div>
 
         <!-- Modal Tambah Mapel -->
@@ -224,8 +227,5 @@
                 form.classList.toggle('show'); // Toggle class "show"
             });
         </script>
-        <div class="mt-3">
-            {{ $subjects->links() }}
-        </div>
     </div>
     @endsection
