@@ -403,11 +403,11 @@
                         <!-- Checkbox Section -->
                         <label for="" class="block text-gray-700 font-bold mb-2">Pilih Murid</label>
                         <div class="relative mt-[-20px]">
-                            <button type="button" onclick="showCheckboxes()"
+                            <button type="button" onclick="showCheckboxes({{ $task->id }})"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md">
                                 Pilih Opsi
                             </button>
-                            <div id="checkboxes"
+                            <div id="checkboxes_{{ $task->id }}"
                                 class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
                                 @if (isset($collections[$task->id]))
                                     @foreach ($collections[$task->id] as $submission)
@@ -535,14 +535,12 @@
 <script>
     var expanded = false;
 
-    function showCheckboxes() {
-        var checkboxes = document.getElementById("checkboxes");
-        if (!expanded) {
-            checkboxes.style.display = "block";
-            expanded = true;
-        } else {
+    function showCheckboxes(taskId) {
+        var checkboxes = document.getElementById("checkboxes_" + taskId);
+        if (checkboxes.style.display === "block") {
             checkboxes.style.display = "none";
-            expanded = false;
+        } else {
+            checkboxes.style.display = "block";
         }
     }
 </script>
