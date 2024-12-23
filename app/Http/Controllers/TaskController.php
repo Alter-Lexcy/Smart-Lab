@@ -9,6 +9,7 @@ use App\Models\Classes;
 use App\Models\Subject;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreTaskRequest;
 use Illuminate\Support\Facades\Storage;
@@ -164,12 +165,16 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         try {
+            DB::beginTransaction();
+            $task->collections()->delete();
+            $task->Assessment()->delete();
             $filename = $task->file_task;
-            $task->delete();
             Storage::disk('public')->delete($filename);
-            return redirect()->route('tasks.index')->with('success', 'Tugas Yang Dipilih Berhasil Dihapus');
+            $task->delete();
+            DB::commit();
+            return redirect()->route('tasks.index')->with('success', 'Tugas dan data terkait berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('tasks.index')->with('success', 'Data Tugas Yang Dipilih Masih Dibutuhkan Pada Tabel Lain');
+            return redirect()->route('tasks.index')->with('error', 'Data Tugas masih dibutuhkan pada tabel lain');
         }
     }
 }
