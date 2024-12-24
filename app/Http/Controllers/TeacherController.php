@@ -37,7 +37,7 @@ class TeacherController extends Controller
             ->orderByRaw('subject_id IS NOT NULL')
             ->orderByRaw('NOT EXISTS (SELECT 1 FROM teacher_classes WHERE teacher_classes.user_id = users.id) DESC')
             ->orderBy('created_at', 'desc');
-        $teachers = $query->simplePaginate(5);
+        $teachers = $query->paginate(5);
 
         $classes = Classes::all();
         $subjects = Subject::all();
