@@ -1,4 +1,3 @@
-<div class="modal-body">
     <div id="table-container">
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white text-center rounded-lg">
@@ -28,25 +27,24 @@
                     {{ $students->links() }} <!-- Pastikan pagination di-render di sini -->
                 </div>
             @endif
-
-        </div>
-        <script>
-            $(document).on('click', '.pagination a', function(event) {
-                event.preventDefault(); // Mencegah default redirect
-
-                let url = $(this).attr('href'); // Ambil URL dari link pagination
-                let classId = url.split('/classes/')[1].split('/students')[0]; // Mendapatkan class ID dari URL
-
-                $.ajax({
-                    url: url,
-                    success: function(data) {
-                        // Mengupdate bagian tabel siswa berdasarkan classId
-                        $(`#table-container-${classId}`).html(data);
-                    },
-                    error: function() {
-                        alert('Terjadi kesalahan saat memuat data.');
-                    }
+            <script>
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+                    let page = $(this).attr('href').split('page=')[1];
+                    fetchPage(page);
                 });
-            });
-        </script>
+
+                function fetchPage(page) {
+                    $.ajax({
+                        url: '/teacher/class-details?page=' + page,
+                        success: function(data) {
+                            $(`#table-container-${classId}`).html(data);
+                        },
+                        error: function() {
+                            alert('Terjadi kesalahan saat memuat data.');
+                        }
+                    });
+                }
+            </script>
+        </div>
     </div>

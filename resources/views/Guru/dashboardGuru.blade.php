@@ -142,7 +142,7 @@
                         <div id="table-container-{{ $teacherClass->class->id }}">
                             @include('partials.studentList', [
                                 'students' => $students[$teacherClass->class->id],
-                            ]);
+                            ])
                         </div>
                     </div>
                 </div>
@@ -151,23 +151,23 @@
 
     </div>
     <script>
-        $(document).on('click', '.pagination a', function(event) {
-            event.preventDefault(); // Mencegah default redirect
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+                    let page = $(this).attr('href').split('page=')[1];
+                    fetchPage(page);
+                });
 
-            let url = $(this).attr('href'); // Ambil URL dari link pagination
-            let classId = url.split('/classes/')[1].split('/students')[0]; // Mendapatkan class ID dari URL
-
-            $.ajax({
-                url: url,
-                success: function(data) {
-                    // Mengupdate bagian tabel siswa berdasarkan classId
-                    $(`#table-container-${classId}`).html(data);
-                },
-                error: function() {
-                    alert('Terjadi kesalahan saat memuat data.');
+                function fetchPage(page) {
+                    $.ajax({
+                        url: '/teacher/class-details?page=' + page,
+                        success: function(data) {
+                            $(`#table-container-{{ $teacherClass->class->id }}`).html(data);
+                        },
+                        error: function() {
+                            alert('Terjadi kesalahan saat memuat data.');
+                        }
+                    });
                 }
-            });
-        });
 
         // Fungsi untuk membuka modal
         function openModal(id) {
