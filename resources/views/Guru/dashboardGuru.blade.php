@@ -151,23 +151,23 @@
 
     </div>
     <script>
-                $(document).on('click', '.pagination a', function(event) {
-                    event.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    fetchPage(page);
-                });
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            let page = $(this).attr('href').split('page=')[1];
+            fetchPage(page);
+        });
 
-                function fetchPage(page) {
-                    $.ajax({
-                        url: '/teacher/class-details?page=' + page,
-                        success: function(data) {
-                            $(`#table-container-{{ $teacherClass->class->id }}`).html(data);
-                        },
-                        error: function() {
-                            alert('Terjadi kesalahan saat memuat data.');
-                        }
-                    });
+        function fetchPage(page) {
+            $.ajax({
+                url: '/teacher/class-details?page=' + page,
+                success: function(data) {
+                    $(`#table-container-${classId}`).html(data);
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat memuat data.');
                 }
+            });
+        }
 
         // Fungsi untuk membuka modal
         function openModal(id) {
