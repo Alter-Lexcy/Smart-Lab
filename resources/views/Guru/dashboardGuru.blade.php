@@ -127,7 +127,7 @@
             <div id="detailModal-{{ $teacherClass->class->id }}"
                 class="detailModal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                 style="display: none;">
-                <div class="bg-white rounded-lg w-[60%] h-auto max-h-[95%] overflow-y-auto p-4">
+                <div class="bg-white rounded-lg w-[50%] h-auto max-h-[80%] overflow-y-auto p-4">
                     <div class="modal-header block max-w bg-white rounded-lg shadow">
                         <div class="flex justify-between items-center">
                             <h6 class="modal-title font-semibold p-3 text-base ps-5">Detail Kelas</h6>
@@ -164,28 +164,6 @@
                             }
                         });
                     });
-
-                $(document).on('click', '.pagination a', function(event) {
-                    event.preventDefault();
-
-                    let page = $(this).attr('href').split('page=')[1];
-                    let classId = $(this).data('class-id'); // Ambil ID kelas dari atribut data
-
-                    fetchPage(classId, page);
-                });
-
-                function fetchPage(classId, page) {
-                    $.ajax({
-                        url: `/teacher/dashboard/class-details/${classId}?page=${page}`,
-                        success: function(data) {
-                            $(`#table-container-${classId}`).html(data);
-                        },
-                        error: function(xhr) {
-                            console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
-                            alert(xhr.responseJSON.message || 'Terjadi kesalahan.');
-                        }
-                    });
-                }
             </script>
         @endforeach
     </div>

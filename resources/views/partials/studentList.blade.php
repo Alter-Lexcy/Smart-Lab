@@ -1,30 +1,38 @@
     <div id="table-container">
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white text-center rounded-lg">
+            <table class="min-w-full bg-white text-left rounded-lg">
                 <thead>
                     <tr class="border">
-                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
-                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
-                        <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Email</th>
+                        <th class="px-4 py-2 text-gray-500 text-sm font-bold">No</th>
+                        <th class="px-4 py-2 text-gray-500 text-sm font-bold">Nama Murid</th>
+                        <th class="px-4 py-2 text-gray-500 text-sm font-bold">Email</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     @php
                         $globalIndex = ($students->currentPage() - 1) * $students->perPage();
                     @endphp
 
-                    @foreach ($students as $student)
+                    @if ($teacherClass->class->users()->count() > 0) <!-- Periksa jika ada siswa -->
+                        @foreach ($students as $student)
+                            <tr class="border">
+                                <td class="px-4 py-2">{{ $globalIndex + $loop->iteration }}</td>
+                                <td class="px-4 py-2">{{ $student->name }}</td>
+                                <td class="px-4 py-2">{{ $student->email }}</td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr class="border">
-                            <td class="px-4 py-2">{{ $globalIndex + $loop->iteration }}</td>
-                            <!-- Menambahkan indeks global -->
-                            <td class="px-4 py-2">{{ $student->name }}</td>
-                            <td class="px-4 py-2">{{ $student->email }}</td>
+                            <td class="px-4 py-2" colspan="3">Belum Ada Murid di Kelas ini</td>
                         </tr>
-                    @endforeach
+                    @endif
+
+
                 </tbody>
             </table>
         </div>
-        <div class="pagination px-5 py-2">
+        <div class="pagination px-5 py-3">
             <!-- Di dalam studentList.blade.php, pastikan pagination sudah benar -->
             @if ($students->hasPages())
                 <div class="pagination">
