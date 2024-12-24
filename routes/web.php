@@ -58,6 +58,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 // Route Guru
 Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     Route::get('/teacher/dashboard', [HomeguruController::class, 'index'])->name('homeguru');
+    Route::get('/guru/classes/{classId}/students', [HomeguruController::class, 'getStudentsByClass'])->name('guru.classes.students');
     Route::get('/cari', [CariController::class, 'index'])->name('cari');
     Route::resource('materis', MateriController::class);
     Route::resource('tasks', TaskController::class);

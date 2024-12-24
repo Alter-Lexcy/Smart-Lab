@@ -153,7 +153,9 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $teachers->links() }}
+                <div class="px-5 py-3">
+                    {{ $teachers->links() }}
+                </div>
             </div>
             <script>
 

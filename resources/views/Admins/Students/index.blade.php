@@ -144,6 +144,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="px-5 py-3">
+                    {{ $students->links() }}
+                </div>
             </div>
             <script>
                 function openModal(id) {
@@ -166,9 +169,6 @@
                     form.classList.toggle('show'); // Toggle class "show"
                 });
             </script>
-        </div>
-        <div class="mt-3">
-            {{ $students->links() }}
         </div>
     </div>
 @endsection

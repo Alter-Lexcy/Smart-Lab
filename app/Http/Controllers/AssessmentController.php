@@ -34,6 +34,7 @@ class AssessmentController extends Controller
 
         $tasks = Task::all();
 
+
         return view('Guru.Assesments.index', compact('assessments', 'tasks'));
     }
 

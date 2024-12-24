@@ -19,7 +19,7 @@ class SubjectController extends Controller
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
 
-        $subjects = Subject::where('name_subject','Like','%'.$search.'%')->orderBy('name_subject', $order)->simplePaginate(5);
+        $subjects = Subject::where('name_subject','Like','%'.$search.'%')->orderBy('name_subject', $order)->paginate(5);
 
         // Kirim data ke view
         return view('Admins.Subject.index', compact('subjects', 'order'));
