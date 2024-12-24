@@ -27,15 +27,8 @@ class AssessmentController extends Controller
         $users = User::whereHas('roles', function ($query) {
             $query->where('name', 'Murid');
         })->get();
+    return view('Guru.Assesments.index', compact('assessments', 'tasks', 'users'));
 
-        // Halaman berdasarkan peran
-        if ($user->hasRole('Admin')) {
-            return view('Admins.Assesments.index', compact('assessments', 'tasks', 'users'));
-        } elseif ($user->hasRole('Guru')) {
-            return view('Guru.Assesments.index', compact('assessments', 'tasks', 'users',));
-        } else {
-            abort(403, 'Unauthorized');
-        }
     }
 
     /**

@@ -77,7 +77,7 @@ class User extends Authenticatable
     parent::boot();
 
     static::retrieved(function ($user) {
-        if ($user->created_at) { 
+        if ($user->created_at) {
             $createDate = $user->created_at;
             if ($createDate->lte(now()->subYear(1))) {
                 $user->class()->detach();

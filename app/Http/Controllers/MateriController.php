@@ -31,7 +31,7 @@ class MateriController extends Controller
                 })->orWhere('title_materi', 'like', '%' . $search . '%');
             })
             ->orderBy('created_at', $order)
-            ->simplePaginate(5);
+            ->paginate(5);
 
         // Filter Dropdown Kelas
         $classes = $user->class()->get();

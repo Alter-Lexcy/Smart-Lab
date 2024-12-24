@@ -25,19 +25,17 @@ class HomeguruController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-{
-    $teacherClasses = TeacherClass::where('user_id', auth()->id())->get();
+    {
+        $teacherClasses = TeacherClass::where('user_id', auth()->id())->get();
 
-    $students = [];
+        $students = [];
+        foreach ($teacherClasses as $teacherClass) {
+            // Get students for each class
+            $students[$teacherClass->class->id] = $teacherClass->class->users()->paginate(2);
+        }
 
-    foreach ($teacherClasses as $teacherClass) {
-        // Periksa apakah pagination dilakukan dengan benar untuk setiap kelas
-        $students[$teacherClass->class->id] = $teacherClass->class->users()->paginate(10);
+        return view('Guru.dashboardGuru', compact('teacherClasses', 'students'));
     }
-
-    return view('Guru.dashboardGuru', compact('teacherClasses', 'students'));
-}
-
 
 
 }

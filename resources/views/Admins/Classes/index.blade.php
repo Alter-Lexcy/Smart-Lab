@@ -26,9 +26,10 @@
 
                         <!-- Form Pencarian -->
                         <form id="searchForm" action="" method="GET"
-                        class="absolute right-full mr-2 mt-4 transition-all duration-300
+                            class="absolute right-full mr-2 mt-4 transition-all duration-300
                         {{ request('search') ? 'opacity-100 visible' : 'opacity-0 invisible' }}">
-                            <input type="text" name="search" placeholder="Cari..." value="{{old('search', request('search'))}}"
+                            <input type="text" name="search" placeholder="Cari..."
+                                value="{{ old('search', request('search')) }}"
                                 class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </form>
                     </div>
@@ -162,35 +163,50 @@
                                         <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                                             <div class="p-5">
                                                 <h5 class="text-lg font-bold">Ubah Kelas</h5>
-                                                <form action="{{ route('classes.update', $class->id) }}" method="POST" class="mt-4">
+                                                <form action="{{ route('classes.update', $class->id) }}" method="POST"
+                                                    class="mt-4">
                                                     @csrf
                                                     @method('PUT')
                                                     <!-- Input Angkatan Kelas -->
                                                     <div class="mb-4">
-                                                        <label for="class_grade" class="block text-gray-700">Angkatan Kelas</label>
-                                                        <select name="name_class[0]" id="class_grade" class="w-full px-3 py-2 border rounded">
-                                                            <option value="" disabled {{ $classGrade === '' ? 'selected' : '' }}>Pilih Angkatan</option>
-                                                            <option value="10" {{ $classGrade == 10 ? 'selected' : '' }}>10</option>
-                                                            <option value="11" {{ $classGrade == 11 ? 'selected' : '' }}>11</option>
-                                                            <option value="12" {{ $classGrade == 12 ? 'selected' : '' }}>12</option>
+                                                        <label for="class_grade" class="block text-gray-700">Angkatan
+                                                            Kelas</label>
+                                                        <select name="name_class[0]" id="class_grade"
+                                                            class="w-full px-3 py-2 border rounded">
+                                                            <option value="" disabled
+                                                                {{ $classGrade === '' ? 'selected' : '' }}>Pilih Angkatan
+                                                            </option>
+                                                            <option value="10"
+                                                                {{ $classGrade == 10 ? 'selected' : '' }}>10</option>
+                                                            <option value="11"
+                                                                {{ $classGrade == 11 ? 'selected' : '' }}>11</option>
+                                                            <option value="12"
+                                                                {{ $classGrade == 12 ? 'selected' : '' }}>12</option>
                                                         </select>
                                                     </div>
                                                     <!-- Input Nama Kelas -->
                                                     <div class="mb-4">
-                                                        <label for="class_name" class="block text-gray-700">Nama Kelas</label>
-                                                        <input type="text" id="class_name" name="name_class[1]" class="w-full px-4 py-2 border rounded" value="{{ $className }}">
+                                                        <label for="class_name" class="block text-gray-700">Nama
+                                                            Kelas</label>
+                                                        <input type="text" id="class_name" name="name_class[1]"
+                                                            class="w-full px-4 py-2 border rounded"
+                                                            value="{{ $className }}">
                                                     </div>
                                                     <!-- Input Deskripsi -->
                                                     <div class="mb-4">
-                                                        <label for="description" class="block text-gray-700">Deskripsi</label>
+                                                        <label for="description"
+                                                            class="block text-gray-700">Deskripsi</label>
                                                         <textarea id="description" class="w-full px-4 py-2 border rounded" rows="3" name="description">{{ $class->description }}</textarea>
                                                     </div>
                                                     <!-- Tombol Aksi -->
                                                     <div class="flex justify-end space-x-4">
-                                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                                                        <button type="submit"
+                                                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
                                                             Simpan Perubahan
                                                         </button>
-                                                        <button type="button" class="bg-gray-300 hover:bg-gray-400 text-white px-4 py-2 rounded" onclick="closeModal('editClassModal-{{ $class->id }}')">
+                                                        <button type="button"
+                                                            class="bg-gray-300 hover:bg-gray-400 text-white px-4 py-2 rounded"
+                                                            onclick="closeModal('editClassModal-{{ $class->id }}')">
                                                             Batal
                                                         </button>
                                                     </div>
@@ -292,10 +308,11 @@
                             form.classList.toggle('show'); // Toggle class "show"
                         });
                     </script>
+                    <div class="py-3 px-5">
+                        {{ $classes->links() }}
+                    </div>
                 </div>
             </div>
-            <div class="mt-3">
-                {{ $classes->links() }}
-            </div>
+
         </div>
     @endsection
