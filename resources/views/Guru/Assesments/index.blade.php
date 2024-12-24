@@ -84,44 +84,31 @@
                     <table class="min-w-full bg-white text-center rounded-lg">
                         <thead>
                             <tr class="border">
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">File</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
+                            <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($assessments as $assessment)
                                 <tr class="text-center">
+                                    <td class="py-3 px-6">{{ $loop->iteration }}</td>
                                     <td class="border px-4 py-2">{{ $assessment->user->name }}</td>
+                                    <td>
+                                        @foreach ($assessment->user->classes as $class)
+                                            {{ $class->name_class    }}<br>
+                                        @endforeach
+                                    </td>
+                                    <td class="border px-4 py-2">{{ $assessment->collection && $assessment->collection->task ? $assessment->collection->task->title_task : 'Tugas tidak ditemukan' }}</td>
                                     <td class="border px-4 py-2">
-                                        @if ($assessment->file_assessment)
-                                            <a href="{{ asset('storage/' . $assessment->file_assessment) }}" target="_blank"
-                                                class="text-blue-500 underline">Lihat File</a>
+                                        @if ($assessment->status === 'Sudah Di-nilai')
+                                            <span>{{ $assessment->mark_task }}</span>
                                         @else
-                                            <span class="text-gray-500">Tidak ada file</span>
+                                            <span class="text-red-600">Belum dinilai</span>
                                         @endif
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        @if ($assessment->assessment)
-                                            <span class="font-semibold">{{ $assessment->assessment->mark_task }}</span>
-                                        @else
-                                            <span class="text-gray-500">Belum dinilai</span>
-                                        @endif
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        <form action="{{ route('assessments.store', $task) }}" method="POST"
-                                            class="flex items-center justify-center gap-2">
-                                            @csrf
-                                            <input type="hidden" name="assessment_id" value="{{ $assessment->id }}">
-                                            <input type="number" name="mark_task" placeholder="Masukkan Nilai"
-                                                class="p-2 border rounded" required>
-                                            <button type="submit"
-                                                class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded transition">
-                                                Simpan
-                                            </button>
-                                        </form>
-                                    </td>
+                                </td>
                                 </tr>
                             @endforeach
                         </tbody>

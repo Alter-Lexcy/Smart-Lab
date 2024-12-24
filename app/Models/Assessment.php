@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Assessment extends Model
 {
     protected $fillable = [
-        'task_id',
+        'collection_id',
         'user_id',
+        'status',
         'mark_task'
     ];
 
@@ -19,13 +20,21 @@ class Assessment extends Model
             $query->where('name', '!=', 'Murid');
         });
     }
-
-    public function Task()
-    {
-        return $this->belongsTo(Task::class, 'task_id');
-    }
     public function collection()
     {
         return $this->belongsTo(Collection::class);
     }
+
+    public function task()
+    {
+        return $this->hasOneThrough(Task::class, Collection::class, 'id', 'id', 'collection_id', 'task_id');
+    }
+
+    public function classes()
+    {
+        return Classes::whereHas('users', function ($query) {
+            $query->where('users.id', $this->user_id);
+        });
+    }
+
 }

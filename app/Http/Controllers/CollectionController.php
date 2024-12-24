@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Assessment;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,14 +16,14 @@ class CollectionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $collections = Collection::with(['user', 'task'])
-        ->orderByRaw("FIELD(status, 'Sudah mengumpulkan') DESC") // 'Sudah mengumpulkan' at the top
-        ->orderBy('status', 'asc') // Sort remaining statuses alphabetically or as needed
-        ->get();
+    {
+        $collections = Collection::with(['user', 'task'])
+            ->orderByRaw("FIELD(status, 'Sudah mengumpulkan') DESC") // 'Sudah mengumpulkan' at the top
+            ->orderBy('status', 'asc') // Sort remaining statuses alphabetically or as needed
+            ->get();
 
-    return view('Guru.Collections.index', compact('collections'));
-}
+        return view('Guru.Collections.index', compact('collections'));
+    }
 
 
 
@@ -82,7 +83,6 @@ class CollectionController extends Controller
         if (!$collection) {
             return redirect()->back()->with('error', 'Pengumpulan tugas tidak ditemukan.');
         }
-
         if (now()->greaterThan($task->date_collection)) {
             $collection->update([
                 'status' => 'Tidak mengumpulkan',
@@ -101,10 +101,21 @@ class CollectionController extends Controller
             ]);
         }
 
+        $assessment = Assessment::where('collection_id', $collection->id)
+            ->where('user_id', $user_id)
+            ->first();
+        if (!$assessment) {
+            $assessment = new Assessment();
+            $assessment->collection_id = $collection->id;
+            $assessment->user_id = $user_id;
+            $assessment->status = 'Belum Di-nilai';
+            $assessment->mark_task = null;
+            $assessment->save();
+        }
+        else {
+        }
         return redirect()->back()->with('success', 'Tugas berhasil diperbarui!');
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
