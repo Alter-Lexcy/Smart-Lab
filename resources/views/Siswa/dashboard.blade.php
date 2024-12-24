@@ -14,7 +14,6 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta name="csrf-token" content="8IMVNabevkMVEFpvO472s41XBcvpCVja5sJxIXQO">
-    <meta property="og:description" content="Improve your skill with hummatech internship.">
 
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
@@ -116,52 +115,149 @@
     <!--begin::App-->
     <div class="container p-10 h-screen">
         <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-            <!--begin::Page-->
-            <div class="app-page flex-column flex-column-fluid h-full" id="kt_app_page">
-                <div class="bg-gray-100 flex items-center justify-center ">
-                    <div class="grid grid-cols-2 gap-10 max-w-screen-lg w-full h-full">
-                        <!-- Card besar di kiri atas -->
-                        <div class="grid grid-rows-3 gap-10 h-full">
-                            <div class="my-5">
-                                <h1 class="text-3xl font-poppins font-bold">Dashboard Siswa</h1>
-                            </div>
-                            <div class="my-5 text-right" style="align-self: center">
-                                <p class="font-poppins" id="current-date"></p>
+            <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+                <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+                    <div class="grid grid-cols-3 gap-10 w-full p-10"
+                        style="grid-template-columns: 2fr 1fr; height: full;">
+                        <!-- Kolom kiri -->
+                        <div class="grid grid-rows-2 gap-10 h-full">
+                            <div class="flex justify-between items-center">
+                                <h1 class="text-5xl font-poppins font-bold text-blue-800">Dashboard</h1>
+                                <p class="text-xl font-poppins">Senin, 19 Desember 2023</p>
                             </div>
 
-                            <div class="col-span-2 row-span-1 bg-white shadow-md h-full flex items-center justify-center relative rounded-[50px] overflow-hidden">
-                                <img src="image/siswa/banner dashboard siswa.svg" alt="" class="object-cover w-full h-full rounded-[50px]">
-
-                                <div class="absolute top-0 left-0 p-10 mt-14" style="width: 500px">
-                                    <h1 class="text-2xl font-bold font-poppins text-gray-700">
-                                        Selamat Datang, <span>{{ Auth::user()->name }}</span>
-                                    </h1>
-                                    <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mt-2 sm:mt-3 md:mt-4">
-                                        Belajar hari ini, Sukses di masa depan!
-                                    </p>
+                            <div class="bg-white shadow-md flex h-full"
+                                style="border-radius: 15px; position: relative;">
+                                <img src="image/dahboardsiswa.svg" alt="dashboard1"
+                                    style="background-size: cover; width: 100%; height: 100%;">
+                                <div class="absolute w-full h-full flex items-center justify-left">
+                                    <div class="">
+                                        <h1 class="text-3xl pl-10 font-bold font-poppins w-600px">Selamat Datang,
+                                            Mahardika Cahya Ramadhan!</h1>
+                                        <p class="text-lg pt-1 pl-10 font-poppins">Selamat Datang Di Kelas XII-A</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Card kecil bawah kiri -->
-                            <div class="col-span-1 bg-white shadow-md rounded-lg h-64 flex items-center justify-center">
-                                <span class="text-gray-700 font-bold">Tugas Belum Dikerjakan</span>
-                            </div>
+                            <!-- Baris kedua -->
+                            <div class="grid grid-cols-2 gap-10 h-full">
+                                <!-- Card kecil bawah kiri -->
+                                <div class="card text-white border-0 shadow-md"
+                                    style="background: url('image/bg.tugas1.svg') center/cover; border-radius: 16px;">
+                                    <div class="card-body py-4">
+                                        <!-- Judul dan Icon -->
+                                        <div class="absolute flex items-center top-5 text-white" style="left: 10px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                viewBox="0 0 20 20">
+                                                <path fill="currentColor"
+                                                    d="M5.75 3A2.75 2.75 0 0 0 3 5.75v8.5A2.75 2.75 0 0 0 5.75 17H9.6a5.5 5.5 0 0 1-.6-2.5c0-1.33.472-2.55 1.257-3.5H9.5a.5.5 0 0 1 0-1h1.837c.895-.63 1.986-1 3.163-1c.9 0 1.75.216 2.5.6V5.75A2.75 2.75 0 0 0 14.25 3zM7.5 7.25a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M6.75 9.5a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5m.75 3.75a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M9.5 8a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1zm5 11a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m-.5-6.5a.5.5 0 0 1 1 0V14h1a.5.5 0 0 1 0 1h-1.5a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                            <span class="font-poppins font-bold"
+                                                style="font-size: 24px; margin-left: 10px;">
+                                                Tugas yang Belum Dikerjakan
+                                            </span>
+                                        </div>
+                                        <!-- Jumlah Tugas -->
+                                        <div class="d-flex align-items-center justify-content-center"
+                                            style="margin-top: 120px;">
+                                            <span class="font-poppins font-bold"
+                                                style="font-size: 90px; margin-right: 8px;">
+                                                4
+                                            </span>
+                                            <span class="font-poppins font-medium"
+                                                style="font-size: 24px; margin-top: 40px">
+                                                Tugas
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- Card kecil bawah kanan -->
-                            <div class="col-span-1 bg-white shadow-md rounded-lg h-64 flex items-center justify-center">
-                                <span class="text-gray-700 font-bold">Tugas Sudah Dikerjakan</span>
+                                <!-- Card kecil bawah kanan -->
+                                <div class="card text-white border-0 shadow-md"
+                                    style="background: url('image/bg.tugas1.svg') center/cover; border-radius: 16px;">
+                                    <div class="card-body py-4">
+                                        <!-- Judul dan Icon -->
+                                        <div class="absolute flex items-center top-5 text-white" style="left: 10px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                viewBox="0 0 20 20">
+                                                <path fill="currentColor"
+                                                    d="M4 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9.883l-2.495 2.52l-.934-.953a1.5 1.5 0 1 0-2.142 2.1l.441.45H6a2 2 0 0 1-2-2zm5 5.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9.5 5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM9 13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5m-2-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m1-5a1 1 0 1 0-2 0a1 1 0 0 0 2 0m-1 9a1 1 0 1 0 0-2a1 1 0 0 0 0 2m10.855.352a.5.5 0 0 0-.71-.704l-3.643 3.68l-1.645-1.678a.5.5 0 1 0-.714.7l1.929 1.968a.6.6 0 0 0 .855.002z" />
+                                            </svg>
+                                            <span class="font-poppins font-bold"
+                                                style="font-size: 24px; margin-left: 10px;">
+                                                Tugas yang Sudah Dikerjakan
+                                            </span>
+                                        </div>
+                                        <!-- Jumlah Tugas -->
+                                        <div class="d-flex align-items-center justify-content-center"
+                                            style="margin-top: 120px;">
+                                            <span class="font-poppins font-bold"
+                                                style="font-size: 90px; margin-right: 8px;">
+                                                80
+                                            </span>
+                                            <span class="font-poppins font-medium"
+                                                style="font-size: 24px; margin-top: 40px">
+                                                Tugas
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="bg-white shadow-md flex items-center justify-center h-full p-6" style="border-radius: 15px">
+                            <div class="w-80">
+                                <!-- Avatar -->
+                                <div class="flex flex-col items-center mb-4">
+                                    <svg class="w-50 h-50 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                            d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-center text-3xl font-semibold mt-2 text-gray-800">Mahardika Cahya
+                                        Ramadhan</span>
+                                    <p class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl">
+                                        Murid</p>
+                                </div>
 
-                        <div class="col-span-1 row-span-1 bg-white shadow-md rounded-lg flex items-center justify-center h-full">
-                            <span class="text-gray-700 font-bold">Profile Siswa</span>
+                                <!-- Detail Profile -->
+                                <div class="mt-10 space-y-3 text-gray-700">
+                                    <div class="flex items-center">
+                                        <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
+                                        </svg>
+                                        <span class="ml-1"><strong>Kelas:</strong> XII-A</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z" />
+                                        </svg>
+                                        <span class="ml-2"><strong>Email:</strong> Ardiermdhn05@gmail.com</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M7.75 2.5a.75.75 0 0 0-1.5 0v1.58c-1.44.115-2.384.397-3.078 1.092c-.695.694-.977 1.639-1.093 3.078h19.842c-.116-1.44-.398-2.384-1.093-3.078c-.694-.695-1.639-.977-3.078-1.093V2.5a.75.75 0 0 0-1.5 0v1.513C15.585 4 14.839 4 14 4h-4c-.839 0-1.585 0-2.25.013z" />
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M2 12c0-.839 0-1.585.013-2.25h19.974C22 10.415 22 11.161 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14zm15 2a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m-4-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-6-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="ml-2"><strong>Masa Sekolah:</strong> 2022 - 2025</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--end::Wrapper-->
         </div>
-    </div>
 
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
