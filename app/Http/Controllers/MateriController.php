@@ -24,7 +24,7 @@ class MateriController extends Controller
 
         // Filter dan Search Materi
         $materis = Materi::with('Classes')
-            ->where('user_id',auth()->id()) 
+            ->where('user_id',auth()->id())
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
@@ -77,22 +77,22 @@ class MateriController extends Controller
     {
         // Validasi input
         $validated = $request->validated();
-    
+
         // Cek apakah ada file yang diunggah
         if ($request->hasFile('file_materi')) {
             // Hapus file lama jika ada
             if ($materi->file_materi) {
                 Storage::disk('public')->delete($materi->file_materi);
             }
-    
+
             // Simpan file baru dan tambahkan ke array $validated
             $file = $request->file('file_materi')->store('file_materi', 'public');
             $validated['file_materi'] = $file;
         }
-    
+
         // Ambil subject user yang sedang login
         $subject = auth()->user()->subject;
-    
+
         // Update data materi, hanya tambahkan file_materi jika ada
         $updateData = [
             'title_materi' => $validated['title_materi'],
@@ -101,18 +101,18 @@ class MateriController extends Controller
             'subject_id' => $subject->id,
             'user_id' => auth()->id(),
         ];
-    
+
         // Tambahkan file_materi jika ada dalam $validated
         if (isset($validated['file_materi'])) {
             $updateData['file_materi'] = $validated['file_materi'];
         }
-    
+
         // Lakukan update
         $materi->update($updateData);
-    
+
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

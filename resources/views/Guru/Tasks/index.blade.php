@@ -397,7 +397,7 @@
             style="display: none">
             <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
                 <h5 class="text-xl font-bold mb-4">Penilaian</h5>
-                <form action="{{ route('assesments.store', $task->id) }}" method="POST">
+                <form action="{{ route('assessments.store', ['task'=>$task->id]) }}" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 gap-4">
                         <!-- Checkbox Section -->
@@ -414,7 +414,7 @@
                                         <label for="student_{{ $submission->user->id }}"
                                             class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
                                             <input type="checkbox" id="student_{{ $submission->user->id }}"
-                                                name="students[]" value="{{ $submission->user->id }}" class="mr-2" />
+                                                name="user_id[]" value="{{ $submission->user->id }}" class="mr-2" />
                                             {{ $submission->user->name }}
                                         </label>
                                     @endforeach
@@ -425,8 +425,8 @@
                         </div>
                         <!-- Input Nilai -->
                         <div>
-                            <label for="score" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
-                            <input type="number" name="score" id="score" class="w-full px-3 py-2 border rounded"
+                            <label for="mark_task" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
+                            <input type="number" name="mark_task" id="mark_task" class="w-full px-3 py-2 border rounded"
                                 required>
                         </div>
                     </div>

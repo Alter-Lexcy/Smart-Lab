@@ -31,22 +31,27 @@ class UserPageController extends Controller
             ->where('subject_id', $materi_id)
             ->with('subject', 'Classes')
             ->simplePaginate(5);
-
-        return view('Siswa.materi', compact('materis'));
+        $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
+        return view('Siswa.materi', compact('materis','subjectName'));
     }
 
     public function showTask()
     {
         $user = auth()->user();
         if (!$user->classes()->exists()) {
-            return view('Siswa.tugas', ['tasks' => collect(), 'collections' => collect()]);
+            return view('Siswa.tugas', [
+                'tasks' => collect(),
+                'collections' => collect()
+            ]);
         }
         $kelasId = $user->classes->pluck('id');
         $tasks = Task::with(['collections' => function ($query) {
             $query->where('user_id', Auth::id());
-        }])->simplePaginate(5);
-
-
+        }])
+            ->whereHas('Classes', function ($query) use ($kelasId) {
+                $query->whereIn('id', $kelasId);
+            })
+            ->simplePaginate(5);
         $this->updateTaskStatus();
 
         return view('Siswa.tugas', compact('tasks'));

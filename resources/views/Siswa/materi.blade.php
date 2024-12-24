@@ -124,70 +124,78 @@
     <x-navbarsiswa></x-navbarsiswa>
 
     <!--begin::App-->
-    @forelse ($materis as $materi)
-        <div class="container p-10">
-            <div class="d-flex flex-column flex-root">
-                <div class="flex w-full position-relative" style="position: relative;">
-                    <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
-                    <p class="absolute text-5xl font-poppins text-white font-bold"
-                        style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%); text-align: center;">
-                        <span>{{ $materi->subject->name_subject }}</span>
-                    </p>
-                </div>
+    <div class="container p-10">
+        <!-- Header Banner -->
+        <div class="d-flex flex-column flex-root">
+            <div class="flex w-full position-relative" style="position: relative;">
+                <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
+                <p class="absolute text-5xl font-poppins text-white font-bold"
+                    style="position: absolute; top: 50%; left: 10%; transform: translate(-50%, -50%);">
+                    {{ $subjectName }}
+                </p>
             </div>
+        </div>
 
-            <div class="flex justify-between items-center my-8">
-                <h1 class="text-2xl text-gray-700 font-poppins font-bold">
-                    Daftar Materi
-                </h1>
+        <!-- Daftar Materi -->
+        <div class="flex justify-between items-center my-8">
+            <h1 class="text-2xl text-gray-700 font-poppins font-bold">
+                Daftar Materi
+            </h1>
 
-                <!-- Form pencarian berada di kanan -->
-                <form action="your_search_url" method="GET" class="flex items-center">
-                    <input type="text" id="search" name="search" placeholder="Search..."
-                        class="rounded-xl border-gray-300 p-3">
-                    <!-- Tombol search dengan icon -->
-                    <button type="submit"
-                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
-                        <i class="fas fa-search text-white"></i>
-                    </button>
-                </form>
-            </div>
+            <!-- Form pencarian berada di kanan -->
+            <form action="your_search_url" method="GET" class="flex items-center">
+                <input type="text" id="search" name="search" placeholder="Search..."
+                    class="rounded-xl border-gray-300 p-3">
+                <button type="submit"
+                    class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                    <i class="fas fa-search text-white"></i>
+                </button>
+            </form>
+        </div>
 
-            <div class="grid grid-cols-1 gap-10">
-                <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                    <div class="bg-white shadow-md py-10 px-5"
-                        style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                        <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
-                        <p class="text-gray-600" style="margin-right: 150px">
-                            {{ $materi->short_description = Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
-                        </p>
-                        <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                            <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                                detail</button>
-                        </div>
-                        <!-- Tanggal di kanan atas -->
-                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                            {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+        <!-- List Materi -->
+        @forelse ($materis as $materi)
+            <div class="pt-5">
+                <div class="grid grid-cols-1 gap-10">
+                    <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
+                        <div class="bg-white shadow-md py-10 px-5"
+                            style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                            <!-- Judul Materi -->
+                            <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
+                            <!-- Deskripsi Materi -->
+                            <p class="text-gray-600" style="margin-right: 150px;">
+                                {{ Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
+                            </p>
+                            <!-- Tombol Lihat Detail -->
+                            <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                    detail</button>
+                            </div>
+                            <!-- Tanggal Materi -->
+                            <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                            </div>
                         </div>
                     </div>
                 </div>
+            @empty
+                <!-- Jika Tidak Ada Materi -->
+                <div class="bg-gray-100 flex items-center justify-center h-screen">
+                    <div class="text-center">
+                        <div class="text-red-500 mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Materi</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    @empty
-    <div class="bg-gray-100 flex items-center justify-center h-screen">
-        <div class="text-center">
-            <div class="text-red-500 mb-5" style="justify-self: center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-28 h-28">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-            </div>
-            <p class="text-gray-700 text-3xl font-semibold">Belum Ada Materi</p>
-        </div>
+        @endforelse
     </div>
-    @endforelse
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->

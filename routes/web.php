@@ -64,6 +64,7 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::resource('assesments', AssessmentController::class);
     Route::resource('collections', CollectionController::class);
+    Route::post('/assessments/store/{task}', [AssessmentController::class, 'store'])->name('assessments.store');
 });
 
     // Route Murid

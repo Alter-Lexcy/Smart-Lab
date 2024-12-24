@@ -13,40 +13,58 @@ class AssessmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user(); // Ambil pengguna yang sedang login
+        $user = auth()->user(); // Pengguna yang sedang login
+        $search = $request->input('search');
 
-        // Ambil data penilaian dengan relasi ke collections, tasks, dan users
-        $assessments = Assessment::with(['collection', 'collection.task', 'collection.user'])->get();
+        $assessments = Assessment::with(['user', 'collection.task'])
+            ->where(function ($query) use ($search) {
+                $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('collection.task', function ($q) use ($search) {
+                        $q->where('title_task', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('user.classes', function ($q) use ($search) {
+                        $q->where('name_class', 'like', '%' . $search . '%');
+                    });
+            })
+            ->simplePaginate(5);
 
-        // Ambil semua tugas
         $tasks = Task::all();
 
-        // Ambil semua siswa yang terhubung ke tugas
-        $users = User::whereHas('roles', function ($query) {
-            $query->where('name', 'Murid');
-        })->get();
-    return view('Guru.Assesments.index', compact('assessments', 'tasks', 'users'));
 
+        return view('Guru.Assesments.index', compact('assessments', 'tasks'));
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $taskId)
     {
-        // Validasi data
-        $validated = $request->validate([
-            'collection_id' => 'required|exists:collections,id',
+        $request->validate([
+            'user_id' => 'required|array',
+            'user_id.*' => 'exists:users,id',
             'mark_task' => 'required|numeric|min:0|max:100',
         ]);
 
-        // Buat penilaian baru
-        Assessment::create($validated);
-
-        return redirect()->route('assessments.index')->with('success', 'Penilaian berhasil dibuat.');
+        foreach ($request->user_id as $studentId) {
+            Assessment::updateOrCreate(
+                [
+                    'user_id' => $studentId,
+                    'collection_id' => $taskId,
+                ],
+                [
+                    'status' => 'Sudah Di-nilai',
+                    'mark_task' => $request->mark_task,
+                ]
+            );
+        }
+        return redirect()->back()->with('success', 'Penilaian berhasil disimpan.');
     }
+
 
     /**
      * Update the specified resource in storage.

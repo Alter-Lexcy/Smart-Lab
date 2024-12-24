@@ -24,7 +24,7 @@ class StoreAssessmentRequest extends FormRequest
         return [
             'task_id'=>['required','exists:tasks,id'],
             'user_id'=>['required','exists:users,id'],
-            'mark_task'=>['required','numeric','max:100','min:0'],
+            'mark_task'=>['nullable','numeric','max:100','min:0'],
         ];
     }
     public function messages()
