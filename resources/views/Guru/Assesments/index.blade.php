@@ -94,9 +94,9 @@
                         <tbody>
                             @foreach ($assessments as $assessment)
                                 <tr class="text-center">
-                                    <td class="py-3 px-6">{{ $loop->iteration }}</td>
+                                    <td class="border px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="border px-4 py-2">{{ $assessment->user->name }}</td>
-                                    <td>
+                                    <td class="border px-4 py-2">
                                         @foreach ($assessment->user->classes as $class)
                                             {{ $class->name_class    }}<br>
                                         @endforeach
