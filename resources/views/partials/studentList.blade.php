@@ -9,14 +9,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $globalIndex = ($students->currentPage() - 1) * $students->perPage();
+                    @endphp
+
                     @foreach ($students as $student)
                         <tr class="border">
-                            <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                            <td class="px-4 py-2">{{ $globalIndex + $loop->iteration }}</td>
+                            <!-- Menambahkan indeks global -->
                             <td class="px-4 py-2">{{ $student->name }}</td>
                             <td class="px-4 py-2">{{ $student->email }}</td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>
@@ -24,27 +28,9 @@
             <!-- Di dalam studentList.blade.php, pastikan pagination sudah benar -->
             @if ($students->hasPages())
                 <div class="pagination">
-                    {{ $students->links() }} <!-- Pastikan pagination di-render di sini -->
+                    {{ $students->withQueryString()->links() }}
+                    <!-- Menambahkan denganQueryString() untuk menjaga URL tetap utuh -->
                 </div>
             @endif
-            <script>
-                $(document).on('click', '.pagination a', function(event) {
-                    event.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    fetchPage(page);
-                });
-
-                function fetchPage(page) {
-                    $.ajax({
-                        url: '/teacher/class-details?page=' + page,
-                        success: function(data) {
-                            $(`#table-container-${classId}`).html(data);
-                        },
-                        error: function() {
-                            alert('Terjadi kesalahan saat memuat data.');
-                        }
-                    });
-                }
-            </script>
         </div>
     </div>

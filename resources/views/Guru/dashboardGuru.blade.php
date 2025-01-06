@@ -123,7 +123,6 @@
         </div>
 
         <!-- Modal Detail -->
-        <!-- Modal Detail -->
         @foreach ($teacherClasses as $teacherClass)
             <div id="detailModal-{{ $teacherClass->class->id }}"
                 class="detailModal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
@@ -142,33 +141,55 @@
                         <div id="table-container-{{ $teacherClass->class->id }}">
                             @include('partials.studentList', [
                                 'students' => $students[$teacherClass->class->id],
+                                'classId' => $teacherClass->class->id,
                             ])
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
+            <script>
+                $(document).on('click', 'onclick="openModal('
+                    detailModal - {{ $teacherClass->class->id }} ')"',
+                    function() {
+                        var classId = $(this).data('class-id'); // Ambil ID kelas dari tombol atau elemen
+                        $.ajax({
+                            url: '/teacher/dashboard/class-details/' + classId, // URL sesuai rute
+                            method: 'GET',
+                            success: function(response) {
+                                // Update halaman dengan data baru, bisa di dalam div tertentu
+                                $('#student-list-container').html(response);
+                            },
+                            error: function(response) {
+                                alert('Kelas tidak ditemukan atau error terjadi!');
+                            }
+                        });
+                    });
 
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+
+                    let page = $(this).attr('href').split('page=')[1];
+                    let classId = $(this).data('class-id'); // Ambil ID kelas dari atribut data
+
+                    fetchPage(classId, page);
+                });
+
+                function fetchPage(classId, page) {
+                    $.ajax({
+                        url: `/teacher/dashboard/class-details/${classId}?page=${page}`,
+                        success: function(data) {
+                            $(`#table-container-${classId}`).html(data);
+                        },
+                        error: function(xhr) {
+                            console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
+                            alert(xhr.responseJSON.message || 'Terjadi kesalahan.');
+                        }
+                    });
+                }
+            </script>
+        @endforeach
     </div>
     <script>
-        $(document).on('click', '.pagination a', function(event) {
-            event.preventDefault();
-            let page = $(this).attr('href').split('page=')[1];
-            fetchPage(page);
-        });
-
-        function fetchPage(page) {
-            $.ajax({
-                url: '/teacher/class-details?page=' + page,
-                success: function(data) {
-                    $(`#table-container-${classId}`).html(data);
-                },
-                error: function() {
-                    alert('Terjadi kesalahan saat memuat data.');
-                }
-            });
-        }
-
         // Fungsi untuk membuka modal
         function openModal(id) {
             console.log(`Membuka modal: ${id}`);
