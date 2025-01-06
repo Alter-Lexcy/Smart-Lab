@@ -89,8 +89,6 @@
                                     <td class="px-4 py-2 border">
                                         @php
                                             $approvalData = $approvals->firstWhere('user_id', $student->id);
-                                            // Debug untuk melihat isi $approvalData
-                                            // dd($approvalData);
                                         @endphp
                                         {{ $approvalData ? $approvalData->class->name_class : 'Belum Ditentukan' }}
                                     </td>

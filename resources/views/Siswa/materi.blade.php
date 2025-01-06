@@ -40,6 +40,7 @@
     <!-- Link Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
         @media (max-width: 639px) {
@@ -143,14 +144,31 @@
             </h1>
 
             <!-- Form pencarian berada di kanan -->
-            <form action="your_search_url" method="GET" class="flex items-center">
-                <input type="text" id="search" name="search" placeholder="Search..."
-                    class="rounded-xl border-gray-300 p-3">
-                <button type="submit"
-                    class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
-                    <i class="fas fa-search text-white"></i>
-                </button>
-            </form>
+            <div class="flex justify-between gap-3">
+                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET"
+                    class="flex items-center">
+                    <input type="text" id="search" name="search" placeholder="Search..."
+                        class="rounded-xl border-gray-300 p-3">
+                    <button type="submit"
+                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </form>
+                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET" class="mt-1">
+                    @php
+                        $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
+                    @endphp
+                    <input type="hidden" name="order" value="{{ $nextOrder }}">
+                    <button type="submit"
+                        class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
+                        @if (request('order', 'desc') === 'desc')
+                            <i class="fa-solid fa-arrow-down-wide-short text-black"></i>
+                        @else
+                            <i class="fa-solid fa-arrow-up-wide-short text-black"></i>
+                        @endif
+                    </button>
+                </form>
+            </div>
         </div>
 
         <!-- List Materi -->
