@@ -123,7 +123,7 @@
                         <div class="grid grid-rows-2 gap-10 h-full">
                             <div class="flex justify-between items-center">
                                 <h1 class="text-5xl font-poppins font-bold text-blue-800">Dashboard</h1>
-                                <p class="text-xl font-poppins">Senin, 19 Desember 2023</p>
+                                <p class="text-xl font-poppins" id="current-date"></p>
                             </div>
 
                             <div class="bg-white shadow-md flex h-full"
@@ -133,8 +133,12 @@
                                 <div class="absolute w-full h-full flex items-center justify-left">
                                     <div class="">
                                         <h1 class="text-3xl pl-10 font-bold font-poppins w-600px">Selamat Datang,
-                                            Mahardika Cahya Ramadhan!</h1>
-                                        <p class="text-lg pt-1 pl-10 font-poppins">Selamat Datang Di Kelas XII-A</p>
+                                            {{ Auth::User()->name }}!</h1>
+                                        @forelse ($class as $kelas)
+                                            <p class="text-lg pt-1 pl-10 font-poppins">Selamat Datang Di Kelas {{ $kelas->name_class }}</p>
+                                        @empty
+                                            <p class="text-lg pt-1 pl-10 font-poppins">Belum Dapat Kelas</p>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +166,7 @@
                                             style="margin-top: 120px;">
                                             <span class="font-poppins font-bold"
                                                 style="font-size: 90px; margin-right: 8px;">
-                                                4
+                                                {{ $countNotCollected }}
                                             </span>
                                             <span class="font-poppins font-medium"
                                                 style="font-size: 24px; margin-top: 40px">
@@ -193,7 +197,7 @@
                                             style="margin-top: 120px;">
                                             <span class="font-poppins font-bold"
                                                 style="font-size: 90px; margin-right: 8px;">
-                                                80
+                                                {{ $countCollected }}
                                             </span>
                                             <span class="font-poppins font-medium"
                                                 style="font-size: 24px; margin-top: 40px">
@@ -204,7 +208,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white shadow-md flex items-center justify-center h-full p-6" style="border-radius: 15px">
+                        <div class="bg-white shadow-md flex items-center justify-center h-full p-6"
+                            style="border-radius: 15px">
                             <div class="w-80">
                                 <!-- Avatar -->
                                 <div class="flex flex-col items-center mb-4">
@@ -215,8 +220,8 @@
                                             d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
                                             clip-rule="evenodd" />
                                     </svg>
-                                    <span class="text-center text-3xl font-semibold mt-2 text-gray-800">Mahardika Cahya
-                                        Ramadhan</span>
+                                    <span
+                                        class="text-center text-3xl font-semibold mt-2 text-gray-800">{{ Auth::user()->name }}</span>
                                     <p class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl">
                                         Murid</p>
                                 </div>
@@ -229,7 +234,13 @@
                                             <path fill="currentColor"
                                                 d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
                                         </svg>
-                                        <span class="ml-1"><strong>Kelas:</strong> XII-A</span>
+                                        <span class="ml-1"><strong>Kelas:</strong>
+                                            @forelse ($class as $kelas)
+                                                {{ $kelas->name_class }}
+                                            @empty
+                                                Belum Dapat Kelas
+                                            @endforelse
+                                        </span>
                                     </div>
                                     <div class="flex items-center">
                                         <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +248,7 @@
                                             <path fill="currentColor"
                                                 d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z" />
                                         </svg>
-                                        <span class="ml-2"><strong>Email:</strong> Ardiermdhn05@gmail.com</span>
+                                        <span class="ml-2"><strong>Email:</strong> {{ Auth::user()->email }}</span>
                                     </div>
                                     <div class="flex items-center">
                                         <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +259,7 @@
                                                 d="M2 12c0-.839 0-1.585.013-2.25h19.974C22 10.415 22 11.161 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14zm15 2a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m-4-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-6-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        <span class="ml-2"><strong>Masa Sekolah:</strong> 2022 - 2025</span>
+                                        <span class="ml-2"><strong>Masa Berakhir Akun:</strong> {{ \Carbon\Carbon::parse(Auth::user()->graduation_date)->translatedFormat('j F Y') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -259,97 +270,97 @@
             <!--end::Wrapper-->
         </div>
 
-    <!--begin::Scrolltop-->
-    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-        <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="currentColor" />
-                <path
-                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                    fill="currentColor" />
-            </svg>
-        </span>
-        <!--end::Svg Icon-->
-    </div>
-    <!--end::Scrolltop-->
+        <!--begin::Scrolltop-->
+        <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+            <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                        transform="rotate(90 13 6)" fill="currentColor" />
+                    <path
+                        d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                        fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Scrolltop-->
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
 
-    <script>
-        var options = {
-            series: [44, 55, 41, 17, 15],
-            chart: {
-                type: 'donut',
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
-        chart.render();
-    </script>
-    <!--end::Javascript-->
-    <script>
-        $('.notification-link').click(function(e) {
-            $.ajax({
-                url: '/delete-notification/' + e.target.id,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        <script>
+            var options = {
+                series: [44, 55, 41, 17, 15],
+                chart: {
+                    type: 'donut',
                 },
-                // success: function(response) {
-                //     // Redirect ke halaman tujuan setelah penghapusan berhasil
-                //     window.location.href = $(this).attr('href');
-                // },
-                error: function(xhr) {
-                    // Tangani kesalahan jika terjadi
-                    console.error(xhr.responseText);
-                }
-            });
-        })
-    </script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
-        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-        data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
-        crossorigin="anonymous"></script>
-
-    <script>
-        function updateDate() {
-            const dateElement = document.getElementById("current-date");
-            const today = new Date();
-
-            // Array nama hari dalam bahasa Indonesia
-            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-
-            // Menentukan hari, bulan, dan tahun
-            const dayName = daysOfWeek[today.getDay()];
-            const options = {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
             };
 
-            // Format: Hari, Tanggal Bulan Tahun
-            dateElement.textContent = `${dayName}, ${today.toLocaleDateString('id-ID', options)}`;
-        }
+            var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
+            chart.render();
+        </script>
+        <!--end::Javascript-->
+        <script>
+            $('.notification-link').click(function(e) {
+                $.ajax({
+                    url: '/delete-notification/' + e.target.id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    // success: function(response) {
+                    //     // Redirect ke halaman tujuan setelah penghapusan berhasil
+                    //     window.location.href = $(this).attr('href');
+                    // },
+                    error: function(xhr) {
+                        // Tangani kesalahan jika terjadi
+                        console.error(xhr.responseText);
+                    }
+                });
+            })
+        </script>
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+            integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+            data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+            crossorigin="anonymous"></script>
 
-        // Memanggil fungsi updateDate sekali untuk memastikan tanggal ditampilkan saat pertama kali dimuat
-        updateDate();
-    </script>
+        <script>
+            function updateDate() {
+                const dateElement = document.getElementById("current-date");
+                const today = new Date();
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+                // Array nama hari dalam bahasa Indonesia
+                const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+                // Menentukan hari, bulan, dan tahun
+                const dayName = daysOfWeek[today.getDay()];
+                const options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                };
+
+                // Format: Hari, Tanggal Bulan Tahun
+                dateElement.textContent = `${dayName}, ${today.toLocaleDateString('id-ID', options)}`;
+            }
+
+            // Memanggil fungsi updateDate sekali untuk memastikan tanggal ditampilkan saat pertama kali dimuat
+            updateDate();
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 <!--end::Body-->
 

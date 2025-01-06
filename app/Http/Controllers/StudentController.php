@@ -46,7 +46,6 @@ class StudentController extends Controller
 
         return view('Admins.Students.index', compact('students', 'classes', 'approvals'));
     }
-
     public function store(Request $request)
     {
         $request->validate([

@@ -129,17 +129,31 @@
             <h1 class="text-2xl text-gray-700 font-poppins font-bold">
                 Daftar Tugas
             </h1>
-
+        
             <!-- Form pencarian berada di kanan -->
-            <form action="your_search_url" method="GET" class="flex items-center">
-                <input type="text" id="search" name="search" placeholder="Search..."
-                    class="rounded-xl border-gray-300 p-3">
-                <!-- Tombol search dengan icon -->
-                <button type="submit"
-                    class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
-                    <i class="fas fa-search text-white"></i>
-                </button>
-            </form>
+            <div class="flex items-center">
+                <form action="{{ route('Tugas') }}" method="GET" class="flex items-center">
+                    <input type="text" id="search" name="search" placeholder="Search..."
+                        class="rounded-xl border-gray-300 p-3">
+                    <!-- Tombol search dengan icon -->
+                    <button type="submit"
+                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </form>
+                
+                <!-- Dropdown Filter -->
+                <div class="ml-4 relative">
+                    <button id="filterButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                        <i class="fas fa-filter text-white"></i>
+                    </button>
+                    <div id="filterDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 1</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 2</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 3</a>
+                    </div>
+                </div>
+            </div>
         </div>
         @if (auth()->user() && auth()->user()->classes()->exists())
             <div class="space-y-6">

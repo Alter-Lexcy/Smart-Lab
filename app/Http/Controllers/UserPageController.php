@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\Materi;
 use App\Models\Subject;
 use App\Models\Collection;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,21 +24,28 @@ class UserPageController extends Controller
         return view('Siswa.mapel', compact('subjects'));
     }
 
-    public function showMateri($materi_id)
+    public function showMateri(Request $request, $materi_id)
     {
         $user = auth()->user();
+        $order = $request->input('order', 'desc');
+        $search = $request->input('search');
         $kelasID = $user->classes->pluck('id');
         $materis = Materi::whereIn('classes_id', $kelasID)
-            ->where('subject_id', $materi_id)
             ->with('subject', 'Classes')
+            ->where('subject_id', $materi_id) 
+            ->where('title_materi', 'like', '%' . $search . '%')
+            ->orderBy('created_at',$order)
             ->simplePaginate(5);
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
-        return view('Siswa.materi', compact('materis','subjectName'));
+
+        return view('Siswa.materi', compact('materis', 'subjectName', 'materi_id'));
     }
 
-    public function showTask()
+
+    public function showTask(Request $request)
     {
         $user = auth()->user();
+        $search = $request->input('search');
         if (!$user->classes()->exists()) {
             return view('Siswa.tugas', [
                 'tasks' => collect(),
@@ -51,6 +59,7 @@ class UserPageController extends Controller
             ->whereHas('Classes', function ($query) use ($kelasId) {
                 $query->whereIn('id', $kelasId);
             })
+            ->where('title_task', 'Like', '%' . $search . '%')
             ->simplePaginate(5);
         $this->updateTaskStatus();
 
@@ -69,5 +78,19 @@ class UserPageController extends Controller
         foreach ($collections as $collection) {
             $collection->update(['status' => 'Tidak mengumpulkan']);
         }
+    }
+
+    public function Dashboard()
+    {
+        $user = auth()->user();
+        if ($user && $user->class) {
+            $class = $user->class;
+        } else {
+            $class = collect();
+        }
+
+        $countNotCollected = Collection::where('status', 'Belum mengumpulkan')->where('user_id', $user->id)->count();
+        $countCollected = Collection::where('status', 'Sudah mengumpulkan')->where('user_id', $user->id)->count();
+        return view('Siswa.dashboard', compact('class', 'countNotCollected', 'countCollected'));
     }
 }
