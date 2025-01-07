@@ -41,4 +41,8 @@ class Task extends Model
     {
         return $this->hasMany(Collection::class);
     }
+    public function assessments()
+    {
+        return $this->hasManyThrough(Assessment::class, Collection::class, 'task_id', 'collection_id');
+    }
 }

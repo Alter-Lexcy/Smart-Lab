@@ -17,7 +17,11 @@ class CollectionController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         $collections = Collection::with(['user', 'task'])
+            ->whereHas('task', function ($query) use ($user){
+                $query->where('user_id',$user->id);
+            })
             ->orderByRaw("FIELD(status, 'Sudah mengumpulkan') DESC") // 'Sudah mengumpulkan' at the top
             ->orderBy('status', 'asc') // Sort remaining statuses alphabetically or as needed
             ->simplePaginate(5);

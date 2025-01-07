@@ -25,7 +25,7 @@ class TaskController extends Controller
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
         $user = auth()->user();
-        $class = $user->class;  // Kelas yang dimiliki oleh user
+        $class = $user->class; // Kelas yang dimiliki oleh user
         $subject = $user->subject;
 
         // Ambil semua tugas dengan relasi Classes, Subject, Materi
@@ -40,11 +40,10 @@ class TaskController extends Controller
                     ->orWhereHas('Materi', function ($q) use ($search) {
                         $q->where('title_materi', 'like', '%' . $search . '%');
                     })
-                    ->orWhere('title_task', 'like', '%' . $search . '%'); // Gunakan orWhere di dalam where saja
+                    ->orWhere('title_task', 'like', '%' . $search . '%');
             })
             ->orderBy('created_at', 'desc')
             ->simplePaginate(5);
-        // dd($tasks);
 
         $collections = Collection::with('user')->where('status', 'Sudah mengumpulkan')
             ->get()
@@ -52,10 +51,14 @@ class TaskController extends Controller
 
         $classes = $user->class()->get();
         $subjects = Subject::all();
-        $materis = Materi::where('user_id', $user->id)
-            ->whereIn('classes_id', $class->pluck('id'))  // Membandingkan dengan beberapa kelas
-            ->where('subject_id', $subject->id)
-            ->get();
+
+        $materis = collect(); // Inisialisasi default
+        if ($user && $class && $subject) {
+            $materis = Materi::where('user_id', $user->id)
+                ->whereIn('classes_id', $class->pluck('id'))
+                ->where('subject_id', $subject->id)
+                ->get();
+        }
 
         return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
     }
