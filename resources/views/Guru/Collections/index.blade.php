@@ -103,13 +103,16 @@
                         </thead>
                         <tbody>
                             @foreach ($collections as $index => $collection)
+                                @php
+                                    $offset = ($collections->currentPage() - 1) * $collections->perPage();
+                                @endphp
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                                    <td class="border px-4 py-2">{{ $offset + $index + 1 }}</td>
                                     <td class="border px-4 py-2">{{ $collection->Task->title_task }}</td>
                                     <td class="border px-4 py-2">{{ $collection->user->name }}</td>
                                     <td class="border px-4 py-2">
                                         @foreach ($collection->user->class as $class)
-                                        {{ $class->name_class }}
+                                            {{ $class->name_class }}
                                         @endforeach
                                     </td>
                                     <td class="border px-4 py-2">{{ $collection->status }}</td>
@@ -136,68 +139,9 @@
                         </tbody>
                     </table>
                 </div>
-
-                {{-- <!-- Modals for editing each assessment -->
-                @foreach ($collections as $collection)
-                    <div id="editCollectionModal_{{ $collection->id }}" class="hidden fixed inset-0 z-50 overflow-y-auto"
-                        style="display: none;">
-                        <div class="flex items-center justify-center min-h-screen px-4">
-                            <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                                <h5 class="text-xl font-semibold mb-4">Edit Penilaian</h5>
-                                <form action="{{ route('assesments.update', $collection->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="mb-4">
-                                        <label for="task_id" class="block text-gray-700 font-bold mb-2">Tugas</label>
-                                        <select name="task_id" id="task_id" class="w-full px-3 py-2 border rounded">
-                                            <option value="" disabled selected>Pilih Tugas</option>
-                                            @foreach ($tasks as $task)
-                                                <option value="{{ $task->id }}"
-                                                    {{ $collection->task_id ? 'selected' : '' }}>
-                                                    {{ $task->title_task }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('task_id')
-                                            <div class="text-red-500">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="user_id" class="block text-gray-700 font-bold mb-2">Siswa</label>
-                                        <select name="user_id" id="user_id"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
-                                            <option value="" disabled selected>Pilih Siswa</option>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}"
-                                                    {{ $collection->user_id == $user->id ? 'selected' : '' }}>
-                                                    {{ $user->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('user_id')
-                                            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="mark_task_{{ $collection->id }}" class="block font-semibold">Nilai
-                                            Tugas</label>
-                                        <input type="text" class="w-full mt-1 p-2 border border-gray-300 rounded"
-                                            id="mark_task_{{ $collection->id }}" name="mark_task"
-                                            value="{{ $collection->mark_task }}">
-                                    </div>
-
-                                    <div class="flex justify-end gap-2">
-                                        <button type="button" class="bg-gray-400 text-white py-2 px-4 rounded"
-                                            onclick="document.getElementById('editCollectionModal_{{ $collection->id }}').classList.add('hidden')">Batal</button>
-                                        <button type="submit"
-                                            class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Simpan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach --}}
+            </div>
+            <div class="py-3 px-5 ">
+                {{ $collections->links() }}
             </div>
         </div>
     @endsection
