@@ -43,6 +43,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
+        .materiModal {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease-in-out;
+            z-index: 50;
+        }
+
+        .materiModal .bg-white {
+            height: 90%;
+            /* Atur tinggi modal */
+            max-height: 90%;
+            /* Batas maksimum */
+            display: flex;
+            flex-direction: column;
+            /* Agar konten vertikal terorganisir */
+        }
+
+        .materiModal embed {
+            flex: 1;
+            /* Isi seluruh ruang yang tersedia */
+            min-height: 0;
+            /* Pastikan tidak terjadi overflow */
+        }
+
+
         @media (max-width: 639px) {
             .covercard {
                 display: grid;
@@ -186,9 +217,10 @@
                             </p>
                             <!-- Tombol Lihat Detail -->
                             <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                                <button
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
-                                    detail</button>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+                                    onclick="openModal('showMateriModal_{{ $materi->id }}')">Lihat
+                                    detail
+                                </button>
                             </div>
                             <!-- Tanggal Materi -->
                             <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
@@ -213,6 +245,61 @@
                 </div>
             </div>
         @endforelse
+        @foreach ($materis as $materi)
+        <div id="showMateriModal_{{ $materi->id }}"
+            class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+            style="display:none;">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full mx-7 py-8 flex flex-col overflow-hidden" style="padding-left: 28px">
+                <!-- Header Modal -->
+                <div class="flex justify-between items-center border-b pb-4" style="margin-right: 28px">
+                    <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                    <button type="button" class="text-gray-700 hover:text-gray-900"
+                        onclick="closeModal('showMateriModal_{{ $materi->id }}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Content Modal -->
+                <div class="mt-4 flex-1  overflow-y-auto">
+                    <div class="space-y-4" style="margin-right: 28px">
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
+                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
+                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
+                            <p class="text-gray-700">
+                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                            </p>
+                        </div>
+                        <div>
+                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
+                            <p class="text-gray-600">{{ $materi->description }}</p>
+                        </div>
+                        <div style="width: 100%; height: 165vh; overflow: hidden;">
+                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi:</h6>
+                            @php
+                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                            @endphp
+                            @if($file === 'pdf')
+                                <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
+                                    class=" border-2 rounded-lg  max-h-[10000px]" style="width: 100%; height: 100%; display: block;">                                    >
+                            @else
+                                <p class="text-red-500">Format file tidak didukung.</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
     </div>
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
@@ -257,6 +344,26 @@
     </script>
     <!--end::Javascript-->
     <script>
+        function openModal(id) {
+            console.log(`Opening modal: ${id}`);
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
+        }
+
+        function closeModal(id) {
+            console.log(`Closing modal: ${id}`);
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
+        }
+
         $('.notification-link').click(function(e) {
             $.ajax({
                 url: '/delete-notification/' + e.target.id,

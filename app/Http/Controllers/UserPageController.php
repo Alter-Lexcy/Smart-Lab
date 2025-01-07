@@ -32,10 +32,16 @@ class UserPageController extends Controller
         $kelasID = $user->classes->pluck('id');
         $materis = Materi::whereIn('classes_id', $kelasID)
             ->with('subject', 'Classes')
-            ->where('subject_id', $materi_id) 
+            ->where('subject_id', $materi_id)
             ->where('title_materi', 'like', '%' . $search . '%')
             ->orderBy('created_at',$order)
             ->simplePaginate(5);
+
+        // Jika tidak ada materi ditemukan
+        if ($materis->isEmpty()) {
+            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
+        }
+
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
 
         return view('Siswa.materi', compact('materis', 'subjectName', 'materi_id'));
