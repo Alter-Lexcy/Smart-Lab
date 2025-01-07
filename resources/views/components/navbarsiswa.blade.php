@@ -1,7 +1,7 @@
 <!--begin::Header-->
-<div id="kt_app_header" class="app-header ">
+<div id="kt_app_header" class="app-header" style="z-index: 50;">
     <!--begin::Header container-->
-    <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between "
+    <div class="app-container container-fluid d-flex align-items-stretch justify-content-between "
         id="kt_app_header_container">
         <!--begin::Header logo-->
         <div class="app-header-logo d-flex align-items-center ps-lg-2 me-lg-10">
@@ -60,7 +60,7 @@
                     </div>
                     <!-- Dropdown Profile -->
                     <div id="dropdown-profile"
-                        class="absolute hidden p-4 bg-white shadow-lg rounded-md w-max min-w-[200px] text-gray-800 text-sm z-10 transition-transform transform scale-95 opacity-0 origin-top scale-100 opacity-100"
+                        class="absolute hidden p-4 bg-white shadow-lg rounded-md w-max min-w-[200px] text-gray-800 text-sm  transition-transform transform scale-95 opacity-0 origin-top scale-100 opacity-100 z-50"
                         style="top: 100px; right: 20px;">
                         <!-- Display Email -->
                         <h1 class="font-poppins px-4 py-2 text-xl font-bold text-gray-500 break-words">PROFILE</h1>
@@ -104,7 +104,7 @@
 
     {{-- SIDEBAR --}}
     <!--begin::Sidebar-->
-    <div id="kt_app_sidebar" class="app-sidebar " data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
+    <div id="kt_app_sidebar" class="app-sidebar" style="z-index: 0;" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="auto"
         data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 

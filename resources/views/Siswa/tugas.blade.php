@@ -129,7 +129,7 @@
             <h1 class="text-2xl text-gray-700 font-poppins font-bold">
                 Daftar Tugas
             </h1>
-        
+
             <!-- Form pencarian berada di kanan -->
             <div class="flex items-center">
                 <form action="{{ route('Tugas') }}" method="GET" class="flex items-center">
@@ -141,13 +141,15 @@
                         <i class="fas fa-search text-white"></i>
                     </button>
                 </form>
-                
+
                 <!-- Dropdown Filter -->
                 <div class="ml-4 relative">
-                    <button id="filterButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                    <button id="filterButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
                         <i class="fas fa-filter text-white"></i>
                     </button>
-                    <div id="filterDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                    <div id="filterDropdown"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 1</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 2</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 3</a>
@@ -162,7 +164,7 @@
                         <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
                             @foreach ($task->collections as $collection)
                                 <p class="text-gray-600" style="margin-right: 150px; margin-bottom: 5px">Nilai:
-                                    {{ $collection->assessment && ($collection->assessment->mark_task !== null) ? $collection->assessment->mark_task : 'Belum Dinilai' }}
+                                    {{ $collection->assessment && $collection->assessment->mark_task !== null ? $collection->assessment->mark_task : 'Belum Dinilai' }}
                                 </p>
                             @endforeach
                             <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
@@ -218,7 +220,8 @@
 
                             <!-- Tombol Aksi -->
                             <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+                                    onclick="openModal('showTaskModal_{{ $task->id }}')">
                                     Lihat detail
                                 </button>
                                 @php
@@ -270,9 +273,9 @@
             </div>
         @endif
         @foreach ($tasks as $task)
-            <div id="tugasModal-{{ $task->id }}" class="tugasModal fixed inset-0 flex items-center justify-center"
-                style="display: none;">
-                <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
+            <div id="tugasModal-{{ $task->id }}"
+                class="tugasModal fixed inset-0 flex items-center justify-center" style="display: none;">
+                <div class="bg-white rounded-lg px-7 py-5 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
 
                     <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
@@ -286,9 +289,9 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-3">
-                            <label class="block font-medium mb-3">Upload File (PDF atau Gambar)</label>
-                            <div class="relative">
+                        <div class="mb-5">
+                            <label class="text-gray-700 block font-medium mb-3">Upload File (PDF atau Gambar)</label>
+                            <div class="relative border-2 rounded-xl  border-gray-300">
                                 <input type="file" id="file_collection-{{ $task->id }}"
                                     name="file_collection" class="hidden" accept=".pdf,image/*"
                                     onchange="updateFileName(this)">
@@ -301,13 +304,76 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-between">
+                        <div class="flex justify-end space-x-2">
                             <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
                                 onclick="closeModal('tugasModal-{{ $task->id }}')">Batal</button>
                             <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Unggah
                                 Tugas</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        @endforeach
+
+        @foreach ($tasks as $task)
+            <div id="showTaskModal_{{ $task->id }}"
+                class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                style="display:none;">
+                <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-9">
+                    {{-- Header Modal --}}
+                    <div class="flex justify-between items-center border-b pb-4 mr-10">
+                        <h5 class="text-2xl font-bold text-gray-800">Detail Task</h5>
+                        <button type="button" class="text-gray-700 hover:text-gray00"
+                            onclick="closeModal('showTaskModal_{{ $task->id }}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {{-- Content Modal --}}
+                    <div class="mt-4 mb-3 space-y-4 overflow-y-auto h-auto max-h-[80%] mr-10">
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Judul:</h6>
+                            <p class="text-gray-600">{{ $task->title_task }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
+                            <p class="text-gray-600">{{ $task->Materi->title_materi }}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pengumpulan:</h6>
+                            <p class="text-gray-700">
+                                {{ \Carbon\Carbon::parse($task->created_at)->translatedFormat('l, j F Y') }}
+                            </p>
+                        </div>
+                        <div>
+                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
+                            <p class="text-gray-600">{{ $task->description }}</p>
+                        </div>
+                        <div >
+                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Task</h6>
+                            @php
+                                $file = pathinfo($task->file_task, PATHINFO_EXTENSION);
+                            @endphp
+                            @if (in_array($file, ['jpg', 'png']))
+                                <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
+                                    class="mx-auto w-[100%] h-full border-2 rounded-lg">
+                            @elseif($file === 'pdf')
+                                <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
+                                    class="mx-auto w-[100%] h-full border-2 rounded-lg">
+                            @else
+                                <p class="text-red-500">Format file tidak didukung.</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="justify-end flex mr-10">
+                        <button type="button" class="bg-gray-400 font-semibold text-white rounded-lg py-2 px-4"
+                            onclick="closeModal('showTaskModal_{{ $task->id }}')">
+                            Tutup
+                        </button>
+                    </div>
                 </div>
             </div>
         @endforeach

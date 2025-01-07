@@ -13,7 +13,9 @@ export default {
     ],
     theme: {
         extend: {
-
+            height: {
+                '100': '25rem', // Menambahkan ukuran kustom
+            },
             colors: {
                 'custom-blue': '#3572EF',
                 'deep-blue': '#050C9C',

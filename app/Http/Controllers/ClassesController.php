@@ -23,7 +23,6 @@ class ClassesController extends Controller
         $classes = Classes::when($search, function ($query, $search) {
             return $query->where('name_class', 'like', '%' . $search . '%');
         })->orderBy('created_at', $order)->simplePaginate(5);
-
         return view('Admins.Classes.index', compact('classes', 'order', 'search'));
     }
 
