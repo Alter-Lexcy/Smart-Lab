@@ -26,21 +26,22 @@ class TaskController extends Controller
         $order = $request->input('order', 'desc');
 
         // Ambil semua tugas dengan relasi Classes, Subject, Materi
-        $tasks = Task::with('Classes', 'Subject', 'Materi')
-            ->where('user_id', auth()->id())
-            ->where(function ($query) use ($search) {
-                $query->whereHas('Classes', function ($q) use ($search) {
-                    $q->where('name_class', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('Subject', function ($q) use ($search) {
-                        $q->where('name_subject', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('Materi', function ($q) use ($search) {
-                        $q->where('title_materi', 'like', '%' . $search . '%');
-                    });
-            })->orWhere('title_task', 'like', '%' . $search . '%')
-            ->orderBy('created_at', $order)
-            ->simplePaginate(5);
+        $tasks = Task::where('user_id', auth()->id())
+        ->where(function ($query) use ($search) {
+            $query->whereHas('Classes', function ($q) use ($search) {
+                $q->where('name_class', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('Subject', function ($q) use ($search) {
+                $q->where('name_subject', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('Materi', function ($q) use ($search) {
+                $q->where('title_materi', 'like', '%' . $search . '%');
+            });
+        })
+        ->orWhere('title_task', 'like', '%' . $search . '%')
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(5);
+            // dd($tasks);
 
         $collections = Collection::with('user')->where('status', 'Sudah mengumpulkan')
             ->get()

@@ -20,7 +20,7 @@ class CollectionController extends Controller
         $collections = Collection::with(['user', 'task'])
             ->orderByRaw("FIELD(status, 'Sudah mengumpulkan') DESC") // 'Sudah mengumpulkan' at the top
             ->orderBy('status', 'asc') // Sort remaining statuses alphabetically or as needed
-            ->get();
+            ->simplePaginate(5);
 
         return view('Guru.Collections.index', compact('collections'));
     }

@@ -19,7 +19,7 @@
             <div class="flex items-center space-x-2">
                 <h1 class="text-2xl font-bold mr-auto">Penilaian</h1>
                 <!-- Tombol Search dengan Form Animasi -->
-                <div class="relative flex items-center">
+                <div class="relative flex items-center mb-4">
                     <!-- Tombol Search -->
                     <button id="searchButton"
                         class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center transition-all duration-300">
@@ -36,32 +36,6 @@
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
                 </div>
-
-                <form action="{{ route('assesments.index') }}" method="GET" class="mt-4">
-                    @php
-                        $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
-                    @endphp
-                    <input type="hidden" name="order" value="{{ $nextOrder }}">
-                    <button type="submit"
-                        class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
-                        @if (request('order', 'desc') === 'desc')
-                            <svg class="w-[14px] h-[14px] fill-[#000000]" viewBox="0 0 576 512"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path
-                                    d="M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3 96 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-301.7 32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 480l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-160 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128l224 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32z" />
-                            </svg>
-                        @else
-                            <svg class="w-[15px] h-[15px] fill-[#000000]" viewBox="0 0 576 512"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                <path
-                                    d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z">
-                                </path>
-                            </svg>
-                        @endif
-                    </button>
-                </form>
             </div>
             @if (session('success'))
                 <div class="alert alert-success mb-4">{{ session('success') }}</div>
@@ -92,9 +66,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($assessments as $assessment)
+                            @foreach ($assessments as $index => $assessment)
+                            @php
+                                $offset = ($assessments->currentPage()-1)*$assessments->perPage();
+                            @endphp
                                 <tr class="text-center">
-                                    <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                                    <td class="border px-4 py-2">{{ $offset + $index + 1 }}</td>
                                     <td class="border px-4 py-2">{{ $assessment->user->name }}</td>
                                     <td class="border px-4 py-2">
                                         @foreach ($assessment->user->classes as $class)
@@ -115,7 +92,10 @@
                     </table>
                 </div>
             </div>
-
+            <div class="py-3 px-5 ">
+                {{ $assessments->links() }}
+            </div>
+        </div>
             @endsection
         <script>
             document.addEventListener("DOMContentLoaded", function() {
