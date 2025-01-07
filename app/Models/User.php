@@ -57,8 +57,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Classes::class, 'teacher_classes', 'user_id', 'classes_id');
     }
 
-    public function classes(){
-        return $this->belongsToMany(Classes::class,'class_approvals','user_id','class_id');
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'class_approvals', 'user_id', 'class_id');
     }
 
     public function collections()
@@ -70,28 +71,33 @@ class User extends Authenticatable
     {
         return $this->hasMany(Assessment::class);
     }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 
 
     protected static function boot()
-{
-    parent::boot();
+    {
+        parent::boot();
 
-    static::retrieved(function ($user) {
-        if ($user->created_at) {
-            $createDate = $user->created_at;
-            if ($createDate->lte(now()->subYear(1))) {
+        static::retrieved(function ($user) {
+            if ($user->created_at) {
+                $createDate = $user->created_at;
+                if ($createDate->lte(now()->subYear(1))) {
+                    $user->class()->detach();
+                }
+                if ($createDate->lte(now()->subYears(2))) {
+                    $user->class()->detach();
+                }
+            }
+        });
+
+        static::updated(function ($user) {
+            if ($user->isDirty('status') && $user->status === 'lulus') {
                 $user->class()->detach();
             }
-            if ($createDate->lte(now()->subYears(2))) {
-                $user->class()->detach();
-            }
-        }
-    });
-
-    static::updated(function ($user) {
-        if ($user->isDirty('status') && $user->status === 'lulus') {
-            $user->class()->detach();
-        }
-    });
-}
+        });
+    }
 }

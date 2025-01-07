@@ -15,10 +15,13 @@ class AssessmentController extends Controller
      */
     public function index(Request $request)
     {
-        $user = auth()->user(); // Pengguna yang sedang login
+        $user = auth()->user();
         $search = $request->input('search');
 
         $assessments = Assessment::with(['user', 'collection.task'])
+            ->whereHas('collection.task', function ($query) use ($user) {
+                $query->where('user_id', $user->id); 
+            })
             ->where(function ($query) use ($search) {
                 $query->whereHas('user', function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
@@ -32,8 +35,8 @@ class AssessmentController extends Controller
             })
             ->simplePaginate(5);
 
-        $tasks = Task::all();
-
+        // Ambil semua tugas milik user yang sedang login
+        $tasks = Task::where('user_id', $user->id)->get();
 
         return view('Guru.Assesments.index', compact('assessments', 'tasks'));
     }
