@@ -41,6 +41,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <style>
+        .taskModal {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease-in-out;
+            z-index: 50;
+        }
+
         @media (max-width: 639px) {
             .covercard {
                 display: grid;
@@ -317,13 +330,13 @@
 
         @foreach ($tasks as $task)
             <div id="showTaskModal_{{ $task->id }}"
-                class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 "
                 style="display:none;">
-                <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-9">
+                <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full my-32 mx-7 py-4 flex flex-col overflow-hidden" style="padding-left: 28px">
                     {{-- Header Modal --}}
                     <div class="flex justify-between items-center border-b pb-4 mr-10">
                         <h5 class="text-2xl font-bold text-gray-800">Detail Task</h5>
-                        <button type="button" class="text-gray-700 hover:text-gray00"
+                        <button type="button" class="text-gray-700 hover:text-gray"
                             onclick="closeModal('showTaskModal_{{ $task->id }}')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -333,7 +346,7 @@
                     </div>
 
                     {{-- Content Modal --}}
-                    <div class="mt-4 mb-3 space-y-4 overflow-y-auto h-auto max-h-[80%] mr-10">
+                    <div class="mt-4 mb-3 space-y-4 overflow-y-auto ">
                         <div class="flex space-x-2">
                             <h6 class="text-lg font-semibold text-gray-700">Judul:</h6>
                             <p class="text-gray-600">{{ $task->title_task }}</p>
@@ -348,11 +361,11 @@
                                 {{ \Carbon\Carbon::parse($task->created_at)->translatedFormat('l, j F Y') }}
                             </p>
                         </div>
-                        <div>
+                        <div class="mr-8">
                             <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
                             <p class="text-gray-600">{{ $task->description }}</p>
                         </div>
-                        <div >
+                        <div class=mr-8>
                             <h6 class="text-lg font-semibold text-gray-700 mb-3">File Task</h6>
                             @php
                                 $file = pathinfo($task->file_task, PATHINFO_EXTENSION);
