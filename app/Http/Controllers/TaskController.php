@@ -52,9 +52,9 @@ class TaskController extends Controller
 
         $classes = $user->class()->get();
         $subjects = Subject::all();
-        $materis = Materi::where('user_id', $user->id)  // Filter berdasarkan user yang membuat materi
-            ->where('classes_id', $class->pluck('id'))  // Filter berdasarkan kelas
-            ->where('subject_id', $subject->id)  // Filter berdasarkan subject yang dimiliki oleh user
+        $materis = Materi::where('user_id', $user->id)
+            ->whereIn('classes_id', $class->pluck('id'))  // Membandingkan dengan beberapa kelas
+            ->where('subject_id', $subject->id)
             ->get();
 
         return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
