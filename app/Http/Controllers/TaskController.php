@@ -24,32 +24,38 @@ class TaskController extends Controller
     {
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
+        $user = auth()->user();
+        $class = $user->class;  // Kelas yang dimiliki oleh user
+        $subject = $user->subject;
 
         // Ambil semua tugas dengan relasi Classes, Subject, Materi
         $tasks = Task::where('user_id', auth()->id())
-        ->where(function ($query) use ($search) {
-            $query->whereHas('Classes', function ($q) use ($search) {
-                $q->where('name_class', 'like', '%' . $search . '%');
+            ->where(function ($query) use ($search) {
+                $query->whereHas('Classes', function ($q) use ($search) {
+                    $q->where('name_class', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('Materi', function ($q) use ($search) {
+                        $q->where('title_materi', 'like', '%' . $search . '%');
+                    })
+                    ->orWhere('title_task', 'like', '%' . $search . '%'); // Gunakan orWhere di dalam where saja
             })
-            ->orWhereHas('Subject', function ($q) use ($search) {
-                $q->where('name_subject', 'like', '%' . $search . '%');
-            })
-            ->orWhereHas('Materi', function ($q) use ($search) {
-                $q->where('title_materi', 'like', '%' . $search . '%');
-            });
-        })
-        ->orWhere('title_task', 'like', '%' . $search . '%')
-        ->orderBy('created_at', 'desc')
-        ->simplePaginate(5);
-            // dd($tasks);
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(5);
+        // dd($tasks);
 
         $collections = Collection::with('user')->where('status', 'Sudah mengumpulkan')
             ->get()
             ->groupBy('task_id');
 
-        $classes = Classes::all();
+        $classes = $user->class()->get();
         $subjects = Subject::all();
-        $materis = Materi::all();
+        $materis = Materi::where('user_id', $user->id)  // Filter berdasarkan user yang membuat materi
+            ->where('classes_id', $class->pluck('id'))  // Filter berdasarkan kelas
+            ->where('subject_id', $subject->id)  // Filter berdasarkan subject yang dimiliki oleh user
+            ->get();
 
         return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
     }
