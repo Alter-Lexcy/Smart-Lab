@@ -20,7 +20,7 @@ class UserPageController extends Controller
         $kelasIds = $user->classes->pluck('id');
         $subjects = Subject::withCount(['materi' => function ($query) use ($kelasIds) {
             $query->whereIn('classes_id', $kelasIds); // Menggunakan whereIn untuk banyak kelas
-        }])->simplePaginate(5);
+        }])->simplePaginate(6);
         return view('Siswa.mapel', compact('subjects'));
     }
 

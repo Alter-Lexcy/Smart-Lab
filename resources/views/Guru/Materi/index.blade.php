@@ -121,8 +121,11 @@
                         </thead>
                         <tbody>
                             @foreach ($materis as $index => $materi)
+                            @php
+                                $offset = ($materis->currentPage() - 1) * $materis->perPage();
+                            @endphp
                                 <tr class="">
-                                    <td class="px-4 py-2 ">{{ $index + 1 }}</td>
+                                    <td class="px-4 py-2 ">{{ $offset + $index + 1 }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->name_class }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
                                     <td class="px-4 py-2 ">
