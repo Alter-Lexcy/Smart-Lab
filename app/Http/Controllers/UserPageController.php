@@ -20,7 +20,7 @@ class UserPageController extends Controller
         $kelasIds = $user->classes->pluck('id');
         $subjects = Subject::withCount(['materi' => function ($query) use ($kelasIds) {
             $query->whereIn('classes_id', $kelasIds); // Menggunakan whereIn untuk banyak kelas
-        }])->simplePaginate(6);
+        }])->paginate(6);
         return view('Siswa.mapel', compact('subjects'));
     }
 
@@ -35,7 +35,7 @@ class UserPageController extends Controller
             ->where('subject_id', $materi_id)
             ->where('title_materi', 'like', '%' . $search . '%')
             ->orderBy('created_at',$order)
-            ->simplePaginate(5);
+            ->paginate(5);
 
         // Jika tidak ada materi ditemukan
         if ($materis->isEmpty()) {
@@ -66,7 +66,7 @@ class UserPageController extends Controller
                 $query->whereIn('id', $kelasId);
             })
             ->where('title_task', 'Like', '%' . $search . '%')
-            ->simplePaginate(5);
+            ->paginate(5);
         $this->updateTaskStatus();
 
         return view('Siswa.tugas', compact('tasks'));
