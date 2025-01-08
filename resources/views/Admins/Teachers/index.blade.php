@@ -29,9 +29,10 @@
                         </svg>
                     </button>
                     <form id="searchForm" action="{{ route('teachers.index') }}" method="GET"
-                    class="absolute right-full mr-2 mt-4 transition-all duration-300
+                        class="absolute right-full mr-2 mt-4 transition-all duration-300
                     {{ request('search') ? 'opacity-100 visible' : 'opacity-0 invisible' }}">
-                        <input type="text" name="search" placeholder="Cari..."  value="{{ old('search', request('search')) }}"
+                        <input type="text" name="search" placeholder="Cari..."
+                            value="{{ old('search', request('search')) }}"
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
                 </div>
@@ -99,7 +100,7 @@
                                 </tr>
 
                                 <div id="assignModal-{{ $teacher->id }}"
-                                    class="fixed inset-0 bg-black bg-opacity-50  items-center justify-center "
+                                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
                                     style="display: none">
                                     <div class="bg-white rounded-lg overflow-hidden w-full max-w-lg mx-4">
                                         <div class="p-5">
@@ -110,26 +111,24 @@
                                                 @csrf
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Kelas</label>
-                                                    <select name="classes_id[]" id="classes_id"
-                                                        class="w-full px-3 py-5 border rounded js-example-basic-multiple"
-                                                        multiple="multiple">
+                                                    <select name="classes_id[]" id="classes_id-{{ $teacher->id }}"
+                                                        class="classes px-3 py-5 border rounded js-example-basic-multiple"
+                                                        style="width: 100%" multiple="multiple">
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
-                                                                {{ in_array($class->id, old('classes_id', $teachers->pluck('class')->collapse()->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                                                {{ in_array($class->id, old('classes_id', $teacher->class->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                                 {{ $class->name_class }}
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Mapel</label>
-                                                    <select name="subject_id" id="subject_id"
-                                                        class="w-full px-3 py-2 border rounded ">
-                                                        <option value="" disabled
-                                                            {{ $teacher->subject_id == null ? 'selected' : '' }}>Pilih
-                                                            Mapel
-                                                        </option>
-
+                                                    <select name="subject_id" id="subject_id-{{ $teacher->id }}"
+                                                        class="w-full px-3 py-2 border rounded">
+                                                        <option value="" disabled selected>Pilih Mapel</option>
+                                                        <!-- Placeholder option -->
                                                         @foreach ($subjects as $mapel)
                                                             <option value="{{ $mapel->id }}"
                                                                 {{ old('subject_id', $teacher->subject_id) == $mapel->id ? 'selected' : '' }}>
@@ -138,6 +137,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+
                                                 <div class="mt-4 flex justify-end space-x-2">
                                                     <button type="button"
                                                         onclick="closeModal('assignModal-{{ $teacher->id }}')"
@@ -153,15 +153,16 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="px-5 py-3">
-                    {{ $teachers->links() }}
+                <div class="pagination py-3 px-5">
+                    {{ $teachers->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
             <script>
-
                 function openModal(id) {
                     console.log(`Opening modal: ${id}`);
                     document.getElementById(id).style.display = 'flex';
+                    $('#classes_id').val([]).trigger('change'); // Reset select2 for classes
+                    $('#subject_id').val('').trigger('change'); // Reset select2 for subject
                 }
 
                 function closeModal(id) {
@@ -181,12 +182,13 @@
                 });
 
                 $(document).ready(function() {
-                    // Inisialisasi untuk input Select2
-                    $('#classes_id').select2({
-                        placeholder: "Pilih Kelas",
-                        width: '100%'
-                    });
+                    // Initialize Select2 with placeholder for classes
+                    $('.classes').select2({
+                        placeholder: "Pilih Kelas", // Set the placeholder text
 
+                        width: '100%',
+                        allowClear: true // Allows clearing the selection
+                    });
                 });
 
                 document.getElementById('searchButton').addEventListener('click', function(e) {

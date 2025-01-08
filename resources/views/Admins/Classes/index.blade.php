@@ -308,11 +308,11 @@
                             form.classList.toggle('show'); // Toggle class "show"
                         });
                     </script>
-                    <div class="py-3 px-5">
-                        {{ $classes->links() }}
+
+                    <div class="pagination py-3 px-5">
+                        {{ $classes->links('vendor.pagination.tailwind') }}
                     </div>
                 </div>
             </div>
-
         </div>
     @endsection

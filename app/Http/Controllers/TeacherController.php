@@ -48,6 +48,7 @@ class TeacherController extends Controller
     public function updateAssign(Request $request, $id)
     {
         $teacher = User::findOrFail($id);
+
         $request->validate([
             'classes_id' => 'required',
             'subject_id' => 'required',
@@ -56,10 +57,11 @@ class TeacherController extends Controller
             'subject_id.required' => 'Mapel Belum Dipilih',
         ]);
 
-        $existingUser = User::where('id', '!=', $teacher->id)
+        // Validation for existing class and subject assignments for the same teacher
+        $existingUser = User::where('id', '!=', $teacher->id) // Exclude the current teacher
             ->where('subject_id', $request->subject_id)
             ->whereHas('class', function ($query) use ($request) {
-                $query->whereIn('classes.id', $request->classes_id); // Pastikan menggunakan prefix `classes.id`
+                $query->whereIn('classes.id', $request->classes_id);
             })
             ->first();
 
@@ -67,10 +69,14 @@ class TeacherController extends Controller
             return back()->withInput()->withErrors(['error' => 'Kombinasi Kelas dan Mapel sudah digunakan oleh pengguna lain']);
         }
 
+        // Update the teacher's subject and classes
         $teacher->update([
             'subject_id' => $request->subject_id
         ]);
-        $teacher->class()->sync($request->classes_id);
+        $teacher->class()->sync($request->classes_id); // Syncing selected classes to the teacher
+
+        // Redirect back with success message
         return redirect()->back()->with('success', 'Guru Berhasil Ditempatkan');
     }
+
 }

@@ -114,8 +114,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="py-3 px-5 ">
-                    {{ $collections->links() }}
+                <div class="pagination py-3 px-5">
+                    {{ $collections->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
         </div>
