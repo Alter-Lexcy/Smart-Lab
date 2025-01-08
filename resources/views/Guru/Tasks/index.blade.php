@@ -120,12 +120,12 @@
                             </tr>
                         </thead>
                         <tbody class="">
-                            @foreach ($tasks as $index=>$task)
-                             @php
-                                 $offset = ($tasks->currentPage() - 1) * $tasks->perPage();
-                             @endphp
+                            @foreach ($tasks as $index => $task)
+                                @php
+                                    $offset = ($tasks->currentPage() - 1) * $tasks->perPage();
+                                @endphp
                                 <tr class="border border-gray-300">
-                                    <td class="py-3 px-6">{{ $offset + $index +1 }}</td>
+                                    <td class="py-3 px-6">{{ $offset + $index + 1 }}</td>
                                     <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
                                     <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
                                     <td class="py-3 px-6">{{ $task->title_task }}</td>
@@ -154,11 +154,10 @@
                                             <button type="button"
                                                 class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('Assessment_{{ $task->id }}')">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor" viewBox="0 0 24 24">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                        clip-rule="evenodd" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor" class="size-5">
+                                                    <path
+                                                        d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                                                 </svg>
                                             </button>
 
@@ -342,24 +341,6 @@
                             </div>
                             <div class="mb-4 mr-6">
                                 <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
-                                <div id="file-preview-{{ $task->id }}" class="mt-2">
-                                    @if ($task->file_task)
-                                        @php
-                                            $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
-                                        @endphp
-                                        @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                            <p class="mb-3">Gambar Sebelumnya</p>
-                                            <img src="{{ asset('storage/' . $task->file_task) }}" alt="Preview"
-                                                class="w-32 mb-2">
-                                        @elseif ($fileExtension === 'pdf')
-                                            <p class="mb-3">PDF Sebelumnya</p>
-                                            <embed src="{{ asset('storage/' . $task->file_task) }}"
-                                                type="application/pdf" class="w-full h-32 mb-2" />
-                                        @else
-                                            <p class="text-red-500">Format file tidak didukung.</p>
-                                        @endif
-                                    @endif
-                                </div>
                                 <input type="File" id="file_task-{{ $task->id }}" name="file_task"
                                     class="w-full px-3 py-2 border rounded">
                                 @error('file_task')
@@ -402,7 +383,7 @@
             style="display: none">
             <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
                 <h5 class="text-xl font-bold mb-4">Penilaian</h5>
-                <form action="{{ route('assessments.store', ['task'=>$task->id]) }}" method="POST">
+                <form action="{{ route('assessments.store', ['task' => $task->id]) }}" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 gap-4">
                         <!-- Checkbox Section -->
@@ -431,8 +412,8 @@
                         <!-- Input Nilai -->
                         <div>
                             <label for="mark_task" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
-                            <input type="number" name="mark_task" id="mark_task" class="w-full px-3 py-2 border rounded"
-                                required>
+                            <input type="number" name="mark_task" id="mark_task"
+                                class="w-full px-3 py-2 border rounded" required>
                         </div>
                     </div>
                     <!-- Buttons -->

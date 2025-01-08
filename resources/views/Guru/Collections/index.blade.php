@@ -73,6 +73,7 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Murid</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -113,9 +114,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="py-3 px-5 ">
-                {{ $collections->links() }}
+                <div class="py-3 px-5 ">
+                    {{ $collections->links() }}
+                </div>
             </div>
         </div>
     @endsection

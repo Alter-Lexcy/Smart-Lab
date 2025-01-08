@@ -103,9 +103,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="py-3 px-5 ">
-                {{ $assessments->links() }}
+                <div class="py-3 px-5 ">
+                    {{ $assessments->links() }}
+                </div>
             </div>
         </div>
     @endsection
