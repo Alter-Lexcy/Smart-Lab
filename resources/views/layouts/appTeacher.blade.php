@@ -206,8 +206,8 @@
                     <!-- User Info and Profile -->
                     <div class="flex items-center space-x-3">
                         <div class="hidden md:flex flex-col text-right">
-                            <p class="font-semibold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
-                            <span class="badge badge-light-success">{{ Auth::user()->getRoleNames()->first() }}</span>
+                            <p class="font-bold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
+                            <span class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}</span>
                         </div>
                         <div class="relative">
                             <!-- Profile Button -->
