@@ -43,7 +43,7 @@ class TaskController extends Controller
                     ->orWhere('title_task', 'like', '%' . $search . '%');
             })
             ->orderBy('created_at', 'desc')
-            ->simplePaginate(5);
+            ->paginate(5);
 
         $collections = Collection::with('user')->where('status', 'Sudah mengumpulkan')
             ->get()

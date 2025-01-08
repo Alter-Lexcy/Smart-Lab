@@ -33,7 +33,7 @@ class AssessmentController extends Controller
                         $q->where('name_class', 'like', '%' . $search . '%');
                     });
             })
-            ->simplePaginate(5);
+            ->paginate(5);
 
         // Ambil semua tugas milik user yang sedang login
         $tasks = Task::where('user_id', $user->id)->get();
