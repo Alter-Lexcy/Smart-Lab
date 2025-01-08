@@ -121,9 +121,9 @@
                         </thead>
                         <tbody>
                             @foreach ($materis as $index => $materi)
-                            @php
-                                $offset = ($materis->currentPage() - 1) * $materis->perPage();
-                            @endphp
+                                @php
+                                    $offset = ($materis->currentPage() - 1) * $materis->perPage();
+                                @endphp
                                 <tr class="">
                                     <td class="px-4 py-2 ">{{ $offset + $index + 1 }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->name_class }}</td>
@@ -152,9 +152,11 @@
                                         <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
                                             <!-- Show button -->
-                                            <button type="button" class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                            <button type="button"
+                                                class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('showAssessmentModal_{{ $materi->id }}')">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
                                                         d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
                                                         clip-rule="evenodd" />
@@ -162,9 +164,11 @@
                                             </button>
 
                                             <!-- Edit button -->
-                                            <button type="button" class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                            <button type="button"
+                                                class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('materiModal-{{ $materi->id }}')">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
                                                         d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
                                                         clip-rule="evenodd" />
@@ -175,12 +179,15 @@
                                             </button>
 
                                             <!-- Delete button -->
-                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST" class="inline m-0 p-0">
+                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST"
+                                                class="inline m-0 p-0">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-red-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                                <button type="submit"
+                                                    class="bg-red-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus materi ini?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        fill="currentColor" class="w-5 h-5">
                                                         <path fill-rule="evenodd"
                                                             d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
                                                             clip-rule="evenodd" />
@@ -300,33 +307,8 @@
                             </div>
                             <div class="mb-3 mr-6">
                                 <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
-                                    Materi
-                                </label>
+                                    Materi</label>
                                 <small>File Harus Berformat PDF</small>
-                                <div id="file-preview-{{ $materi->id }}" class="mt-2">
-                                    @if ($materi->file_materi)
-                                        @php
-                                            $fileExtension = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                                        @endphp
-                                        @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
-                                            <center>
-                                                <p class="mb-3">Gambar Sebelumnya</p>
-                                                <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="Preview"
-                                                    class="w-32 mb-3">
-                                            </center>
-                                        @elseif ($fileExtension === 'pdf')
-                                            <center>
-                                                <p class="mb-3">PDf Sebelumnya</p>
-                                                <embed src="{{ asset('storage/' . $materi->file_materi) }}"
-                                                    type="application/pdf" class="w-full h-32 mb-2" />
-                                            </center>
-                                        @else
-                                            <center>
-                                                <p class="text-red-500">Format file tidak didukung.</p>
-                                            </center>
-                                        @endif
-                                    @endif
-                                </div>
                                 <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
                                     class="w-full border rounded px-3 py-2">
                             </div>
@@ -340,7 +322,9 @@
             @endforeach
 
             <!-- Modal Tambah -->
-            <div id="materiModal" class="fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto" style="display: none;">
+            <div id="materiModal"
+                class="fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
+                style="display: none;">
                 <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>
 
@@ -380,18 +364,12 @@
                         <div class="mb-3 mr-6">
                             <label for="file_materi" class="block font-medium mb-1">File Materi</label>
                             <small>File Harus Berformat PDF</small>
-                            @if (isset($materi) && $materi->file_path)
-                                <!-- Menampilkan file lama jika sudah ada -->
-                                <div class="mt-2">
-                                    <p>File Lama:</p>
-                                    <a href="{{ asset('storage/' . $materi->file_path) }}" target="_blank"
-                                        class="text-blue-500 underline">{{ basename($materi->file_path) }}</a>
-                                </div>
-                            @endif
 
                             <!-- Input File -->
-                            <input type="file" id="file_materi" name="file_materi"
-                                class="w-full border rounded px-3 py-2 mt-2">
+                            <input type="file" id="file_materi-new" name="file_materi"
+                                class="w-full border rounded px-3 py-2">
+                            <div id="file-preview-new" class="mt-2"></div> <!-- Elemen untuk menampilkan preview -->
+
                         </div>
 
                         <!-- Tombol Submit -->
@@ -411,48 +389,42 @@
 @endsection
 
 <script>
-    // Seleksi elemen secara unik untuk modal tertentu
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-        input.addEventListener('change', function(event) {
-            const previewId = this.id.replace('file_materi',
-                'file-preview'); // Replace file ID to match preview ID
-            const filePreview = document.getElementById(previewId); // Get the preview element
-            const file = event.target.files[0];
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(event) {
+                const previewId = this.id.replace('file_materi', 'file-preview-new');
+                const filePreview = document.getElementById(previewId);
+                const file = event.target.files[0];
 
-            if (file) {
-                const fileExtension = file.name.split('.').pop()
-                    .toLowerCase(); // Get the file extension
-                const reader = new FileReader();
+                if (file) {
+                    const fileExtension = file.name.split('.').pop().toLowerCase();
 
-                if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
-                    // If the file is an image
-                    reader.onload = function(e) {
-                        filePreview.innerHTML = `
-                        <center>
-                            <p>File Sekarang</p>
-                            <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">
-                        </center>`;
-                    };
-                } else if (fileExtension === 'pdf') {
-                    // If the file is a PDF
-                    reader.onload = function(e) {
-                        filePreview.innerHTML = `
-                        <center>
-                            <p>File Sekarang</p>
-                            <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-32 h-32 mb-2" />
-                        </center>`;
-                    };
+                    if (['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+                        // Jika file adalah gambar
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            filePreview.innerHTML =
+                                `<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
+                        };
+                        reader.readAsDataURL(file);
+                    } else if (fileExtension === 'pdf') {
+                        // Jika file adalah PDF
+                        const pdfUrl = URL.createObjectURL(file);
+                        filePreview.innerHTML =
+                            `<embed src="${pdfUrl}" type="application/pdf" class="mt-2 w-full h-64 mb-2" />`;
+                    } else {
+                        // Jika format tidak didukung
+                        filePreview.innerHTML =
+                            `<p class="text-red-500">Format file tidak didukung.</p>`;
+                    }
                 } else {
-                    // Unsupported file format
-                    filePreview.innerHTML = `<p class="text-red-500">Format file tidak didukung.</p>`;
+                    filePreview.innerHTML = ''; // Kosongkan preview jika file dihapus
                 }
-
-                reader.readAsDataURL(file); // Read the file as a data URL
-            } else {
-                filePreview.innerHTML = ''; // Clear the preview if no file is selected
-            }
+            });
         });
     });
+
+
 
     function openModal(id) {
         console.log(`Opening modal: ${id}`);
