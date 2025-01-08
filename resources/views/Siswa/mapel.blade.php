@@ -192,9 +192,10 @@
                     <p class="text-gray-700 text-3xl font-semibold">Belum Ada Mata Pelajaran</p>
                 </div>
             </div>
-
             @endforelse
-
+            <div class="px-5 py-3">
+                {{ $subjects->links() }}
+            </div>
         </div>
     </div>
 

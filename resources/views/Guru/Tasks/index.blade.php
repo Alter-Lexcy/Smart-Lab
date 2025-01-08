@@ -120,9 +120,12 @@
                             </tr>
                         </thead>
                         <tbody class="">
-                            @foreach ($tasks as $task)
+                            @foreach ($tasks as $index=>$task)
+                             @php
+                                 $offset = ($tasks->currentPage() - 1) * $tasks->perPage();
+                             @endphp
                                 <tr class="border border-gray-300">
-                                    <td class="py-3 px-6">{{ $loop->iteration }}</td>
+                                    <td class="py-3 px-6">{{ $offset + $index +1 }}</td>
                                     <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
                                     <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
                                     <td class="py-3 px-6">{{ $task->title_task }}</td>
@@ -197,8 +200,10 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="px-5 py-3">
+                    {{ $tasks->links() }}
+                </div>
             </div>
-
             <!-- Modal Create -->
             <div id="taskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                 style="display: none;" role="dialog" aria-hidden="true">

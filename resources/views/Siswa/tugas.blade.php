@@ -390,6 +390,9 @@
                 </div>
             </div>
         @endforeach
+        <div class="px-5 py-3">
+            {{ $tasks->links() }}
+        </div>
 
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
