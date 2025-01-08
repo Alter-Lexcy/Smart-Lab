@@ -173,8 +173,7 @@
                 </button>
                 <button onclick="window.location.href='{{ route('teachers.index') }}'"
                     class= "hover:ml-4 justify-end pr-3  hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex before:transition-all {{ request()->routeIs('teachers.index') ? 'text-blue-600 ' : 'text-white' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"
-                        class="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor" class="size-6">
                         <path
                             d="M208 352c-2.39 0-4.78.35-7.06 1.09C187.98 357.3 174.35 360 160 360c-14.35 0-27.98-2.7-40.95-6.91-2.28-.74-4.66-1.09-7.05-1.09C49.94 352-.33 402.48 0 464.62.14 490.88 21.73 512 48 512h224c26.27 0 47.86-21.12 48-47.38.33-62.14-49.94-112.62-112-112.62zm-48-32c53.02 0 96-42.98 96-96s-42.98-96-96-96-96 42.98-96 96 42.98 96 96 96zM592 0H208c-26.47 0-48 22.25-48 49.59V96c23.42 0 45.1 6.78 64 17.8V64h352v288h-64v-64H384v64h-76.24c19.1 16.69 33.12 38.73 39.69 64H592c26.47 0 48-22.25 48-49.59V49.59C640 22.25 618.47 0 592 0z" />
                     </svg>
@@ -210,104 +209,103 @@
         </aside>
 
         <!-- Page Content  -->
-        <div class="flex-1 p-4 ml-14">
-            <nav id="navbar"
-                class="flex items-center justify-between bg-white shadow-sm border rounded-xl z-10 transition-all duration-300">
+        <div class="flex-1 p-4 ml-[70px]">
+            <div id="kt_app_header" class="app-header bg-white shadow rounded-xl">
+                <div class="container-fluid flex justify-between items-center py-2 px-5">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3">
+                        <a href="/dashboard">
+                            <img alt="Logo" src="{{ asset('image/logo.png') }}" class="h-10" />
+                        </a>
+                    </div>
 
-                <div class="ml-auto relative flex">
-                    <!-- User Icon Button -->
-                    <button id="userDropdown" onclick="toggleDropdown()" class="my-5 focus:outline-none focus:ring-2 focus:ring-transparent mr-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="size-10 border-2 bg-gray-100 rounded-lg">
-                            <path fill-rule="evenodd"
-                                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                    <!-- User Info and Profile -->
+                    <div class="flex items-center space-x-3">
+                        <div class="hidden md:flex flex-col text-right">
+                            <p class="font-bold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
+                            <span
+                                class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}</span>
+                        </div>
+                        <div class="relative">
+                            <!-- Profile Button -->
+                            <button id="profile-button"
+                                class="flex items-center p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition"
+                                onclick="toggleDropdown('dropdown-profile')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="h-6 w-6">
+                                    <path fill-rule="evenodd"
+                                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
 
-                    <!-- User Profile Dropdown -->
-                    <div class="relative">
-                        <div id="dropdownMenu"
-                            class="opacity-0 invisible transition-opacity duration-300 absolute right-0 mt-20 w-96 border-2  bg-white rounded-lg shadow-lg z-50">
-                            <div class="py-2 px-4">
-                                <h5 class="text-xl mt-2 ml-2 font-semibold">User Profile</h5>
-                            </div>
-                            <div class="flex align-items-center pt-5 mx-5 border-bottom">
-                                <img src="https://pkl.hummatech.com/user.webp" class="rounded-3xl" width="80"
-                                    height="80" alt="">
-                                <div class="ms-3">
-                                    <h5 class="mb-1 font-medium"><span
-                                            class="uppercase">{{ Auth::user()->name }}</span>
-                                    </h5>
-                                    @foreach (Auth::user()->getRoleNames() as $role)
-                                        <span class="mb-2 text-md">{{ $role }}</span>
-                                    @endforeach
-                                    <p class="mt-1 text-sm flex items-center gap-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                                        </svg>
-                                        <span class="text-sm">{{ Auth::user()->email }}</span>
-                                    </p>
+                            <!-- Dropdown Profile -->
+                            <div id="dropdown-profile"
+                                class="hidden absolute right-0 mt-5 bg-white shadow-lg rounded-md text-sm z-50 min-w-[250px]">
+                                <div class="px-4 py-2 border-b">
+                                    <h1 class="text-gray-800 font-bold break-words">PROFILE</h1>
                                 </div>
-                            </div>
-
-                            <!-- Logout Button -->
-                            <div class="grid p-2 text-center border-2 rounded-md  border-blue-200 my-4 mx-5">
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    class="hidden">
-                                    {{ csrf_field() }}
+                                <div class="px-4 py-2 text-gray-600">
+                                    <p class="break-words">Nama: {{ Auth::user()->name }}</p>
+                                    <p class="break-words">Email: {{ Auth::user()->email }}</p>
+                                </div>
+                                <form action="{{ route('logout') }}" method="POST" class="px-4 py-2">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full flex items-center justify-center px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                            stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6-4v8" />
+                                        </svg>
+                                        Logout
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-
-            <script>
-                const navbar = document.getElementById("navbar");
-                const initialNavOffset = navbar.offsetTop; // Posisi awal navbar
-
-                window.addEventListener("scroll", () => {
-                    if (window.scrollY > initialNavOffset) {
-                        navbar.classList.add("fixed", "top-2", "left-18", "w-[94%]", "border-2", "z-20");
-                        navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
-                    } else {
-                        navbar.classList.remove("fixed", "top-2", "left-18", "w-[94%]", "border-2", "z-20");
-                        navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
-                    }
-                });
-            </script>
-            <script>
-                // Toggle dropdown visibility on button click
-                function toggleDropdown() {
-                    const dropdown = document.getElementById("dropdownMenu");
-                    if (dropdown) {
-                        dropdown.classList.toggle("hidden");
-                        console.log("Dropdown toggled:", dropdown.classList.contains("hidden") ? "Hidden" : "Visible");
-                    } else {
-                        console.error("Dropdown element not found!");
-                    }
-                }
-                // Close dropdown if clicking outside of it
-                document.addEventListener("click", function(event) {
-                    const dropdown = document.getElementById("dropdownMenu");
-                    const userDropdownButton = document.getElementById("userDropdown");
-
-                    if (!dropdown.classList.contains("hidden") && !dropdown.contains(event.target) && !userDropdownButton
-                        .contains(event.target)) {
-                        dropdown.classList.add("hidden");
-                    }
-                });
-            </script>
-
+            </div>
             @yield('content')
         </div>
     </div>
+
+    <script>
+        const navbar = document.getElementById("navbar");
+        const initialNavOffset = navbar.offsetTop; // Posisi awal navbar
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > initialNavOffset) {
+                navbar.classList.add("fixed", "top-2", "left-18", "w-[94%]", "border-2", "z-20");
+                navbar.classList.remove("shadow-lg"); // Hilangkan border radius saat fixed
+            } else {
+                navbar.classList.remove("fixed", "top-2", "left-18", "w-[94%]", "border-2", "z-20");
+                navbar.classList.add("shadow-lg"); // Tambahkan kembali border radius saat di atas
+            }
+        });
+    </script>
+    {{-- <script>
+        // Toggle dropdown visibility on button click
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            if (dropdown) {
+                dropdown.classList.toggle("hidden");
+                console.log("Dropdown toggled:", dropdown.classList.contains("hidden") ? "Hidden" : "Visible");
+            } else {
+                console.error("Dropdown element not found!");
+            }
+        }
+        // Close dropdown if clicking outside of it
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("dropdownMenu");
+            const userDropdownButton = document.getElementById("userDropdown");
+
+            if (!dropdown.classList.contains("hidden") && !dropdown.contains(event.target) && !userDropdownButton
+                .contains(event.target)) {
+                dropdown.classList.add("hidden");
+            }
+        });
+    </script> --}}
 
     <!-- Sidebar Toggle Script -->
     <script>
@@ -360,7 +358,14 @@
 
         }
     </script>
+
     <script>
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('hidden');
+        }
+    </script>
+    {{-- <script>
         function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
             if (dropdown.classList.contains("invisible")) {
@@ -371,7 +376,7 @@
                 dropdown.classList.remove("opacity-100", "visible");
             }
         }
-    </script>
+    </script> --}}
     <!-- Tambahkan script ini di file Blade -->
     @if (session('error'))
         <script>
