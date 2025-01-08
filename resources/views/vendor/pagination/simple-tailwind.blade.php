@@ -2,6 +2,13 @@
     <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
         <ul class="flex items-center -space-x-px h-8 text-sm">
             {{-- Previous Page Link --}}
+            <div class="text-sm text-gray-700">
+                Menampilkan 
+                <span class="font-semibold">{{ $paginator->firstItem() }}</span> 
+                sampai 
+                <span class="font-semibold">{{ $paginator->lastItem() }}</span> 
+                dari <span class="font-semibold">{{ $paginator->total() }}</span> hasil
+            </div>
             @if ($paginator->onFirstPage())
                 <li>
                     <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-default  dark:text-gray-500">

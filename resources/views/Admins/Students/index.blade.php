@@ -142,9 +142,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="px-5 py-3">
-                    {{ $students->links() }}
-                </div>
+            <div class="pagination py-3 px-5">
+                {{ $students->links('vendor.pagination.tailwind') }}
+            </div>
             </div>
             <script>
                 function openModal(id) {

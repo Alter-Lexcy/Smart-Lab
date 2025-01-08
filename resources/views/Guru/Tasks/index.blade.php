@@ -199,8 +199,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="px-5 py-3">
-                    {{ $tasks->links() }}
+                <div class="pagination py-3 px-5">
+                    {{ $tasks->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
             <!-- Modal Create -->

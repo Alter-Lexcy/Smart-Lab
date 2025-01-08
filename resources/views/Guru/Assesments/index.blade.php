@@ -103,8 +103,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="py-3 px-5 ">
-                    {{ $assessments->links() }}
+                <div class="pagination py-3 px-5">
+                    {{ $assessments->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
         </div>

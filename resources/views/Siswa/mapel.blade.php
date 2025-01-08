@@ -193,9 +193,9 @@
                 </div>
             </div>
             @endforelse
-            <div class="px-5 py-3">
-                {{ $subjects->links() }}
-            </div>
+        </div>
+        <div class="pagination py-3 px-5">
+            {{ $subjects->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 

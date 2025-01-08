@@ -201,8 +201,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="px-5 py-3">
-                    {{ $materis->links() }}
+                <div class="pagination py-3 px-5">
+                    {{ $materis->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
 

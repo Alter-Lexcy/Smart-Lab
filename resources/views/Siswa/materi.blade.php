@@ -245,6 +245,9 @@
                 </div>
             </div>
         @endforelse
+        <div class="pagination py-3 px-5">
+            {{ $materis->links('vendor.pagination.tailwind') }}
+        </div>
         @foreach ($materis as $materi)
         <div id="showMateriModal_{{ $materi->id }}"
             class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
