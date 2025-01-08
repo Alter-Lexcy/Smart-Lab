@@ -163,9 +163,9 @@
                     </button>
                     <div id="filterDropdown"
                         class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 1</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 2</a>
-                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Filter 3</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sudah Mengumpulkan</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Belum Mengumpulkan</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Tidak Mengumpulkan</a>
                     </div>
                 </div>
             </div>
@@ -266,7 +266,7 @@
                                         d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </div>
-                            <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                            <p class="text-gray-700 text-3xl font-semibold text-center">Belum Ada Tugas</p>
                         </div>
                     </div>
                 @endforelse
@@ -332,7 +332,8 @@
             <div id="showTaskModal_{{ $task->id }}"
                 class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 "
                 style="display:none;">
-                <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full my-32 mx-7 py-4 flex flex-col overflow-hidden" style="padding-left: 28px">
+                <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full my-32 mx-7 py-4 flex flex-col overflow-hidden"
+                    style="padding-left: 28px">
                     {{-- Header Modal --}}
                     <div class="flex justify-between items-center border-b pb-4 mr-10">
                         <h5 class="text-2xl font-bold text-gray-800">Detail Tugas</h5>
@@ -363,7 +364,7 @@
                         </div>
                         <div class="mr-8">
                             <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
-                            <p class="text-gray-600">{{ $task->description }}</p>
+                            <p class="text-gray-600">{{ $task->description_task }}</p>
                         </div>
                         <div class=mr-8>
                             <h6 class="text-lg font-semibold text-gray-700 mb-3">File Tugas</h6>
@@ -475,6 +476,24 @@
                 });
             })
         </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const filterButton = document.getElementById('filterButton');
+                const filterDropdown = document.getElementById('filterDropdown');
+
+                filterButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Mencegah event bubbling
+                    filterDropdown.classList.toggle('hidden');
+                });
+
+                // Tutup dropdown jika klik di luar dropdown
+                document.addEventListener('click', () => {
+                    filterDropdown.classList.add('hidden');
+                });
+            });
+        </script>
+
         <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
             integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
             data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
