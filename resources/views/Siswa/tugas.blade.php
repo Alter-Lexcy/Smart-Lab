@@ -335,7 +335,7 @@
                 <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full my-32 mx-7 py-4 flex flex-col overflow-hidden" style="padding-left: 28px">
                     {{-- Header Modal --}}
                     <div class="flex justify-between items-center border-b pb-4 mr-10">
-                        <h5 class="text-2xl font-bold text-gray-800">Detail Task</h5>
+                        <h5 class="text-2xl font-bold text-gray-800">Detail Tugas</h5>
                         <button type="button" class="text-gray-700 hover:text-gray"
                             onclick="closeModal('showTaskModal_{{ $task->id }}')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -366,7 +366,7 @@
                             <p class="text-gray-600">{{ $task->description }}</p>
                         </div>
                         <div class=mr-8>
-                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Task</h6>
+                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Tugas</h6>
                             @php
                                 $file = pathinfo($task->file_task, PATHINFO_EXTENSION);
                             @endphp
