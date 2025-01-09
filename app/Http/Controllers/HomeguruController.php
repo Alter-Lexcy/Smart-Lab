@@ -27,16 +27,36 @@ class HomeguruController extends Controller
      */
     public function index()
     {
-        $teacherClasses = TeacherClass::where('user_id', auth()->id())->get();
+        $teacherClasses = TeacherClass::where('user_id', auth()->id())->with('class.users.roles')->get();
 
         $students = [];
         foreach ($teacherClasses as $teacherClass) {
-            // Mengurutkan siswa berdasarkan nama dan melakukan pagination
-            $students[$teacherClass->class->id] = $teacherClass->class->users()->orderBy('name')->paginate(10);
+            $students[$teacherClass->class->id] = User::whereHas('class', function ($query) use ($teacherClass) {
+                $query->where('classes.id', $teacherClass->class->id);
+            })
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', 'Murid');
+                })
+                ->orderBy('name')
+                ->paginate(10);
         }
 
-        return view('Guru.dashboardGuru', compact('teacherClasses', 'students'));
+        $muridCounts = $teacherClasses->mapWithKeys(function ($teacherClass) {
+            $muridCount = User::whereHas('class', function ($query) use ($teacherClass) {
+                $query->where('classes.id', $teacherClass->class->id); // Spesifik ke kelas tertentu
+            })
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Murid'); // Filter berdasarkan role 'Murid'
+            })
+            ->count();
+
+            return [$teacherClass->class->id => $muridCount]; // Key: ID kelas, Value: jumlah murid
+        });
+
+        return view('Guru.dashboardGuru', compact('teacherClasses', 'students', 'muridCounts'));
     }
+
+
 
     public function getClassDetails(Request $request, $classId)
     {
@@ -46,7 +66,13 @@ class HomeguruController extends Controller
             return response()->json(['message' => 'Kelas tidak ditemukan'], 404);
         }
 
-        $students = $class->users()->get();
+        $students = User::whereHas('class', function ($query) use ($classId) {
+            $query->where('classes.id', $classId);
+        })
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Murid');
+            })
+            ->get();
 
         if ($request->ajax()) {
             return view('partials.studentList', compact('students'))->render();
@@ -54,6 +80,4 @@ class HomeguruController extends Controller
 
         return response()->json(['message' => 'Permintaan tidak valid'], 400);
     }
-
-
 }

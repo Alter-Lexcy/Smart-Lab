@@ -95,8 +95,9 @@
                                         {{ $teacherClass->class->name_class }}
                                     </div>
                                     <!-- Jumlah Murid -->
-                                    <div class="text-lg text-white font-medium font-poppins ">
-                                        Jumlah Murid: {{ $teacherClass->class->users->count() }}
+                                    <div class="text-lg text-white font-medium font-poppins">
+                                        Jumlah Murid:
+                                        {{ $muridCounts[$teacherClass->class->id] ?? 0 }}
                                     </div>
                                 </div>
                                 <div class="relative ml-auto mt-24 mr-3">
