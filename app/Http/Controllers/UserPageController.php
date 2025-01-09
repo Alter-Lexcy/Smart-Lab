@@ -34,7 +34,7 @@ class UserPageController extends Controller
             ->with('subject', 'Classes')
             ->where('subject_id', $materi_id)
             ->where('title_materi', 'like', '%' . $search . '%')
-            ->orderBy('created_at',$order)
+            ->orderBy('created_at', $order)
             ->paginate(5);
 
         // Jika tidak ada materi ditemukan
@@ -52,25 +52,45 @@ class UserPageController extends Controller
     {
         $user = auth()->user();
         $search = $request->input('search');
+        $status = $request->input('status'); // Ambil nilai status dari query string
+
         if (!$user->classes()->exists()) {
-            return view('Siswa.tugas', [
-                'tasks' => collect(),
-                'collections' => collect()
-            ]);
+            // Jika user tidak memiliki kelas, kembalikan paginasi kosong
+            $tasks = Task::whereNull('id')->paginate(5); // Paginasi kosong
+            return view('Siswa.tugas', compact('tasks'));
         }
+
         $kelasId = $user->classes->pluck('id');
-        $tasks = Task::with(['collections' => function ($query) {
+        $tasksQuery = Task::with(['collections' => function ($query) {
             $query->where('user_id', Auth::id());
         }])
             ->whereHas('Classes', function ($query) use ($kelasId) {
                 $query->whereIn('id', $kelasId);
             })
-            ->where('title_task', 'Like', '%' . $search . '%')
-            ->paginate(5);
+            ->where('title_task', 'like', '%' . $search . '%');
+
+        // Filter berdasarkan status yang dipilih
+        if ($status) {
+            $tasksQuery->whereHas('collections', function ($query) use ($status) {
+                $query->where('user_id', Auth::id());
+                if ($status == 'Sudah mengumpulkan') {
+                    $query->where('status', 'Sudah mengumpulkan');
+                } elseif ($status == 'Belum mengumpulkan') {
+                    $query->whereNotIn('status', ['Sudah mengumpulkan', 'Tidak mengumpulkan']);
+                } elseif ($status == 'Tidak mengumpulkan') {
+                    $query->where('status', 'Tidak mengumpulkan');
+                }
+            });
+        }
+
+        // Menampilkan hasil query dengan pagination
+        $tasks = $tasksQuery->paginate(5);
         $this->updateTaskStatus();
 
         return view('Siswa.tugas', compact('tasks'));
     }
+
+
 
     private function updateTaskStatus()
     {

@@ -110,9 +110,9 @@
                             <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php
-                            $offset = ($subjects->currentPage() - 1) * $subjects->perPage();
+                        <tbody>
+                            @php
+                                $offset = ($subjects->currentPage() - 1) * $subjects->perPage();
                         @endphp
                         @foreach ($subjects as $subject)
                             <tr class="border">
