@@ -207,7 +207,7 @@
                     <div class="flex items-center space-x-3">
                         <div class="hidden md:flex flex-col text-right">
                             <p class="font-bold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
-                            <span class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}</span>
+                            <span class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }} </span>
                         </div>
                         <div class="relative">
                             <!-- Profile Button -->
@@ -228,9 +228,10 @@
                                 <div class="px-4 py-2 border-b">
                                     <h1 class="text-gray-800 font-bold break-words">PROFILE</h1>
                                 </div>
-                                <div class="px-4 py-2 text-gray-600">
-                                    <p class="break-words">Nama: {{ Auth::user()->name }}</p>
-                                    <p class="break-words">Email: {{ Auth::user()->email }}</p>
+                                <div class="px-4 py-2 text-gray-600 ">
+                                    <p class="break-words font-poppins">Nama: {{ Auth::user()->name }}</p>
+                                    <p class="break-words font-poppins">Email: {{ Auth::user()->email }}</p>
+                                    <p class="break-words font-poppins">Mata Pembelajaran: {{ Auth::user()->subject?->name_subject }}</p>
                                 </div>
                                 <form action="{{ route('logout') }}" method="POST" class="px-4 py-2">
                                     @csrf

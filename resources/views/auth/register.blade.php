@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
     <link rel="stylesheet" href="style/login.css">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
     <style>
         .error-message {
             background-color: #ffcccc;
@@ -56,7 +57,7 @@
 
         <!-- Form Register Siswa -->
         <div id="siswa-tab" class="tab-content active">
-            <div class="register-form" style="height: 310px; overflow: auto; padding: 10px; box-sizing: border-box; ">
+            <div class="register-form" style="height: 400px; width: 500px; overflow: auto; padding: 20px; box-sizing: border-box;">
                 <form action="{{ route('register_murid') }}" method="POST">
                     @csrf
                     <table class="form-table">
@@ -64,7 +65,7 @@
                         <tr>
                             <td colspan="2">
                                 <span
-                                    style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
+                                    style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; margin: auto;">
 
                                     <i class="bx bx-user" style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input type="text" id="name" name="name" placeholder="Nama"
@@ -81,7 +82,7 @@
                         <tr>
                             <td colspan="2">
                                 <span
-                                    style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
+                                    style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; margin: auto;">
                                     <i class="bx bx-envelope"
                                         style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                     <input type="email" id="email" name="email" placeholder="Email"
@@ -97,7 +98,7 @@
                         <!-- Password dan Konfirmasi Password -->
                         <tr>
                             <td colspan="2">
-                                <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
+                                <div style="display: flex; gap: 10px; margin: auto;">
                                     <span
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
                                         <i class="bx bx-lock"
@@ -139,8 +140,8 @@
 
         <!-- Form Register Guru -->
         <div id="guru-tab" class="tab-content">
-            <div class="register-form" style="height: 500px; overflow: auto; padding: 20px; box-sizing: border-box;">
-                <form action="{{ route('register_guru') }}" method="POST" style="overflow: auto;">
+            <div class="register-form" style="height: 400px;  padding: 20px; box-sizing: border-box;">
+                <form action="{{ route('register_guru') }}" method="POST" style="overflow-y: auto; ">
                     @csrf
                     <table class="form-table">
                         <!-- Input Nama -->
@@ -186,7 +187,7 @@
                                     style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; width: 100%; max-width: 400px; margin: auto;">
                                     <i class="bx bx-id-card"
                                         style="margin-right: 10px; font-size: 16px; color: #666;"></i>
-                                    <input type="text" id="nip" name="NIP" placeholder="NIP"
+                                    <input type="text" id="NIP" name="NIP" placeholder="NIP"
                                         style="border: none; outline: none; flex: 1; font-size: 14px; padding: 10px;">
                                 </span>
                                 @error('NIP')
@@ -209,7 +210,7 @@
                                         <i class="bx bx-show" id="toggleGuruPassword"
                                             style="cursor: pointer; font-size: 16px; padding-left: 10px; margin-right: 10px; color: #666;"></i>
                                     </span>
-                                    <span
+                                    <span+
                                         style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
