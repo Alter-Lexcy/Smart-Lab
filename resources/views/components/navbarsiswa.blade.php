@@ -157,7 +157,7 @@
                             <span class="pt-2 fs-9 fs-lg-7 fw-bold text-blue-800">Tugas</span>
                         </a>
                     </li>
-                    @if (auth()->check() && !auth()->user()->class()->exists())
+                    @if (auth()->check() && !auth()->user()->classes()->exists())
                         <li class="nav-item py-1">
                             <a href="/PilihKelas"
                                 class="nav-link py-4 px-1 btn {{ request()->is('PilihKelas') ? 'active' : '' }}">
