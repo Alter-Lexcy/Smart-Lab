@@ -27,9 +27,11 @@ class StudentController extends Controller
             })
             ->leftJoin('class_approvals', 'users.id', '=', 'class_approvals.user_id')
             ->select('users.*', 'class_approvals.status as approval_status')
-            ->orderByRaw("FIELD(class_approvals.status, 'pending', 'approved') ASC")
-            ->orderBy('users.created_at', 'desc')
+            ->orderByRaw("class_approvals.user_id IS NULL ASC") // Data NULL (tidak ada di class_approvals) di urutan paling bawah
+            ->orderByRaw("FIELD(class_approvals.status, 'pending', 'approved', 'rejected') ASC") // Urutkan berdasarkan status
+            ->orderBy('users.created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
             ->paginate(5);
+
 
         foreach ($students as $student) {
             $createdAt = Carbon::parse($student->created_at);
@@ -51,6 +53,15 @@ class StudentController extends Controller
         $request->validate([
             'class_id' => 'required|exists:classes,id',
         ]);
+
+        $Status = ClassApproval::where('user_id', auth()->id())->where('status', 'pending')->first();
+        if ($Status) {
+            $Status->update([
+                'class_id' => $request->class_id
+            ]);
+
+            return redirect()->route('dashboard')->with('success', 'Pilih kelas Sudah Ter-Updated');
+        }
 
         ClassApproval::create([
             'user_id' => auth()->id(),
