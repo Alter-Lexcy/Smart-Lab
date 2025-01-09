@@ -196,12 +196,11 @@
                                 @enderror
                             </td>
                         </tr>
-                        <!-- Password dan Konfirmasi Password -->
                         <tr>
                             <td colspan="2">
                                 <div style="display: flex; gap: 10px; max-width: 400px; margin: auto;">
                                     <span
-                                        style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
+                                        style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock"
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input type="password" id="guru_password" name="password"
@@ -211,7 +210,7 @@
                                             style="cursor: pointer; font-size: 16px; padding-left: 10px; margin-right: 10px; color: #666;"></i>
                                     </span>
                                     <span
-                                        style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding-left: 10px; flex: 1;">
+                                        style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 0 10px; flex: 1;">
                                         <i class="bx bx-lock-alt"
                                             style="margin-right: 10px; font-size: 16px; color: #666;"></i>
                                         <input type="password" id="guru_password_confirmation"
@@ -228,6 +227,7 @@
                                 @enderror
                             </td>
                         </tr>
+
                         <tr>
                             <td colspan="2"><button type="submit">Daftar Guru</button></td>
                         </tr>
@@ -298,4 +298,5 @@
     </script>
 
 </body>
+
 </html>
