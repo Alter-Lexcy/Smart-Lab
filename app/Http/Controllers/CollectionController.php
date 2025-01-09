@@ -72,7 +72,10 @@ class CollectionController extends Controller
     {
         $request->validate([
             'file_collection' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
-        ]);
+        ],
+    [
+        'file_collection.required' => 'File Collection Wajib Diisi',
+    ]);
 
         $user_id = auth()->id();
         $task = Task::find($task_id);
@@ -118,7 +121,7 @@ class CollectionController extends Controller
         }
         else {
         }
-        return redirect()->back()->with('success', 'Tugas berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
     }
     /**
      * Remove the specified resource from storage.

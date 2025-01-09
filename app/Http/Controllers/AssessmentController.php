@@ -20,7 +20,7 @@ class AssessmentController extends Controller
 
         $assessments = Assessment::with(['user', 'collection.task'])
             ->whereHas('collection.task', function ($query) use ($user) {
-                $query->where('user_id', $user->id); 
+                $query->where('user_id', $user->id);
             })
             ->where(function ($query) use ($search) {
                 $query->whereHas('user', function ($q) use ($search) {
@@ -51,6 +51,15 @@ class AssessmentController extends Controller
             'user_id' => 'required|array',
             'user_id.*' => 'exists:users,id',
             'mark_task' => 'required|numeric|min:0|max:100',
+        ],[
+            'user_id.required' => 'Pilih siswa yang akan dinilai',
+            'user_id.array' => 'Pilih siswa yang akan dinilai',
+            'user_id.*.exists' => 'Pilih siswa yang akan dinilai',
+            'mark_task.required' => 'Nilai tidak boleh kosong',
+            'mark_task.numeric' => 'Nilai harus berupa angka',
+            'mark_task.min' => 'Nilai harus diatas 0',
+            'mark_task.max' => 'Nilai harus di bawah 100',
+
         ]);
 
         foreach ($request->user_id as $studentId) {

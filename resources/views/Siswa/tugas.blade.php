@@ -157,10 +157,12 @@
 
                 <!-- Dropdown Filter -->
                 <div class="ml-4 relative">
-                    <button id="filterButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl shadow-md">
+                    <button id="filterButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl shadow-md">
                         <i class="fas fa-filter text-white"></i>
                     </button>
-                    <div id="filterDropdown" class="hidden absolute right-0 mt-5 w-72 bg-white border border-gray-300 rounded-xl pl-1 pb-2   shadow-lg z-50">
+                    <div id="filterDropdown"
+                        class="hidden absolute right-0 mt-5 w-72 bg-white border border-gray-300 rounded-xl pl-1 pb-2   shadow-lg z-50">
                         <!-- Filter Header -->
                         <div class="px-4 py-3 text-lg font-semibold text-gray-700 border-b border-gray-300">
                             Pilih Status Tugas
@@ -170,30 +172,33 @@
                             @csrf
                             <!-- Tombol untuk filter status -->
                             <button type="submit" name="status" value="Sudah mengumpulkan"
-                                class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12" style="a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mr-2">
-                                <path fill-rule="evenodd"
-                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                                class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12"
+                                style="a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor" class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                        clip-rule="evenodd" />
+                                </svg>
                                 Sudah Mengumpulkan
                             </button>
                             <button type="submit" name="status" value="Belum mengumpulkan"
-                                class="flex items-center justify-center px-4 py-2 text-yellow-600 bg-yellow-100 rounded-xl m-2 w-64 h-12"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mr-2">
-                                <path fill-rule="evenodd"
-                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                                class="flex items-center justify-center px-4 py-2 text-yellow-600 bg-yellow-100 rounded-xl m-2 w-64 h-12"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+                                        clip-rule="evenodd" />
+                                </svg>
                                 Belum Mengumpulkan
                             </button>
                             <button type="submit" name="status" value="Tidak mengumpulkan"
-                                class="flex items-center justify-center px-4 py-2 text-red-800 bg-red-300 rounded-xl m-2 w-64 h-12"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 mr-2">
-                                <path fill-rule="evenodd"
-                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                    clip-rule="evenodd" />
-                            </svg>
+                                class="flex items-center justify-center px-4 py-2 text-red-800 bg-red-300 rounded-xl m-2 w-64 h-12"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
                                 Tidak Mengumpulkan
                             </button>
                         </form>
@@ -201,6 +206,30 @@
                 </div>
             </div>
         </div>
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+                role="alert">
+                <strong class="font-bold">{{ session('success') }}</strong>
+                <button onclick="this.parentElement.style.display='none'"
+                    class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Kesalahan Validasi:</strong>
+                <ul class="list-disc ml-5 mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button onclick="this.parentElement.style.display='none'"
+                    class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         @if (auth()->user() && auth()->user()->classes()->exists())
             <div class="space-y-6">
                 @forelse ($tasks as $task)
@@ -288,21 +317,21 @@
                         </div>
                     </div>
                 @empty
-                    <div class="bg-gray-100 flex items-center justify-center h-screen">
+                    <div class="flex items-center justify-center h-screen">
                         <div class="text-center">
-                            <div class="text-red-500 mb-5">
+                            <div class="text-red-500 mb-5" style="justify-self: center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </div>
-                            <p class="text-gray-700 text-3xl font-semibold text-center">Belum Ada Tugas</p>
+                            <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
                         </div>
                     </div>
                 @endforelse
             @else
-                <div class="bg-gray-100 flex items-center justify-center h-screen">
+                <div class="flex items-center justify-center h-screen">
                     <div class="text-center">
                         <div class="text-red-500 mb-5" style="justify-self: center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -422,9 +451,9 @@
                 </div>
             </div>
         @endforeach
-            <div class="px-5 py-3">
-                {{ $tasks->links() }}
-            </div>
+        <div class="px-5 py-3">
+            {{ $tasks->links() }}
+        </div>
 
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
