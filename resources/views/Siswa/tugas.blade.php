@@ -230,7 +230,7 @@
                 </button>
             </div>
         @endif
-        @if (auth()->user() && auth()->user()->classes()->exists())
+        @if (auth()->user() && auth()->user()->class()->exists())
             <div class="space-y-6">
                 @forelse ($tasks as $task)
                     <div style="position: relative;">
