@@ -74,7 +74,7 @@ class CollectionController extends Controller
             'file_collection' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
         ],
     [
-        'file_collection.required' => 'File Collection Wajib Diisi',
+        'file_collection.required' => 'File Tugas Wajib Diisi',
     ]);
 
         $user_id = auth()->id();
