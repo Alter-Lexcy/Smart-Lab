@@ -242,7 +242,7 @@
                             @endforeach
                             <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
                             <p class="text-gray-600" style="margin-right: 150px">
-                                {{ Str::limit($task->description_task, 15, '...') ?? 'Kosong' }}
+                                Mapel : {{$task->Subject->name_subject}}
                             </p>
 
                             <!-- Status Sudah Dikerjakan dengan ikon -->

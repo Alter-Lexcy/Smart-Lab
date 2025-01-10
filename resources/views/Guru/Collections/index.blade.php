@@ -97,12 +97,13 @@
                                             class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 rounded-sm"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus assessment ini?')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="size-6">
+                                            <button type="button"
+                                                class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center" style="text-align: center"
+                                                onclick="openModal('showAssessmentModal_{{ $collection->id }}')">
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
-                                                        d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </button>
@@ -118,24 +119,86 @@
                     {{ $collections->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
+            {{-- Modal Show --}}
+            @foreach ($collections as $collection)
+                <div id="showAssessmentModal_{{ $collection->id }}"
+                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                    style="display:none;">
+                    <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
+                        {{-- Header Modal --}}
+                        <div class="flex justify-between items-center border-b pb-4 mr-6">
+                            <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                            <button type="button" class="text-gray-700 hover:text-gray00"
+                                onclick="closeModal('showAssessmentModal_{{ $collection->id }}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {{-- Content Modal --}}
+                        <div class="mt-4 space-y-4 overflow-y-auto h-auto max-h-[80%]">
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Judul Tugas:</h6>
+                                <p class="text-gray-600">{{ $collection->Task->title_task }}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Nama Siswa:</h6>
+                                <p class="text-gray-600">{{ $collection->user->name }}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
+                                @foreach ($collection->user->class as $class)
+                                    <p class="text-gray-600">{{ $class->name_class }}</p>
+                                @endforeach
+                            </div>
+                            <div class="mr-6">
+                                <h6 class="text-lg font-semibold text-gray-700 mb-3">File collection</h6>
+
+                                @php
+                                    $file = pathinfo($collection->file_collection, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($file, ['jpg', 'png']))
+                                    <img src="{{ asset('storage/' . $collection->file_collection) }}" alt="File Image"
+                                        class="mx-auto w-[90%] h-auto border-2 rounded-lg">
+                                @elseif($file === 'pdf')
+                                    <embed src="{{ asset('storage/' . $collection->file_collection) }}"
+                                        type="application/pdf" class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                @else
+                                    <p class="text-red-500">Format file tidak didukung.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     @endsection
     <script>
         function openModal(id) {
             console.log(`Opening modal: ${id}`);
-            document.getElementById(id).style.display = 'flex';
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
         }
 
         function closeModal(id) {
             console.log(`Closing modal: ${id}`);
-            document.getElementById(id).style.display = 'none';
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
         }
 
-
-        // Open the modal if validation fails
         @if (session('success'))
             document.addEventListener("DOMContentLoaded", function() {
-                closeModal('assessmentModal'); // Menutup modal setelah data berhasil ditambah
+                closeModal('materiModal'); // Close the modal on successful action
             });
         @endif
     </script>
