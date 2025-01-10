@@ -17,7 +17,7 @@ class UserPageController extends Controller
         // Ambil user yang sedang login
         $user = auth()->user();
 
-        $kelasIds = $user->classes->pluck('id');
+        $kelasIds = $user->class->pluck('id');
         $subjects = Subject::withCount(['materi' => function ($query) use ($kelasIds) {
             $query->whereIn('classes_id', $kelasIds); // Menggunakan whereIn untuk banyak kelas
         }])->paginate(6);
@@ -29,7 +29,7 @@ class UserPageController extends Controller
         $user = auth()->user();
         $order = $request->input('order', 'desc');
         $search = $request->input('search');
-        $kelasID = $user->classes->pluck('id');
+        $kelasID = $user->class->pluck('id');
         $materis = Materi::whereIn('classes_id', $kelasID)
             ->with('subject', 'Classes')
             ->where('subject_id', $materi_id)
