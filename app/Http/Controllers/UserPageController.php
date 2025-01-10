@@ -61,15 +61,20 @@ class UserPageController extends Controller
         }
 
         $kelasId = $user->classes->pluck('id');
-        $tasksQuery = Task::with(['collections' => function ($query) {
-            $query->where('user_id', Auth::id());
-        }])
+        $tasksQuery = Task::select('tasks.*', 'collections.status as collection_status')
+            ->with(['collections' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->leftJoin('collections', function ($join) {
+                $join->on('tasks.id', '=', 'collections.task_id')
+                    ->where('collections.user_id', '=', Auth::id());
+            })
             ->whereHas('Classes', function ($query) use ($kelasId) {
                 $query->whereIn('id', $kelasId);
             })
-            ->where('title_task', 'like', '%' . $search . '%');
+            ->where('title_task', 'like', '%' . $search . '%')
+            ->orderByRaw("FIELD(collections.status, 'Belum mengumpulkan', 'Sudah mengumpulkan', 'Tidak mengumpulkan') ASC");
 
-        // Filter berdasarkan status yang dipilih
         if ($status) {
             $tasksQuery->whereHas('collections', function ($query) use ($status) {
                 $query->where('user_id', Auth::id());
@@ -82,6 +87,7 @@ class UserPageController extends Controller
                 }
             });
         }
+
 
         // Menampilkan hasil query dengan pagination
         $tasks = $tasksQuery->paginate(5);

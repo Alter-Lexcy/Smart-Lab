@@ -193,9 +193,9 @@
                     <button type="submit"
                         class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
                         @if (request('order', 'desc') === 'desc')
-                            <i class="fa-solid fa-arrow-down-wide-short text-black"></i>
+                        <i class="fa-solid fa-arrow-up-wide-short text-black"></i>
                         @else
-                            <i class="fa-solid fa-arrow-up-wide-short text-black"></i>
+                            <i class="fa-solid fa-arrow-down-wide-short text-black"></i>
                         @endif
                     </button>
                 </form>
