@@ -211,7 +211,7 @@
             <h1 style="font-size: 2.5rem; font-weight: bold;">Ayo berkembang bersama Smart-LAB</h1>
             <p style="font-size: 1rem; margin-bottom: 50px;">Bergabunglah bersama Smart-LAB dan raih prestasimu
                 setinggi langit</p>
-            <a href="#daftar"
+            <a href="{{ route('register') }}"
                 style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 30px; font-size: 1rem; font-weight: bold;">
                 Daftar Sekarang
             </a>

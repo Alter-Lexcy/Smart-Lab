@@ -31,7 +31,7 @@ class StoreSubjectRequest extends FormRequest
         return[
             'name_subject.required'=>'Nama Mata Pembelajaran Belum Di-sisi',
             'name_subject.unique'=>'Nama Mata Pembelajaran Sudah Ada',
-            'name_subject.unique'=>'Nama Mata Pembelajaran Harus Berformat Huruf',
+            'name_subject.string'=>'Nama Mata Pembelajaran Harus Berformat Huruf',
         ];
     }
 }
