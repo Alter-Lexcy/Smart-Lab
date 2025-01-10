@@ -208,12 +208,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white shadow-md flex items-center justify-center h-full p-6"
-                            style="border-radius: 15px">
+                        <div class="shadow-md flex items-center justify-center h-full p-6"
+                            style="
+                            border-radius: 15px;
+                            background-image: url('image/wallpaper_blue.jpeg');
+                            background-size: cover;
+                            background-position: center;">
                             <div class="w-80">
                                 <!-- Avatar -->
                                 <div class="flex flex-col items-center mb-4">
-                                    <svg class="w-50 h-50 text-gray-800 dark:text-white" aria-hidden="true"
+                                    <svg class="w-50 h-50 text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd"
@@ -221,15 +225,15 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                     <span
-                                        class="text-center text-3xl font-semibold mt-2 text-gray-800">{{ Auth::user()->name }}</span>
-                                    <p class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl">
+                                        class="text-center text-3xl font-semibold mt-2 text-white">{{ Auth::user()->name }}</span>
+                                    <p class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl mt-5">
                                         Murid</p>
                                 </div>
 
                                 <!-- Detail Profile -->
-                                <div class="mt-10 space-y-3 text-gray-700">
+                                <div class="mt-10 space-y-3 text-white">
                                     <div class="flex items-center">
-                                        <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
@@ -243,7 +247,7 @@
                                         </span>
                                     </div>
                                     <div class="flex items-center">
-                                        <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z" />
@@ -251,7 +255,7 @@
                                         <span class="ml-2"><strong>Email:</strong> {{ Auth::user()->email }}</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <svg class="w-5 h-5 text-gray-600" xmlns="http://www.w3.org/2000/svg"
+                                        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="M7.75 2.5a.75.75 0 0 0-1.5 0v1.58c-1.44.115-2.384.397-3.078 1.092c-.695.694-.977 1.639-1.093 3.078h19.842c-.116-1.44-.398-2.384-1.093-3.078c-.694-.695-1.639-.977-3.078-1.093V2.5a.75.75 0 0 0-1.5 0v1.513C15.585 4 14.839 4 14 4h-4c-.839 0-1.585 0-2.25.013z" />
