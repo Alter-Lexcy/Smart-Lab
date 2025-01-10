@@ -33,6 +33,7 @@ class AssessmentController extends Controller
                         $q->where('name_class', 'like', '%' . $search . '%');
                     });
             })
+            ->orderByRaw("FIELD(status, 'Belum Di-nilai', 'Sudah Di-nilai') ASC")
             ->paginate(5);
 
         // Ambil semua tugas milik user yang sedang login

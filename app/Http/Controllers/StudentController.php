@@ -31,7 +31,7 @@ class StudentController extends Controller
             ->orderByRaw("FIELD(class_approvals.status, 'pending', 'approved', 'rejected') ASC") // Urutkan berdasarkan status
             ->orderBy('users.created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
             ->paginate(5);
-
+            
 
         foreach ($students as $student) {
             $createdAt = Carbon::parse($student->created_at);
