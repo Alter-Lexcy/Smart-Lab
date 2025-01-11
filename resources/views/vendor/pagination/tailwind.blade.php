@@ -1,7 +1,6 @@
 @if ($paginator->hasPages())
-    <div class="flex justify-center items-center mt-6">
+    <div class="flex justify-end items-end">
         <nav class="relative z-0 inline-flex rounded-lg shadow-sm -space-x-px" aria-label="Pagination">
-            {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <span class="relative inline-flex items-center px-2 py-2 rounded-l-lg border border-gray-300 bg-gray-200 text-sm font-medium text-gray-500 cursor-not-allowed">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
