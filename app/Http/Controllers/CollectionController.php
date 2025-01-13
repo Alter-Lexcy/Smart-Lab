@@ -95,6 +95,11 @@ class CollectionController extends Controller
                 'status' => 'Tidak mengumpulkan',
             ]);
         }
+        if ($task->status == 'Sudah di Nilai') {
+            $collection->update([
+                'status' => 'Sudah di Nilai',
+            ]);
+        }
         if ($request->hasFile('file_collection')) {
             $file = $request->file('file_collection');
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -123,6 +128,7 @@ class CollectionController extends Controller
         }
         return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
     }
+    
     /**
      * Remove the specified resource from storage.
      */
