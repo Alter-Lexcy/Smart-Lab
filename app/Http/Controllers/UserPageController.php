@@ -54,13 +54,7 @@ class UserPageController extends Controller
         $search = $request->input('search');
         $status = $request->input('status'); // Ambil nilai status dari query string
 
-        if (!$user->classes()->exists()) {
-            // Jika user tidak memiliki kelas, kembalikan paginasi kosong
-            $tasks = Task::whereNull('id')->paginate(5); // Paginasi kosong
-            return view('Siswa.tugas', compact('tasks'));
-        }
-
-        $kelasId = $user->classes->pluck('id');
+        $kelasId = $user->class->pluck('id');
         $tasksQuery = Task::select('tasks.*', 'collections.status as collection_status')
             ->with(['collections' => function ($query) {
                 $query->where('user_id', Auth::id());
