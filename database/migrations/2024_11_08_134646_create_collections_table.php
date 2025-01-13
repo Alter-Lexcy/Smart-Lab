@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('task_id')->constrained('tasks');
-            $table->foreignId('user_id')->constrained('users'); // Siswa yang mengumpulkan tugas
-            $table->string('file_collection')->nullable(); // File tugas yang dikumpulkan
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('file_collection')->nullable(); 
             $table->enum('status', ['Belum mengumpulkan', 'Sudah mengumpulkan','Tidak mengumpulkan'])->default('Belum mengumpulkan');
             $table->timestamps();
         });
