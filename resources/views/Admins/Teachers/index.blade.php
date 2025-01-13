@@ -31,7 +31,7 @@
                     <form id="searchForm" action="{{ route('teachers.index') }}" method="GET"
                         class="absolute right-full mr-2 mt-4 transition-all duration-300
                     {{ request('search') ? 'opacity-100 visible' : 'opacity-0 invisible' }}">
-                        <input type="text" name="search" placeholder="Cari..."
+                        <input type="text" name="search_teacher" placeholder="Cari..."
                             value="{{ old('search', request('search')) }}"
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </form>
