@@ -26,9 +26,6 @@ class TeacherController extends Controller
                     $query->whereHas('class', function ($q) use ($search) {
                         $q->where('name_class', 'Like', '%' . $search . '%');
                     })
-                        ->orWhereHas('subject', function ($q) use ($search) {
-                            $q->where('name_subject', 'Like', '%' . $search . '%');
-                        })
                         ->orWhere('name', 'Like', '%' . $search . '%')
                         ->orWhere('email', 'Like', '%' . $search . '%')
                         ->orWhere('NIP', 'Like', '%' . $search . '%');
@@ -78,5 +75,4 @@ class TeacherController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Guru Berhasil Ditempatkan');
     }
-
 }

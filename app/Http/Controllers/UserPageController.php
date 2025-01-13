@@ -72,7 +72,13 @@ class UserPageController extends Controller
             ->whereHas('Classes', function ($query) use ($kelasId) {
                 $query->whereIn('id', $kelasId);
             })
-            ->where('title_task', 'like', '%' . $search . '%')
+            ->where(function ($query) use ($search) {
+                // Memperbaiki pencarian agar lebih terstruktur
+                $query->where('title_task', 'like', '%' . $search . '%')
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    });
+            })
             ->orderByRaw("FIELD(collections.status, 'Belum mengumpulkan', 'Sudah mengumpulkan', 'Tidak mengumpulkan') ASC");
 
         if ($status) {
@@ -88,13 +94,13 @@ class UserPageController extends Controller
             });
         }
 
-
         // Menampilkan hasil query dengan pagination
         $tasks = $tasksQuery->paginate(5);
         $this->updateTaskStatus();
 
         return view('Siswa.tugas', compact('tasks'));
     }
+
 
 
 
