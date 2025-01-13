@@ -113,8 +113,6 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">NO</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">KELAS</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATERI</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">FILE MATERI</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">DESKRIPSI</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">TANGGAL PEMBUATAN</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">AKSI</th>
                             </tr>
@@ -128,23 +126,6 @@
                                     <td class="px-4 py-2 ">{{ $offset + $index + 1 }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->name_class }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
-                                    <td class="px-4 py-2 ">
-                                        @php
-                                            $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                                        @endphp
-                                        @if (in_array($file, ['jpg', 'png']))
-                                            <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
-                                                class="mx-auto" width="100px">
-                                        @elseif($file === 'pdf')
-                                            <embed src="{{ asset('storage/' . $materi->file_materi) }}"
-                                                type="application/pdf" class="mx-auto" width="100px" height="100px">
-                                        @else
-                                            <p class="text-red-500">Format file tidak didukung.</p>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-2 border-b">
-                                        {{ $materi->short_description = Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
-                                    </td>
                                     <td class="px-4 py-2 border-b">
                                         {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                     </td>

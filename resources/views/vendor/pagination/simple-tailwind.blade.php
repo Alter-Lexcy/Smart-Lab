@@ -3,10 +3,10 @@
         <ul class="flex items-center -space-x-px h-8 text-sm">
             {{-- Previous Page Link --}}
             <div class="text-sm text-gray-700">
-                Menampilkan 
-                <span class="font-semibold">{{ $paginator->firstItem() }}</span> 
-                sampai 
-                <span class="font-semibold">{{ $paginator->lastItem() }}</span> 
+                Menampilkan
+                <span class="font-semibold">{{ $paginator->firstItem() }}</span>
+                sampai
+                <span class="font-semibold">{{ $paginator->lastItem() }}</span>
                 dari <span class="font-semibold">{{ $paginator->total() }}</span> hasil
             </div>
             @if ($paginator->onFirstPage())

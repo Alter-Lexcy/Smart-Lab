@@ -230,7 +230,7 @@
                 </button>
             </div>
         @endif
-        @if (auth()->user() && auth()->user()->classes()->exists())
+        @if (auth()->user() && auth()->user()->class()->exists())
             <div class="space-y-6">
                 @forelse ($tasks as $task)
                     <div style="position: relative;">
@@ -392,10 +392,9 @@
             <div id="showTaskModal_{{ $task->id }}"
                 class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 "
                 style="display:none;">
-                <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full my-32 mx-7 py-4 flex flex-col overflow-hidden"
-                    style="padding-left: 28px">
+                <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto max-h-[90%] px-5 py-5 overflow-y-auto">
                     {{-- Header Modal --}}
-                    <div class="flex justify-between items-center border-b pb-4 mr-10">
+                    <div class="flex justify-between items-center border-b pb-4 mr-3">
                         <h5 class="text-2xl font-bold text-gray-800">Detail Tugas</h5>
                         <button type="button" class="text-gray-700 hover:text-gray"
                             onclick="closeModal('showTaskModal_{{ $task->id }}')">
@@ -407,7 +406,7 @@
                     </div>
 
                     {{-- Content Modal --}}
-                    <div class="mt-4 mb-3 space-y-4 overflow-y-auto ">
+                    <div class="mt-4 mb-3 space-y-4 overflow-y-auto h-auto ">
                         <div class="flex space-x-2">
                             <h6 class="text-lg font-semibold text-gray-700">Judul:</h6>
                             <p class="text-gray-600">{{ $task->title_task }}</p>
@@ -426,17 +425,17 @@
                             <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
                             <p class="text-gray-600">{{ $task->description_task }}</p>
                         </div>
-                        <div class=mr-8>
+                        <div class="mr-8" style="overflow: hidden;">
                             <h6 class="text-lg font-semibold text-gray-700 mb-3">File Tugas</h6>
                             @php
                                 $file = pathinfo($task->file_task, PATHINFO_EXTENSION);
                             @endphp
                             @if (in_array($file, ['jpg', 'png']))
                                 <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
-                                    class="mx-auto w-[100%] h-full border-2 rounded-lg">
+                                    class="mx-auto w-[100%] h-auto border-2 rounded-lg">
                             @elseif($file === 'pdf')
                                 <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
-                                    class="mx-auto w-[100%] h-full border-2 rounded-lg">
+                                    class="border-2 rounded-lg " style="height: 165vh; width: 100%; display: block;">
                             @else
                                 <p class="text-red-500">Format file tidak didukung.</p>
                             @endif
