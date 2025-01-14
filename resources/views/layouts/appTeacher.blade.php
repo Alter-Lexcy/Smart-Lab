@@ -231,7 +231,7 @@
                                 <div class="px-4 py-2 text-gray-600 ">
                                     <p class="break-words font-poppins">Nama: {{ Auth::user()->name }}</p>
                                     <p class="break-words font-poppins">Email: {{ Auth::user()->email }}</p>
-                                    <p class="break-words font-poppins">Mata Pembelajaran: {{ Auth::user()->subject?->name_subject }}</p>
+                                    <p class="break-words font-poppins">Mata Pembelajaran: {{ Auth::user()->subject?->name_subject ?? 'kosong' }}</p>
                                 </div>
                                 <form action="{{ route('logout') }}" method="POST" class="px-4 py-2">
                                     @csrf

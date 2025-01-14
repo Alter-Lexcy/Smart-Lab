@@ -22,7 +22,7 @@ class StoreMateriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'classes_id'=>['required','exists:classes,id'],
+            'class_id'=>['required','exists:classes,id'],
             'title_materi'=>['required','unique:materis,title_materi'],
             'file_materi'=>['required','mimes:pdf','max:10240'],
         ];
@@ -30,8 +30,8 @@ class StoreMateriRequest extends FormRequest
     public function messages()
     {
         return [
-            'classes_id.required'=>'Kelas Belum Di-Pilih',
-            'classes_id.exists'=>'Kelas Tidak Ada',
+            'class_id.required'=>'Kelas Belum Di-Pilih',
+            'class_id.exists'=>'Kelas Tidak Ada',
             'title_materi.required'=>'Judul Materi Belum Di-isi',
             'title_materi.alpha_num'=>'Judul Materi Hanya Berformat Angka Dan Huruf',
             'title_materi.unique'=>'Judul Materi Sudah Ada',

@@ -22,14 +22,12 @@ class MateriController extends Controller
         $order = $request->input('order', 'desc');
         $user = auth()->user();
 
-        // Filter dan Search Materi
-        $materis = Materi::with('Classes')
-            ->where('user_id',auth()->id())
-            ->where(function ($query) use ($search) {
-                $query->whereHas('Classes', function ($q) use ($search) {
-                    $q->where('name_class', 'like', '%' . $search . '%');
-                })->orWhere('title_materi', 'like', '%' . $search . '%');
+        // Filter dan Search Materi menggunakan whereHas
+        $materis = Materi::with('classes')
+            ->whereHas('classes', function ($query) use ($search) {
+                $query->where('name_class', 'like', '%' . $search . '%');
             })
+            ->where('user_id', auth()->id())
             ->orderBy('created_at', $order)
             ->paginate(5);
 
@@ -37,8 +35,6 @@ class MateriController extends Controller
         $classes = $user->class()->get();
         return view('Guru.Materi.index', compact('materis', 'classes'));
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -54,16 +50,16 @@ class MateriController extends Controller
             return redirect()->back()->withErrors('Anda harus login untuk membuat materi.');
         }
 
-        Materi::create([
+        $materi = Materi::create([
             'title_materi' => $request->title_materi,
             'file_materi' => $img,
             'description' => $request->description,
-            'classes_id' => $request->classes_id,
-            'subject_id'=>$subject->id,
+            'subject_id' => $subject->id,
             'user_id' => auth()->id(),
         ]);
+        $materi->classes()->attach($request->class_id);
 
-        if(!$subject){
+        if (!$subject) {
             return redirect()->back()->withErrors('Materi tidak bisa dibikin karena anda tidak ada mapel');
         }
 
@@ -109,6 +105,8 @@ class MateriController extends Controller
 
         // Lakukan update
         $materi->update($updateData);
+
+        $materi->materiClass()->sync($request->class_id);
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }
