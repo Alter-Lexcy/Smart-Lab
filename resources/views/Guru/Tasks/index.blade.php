@@ -110,11 +110,9 @@
                         <thead>
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Materi</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Judul Tugas</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">FIle Tugas</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Deskripsi Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Tanggal Pengumpulan Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Aksi</th>
                             </tr>
@@ -126,24 +124,9 @@
                                 @endphp
                                 <tr class="border border-gray-300">
                                     <td class="py-3 px-6">{{ $offset + $index + 1 }}</td>
+                                    <td class="py-3 px-6">{{ $task->title_task }}</td>
                                     <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
                                     <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
-                                    <td class="py-3 px-6">{{ $task->title_task }}</td>
-                                    <td class="py-3 px-6">
-                                        @php
-                                            $fileExtension = pathinfo($task->file_task, PATHINFO_EXTENSION);
-                                        @endphp
-                                        @if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                            <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
-                                                width="100px">
-                                        @elseif($fileExtension === 'pdf')
-                                            <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
-                                                width="100px" height="100px">
-                                        @else
-                                        @endif
-                                    </td>
-                                    <td class="py-3 px-6">{{ Str::limit($task->description_task, 15, ' ...') ?? 'Kosong' }}
-                                    </td>
                                     <td class="py-2 px-6">
                                         {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
                                     </td>
@@ -153,6 +136,16 @@
                                             <!-- Show button -->
                                             <button type="button"
                                                 class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                                onclick="openModal('Assessmentshow_{{ $task->id }}')">
+                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                            <button type="button"
+                                                class="bg-green-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('Assessment_{{ $task->id }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                     fill="currentColor" class="size-5">
@@ -160,7 +153,6 @@
                                                         d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                                                 </svg>
                                             </button>
-
                                             <!-- Edit button -->
                                             <button type="button"
                                                 class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
@@ -203,6 +195,70 @@
                     {{ $tasks->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
+
+            {{-- Modal Show --}}
+            @foreach ($tasks as $task)
+                <div id="Assessmentshow_{{ $task->id }}"
+                    class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                    style="display:none;">
+                    <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
+                        {{-- Header Modal --}}
+                        <div class="flex justify-between items-center border-b pb-4 mr-6">
+                            <h5 class="text-2xl font-bold text-gray-800">Detail Tugas</h5>
+                            <button type="button" class="text-gray-700 hover:text-gray00"
+                                onclick="closeModal('Assessmentshow_{{ $task->id }}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {{-- Content Modal --}}
+                        <div class="mt-4 space-y-4 overflow-y-auto h-auto max-h-[80%]">
+                            <div class="">
+                                <h6 class="text-lg font-semibold text-gray-700">Nama Tugas :</h6>
+                                <p class="text-gray-600">{{ $task->title_task }}</p>
+                            </div>
+                            <div class="">
+                                <h6 class="text-lg font-semibold text-gray-700">Kelas :</h6>
+                                <p class="text-gray-600">{{ $task->classes->name_class }}</p>
+                            </div>
+                            <div class="">
+                                <h6 class="text-lg font-semibold text-gray-700">Nama :</h6>
+                                <p class="text-gray-600">{{ $task->Materi->title_materi }}</p>
+                            </div>
+                            <div class="">
+                                <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan :</h6>
+                                <p class="text-gray-700">
+                                    {{ \Carbon\Carbon::parse($task->created_at)->translatedFormat('l, j F Y') }}
+                                </p>
+                            </div>
+                            <div>
+                                <h6 class="text-lg font-semibold text-gray-700">Deskripsi :</h6>
+                                <p class="text-gray-600">{{ $task->description_task }}</p>
+                            </div>
+                            <div class="mr-6">
+                                <h6 class="text-lg font-semibold text-gray-700 mb-3">File task</h6>
+
+                                @php
+                                    $file = pathinfo($task->file_task, PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($file, ['jpg', 'png']))
+                                    <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
+                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                @elseif($file === 'pdf')
+                                    <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
+                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                @else
+                                    <p class="text-gray-500">File Kosong</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
             <!-- Modal Create -->
             <div id="taskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                 style="display: none;" role="dialog" aria-hidden="true">
@@ -290,7 +346,6 @@
                     </form>
                 </div>
             </div>
-
 
             <!-- Modal Update -->
             @foreach ($tasks as $task)
