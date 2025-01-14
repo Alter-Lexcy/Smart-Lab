@@ -55,7 +55,9 @@ class TaskController extends Controller
         $materis = collect(); // Inisialisasi default
         if ($user && $class && $subject) {
             $materis = Materi::where('user_id', $user->id)
-                ->whereIn('classes_id', $class->pluck('id'))
+                ->whereHas('classes',function ($query) use ($class){
+                    $query->whereIn('class_id',$class->pluck('id'));
+                })
                 ->where('subject_id', $subject->id)
                 ->get();
         }

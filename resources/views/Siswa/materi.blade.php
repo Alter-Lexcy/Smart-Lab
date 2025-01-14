@@ -327,22 +327,21 @@
                                 <div class="mt-4 flex-1  overflow-y-auto">
                                     <div class="space-y-4" style="margin-right: 28px">
                                         <div class="flex space-x-2">
-                                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
-                                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                                            <h6 class="text-lg font-semibold text-gray-700">Materi:
+                                                <span class="text-gray-500">{{ $materi->title_materi }}</span>
+                                            </h6>
                                         </div>
                                         <div class="flex space-x-2">
-                                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
-                                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
-                                        </div>
-                                        <div class="flex space-x-2">
-                                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
-                                            <p class="text-gray-700">
-                                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
-                                            </p>
+                                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:
+                                                <span class="text-gray-500">
+                                                    {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                                                </span>
+                                            </h6>
                                         </div>
                                         <div>
-                                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
-                                            <p class="text-gray-600">{{ $materi->description }}</p>
+                                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:
+                                                <span class="text-gray-500">{{ $materi->description ?? 'Kosong'}}</span>
+                                            </h6>
                                         </div>
                                         <div style="width: 100%; height: 165vh; overflow: hidden;">
                                             <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi:</h6>

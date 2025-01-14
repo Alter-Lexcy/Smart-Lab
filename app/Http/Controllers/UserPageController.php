@@ -13,24 +13,26 @@ use Illuminate\Support\Facades\Auth;
 class UserPageController extends Controller
 {
     public function showSubject()
-{
-    // Ambil user yang sedang login
-    $user = auth()->user();
-    $kelasIds = $user->class->pluck('id');
-    $subjects = Subject::withCount([
-        'materi' => function ($query) use ($kelasIds) {
-            $query->whereIn('classes_id', $kelasIds); // Filter berdasarkan kelas user
-        },
-        'Task as task_count' => function ($query) use ($user) {
-            $query->whereHas('collections', function ($subQuery) use ($user) {
-                $subQuery->where('user_id', $user->id)
-                    ->where('status', 'Belum mengumpulkan'); // Hitung tugas belum dikumpulkan
-            });
-        }
-    ])->paginate(6);
+    {
+        // Ambil user yang sedang login
+        $user = auth()->user();
+        $kelasIds = $user->class->pluck('id');
+        $subjects = Subject::withCount([
+            'materi' => function ($query) use ($kelasIds) {
+                $query->whereHas('classes', function ($q) use ($kelasIds){
+                    $q->whereIn('classes.id',$kelasIds);
+                }); // Filter berdasarkan kelas user
+            },
+            'Task as task_count' => function ($query) use ($user) {
+                $query->whereHas('collections', function ($subQuery) use ($user) {
+                    $subQuery->where('user_id', $user->id)
+                        ->where('status', 'Belum mengumpulkan'); // Hitung tugas belum dikumpulkan
+                });
+            }
+        ])->paginate(6);
 
-    return view('Siswa.mapel', compact('subjects'));
-}
+        return view('Siswa.mapel', compact('subjects'));
+    }
 
     public function showMateri(Request $request, $materi_id)
     {
@@ -38,8 +40,10 @@ class UserPageController extends Controller
         $order = $request->input('order', 'desc');
         $search = $request->input('search');
         $kelasID = $user->class->pluck('id');
-        $materis = Materi::whereIn('classes_id', $kelasID)
-            ->with('subject', 'Classes')
+        $materis = Materi::whereHas('classes', function ($query) use ($kelasID){
+            $query->whereIn('class_id',$kelasID);
+        })
+            ->with('subject', 'classes')
             ->where('subject_id', $materi_id)
             ->where('title_materi', 'like', '%' . $search . '%')
             ->orderBy('created_at', $order)

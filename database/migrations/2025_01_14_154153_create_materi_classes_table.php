@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('materi_classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('subject_id')->constrained('subjects');
-            $table->string('title_materi');
-            $table->string('file_materi');
-            $table->text('description')->nullable();
+            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('materi_id')->constrained('materis')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('materi_classes');
     }
 };
