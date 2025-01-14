@@ -155,7 +155,90 @@
 
     <x-navbarsiswa></x-navbarsiswa>
 
-    <!--begin::App-->
+    <div class="bg-white shadow-md">
+        <div class="container px-10 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-5">
+                <!-- Tabs -->
+                <button id="tab-materi"
+                    class="tab-button active-tab bg-blue-800 text-white rounded-xl shadow-md px-3 flex items-center justify-center transform transition-all duration-200 active:scale-95"
+                    onclick="showFilter('materi')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 3h2v18H4zm14 0H7v18h11c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-2 6h-6V8h6zm0-2h-6V6h6z" />
+                    </svg>
+                    <span class="font-semibold text-lg">Materi</span>
+                </button>
+                <button id="tab-tugas"
+                    class="tab-button bg-white text-blue-800 rounded-xl shadow-md px-3 flex items-center justify-center transform transition-all duration-200 active:scale-95"
+                    onclick="showFilter('tugas')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 1H8v4h8z" />
+                        <path d="M3 3h3v4h12V3h3v20H3zm12 10v-2H9v2zm0 4v-2H9v2z" />
+                    </svg>
+                    <span class="font-semibold text-lg">Tugas</span>
+                </button>
+            </div>
+
+            <!-- Form Pencarian -->
+            <div class="flex items-center gap-3">
+                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET"
+                    class="flex items-center">
+                    <input type="text" id="search" name="search" placeholder="Search..."
+                        class="rounded-xl border-gray-300 p-3">
+                    <button type="submit"
+                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </form>
+
+                <!-- Filter Urutan (Hanya tampil di Tab Materi) -->
+                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET" id="filter-urutan"
+                    class="hidden">
+                    @php
+                        $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
+                    @endphp
+                    <input type="hidden" name="order" value="{{ $nextOrder }}">
+                    <button type="submit"
+                        class="p-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white flex items-center justify-center">
+                        @if (request('order', 'desc') === 'desc')
+                            <i class="fa-solid fa-arrow-up-wide-short text-white"></i>
+                        @else
+                            <i class="fa-solid fa-arrow-down-wide-short text-white"></i>
+                        @endif
+                    </button>
+                </form>
+
+                <!-- Dropdown Filter (Hanya tampil di Tab Tugas) -->
+                <div class="relative" id="filter-dropdown-container">
+                    <button id="filterButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl shadow-md">
+                        <i class="fas fa-filter text-white"></i>
+                    </button>
+                    <div id="filterDropdown"
+                        class="hidden absolute right-0 mt-5 w-72 bg-white border border-gray-300 rounded-xl pl-1 pb-2 shadow-lg z-50">
+                        <div class="px-4 py-3 text-lg font-semibold text-gray-700 border-b border-gray-300">
+                            Pilih Status Tugas
+                        </div>
+                        <form method="GET" action="{{ route('Tugas') }}">
+                            @csrf
+                            <button type="submit" name="status" value="Sudah mengumpulkan"
+                                class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12">
+                                Sudah Mengumpulkan
+                            </button>
+                            <button type="submit" name="status" value="Belum mengumpulkan"
+                                class="flex items-center justify-center px-4 py-2 text-yellow-600 bg-yellow-100 rounded-xl m-2 w-64 h-12">
+                                Belum Mengumpulkan
+                            </button>
+                            <button type="submit" name="status" value="Tidak mengumpulkan"
+                                class="flex items-center justify-center px-4 py-2 text-red-800 bg-red-300 rounded-xl m-2 w-64 h-12">
+                                Tidak Mengumpulkan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container p-10">
         <!-- Header Banner -->
         <div class="d-flex flex-column flex-root">
@@ -168,156 +251,251 @@
             </div>
         </div>
 
-        <!-- Daftar Materi -->
-        <div class="flex justify-between items-center my-8">
-            <h1 class="text-2xl text-gray-700 font-poppins font-bold">
-                Daftar Materi
-            </h1>
-
-            <!-- Form pencarian berada di kanan -->
-            <div class="flex justify-between gap-3">
-                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET"
-                    class="flex items-center">
-                    <input type="text" id="search" name="search" placeholder="Search..."
-                        class="rounded-xl border-gray-300 p-3">
-                    <button type="submit"
-                        class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
-                        <i class="fas fa-search text-white"></i>
-                    </button>
-                </form>
-                <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET" class="mt-1">
-                    @php
-                        $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
-                    @endphp
-                    <input type="hidden" name="order" value="{{ $nextOrder }}">
-                    <button type="submit"
-                        class="p-3 border-2 bg-white text-black rounded-lg flex items-center justify-center">
-                        @if (request('order', 'desc') === 'desc')
-                        <i class="fa-solid fa-arrow-up-wide-short text-black"></i>
-                        @else
-                            <i class="fa-solid fa-arrow-down-wide-short text-black"></i>
-                        @endif
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- List Materi -->
-        @forelse ($materis as $materi)
-            <div class="pt-5">
-                <div class="grid grid-cols-1 gap-10">
-                    <div class="bg-blue-500" style="border-radius: 15px; padding-left: 30px; position: relative;">
-                        <div class="bg-white shadow-md py-10 px-5"
-                            style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                            <!-- Judul Materi -->
-                            <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
-                            <!-- Deskripsi Materi -->
-                            <p class="text-gray-600" style="margin-right: 150px;">
-                                {{ Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
-                            </p>
-                            <!-- Tombol Lihat Detail -->
-                            <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
-                                    onclick="openModal('showMateriModal_{{ $materi->id }}')">Lihat
-                                    detail
-                                </button>
+        <div class="my-5">
+            <!-- Content -->
+            <div class="mt-5">
+                <div id="content-materi" class="tab-content">
+                    <!-- List Materi -->
+                    @forelse ($materis as $materi)
+                        <div class="pt-5">
+                            <div class="grid grid-cols-1 gap-10">
+                                <div class="bg-blue-500"
+                                    style="border-radius: 15px; padding-left: 30px; position: relative;">
+                                    <div class="bg-white shadow-md py-10 px-5"
+                                        style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+                                        <!-- Judul Materi -->
+                                        <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
+                                        <!-- Deskripsi Materi -->
+                                        <p class="text-gray-600" style="margin-right: 150px;">
+                                            {{ Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
+                                        </p>
+                                        <!-- Tombol Lihat Detail -->
+                                        <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
+                                            <button
+                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+                                                onclick="openModal('showMateriModal_{{ $materi->id }}')">Lihat
+                                                detail
+                                            </button>
+                                        </div>
+                                        <!-- Tanggal Materi -->
+                                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                                            {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Tanggal Materi -->
-                            <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                        @empty
+                            <!-- Jika Tidak Ada Materi -->
+                            <div class="bg-gray-100 flex items-center justify-center h-screen">
+                                <div class="text-center">
+                                    <div class="text-red-500 mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-gray-700 text-3xl font-semibold">Belum Ada Materi</p>
+                                </div>
                             </div>
                         </div>
+                    @endforelse
+                    <div class="pagination py-3 px-5">
+                        {{ $materis->links('vendor.pagination.tailwind') }}
                     </div>
+                    @foreach ($materis as $materi)
+                        <div id="showMateriModal_{{ $materi->id }}"
+                            class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                            style="display:none;">
+                            <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full mx-7 py-8 flex flex-col overflow-hidden"
+                                style="padding-left: 28px">
+                                <!-- Header Modal -->
+                                <div class="flex justify-between items-center border-b pb-4"
+                                    style="margin-right: 28px">
+                                    <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                                    <button type="button" class="text-gray-700 hover:text-gray-900"
+                                        onclick="closeModal('showMateriModal_{{ $materi->id }}')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <!-- Content Modal -->
+                                <div class="mt-4 flex-1  overflow-y-auto">
+                                    <div class="space-y-4" style="margin-right: 28px">
+                                        <div class="flex space-x-2">
+                                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
+                                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
+                                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
+                                            <p class="text-gray-700">
+                                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
+                                            <p class="text-gray-600">{{ $materi->description }}</p>
+                                        </div>
+                                        <div style="width: 100%; height: 165vh; overflow: hidden;">
+                                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi:</h6>
+                                            @php
+                                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
+                                            @endphp
+                                            @if ($file === 'pdf')
+                                                <embed src="{{ asset('storage/' . $materi->file_materi) }}"
+                                                    type="application/pdf"
+                                                    class=" border-2 rounded-lg  max-h-[10000px]"
+                                                    style="width: 100%; height: 100%; display: block;"> >
+                                            @else
+                                                <p class="text-red-500">Format file tidak didukung.</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @empty
-                <!-- Jika Tidak Ada Materi -->
-                <div class="bg-gray-100 flex items-center justify-center h-screen">
-                    <div class="text-center">
-                        <div class="text-red-500 mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </div>
+            <!--begin::Scrolltop-->
+            <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                            transform="rotate(90 13 6)" fill="currentColor" />
+                        <path
+                            d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                            fill="currentColor" />
+                    </svg>
+                </span><!--end::Svg Icon-->
+            </div>
+        </div>
+        <div id="content-tugas" class="tab-content hidden">
+            <div class="my-10 grid grid-cols-1 gap-10">
+                <div style="position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            Kerjakan 10 soal berikut dengan baik dan benar
+                        </p>
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        <div class="flex items-center text-green-400 mt-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6 mr-2">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
                             </svg>
+                            <span>Sudah Dikerjakan</span>
                         </div>
-                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Materi</p>
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                detail</button>
+                        </div>
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>16 Desember 2024
+                        </div>
                     </div>
-                </div>
-            </div>
-        @endforelse
-        <div class="pagination py-3 px-5">
-            {{ $materis->links('vendor.pagination.tailwind') }}
-        </div>
-        @foreach ($materis as $materi)
-        <div id="showMateriModal_{{ $materi->id }}"
-            class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-            style="display:none;">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full mx-7 py-8 flex flex-col overflow-hidden" style="padding-left: 28px">
-                <!-- Header Modal -->
-                <div class="flex justify-between items-center border-b pb-4" style="margin-right: 28px">
-                    <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
-                    <button type="button" class="text-gray-700 hover:text-gray-900"
-                        onclick="closeModal('showMateriModal_{{ $materi->id }}')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
                 </div>
 
-                <!-- Content Modal -->
-                <div class="mt-4 flex-1  overflow-y-auto">
-                    <div class="space-y-4" style="margin-right: 28px">
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Materi:</h6>
-                            <p class="text-gray-600">{{ $materi->title_materi }}</p>
+                <div style="position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            Kerjakan 10 soal berikut dengan baik dan benar
+                        </p>
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        <div class="flex items-center text-green-400 mt-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6 mr-2">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>Sudah Dikerjakan</span>
                         </div>
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Kelas:</h6>
-                            <p class="text-gray-600">{{ $materi->classes->name_class }}</p>
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                detail</button>
                         </div>
-                        <div class="flex space-x-2">
-                            <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:</h6>
-                            <p class="text-gray-700">
-                                {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
-                            </p>
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>16 Desember 2024
                         </div>
-                        <div>
-                            <h6 class="text-lg font-semibold text-gray-700">Deskripsi:</h6>
-                            <p class="text-gray-600">{{ $materi->description }}</p>
+                    </div>
+                </div>
+
+                <div style="position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            Kerjakan 10 soal berikut dengan baik dan benar
+                        </p>
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        <div class="flex items-center text-green-400 mt-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6 mr-2">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>Sudah Dikerjakan</span>
                         </div>
-                        <div style="width: 100%; height: 165vh; overflow: hidden;">
-                            <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi:</h6>
-                            @php
-                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                            @endphp
-                            @if($file === 'pdf')
-                                <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
-                                    class=" border-2 rounded-lg  max-h-[10000px]" style="width: 100%; height: 100%; display: block;">                                    >
-                            @else
-                                <p class="text-red-500">Format file tidak didukung.</p>
-                            @endif
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                detail</button>
+                        </div>
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>16 Desember 2024
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: relative;">
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        <h2 class="text-xl font-bold mb-2">Tugas Dasar Perkalian</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            Kerjakan 10 soal berikut dengan baik dan benar
+                        </p>
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        <div class="flex items-center text-green-400 mt-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6 mr-2">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>Sudah Dikerjakan</span>
+                        </div>
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl">Lihat
+                                detail</button>
+                        </div>
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>16 Desember 2024
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
     </div>
-    <!--begin::Scrolltop-->
-    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-        <span class="svg-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="currentColor" />
-                <path
-                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                    fill="currentColor" />
-            </svg>
-        </span>
-        <!--end::Svg Icon-->
-    </div>
+
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
@@ -385,6 +563,72 @@
             });
         })
     </script>
+
+    {{-- tab content script --}}
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active state from all tabs
+                    tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800',
+                        'text-white'));
+                    tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
+
+                    // Hide all contents
+                    contents.forEach(content => content.classList.add('hidden'));
+
+                    // Activate clicked tab and show respective content
+                    tab.classList.remove('bg-white', 'text-blue-800');
+                    tab.classList.add('active-tab', 'bg-blue-800', 'text-white');
+
+                    const target = tab.id.replace('tab-', 'content-');
+                    document.getElementById(target).classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
+        function showFilter(tab) {
+            const filterUrutan = document.getElementById('filter-urutan');
+            const filterDropdown = document.getElementById('filterDropdown');
+            const filterDropdownContainer = document.getElementById('filter-dropdown-container');
+
+            // Menyembunyikan semua filter terlebih dahulu
+            filterUrutan.classList.add('hidden');
+            filterDropdown.classList.add('hidden');
+
+            // Menampilkan filter sesuai tab aktif
+            if (tab === 'materi') {
+                filterUrutan.classList.remove('hidden');
+                filterDropdownContainer.classList.add('hidden');
+            } else if (tab === 'tugas') {
+                filterUrutan.classList.add('hidden');
+                filterDropdownContainer.classList.remove('hidden');
+            }
+        }
+
+        // Fungsi untuk membuka dan menutup dropdown filter
+        document.getElementById('filterButton').addEventListener('click', function() {
+            const filterDropdown = document.getElementById('filterDropdown');
+            filterDropdown.classList.toggle('hidden');
+        });
+
+        // Fungsi untuk menampilkan atau menyembunyikan tombol filter urutan
+        document.getElementById('filter-urutan').addEventListener('submit', function() {
+            // Menyembunyikan dropdown filter saat urutan filter diklik
+            document.getElementById('filterDropdown').classList.add('hidden');
+        });
+
+        // Set default tab to "Materi" saat halaman pertama kali dibuka
+        showFilter('materi');
+    </script>
+
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
         data-cf-beacon='{"rayId":"8f0bc3aff833fd88","version":"2024.10.5","r":1,"token":"a20ac1c0d36b4fa6865d9d244f4efe5a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
@@ -392,6 +636,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     {{-- npm flowbite --}}
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 <!--end::Body-->
 
