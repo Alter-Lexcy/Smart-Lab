@@ -13,16 +13,24 @@ use Illuminate\Support\Facades\Auth;
 class UserPageController extends Controller
 {
     public function showSubject()
-    {
-        // Ambil user yang sedang login
-        $user = auth()->user();
+{
+    // Ambil user yang sedang login
+    $user = auth()->user();
+    $kelasIds = $user->class->pluck('id');
+    $subjects = Subject::withCount([
+        'materi' => function ($query) use ($kelasIds) {
+            $query->whereIn('classes_id', $kelasIds); // Filter berdasarkan kelas user
+        },
+        'Task as task_count' => function ($query) use ($user) {
+            $query->whereHas('collections', function ($subQuery) use ($user) {
+                $subQuery->where('user_id', $user->id)
+                    ->where('status', 'Belum mengumpulkan'); // Hitung tugas belum dikumpulkan
+            });
+        }
+    ])->paginate(6);
 
-        $kelasIds = $user->class->pluck('id');
-        $subjects = Subject::withCount(['materi' => function ($query) use ($kelasIds) {
-            $query->whereIn('classes_id', $kelasIds); // Menggunakan whereIn untuk banyak kelas
-        }])->paginate(6);
-        return view('Siswa.mapel', compact('subjects'));
-    }
+    return view('Siswa.mapel', compact('subjects'));
+}
 
     public function showMateri(Request $request, $materi_id)
     {
