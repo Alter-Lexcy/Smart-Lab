@@ -116,7 +116,7 @@
     <div class="container p-10 h-screen">
         <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
             <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-                <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+                <div class="flex items-center justify-center min-h-screen">
                     <div class="grid grid-cols-3 gap-10 w-full p-10"
                         style="grid-template-columns: 2fr 1fr; height: full;">
                         <!-- Kolom kiri -->
