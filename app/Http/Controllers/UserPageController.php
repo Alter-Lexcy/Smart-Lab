@@ -16,7 +16,10 @@ class UserPageController extends Controller
     {
         // Ambil user yang sedang login
         $user = auth()->user();
+        // Ambil ID kelas yang dimiliki oleh user
         $kelasIds = $user->class->pluck('id');
+
+        // Ambil mata pelajaran dan guru yang mengajar berdasarkan kelas user
         $subjects = Subject::withCount([
             'materi' => function ($query) use ($kelasIds) {
                 $query->whereHas('classes', function ($q) use ($kelasIds) {
@@ -28,11 +31,19 @@ class UserPageController extends Controller
                     $subQuery->where('user_id', $user->id)
                         ->where('status', 'Belum mengumpulkan'); // Hitung tugas belum dikumpulkan
                 });
+            },
+            'user' => function ($query) use ($kelasIds) {
+                // Mengambil guru yang mengajar di kelas yang dimiliki oleh user
+                $query->whereHas('class', function ($q) use ($kelasIds) {
+                    $q->whereIn('classes.id', $kelasIds);
+                });
             }
         ])->paginate(6);
 
+        // Mengirim data subjects ke view
         return view('Siswa.mapel', compact('subjects'));
     }
+
 
     public function showMateri(Request $request, $materi_id)
     {
@@ -62,10 +73,10 @@ class UserPageController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        if ($materis->isEmpty()) {
+        if ($kelasID->isEmpty()) {
             return redirect()->back()->with('error', 'Materi tidak ditemukan.');
         }
-        
+
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
 
         return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
