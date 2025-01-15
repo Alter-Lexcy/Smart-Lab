@@ -249,16 +249,17 @@
     <div class="container p-10">
 
         <!-- Header Banner -->
-        <div class="d-flex flex-column flex-root">
-            <div class="flex w-full position-relative" style="position: relative;">
-                <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
-                <p class="absolute text-5xl font-poppins text-white font-bold"
-                    style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%);">
-                    {{ $subjectName }}
-                </p>
+        @if ($materis->isNotEmpty())
+            <div class="d-flex flex-column flex-root">
+                <div class="flex w-full position-relative" style="position: relative;">
+                    <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
+                    <p class="absolute text-5xl font-poppins text-white font-bold"
+                        style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%);">
+                        {{ $subjectName }}
+                    </p>
+                </div>
             </div>
-        </div>
-
+        @endif
         {{-- Tap Content Materi --}}
         <div class="my-5">
             <!-- Content -->
@@ -299,7 +300,7 @@
                         <div class="flex items-center justify-center h-screen">
                             <div class="text-center">
                                 <div class="text-red-500 mb-5" style="justify-self: center">
-                                    <img src="/image/gelombang.svg" alt="">
+                                    <img src="/image/Gelembung.svg" alt="">
                                 </div>
                                 <p class="text-gray-700 text-3xl font-semibold">Belum Ada Materi</p>
                             </div>
