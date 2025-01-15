@@ -62,7 +62,10 @@ class UserPageController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-
+        if ($materis->isEmpty()) {
+            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
+        }
+        
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
 
         return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
