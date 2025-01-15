@@ -93,7 +93,6 @@ class MateriController extends Controller
         $updateData = [
             'title_materi' => $validated['title_materi'],
             'description' => $validated['description'],
-            'classes_id' => $validated['classes_id'],
             'subject_id' => $subject->id,
             'user_id' => auth()->id(),
         ];
@@ -106,7 +105,7 @@ class MateriController extends Controller
         // Lakukan update
         $materi->update($updateData);
 
-        $materi->materiClass()->sync($request->class_id);
+        $materi->classes()->sync($request->class_id);
 
         return redirect()->route('materis.index')->with('success', 'Data Berhasil Diubah');
     }

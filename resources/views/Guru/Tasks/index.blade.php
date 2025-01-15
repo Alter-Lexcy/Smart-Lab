@@ -2,6 +2,13 @@
 @section('content')
     <!-- CSS -->
     <style>
+        /* Gaya tombol aktif */
+        .profile.active {
+            background-color: #2563eb;
+            /* Tailwind blue-600 */
+            color: #ffffff;
+        }
+
         #searchForm {
             opacity: 0;
             visibility: hidden;
@@ -106,7 +113,7 @@
             <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
                 <h6 class="font-semibold p-3 text-sm ps-5">Daftar Tugas</h6>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white text-center rounded-lg">
+                    <table class="min-w-full bg-white text-left rounded-lg">
                         <thead>
                             <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
@@ -131,59 +138,58 @@
                                         {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
                                     </td>
                                     <td class="px-4 py-2">
-                                        <!-- Action buttons container -->
-                                        <div class="flex space-x-2 items-center justify-center">
-                                            <!-- Show button -->
-                                            <button type="button"
-                                                class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
-                                                onclick="openModal('Assessmentshow_{{ $task->id }}')">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor" viewBox="0 0 24 24">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                            <button type="button"
-                                                class="bg-green-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
-                                                onclick="openModal('Assessment_{{ $task->id }}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor" class="size-5">
-                                                    <path
-                                                        d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-                                                </svg>
-                                            </button>
-                                            <!-- Edit button -->
-                                            <button type="button"
-                                                class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
-                                                onclick="openModal('editTaskModal{{ $task->id }}')">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor" viewBox="0 0 24 24">
-                                                    <path fill-rule="evenodd"
-                                                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                                                        clip-rule="evenodd" />
-                                                    <path fill-rule="evenodd"
-                                                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                                                        clip-rule="evenodd" />
+                                        <div class="">
+                                            <!-- Profile Button -->
+                                            <button id="profile-button-{{ $task->id }}"
+                                                class="profile flex p-2 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 text-blue-500 bg-blue-100 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
+                                                onclick="toggleDropdown('dropdown-opsi-{{ $task->id }}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                                 </svg>
                                             </button>
 
-                                            <!-- Delete button -->
-                                            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
-                                                class="inline m-0 p-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="bg-red-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus task ini?')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        fill="currentColor" class="w-5 h-5">
-                                                        <path fill-rule="evenodd"
-                                                            d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </button>
-                                            </form>
+                                            <!-- Dropdown Profile -->
+                                            <div id="dropdown-opsi-{{ $task->id }}"
+                                                class="hidden absolute text-left right-28 bg-white shadow-lg rounded-md text-md  font-medium z-10 w-32 ">
+                                                <ul class="py-2 ">
+                                                    <!-- Edit -->
+                                                    <li>
+                                                        <a onclick="openModal('editTaskModal{{ $task->id }}')"
+                                                            class="block px-4 py-1 text-yellow-500 hover:bg-gray-100">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <!-- Nilai -->
+                                                    <li>
+                                                        <a href="{{ route('assesments.index', $task->id) }}"
+                                                            class="block px-4 py-1 text-green-500 hover:bg-gray-100">
+                                                            Nilai
+                                                        </a>
+                                                    </li>
+                                                    <!-- Lihat -->
+                                                    <li>
+                                                        <a onclick="openModal('Assessmentshow_{{ $task->id }}')"
+                                                            class="block px-4 py-1 text-gray-500 hover:bg-gray-100">
+                                                            Lihat
+                                                        </a>
+                                                    </li>
+                                                    <!-- Hapus -->
+                                                    <li>
+                                                        <form action="{{ route('tasks.destroy', $task->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus task ini?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="block px-4 py-1 w-full text-start text-red-500 hover:bg-gray-100">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -283,7 +289,7 @@
                                     <div class="text-red-500 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-4">
+                            <div class="mb-4 mr-6">
                                 <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                 <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
                                     <option value="" disabled selected>Pilih Materi</option>
@@ -358,20 +364,22 @@
                             enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
                             @csrf
                             @method('PUT')
-                            <div class="mb-4">
-                                <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
-                                <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
-                                    <option value="" disabled selected>Pilih Kelas</option>
-                                    @foreach ($classes as $class)
-                                        <option value="{{ $class->id }}"
-                                            {{ $task->class_id == $class->id ? 'selected' : '' }}>
-                                            {{ $class->name_class }}</option>
-                                    @endforeach
-                                </select>
-                                @error('class_id')
-                                    <div class="text-red-500">{{ $message }}</div>
-                                @enderror
-                                <div class="mb-4 ">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="mb-4">
+                                    <label for="class_id" class="block text-gray-700 font-bold mb-2">Kelas</label>
+                                    <select name="class_id" id="class_id" class="w-full px-3 py-2 border rounded">
+                                        <option value="" disabled selected>Pilih Kelas</option>
+                                        @foreach ($classes as $class)
+                                            <option value="{{ $class->id }}"
+                                                {{ $task->class_id == $class->id ? 'selected' : '' }}>
+                                                {{ $class->name_class }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('class_id')
+                                        <div class="text-red-500">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-4 mr-6">
                                     <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
                                     <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
                                         <option value="" disabled selected>Pilih Materi</option>
@@ -385,14 +393,14 @@
                                         <div class="text-red-500">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="mb-4 mr-6">
-                                    <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
-                                    <input type="text" id="title_task" name="title_task"
-                                        class="w-full px-3 py-2 border rounded" value="{{ $task->title_task }}">
-                                    @error('title_task')
-                                        <div class="text-red-500">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                            </div>
+                            <div class="mb-4 mr-6">
+                                <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
+                                <input type="text" id="title_task" name="title_task"
+                                    class="w-full px-3 py-2 border rounded" value="{{ $task->title_task }}">
+                                @error('title_task')
+                                    <div class="text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4 mr-6">
                                 <label for="file_task" class="block text-gray-700 font-bold mb-2">File Tugas</label>
@@ -485,6 +493,34 @@
 @endsection
 
 <script>
+    function toggleDropdown(taskId) {
+        // Menutup dropdown lain yang terbuka
+        const currentDropdown = document.querySelector('.dropdown-active');
+        const currentButton = document.querySelector('.active');
+
+        if (currentDropdown && currentDropdown.id !== `dropdown-opsi-${taskId}`) {
+            currentDropdown.classList.add('hidden');
+            currentDropdown.classList.remove('dropdown-active');
+            if (currentButton) currentButton.classList.remove('active');
+        }
+
+        const dropdown = document.getElementById(`dropdown-opsi-${taskId}`);
+        const button = document.getElementById(`profile-button-${taskId}`);
+
+        // Toggle visibilitas dropdown
+        const isDropdownHidden = dropdown.classList.contains('hidden');
+        if (isDropdownHidden) {
+            dropdown.classList.remove('hidden');
+            dropdown.classList.add('dropdown-active');
+            button.classList.add('active');
+        } else {
+            dropdown.classList.add('hidden');
+            dropdown.classList.remove('dropdown-active');
+            button.classList.remove('active');
+        }
+    }
+
+
     document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', function(event) {
 
