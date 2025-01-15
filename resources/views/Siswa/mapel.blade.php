@@ -172,14 +172,17 @@
                         <!-- Nama guru -->
                         @if (auth()->user() && auth()->user()->class()->exists())
                             @forelse($subject->user as $user)
-                                <span class="text-lg">{{ $user->name }}</span>
+                                @if ($user->class->pluck('id')->intersect(auth()->user()->class->pluck('id'))->isNotEmpty())
+                                    <span class="text-lg">{{ $user->name }}</span>
+                                @else
+                                    <span class="text-lg">Belum ada guru</span>
+                                @endif
                             @empty
                                 <span class="text-lg">Belum ada guru</span>
                             @endforelse
                         @else
                             <span class="text-lg">Anda Harus Mendapatkan Kelas</span>
                         @endif
-
                     </div>
                 </a>
             @empty
