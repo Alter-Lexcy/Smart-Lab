@@ -19,8 +19,8 @@ class UserPageController extends Controller
         $kelasIds = $user->class->pluck('id');
         $subjects = Subject::withCount([
             'materi' => function ($query) use ($kelasIds) {
-                $query->whereHas('classes', function ($q) use ($kelasIds){
-                    $q->whereIn('classes.id',$kelasIds);
+                $query->whereHas('classes', function ($q) use ($kelasIds) {
+                    $q->whereIn('classes.id', $kelasIds);
                 }); // Filter berdasarkan kelas user
             },
             'Task as task_count' => function ($query) use ($user) {
@@ -39,9 +39,12 @@ class UserPageController extends Controller
         $user = auth()->user();
         $order = $request->input('order', 'desc');
         $search = $request->input('search');
+        $activeTab = $request->input('tab', 'materis'); // Default tab adalah "materis"
         $kelasID = $user->class->pluck('id');
-        $materis = Materi::whereHas('classes', function ($query) use ($kelasID){
-            $query->whereIn('class_id',$kelasID);
+
+        // Query Materi
+        $materis = Materi::whereHas('classes', function ($query) use ($kelasID) {
+            $query->whereIn('class_id', $kelasID);
         })
             ->with('subject', 'classes')
             ->where('subject_id', $materi_id)
@@ -49,15 +52,22 @@ class UserPageController extends Controller
             ->orderBy('created_at', $order)
             ->paginate(5);
 
-        // Jika tidak ada materi ditemukan
-        if ($materis->isEmpty()) {
-            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
-        }
+        // Query Task
+        $tasks = Task::with(['collections' => function ($query) {
+            $query->select('task_id', 'status');
+        }])
+            ->whereIn('class_id', $kelasID)
+            ->where('subject_id', $materi_id)
+            ->where('title_task', 'like', '%' . $search . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
 
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
 
-        return view('Siswa.materi', compact('materis', 'subjectName', 'materi_id'));
+        return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
     }
+
 
 
     public function showTask(Request $request)
