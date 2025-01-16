@@ -252,11 +252,26 @@
         @if ($materis->isNotEmpty())
             <div class="d-flex flex-column flex-root">
                 <div class="flex w-full position-relative" style="position: relative;">
+                    <!-- Gambar dengan teks di dalamnya -->
                     <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
-                    <p class="absolute text-5xl font-poppins text-white font-bold"
-                        style="position: absolute; top: 50%; left: 15%; transform: translate(-50%, -50%);">
-                        {{ $subjectName }}
-                    </p>
+
+                    <!-- Elemen teks yang berada di atas gambar -->
+                    <div
+                        style="
+                    position: absolute;
+                    top: 50%;
+                    left: 5%; /* Posisi kiri */
+                    transform: translateY(-50%);
+                    text-align: left;
+                    color: white;
+                    max-width: 40%; /* Membatasi lebar teks */
+                    overflow-wrap: break-word; /* Memastikan teks panjang terpecah */
+                    word-wrap: break-word; /* Kompatibilitas tambahan */
+                ">
+                        <p class="text-5xl font-poppins font-bold">
+                            {{ $subjectName }}
+                        </p>
+                    </div>
                 </div>
             </div>
         @endif

@@ -13,6 +13,21 @@
             opacity: 1;
             visibility: visible;
         }
+
+        .no-arrows {
+            -moz-appearance: textfield;
+            /* Firefox */
+            -webkit-appearance: none;
+            /* Safari and Chrome */
+            appearance: none;
+            /* Standard */
+        }
+
+        .no-arrows::-webkit-inner-spin-button,
+        .no-arrows::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
     <div class="container mx-auto p-4">
         <div class="container mx-auto pt-2">
@@ -73,6 +88,7 @@
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,16 +108,36 @@
                                         {{ $assessment->collection && $assessment->collection->task ? $assessment->collection->task->title_task : 'Tugas tidak ditemukan' }}
                                     </td>
                                     <td class="border px-4 py-2">
-                                        @if ($assessment->status === 'Sudah Di-nilai')
-                                            <span>{{ $assessment->mark_task }}</span>
-                                        @else
-                                            <span class="text-red-600">Belum dinilai</span>
-                                        @endif
+                                        <input type="number" name="scores[{{ $assessment->id }}]"
+                                            class="form-control p-1 text-center bg-gray-100 border rounded-xl no-arrows"
+                                            min="0" max="100" value="{{ old('scores.' . $assessment->id) }}">
+                                    </td>
+                                    <td class="border px-4 py-2" style="justify-items: center">
+                                        <!-- Show button -->
+                                        <button type="button"
+                                            class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                            onclick="">
+                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="flex justify-end">
+                        <button
+                            class="flex items-center bg-blue-600 text-white mr-5 mt-5 px-7 py-2 rounded-xl shadow-lg transform hover:scale-105 hover:bg-blue-900 hover:text-blue-100 transition-all duration-300 ease-in-out">
+                            <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 8H4m4 6h8m0 0-2-2m2 2-2 2M4 6v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
+                            </svg>
+                            Kirim
+                        </button>
+                    </div>
                 </div>
                 <div class="pagination py-3 px-5">
                     {{ $assessments->links('vendor.pagination.tailwind') }}

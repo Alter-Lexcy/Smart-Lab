@@ -136,7 +136,9 @@
     <h1 class="text-center text-3xl mb-4 text-gray-700 font-poppins font-bold">
         Daftar Mata Pelajaran
     </h1>
-    <hr class="w-10 mx-auto border-t-2 border-gray-700">
+    <div class="flex justify-center">
+        <div class="w-96 h-1 bg-gray-700 rounded"></div>
+    </div>
 
     <!-- Container Card -->
     <div class="container mx-auto p-10">
