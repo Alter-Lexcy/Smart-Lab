@@ -386,97 +386,107 @@
             </div>
         </div>
         {{-- Tab Content Tugas --}}
-        <div id="content-tugas" class="tab-content hidden">
-            <div class="my-10 grid grid-cols-1 gap-10">
+        <div id="content-tugas" class="tab-content hidden space-y-6">
+            @forelse ($tasks as $task)
                 <div style="position: relative;">
-                    @forelse($tasks as $task)
-                        <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                            <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
-                            <p class="text-gray-700" style="margin-right: 150px">
-                                Materi : <span class="text-gray-600">{{ $task->Materi->title_materi }}</span>
+                    <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
+                        @foreach ($task->collections as $collection)
+                            <p class="text-gray-600" style="margin-right: 150px; margin-bottom: 5px">Nilai:
+                                {{ $collection->assessment && $collection->assessment->mark_task !== null ? $collection->assessment->mark_task : 'Belum Dinilai' }}
                             </p>
-                            <!-- Status Sudah Dikerjakan dengan ikon -->
+                        @endforeach
+                        <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
+                        <p class="text-gray-600" style="margin-right: 150px">
+                            Mapel : {{ $task->Subject->name_subject }}
+                        </p>
+
+                        <!-- Status Sudah Dikerjakan dengan ikon -->
+                        @php
+                            $status = $task->collections->first()->status ?? 'default';
+                        @endphp
+
+                        @if ($status === 'Tidak mengumpulkan')
+                            <div class="flex items-center text-red-400 mt-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>{{ $status }}</span>
+                            </div>
+                        @elseif ($status === 'Belum mengumpulkan')
+                            <div class="flex items-center text-yellow-300 mt-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>{{ $status }}</span>
+                            </div>
+                        @elseif ($status === 'Sudah mengumpulkan')
+                            <div class="flex items-center text-green-400 mt-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>{{ $status }}</span>
+                            </div>
+                        @else
+                            <div class="flex items-center text-gray-400 mt-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 mr-2">
+                                    <path
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12 16.5a.75.75 0 0 1 0-1.5h.008a.75.75 0 1 1 0 1.5H12ZM12 6a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 12 6Z" />
+                                </svg>
+                                <span>Status Tidak Diketahui</span>
+                            </div>
+                        @endif
+
+                        <!-- Tombol Aksi -->
+                        <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
+                                onclick="openModal('showTaskModal_{{ $task->id }}')">
+                                Lihat detail
+                            </button>
                             @php
                                 $status = $task->collections->first()->status ?? 'default';
                             @endphp
-
-                            @if ($status === 'Tidak mengumpulkan')
-                                <div class="flex items-center text-red-400 mt-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-6 h-6 mr-2">
-                                        <path fill-rule="evenodd"
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>{{ $status }}</span>
-                                </div>
-                            @elseif ($status === 'Belum mengumpulkan')
-                                <div class="flex items-center text-yellow-300 mt-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-6 h-6 mr-2">
-                                        <path fill-rule="evenodd"
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>{{ $status }}</span>
-                                </div>
-                            @elseif ($status === 'Sudah mengumpulkan')
-                                <div class="flex items-center text-green-400 mt-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-6 h-6 mr-2">
-                                        <path fill-rule="evenodd"
-                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>{{ $status }}</span>
-                                </div>
-                            @else
-                                <div class="flex items-center text-gray-400 mt-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="w-6 h-6 mr-2">
-                                        <path
-                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12 16.5a.75.75 0 0 1 0-1.5h.008a.75.75 0 1 1 0 1.5H12ZM12 6a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 12 6Z" />
-                                    </svg>
-                                    <span>Status Tidak Diketahui</span>
-                                </div>
-                            @endif
-
-                            <!-- Tombol Aksi -->
-                            <div class="mt-4" style="position: absolute; bottom: 15px; right: 15px;">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl"
-                                    onclick="openModal('showTaskModal_{{ $task->id }}')">
-                                    Lihat detail
+                            @if ($status === 'Belum mengumpulkan')
+                                <button
+                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
+                                    onclick="openModal('tugasModal-{{ $task->id }}')">
+                                    Pengumpulan Tugas
                                 </button>
-                                @php
-                                    $status = $task->collections->first()->status ?? 'default';
-                                @endphp
-                                @if ($status === 'Belum mengumpulkan')
-                                    <button
-                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
-                                        onclick="openModal('tugasModal-{{ $task->id }}')">
-                                        Pengumpulan Tugas
-                                    </button>
-                                @endif
-                            </div>
-                            <!-- Tanggal di kanan atas -->
-                            <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
-                                <span class="text-danger">Deadline </span>
-                                {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
-                            </div>
+                            @endif
                         </div>
-                    @empty
-                        <div class="flex items-center justify-center h-screen">
-                            <div class="text-center">
-                                <div class="text-red-500 mb-5" style="justify-self: center">
-                                    <img src="/image/Gelembung.svg" alt="">
-                                </div>
-                                <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
-                            </div>
+
+                        <!-- Tanggal di kanan atas -->
+                        <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
+                            <span class="text-danger">Deadline </span>
+                            {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
                         </div>
-                    @endforelse
+                    </div>
                 </div>
-            </div>
+            @empty
+                <div class="flex items-center justify-center h-screen">
+                    <div class="text-center">
+                        <div class="text-red-500 mb-5" style="justify-self: center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
+                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
+                    </div>
+                </div>
+            @endforelse
         </div>
+
         {{-- Show Task --}}
         @foreach ($tasks as $task)
             <div id="showTaskModal_{{ $task->id }}"
@@ -544,7 +554,8 @@
         {{-- Collection --}}
         @foreach ($tasks as $task)
             <div id="tugasModal-{{ $task->id }}"
-                class="tugasModal fixed inset-0 flex items-center justify-center" style="display: none;">
+                class="tugasModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 "
+                style="display: none;">
                 <div class="bg-white rounded-lg px-7 py-5 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
 
@@ -592,69 +603,30 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
-
-
-    <script>
-        var options = {
-            series: [44, 55, 41, 17, 15],
-            chart: {
-                type: 'donut',
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#kt_attendance"), options);
-        chart.render();
-    </script>
     <!--end::Javascript-->
     <script>
-        function openModal(id) {
-            console.log(`Opening modal: ${id}`);
-            const modal = document.getElementById(id);
+        function openModal(modalId) {
+            // Tutup semua modal yang terbuka
+            const modals = document.querySelectorAll('.tugasModal');
+            modals.forEach(modal => modal.classList.add('hidden'));
+
+            // Tampilkan modal yang diinginkan
+            const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
             } else {
-                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+                console.error(`Modal dengan ID ${modalId} tidak ditemukan.`);
             }
         }
 
-        function closeModal(id) {
-            console.log(`Closing modal: ${id}`);
-            const modal = document.getElementById(id);
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'none';
+                modal.classList.add('hidden');
             } else {
-                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+                console.error(`Modal dengan ID ${modalId} tidak ditemukan.`);
             }
         }
-
-        $('.notification-link').click(function(e) {
-            $.ajax({
-                url: '/delete-notification/' + e.target.id,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                // success: function(response) {
-                //     // Redirect ke halaman tujuan setelah penghapusan berhasil
-                //     window.location.href = $(this).attr('href');
-                // },
-                error: function(xhr) {
-                    // Tangani kesalahan jika terjadi
-                    console.error(xhr.responseText);
-                }
-            });
-        })
     </script>
 
     {{-- tab content script --}}
@@ -720,6 +692,28 @@
 
         // Set default tab to "Materi" saat halaman pertama kali dibuka
         showFilter('materi');
+    </script>
+
+    <script>
+        function updateFileName(input) {
+            const fileNameSpan = document.getElementById(`file-name-${input.id.split('-')[1]}`);
+            const fileName = input.files[0]?.name || 'Tidak ada file yang dipilih';
+            fileNameSpan.textContent = fileName;
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex'; // Tampilkan modal
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none'; // Sembunyikan modal
+            }
+        }
     </script>
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
