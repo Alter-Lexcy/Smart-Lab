@@ -219,7 +219,8 @@
                             </div>
                             <div class="flex space-x-2">
                                 <h6 class="text-lg font-semibold text-gray-700">Kelas:
-                                    <span class="text-gray-500">{{ $materi->classes->pluck('name_class')->implode(', ') }}</span>
+                                    <span
+                                        class="text-gray-500">{{ $materi->classes->pluck('name_class')->implode(', ') }}</span>
                                 </h6>
                             </div>
                             <div class="flex space-x-2">
@@ -264,17 +265,17 @@
                     <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                         <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
                         <form action="{{ route('materis.update', $materi->id) }}" method="POST"
-                            enctype="multipart/form-data" class="overflow-y-auto h-[70%]">
+                            enctype="multipart/form-data" class="overflow-y-auto">
                             @csrf
                             @method('PUT')
                             <div class="mb-3 mr-6">
                                 <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                                <select class="js-example-basic-multiple px-3 py-5 border rounded" name="classes_id[]" multiple="multiple">
-                                    <!-- Tambahkan opsi jika perlu -->
+                                <select class="js-example-basic-multiple px-3 py-5 border rounded" name="class_id[]"
+                                    multiple="multiple">
                                     @foreach ($classes as $class)
                                         <option value="{{ $class->id }}"
-                                            {{ $materi->classes_id == $class->id ? 'selected' : '' }}>
-                                            {{$class->name_class}}
+                                            {{ in_array($class->id, old('classes_id', $materi->classes->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                            {{ $class->name_class }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -286,22 +287,40 @@
                                     Materi</label>
                                 <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
                                     class="w-full border rounded px-3 py-2"
-                                    value="{{ old('title_materi', $materi->title_materi) }}">
+                                    value="{{ old('title_materi') }}" >
                             </div>
 
                             <div class="mb-3 mr-6">
                                 <label for="description-{{ $materi->id }}"
                                     class="block font-medium mb-1">Deskripsi</label>
                                 <textarea id="description-{{ $materi->id }}" rows="2" name="description"
-                                    class="w-full px-3 py-2 border rounded">{{ old('description', $materi->description) }}</textarea>
+                                    class="w-full px-3 py-2 border rounded">{{ old('description') }}</textarea>
                             </div>
                             <div class="mb-3 mr-6">
                                 <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
                                     Materi</label>
                                 <small>File Harus Berformat PDF</small>
+
+                                <!-- Input File -->
                                 <input type="file" id="file_materi-{{ $materi->id }}" name="file_materi"
-                                    class="w-full border rounded px-3 py-2">
+                                    class="w-full border rounded px-3 py-2"
+                                    onchange="updateFilePreview({{ $materi->id }})">
+
+                                <!-- Preview File Lama -->
+                                <div id="file-preview-{{ $materi->id }}" class="mt-2">
+                                    @if ($materi->file_materi)
+                                        <p>File saat ini:
+                                            <a href="{{ asset('storage/' . $materi->file_materi) }}" target="_blank"
+                                                class="text-blue-500">
+                                                {{ basename($materi->file_materi) }}
+                                            </a>
+                                        </p>
+                                    @else
+                                        <p class="text-gray-500">Tidak ada file yang diunggah sebelumnya.</p>
+                                    @endif
+                                </div>
                             </div>
+
                             <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan
                                 Perubahan</button>
                             <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded"
@@ -325,11 +344,13 @@
                         <!-- Kelas -->
                         <div class="mb-3 mr-6">
                             <label for="classes_id" class="block font-medium mb-1">Kelas</label>
-                            <select class="js-example-basic-multiple px-3 py-5 border rounded" name="class_id[]" multiple="multiple">
+                            <select class="js-example-basic-multiple px-3 py-5 border rounded" name="class_id[]"
+                                multiple="multiple">
                                 <!-- Tambahkan opsi jika perlu -->
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}"{{ old('class_id') == $class->id ? 'selected' : '' }}>
-                                        {{$class->name_class}}
+                                    <option
+                                        value="{{ $class->id }}"{{ in_array($class->id, old('class_id', [])) ? 'selected' : '' }}>
+                                        {{ $class->name_class }}
                                     </option>
                                 @endforeach
                             </select>

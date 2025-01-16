@@ -112,7 +112,7 @@
                                                 <div class="mb-4">
                                                     <label class="block text-gray-700">Nama Kelas</label>
                                                     <select name="classes_id[]" id="classes_id-{{ $teacher->id }}"
-                                                        class="classes px-3 py-5 border rounded js-example-basic-multiple"
+                                                        class="classes px-3 py-5 border rounded js-example-basic-multiple @error('classes_id') border-red-500 @enderror"
                                                         style="width: 100%" multiple="multiple">
                                                         @foreach ($classes as $class)
                                                             <option value="{{ $class->id }}"
@@ -121,6 +121,9 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    @error('classes_id')
+                                                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="mb-4">
@@ -195,6 +198,13 @@
                     e.preventDefault(); // Mencegah pengiriman form
                     const form = document.getElementById('searchForm');
                     form.classList.toggle('show'); // Toggle class "show"
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        const modals = document.querySelectorAll('.fixed.bg-black.bg-opacity-50');
+                        modals.forEach(modal => modal.style.display = 'none');
+                    }
                 });
             </script>
         @endsection
