@@ -64,12 +64,18 @@ class UserPageController extends Controller
             ->paginate(5);
 
         // Query Task
-        $tasks = Task::with(['collections' => function ($query) {
-            $query->select('task_id', 'status');
-        }])
+        $tasks = Task::select('tasks.*', 'collections.status as collection_status')
+            ->leftJoin('collections', function ($join) {
+                $join->on('tasks.id', '=', 'collections.task_id')
+                    ->where('collections.user_id', '=', Auth::id());
+            })
+            ->with(['collections' => function ($query) {
+                $query->select('task_id', 'status');
+            }])
             ->whereIn('class_id', $kelasID)
             ->where('subject_id', $materi_id)
             ->where('title_task', 'like', '%' . $search . '%')
+            ->orderByRaw("FIELD(collections.status, 'Belum mengumpulkan', 'Sudah mengumpulkan', 'Tidak mengumpulkan') ASC")
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 

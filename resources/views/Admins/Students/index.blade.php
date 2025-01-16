@@ -106,7 +106,8 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit"
-                                                            class="p-2 border-2 text-xs text-white bg-green-600 rounded-lg flex items-center justify-center hover:bg-green-800 transition">
+                                                            class="p-2 border-2 text-xs text-white bg-green-600 rounded-lg flex items-center justify-center hover:bg-green-800 transition"
+                                                            onclick="return confirm('Apakah Anda Yakin Menyetujuinya ?')">
                                                             Terima
                                                         </button>
                                                     </form>
@@ -115,7 +116,8 @@
                                                         class="inline">
                                                         @csrf
                                                         <button type="submit"
-                                                            class="p-2 border-2 text-xs text-white bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-800 transition">
+                                                            class="p-2 border-2 text-xs text-white bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-800 transition"
+                                                            onclick="return confirm('Apakah Anada Yakin Menolaknya')">
                                                             Tolak
                                                         </button>
                                                     </form>
