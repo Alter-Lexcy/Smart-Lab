@@ -291,18 +291,51 @@
                             </div>
                             <div class="mb-4 mr-6">
                                 <label for="materi_id" class="block text-gray-700 font-bold mb-2">Materi</label>
-                                <select name="materi_id" id="materi_id" class="w-full px-3 py-2 border rounded">
+                                <select class="js-example-matcher-start w-full px-3 py-2 border rounded" id="materi_id">
                                     <option value="" disabled selected>Pilih Materi</option>
                                     @foreach ($materis as $materi)
                                         <option value="{{ $materi->id }}"
-                                            {{ old('materi_id') == $materi->id ? 'selected' : '' }}>
-                                            {{ $materi->title_materi }}</option>
+                                            {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
+                                            {{ $materi->title_materi }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('materi_id')
                                     <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    // Inisialisasi Select2 dengan matcher custom
+                                    function matchCustom(params, data) {
+                                        // Jika tidak ada input, tampilkan semua data
+                                        if ($.trim(params.term) === '') {
+                                            return data;
+                                        }
+
+                                        // Jika data tidak memiliki properti 'text', kembalikan null
+                                        if (typeof data.text === 'undefined') {
+                                            return null;
+                                        }
+
+                                        // Lakukan pencocokan berdasarkan input pengguna
+                                        if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                                            return data; // Tampilkan data yang cocok
+                                        }
+
+                                        // Kembalikan null jika tidak cocok
+                                        return null;
+                                    }
+
+                                    $("#materi_id").select2({
+                                        placeholder: "Pilih Materi",
+                                        minimumInputLength: 2, // Mulai pencarian setelah 1 karakter
+                                        matcher: matchCustom,
+                                        allowClear: true
+                                    });
+                                });
+                            </script>
                         </div>
                         <div class="mb-4 mr-6">
                             <label for="title_task" class="block text-gray-700 font-bold mb-2">Judul Tugas</label>
@@ -386,7 +419,8 @@
                                         @foreach ($materis as $materi)
                                             <option value="{{ $materi->id }}"
                                                 {{ $task->materi_id == $materi->id ? 'selected' : '' }}>
-                                                {{ $materi->title_materi }}</option>
+                                                {{ $materi->title_materi }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('materi_id')
@@ -539,14 +573,14 @@
                     reader.onload = function(e) {
                         filePreview.innerHTML =
                             `<p>File Sekarang</p>
-                                    <img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
+<img src="${e.target.result}" class="mt-2 w-32 mb-2" alt="Preview">`;
                     };
                 } else if (fileExtension === 'pdf') {
                     // Jika file adalah PDF
                     reader.onload = function(e) {
                         filePreview.innerHTML =
                             `<p>File Sekarang</p>
-                                    <embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
+<embed src="${e.target.result}" type="application/pdf" class="mt-2 w-full h-32 mb-2" />`;
                     };
                 } else {
                     // Jika format tidak didukung
