@@ -163,7 +163,7 @@
                                                     </li>
                                                     <!-- Nilai -->
                                                     <li>
-                                                        <a href="{{ route('assesments.index', $task->id) }}"
+                                                        <a href="{{ route('assesments', $task->id) }}"
                                                             class="block px-4 py-1 text-green-500 hover:bg-gray-100">
                                                             Nilai
                                                         </a>
