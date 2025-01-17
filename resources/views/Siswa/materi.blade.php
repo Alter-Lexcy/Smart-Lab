@@ -405,11 +405,13 @@
             @forelse ($tasks as $task)
                 <div style="position: relative;">
                     <div class="bg-white shadow-md py-10 px-5" style="border-radius: 15px;">
-                        @foreach ($task->collections as $collection)
-                            <p class="text-gray-600" style="margin-right: 150px; margin-bottom: 5px">Nilai:
-                                {{ $collection->assessment && $collection->assessment->mark_task !== null ? $collection->assessment->mark_task : 'Belum Dinilai' }}
-                            </p>
-                        @endforeach
+                        @php
+                            $assessment = $task->collections->first()->assessment ?? null;
+                        @endphp
+
+                        <p class="text-gray-600" style="margin-right: 150px; margin-bottom: 5px">Nilai:
+                            {{ $assessment && $assessment->mark_task !== null ? $assessment->mark_task : 'Belum Dinilai' }}
+                        </p>
                         <h2 class="text-xl font-bold mb-2">{{ $task->title_task }}</h2>
                         <p class="text-gray-600" style="margin-right: 150px">
                             Mapel : {{ $task->Subject->name_subject }}

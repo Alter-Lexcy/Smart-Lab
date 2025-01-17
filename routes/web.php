@@ -48,7 +48,6 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('classes', ClassesController::class);
     Route::resource('materis', MateriController::class);
     Route::resource('tasks', TaskController::class);
-    Route::resource('assesments', AssessmentController::class);
     Route::resource('comments', CommentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::get('/search', [SearchController::class, 'index'])->name('search');
@@ -62,7 +61,7 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     Route::get('/cari', [CariController::class, 'index'])->name('cari');
     Route::resource('materis', MateriController::class);
     Route::resource('tasks', TaskController::class);
-    Route::resource('assesments', AssessmentController::class);
+    Route::get('/assessment/{task}',[AssessmentController::class,'index'])->name('assesments');
     Route::resource('collections', CollectionController::class);
     Route::post('/assessments/store/{task}', [AssessmentController::class, 'store'])->name('assessments.store');
 });

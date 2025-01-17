@@ -13,67 +13,72 @@ class AssessmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $task)
     {
         $user = auth()->user();
         $search = $request->input('search');
 
+        // Ubah $task menjadi model
+        $task = Task::findOrFail($task);
+
         $assessments = Assessment::with(['user', 'collection.task'])
-            ->whereHas('collection.task', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
+        ->whereHas('collection.task', function ($query) use ($user, $task) {
+            $query->where('user_id', $user->id)
+                ->where('id', $task->id);
+        })
+        ->whereHas('collection', function ($query) {
+            $query->where('status', 'Sudah mengumpulkan');
+        })
+        ->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
             })
-            ->where(function ($query) use ($search) {
-                $query->whereHas('user', function ($q) use ($search) {
-                    $q->where('name', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('collection.task', function ($q) use ($search) {
-                        $q->where('title_task', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('user.classes', function ($q) use ($search) {
-                        $q->where('name_class', 'like', '%' . $search . '%');
-                    });
+            ->orWhereHas('collection.task', function ($q) use ($search) {
+                $q->where('title_task', 'like', '%' . $search . '%');
             })
-            ->orderByRaw("FIELD(status, 'Belum Di-nilai', 'Sudah Di-nilai') ASC")
-            ->paginate(5);
+            ->orWhereHas('user.classes', function ($q) use ($search) {
+                $q->where('name_class', 'like', '%' . $search . '%');
+            });
+        })
+        ->join('users', 'user_id', '=', 'users.id')
+        ->join('collections', 'assessments.collection_id', '=', 'collections.id') // Menambahkan join eksplisit untuk collections
+        ->orderByRaw("FIELD(collections.status, 'Belum Di-nilai', 'Sudah Di-nilai') ASC")
+        ->orderBy('users.name', 'asc')
+        ->paginate(5);
 
         // Ambil semua tugas milik user yang sedang login
         $tasks = Task::where('user_id', $user->id)->get();
 
-        return view('Guru.Assesments.index', compact('assessments', 'tasks'));
+        return view('Guru.Assesments.index', compact('assessments', 'tasks', 'task'));
     }
-
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $taskId)
     {
+        // Validasi mark_task untuk setiap item dalam array
         $request->validate([
-            'user_id' => 'required|array',
-            'user_id.*' => 'exists:users,id',
-            'mark_task' => 'required|numeric|min:0|max:100',
-        ],[
-            'user_id.required' => 'Pilih siswa yang akan dinilai',
-            'user_id.array' => 'Pilih siswa yang akan dinilai',
-            'user_id.*.exists' => 'Pilih siswa yang akan dinilai',
-            'mark_task.required' => 'Nilai tidak boleh kosong',
-            'mark_task.numeric' => 'Nilai harus berupa angka',
-            'mark_task.min' => 'Nilai harus diatas 0',
-            'mark_task.max' => 'Nilai harus di bawah 100',
-
+            'mark_task.*' => 'required|min:0|max:100', // Validasi setiap nilai dalam array
+        ], [
+            'mark_task.*.required' => 'Nilai tidak boleh kosong.',
+            'mark_task.*.min' => 'Nilai harus di atas atau sama dengan 0.',
+            'mark_task.*.max' => 'Nilai harus di bawah atau sama dengan 100.',
         ]);
 
-        foreach ($request->user_id as $studentId) {
-            Assessment::updateOrCreate(
-                [
-                    'user_id' => $studentId,
-                    'collection_id' => $taskId,
-                ],
-                [
-                    'status' => 'Sudah Di-nilai',
-                    'mark_task' => $request->mark_task,
-                ]
-            );
+        foreach ($request->mark_task as $userId => $collections) {
+            foreach ($collections as $collectionId => $mark) {
+                // Lakukan update atau create berdasarkan user_id dan collection_id
+                Assessment::updateOrCreate(
+                    [
+                        'user_id' => $userId,
+                        'collection_id' => $collectionId,
+                    ],
+                    [
+                        'mark_task' => $mark,
+                        'status' => 'Sudah Di-nilai',
+                    ]
+                );
+            }
         }
         return redirect()->back()->with('success', 'Penilaian berhasil disimpan.');
     }

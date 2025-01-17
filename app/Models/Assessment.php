@@ -14,7 +14,7 @@ class Assessment extends Model
     ];
 
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->whereDoesntHave('roles', function ($query) {
             $query->where('name', '!=', 'Murid');

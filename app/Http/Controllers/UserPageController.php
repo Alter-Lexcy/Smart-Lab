@@ -53,6 +53,11 @@ class UserPageController extends Controller
         $activeTab = $request->input('tab', 'materis'); // Default tab adalah "materis"
         $kelasID = $user->class->pluck('id');
 
+        // Pastikan $kelasID tidak kosong
+        if ($kelasID->isEmpty()) {
+            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
+        }
+
         // Query Materi
         $materis = Materi::whereHas('classes', function ($query) use ($kelasID) {
             $query->whereIn('class_id', $kelasID);
@@ -63,30 +68,34 @@ class UserPageController extends Controller
             ->orderBy('created_at', $order)
             ->paginate(5);
 
-        // Query Task
-        $tasks = Task::select('tasks.*', 'collections.status as collection_status')
+        // Query Task dengan logika yang sama seperti pada showTask
+        $tasksQuery = Task::select('tasks.*', 'collections.status as collection_status')
+            ->with(['collections' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
             ->leftJoin('collections', function ($join) {
                 $join->on('tasks.id', '=', 'collections.task_id')
                     ->where('collections.user_id', '=', Auth::id());
             })
-            ->with(['collections' => function ($query) {
-                $query->select('task_id', 'status');
-            }])
-            ->whereIn('class_id', $kelasID)
-            ->where('subject_id', $materi_id)
-            ->where('title_task', 'like', '%' . $search . '%')
+            ->whereHas('Classes', function ($query) use ($kelasID) {
+                $query->whereIn('id', $kelasID);
+            })
+            ->where(function ($query) use ($search) {
+                $query->where('title_task', 'like', '%' . $search . '%')
+                    ->orWhereHas('Subject', function ($q) use ($search) {
+                        $q->where('name_subject', 'like', '%' . $search . '%');
+                    });
+            })
+            ->where('subject_id',$materi_id)
             ->orderByRaw("FIELD(collections.status, 'Belum mengumpulkan', 'Sudah mengumpulkan', 'Tidak mengumpulkan') ASC")
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
-
-        if ($kelasID->isEmpty()) {
-            return redirect()->back()->with('error', 'Materi tidak ditemukan.');
-        }
+            ->orderBy('created_at', 'desc');
+        $tasks = $tasksQuery->paginate(5);
 
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
 
         return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
     }
+
 
 
 
