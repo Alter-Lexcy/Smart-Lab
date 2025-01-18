@@ -45,7 +45,7 @@
                     </button>
 
                     <!-- Form Pencarian -->
-                    <form id="searchForm" action="{{ route('collections.index') }}" method="GET" name="search"
+                    <form id="searchForm" action="{{ route('assesments',['task'=>$task->id]) }}" method="GET" name="search"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
                         <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
