@@ -154,13 +154,6 @@
                                             <div id="dropdown-opsi-{{ $task->id }}"
                                                 class="hidden absolute text-left right-28 bg-white shadow-lg rounded-md text-md  font-medium z-10 w-32 ">
                                                 <ul class="py-2 ">
-                                                    <!-- Edit -->
-                                                    <li>
-                                                        <a onclick="openModal('editTaskModal{{ $task->id }}')"
-                                                            class="block px-4 py-1 text-yellow-500 hover:bg-gray-100">
-                                                            Edit
-                                                        </a>
-                                                    </li>
                                                     <!-- Nilai -->
                                                     <li>
                                                         <a href="{{ route('assesments', $task->id) }}"
@@ -168,11 +161,25 @@
                                                             Nilai
                                                         </a>
                                                     </li>
+                                                    <!-- Pengumpulaan -->
+                                                    <li>
+                                                        <a onclick="openModal('showCollection_{{ $task->id }}')"
+                                                            class="block px-4 py-1 text-blue-500 hover:bg-blue-100">
+                                                            Pengumpulan
+                                                        </a>
+                                                    </li>
                                                     <!-- Lihat -->
                                                     <li>
                                                         <a onclick="openModal('Assessmentshow_{{ $task->id }}')"
                                                             class="block px-4 py-1 text-gray-500 hover:bg-gray-100">
                                                             Lihat
+                                                        </a>
+                                                    </li>
+                                                    <!-- Edit -->
+                                                    <li>
+                                                        <a onclick="openModal('editTaskModal{{ $task->id }}')"
+                                                            class="block px-4 py-1 text-yellow-500 hover:bg-gray-100">
+                                                            Edit
                                                         </a>
                                                     </li>
                                                     <!-- Hapus -->
@@ -439,55 +446,50 @@
             @endforeach
         </div>
     </div>
-
-    {{-- Modal Assessment(Penilaian) --}}
     @foreach ($tasks as $task)
-        <div id="Assessment_{{ $task->id }}"
-            class="Assessment fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 overflow-auto"
-            style="display: none">
-            <div class="bg-white rounded-lg pt-6 pb-4 px-6 w-[40%] shadow-lg">
-                <h5 class="text-xl font-bold mb-4">Penilaian</h5>
-                <form action="{{ route('assessments.store', ['task' => $task->id]) }}" method="POST">
-                    @csrf
-                    <div class="grid grid-cols-1 gap-4">
-                        <!-- Checkbox Section -->
-                        <label for="" class="block text-gray-700 font-bold mb-2">Pilih Murid</label>
-                        <div class="relative mt-[-20px]">
-                            <button type="button" onclick="showCheckboxes({{ $task->id }})"
-                                class="px-4 py-2 bg-blue-500 text-white rounded-md">
-                                Pilih Opsi
-                            </button>
-                            <div id="checkboxes_{{ $task->id }}"
-                                class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                                @if (isset($collections[$task->id]))
-                                    @foreach ($collections[$task->id] as $submission)
-                                        <label for="student_{{ $submission->user->id }}"
-                                            class="block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100">
-                                            <input type="checkbox" id="student_{{ $submission->user->id }}"
-                                                name="user_id[]" value="{{ $submission->user->id }}" class="mr-2" />
-                                            {{ $submission->user->name }}
-                                        </label>
-                                    @endforeach
-                                @else
-                                    <p class="px-4 py-2 text-gray-500">Belum ada siswa yang mengumpulkan tugas.</p>
-                                @endif
-                            </div>
-                        </div>
-                        <!-- Input Nilai -->
-                        <div>
-                            <label for="mark_task" class="block text-gray-700 font-bold mb-2">Masukan Nilai</label>
-                            <input type="number" name="mark_task" id="mark_task"
-                                class="w-full px-3 py-2 border rounded" required>
-                        </div>
-                    </div>
-                    <!-- Buttons -->
-                    <div class="flex justify-between mt-3">
-                        <button type="button" onclick="closeModal('Assessment_{{ $task->id }}')"
-                            class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 rounded">Batal</button>
-                        <button type="submit"
-                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Kirim</button>
-                    </div>
-                </form>
+        <div id="showCollection_{{ $task->id }}"
+            class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+            style="display:none;">
+            <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
+                {{-- Header Modal --}}
+                <div class="flex justify-between items-center border-b pb-4 mr-6">
+                    <h5 class="text-2xl font-bold text-gray-800">Daftar Pengumpulan</h5>
+                    <button type="button" class="text-gray-700 hover:text-gray00"
+                        onclick="closeModal('showCollection_{{ $task->id }}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Content Modal --}}
+                @php
+                    $filteredPengumpulans = $pengumpulans[$task->id] ?? collect();
+                @endphp
+
+                @if ($filteredPengumpulans->isNotEmpty())
+                    <table class="min-w-full bg-white text-center rounded-lg">
+                        <thead>
+                            <tr class="border">
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
+                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($filteredPengumpulans as $index => $pengumpulan)
+                                <tr class="text-center">
+                                    <td class="border px-4 py-2">{{ $index + 1 }}</td>
+                                    <td class="border px-4 py-2">{{ $pengumpulan->user->name }}</td>
+                                    <td class="border px-4 py-2">{{ $pengumpulan->status }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center mt-4">Tidak ada pengumpulan untuk tugas ini.</p>
+                @endif
             </div>
         </div>
     @endforeach
