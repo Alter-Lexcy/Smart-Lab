@@ -90,11 +90,11 @@ class CollectionController extends Controller
         if (!$collection) {
             return redirect()->back()->with('error', 'Pengumpulan tugas tidak ditemukan.');
         }
-        if (now()->greaterThan($task->date_collection)) {
-            $collection->update([
-                'status' => 'Tidak mengumpulkan',
-            ]);
-        }
+            if (now()->greaterThan($task->date_collection)) {
+                $collection->update([
+                    'status' => 'Tidak mengumpulkan',
+                ]);
+            }
         if ($task->status == 'Sudah di Nilai') {
             $collection->update([
                 'status' => 'Sudah di Nilai',
@@ -128,7 +128,7 @@ class CollectionController extends Controller
         }
         return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

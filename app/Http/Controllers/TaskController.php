@@ -24,6 +24,7 @@ class TaskController extends Controller
     {
         $search = $request->input('search');
         $order = $request->input('order', 'desc');
+        $taskId = $request->input('task_id');
         $user = auth()->user();
         $class = $user->class; // Kelas yang dimiliki oleh user
         $subject = $user->subject;
@@ -55,14 +56,27 @@ class TaskController extends Controller
         $materis = collect(); // Inisialisasi default
         if ($user && $class && $subject) {
             $materis = Materi::where('user_id', $user->id)
-                ->whereHas('classes',function ($query) use ($class){
-                    $query->whereIn('class_id',$class->pluck('id'));
+                ->whereHas('classes', function ($query) use ($class) {
+                    $query->whereIn('class_id', $class->pluck('id'));
                 })
                 ->where('subject_id', $subject->id)
                 ->get();
         }
 
-        return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections'));
+        $pengumpulans = Collection::with(['user', 'task'])
+            ->when($taskId, function ($query) use ($taskId) {
+                $query->where('task_id', $taskId);
+            })
+            ->whereHas('task', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->orderByRaw("FIELD(status, 'Belum mengumpulkan') DESC")
+            ->orderBy('status', 'asc')
+            ->get()
+            ->groupBy('task_id'); 
+
+
+        return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections', 'pengumpulans'));
     }
 
     /**

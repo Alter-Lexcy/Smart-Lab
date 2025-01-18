@@ -120,7 +120,8 @@
                                             <!-- Show button -->
                                             <button type="button"
                                                 class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
-                                                onclick="" type="button">
+                                                onclick="openModal('showAssessmentModal_{{ $assessment->id }}')"
+                                                type="button">
                                                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor" viewBox="0 0 24 24">
                                                     <path fill-rule="evenodd"
@@ -151,6 +152,50 @@
                 <div class="pagination py-3 px-5">
                     {{ $assessments->links('vendor.pagination.tailwind') }}
                 </div>
+                @foreach ($assessments as $assessment)
+                    <div id="showAssessmentModal_{{ $assessment->id }}"
+                        class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+                        style="display:none;">
+                        <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
+                            {{-- Header Modal --}}
+                            <div class="flex justify-between items-center border-b pb-4 mr-6">
+                                <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                                <button type="button" class="text-gray-700 hover:text-gray00"
+                                    onclick="closeModal('showAssessmentModal_{{ $assessment->id }}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {{-- Content Modal --}}
+                            <div class="mt-4 space-y-4 overflow-y-auto h-auto max-h-[80%]">
+                                <div class="mr-6">
+                                    <h6 class="text-lg font-semibold text-gray-700 mb-3">Bukti :</h6>
+                                    <div class="justify-center items-center">
+                                        @php
+                                            $file = pathinfo(
+                                                $assessment->collection->file_collection,
+                                                PATHINFO_EXTENSION,
+                                            );
+                                        @endphp
+                                        @if (in_array($file, ['jpg', 'png']))
+                                            <img src="{{ asset('storage/' . $assessment->collection->file_collection) }}"
+                                                alt="File Image" class=" w-full h-auto border-2 rounded-lg">
+                                        @elseif($file === 'pdf')
+                                            <embed
+                                                src="{{ asset('storage/' . $assessment->collection->file_collection) }}"
+                                                type="application/pdf" class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                        @else
+                                            <p class="text-gray-500">File Kosong</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     @endsection
@@ -172,4 +217,31 @@
                 event.stopPropagation(); // Mencegah klik pada form menutup form
             });
         });
+    </script>
+    <script>
+        function openModal(id) {
+            console.log(`Opening modal: ${id}`);
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
+        }
+
+        function closeModal(id) {
+            console.log(`Closing modal: ${id}`);
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            } else {
+                console.error(`Modal dengan ID ${id} tidak ditemukan.`);
+            }
+        }
+
+        @if (session('success'))
+            document.addEventListener("DOMContentLoaded", function() {
+                closeModal('materiModal'); // Close the modal on successful action
+            });
+        @endif
     </script>
