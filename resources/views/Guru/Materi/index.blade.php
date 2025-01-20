@@ -284,14 +284,14 @@
                                 <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
                                     Materi</label>
                                 <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
-                                    class="w-full border rounded px-3 py-2" value="{{ old('title_materi') }}">
+                                    class="w-full border rounded px-3 py-2" value="{{ $materi->title_materi }}">
                             </div>
 
                             <div class="mb-3 mr-6">
                                 <label for="description-{{ $materi->id }}"
                                     class="block font-medium mb-1">Deskripsi</label>
                                 <textarea id="description-{{ $materi->id }}" rows="2" name="description"
-                                    class="w-full px-3 py-2 border rounded">{{ old('description') }}</textarea>
+                                    class="w-full px-3 py-2 border rounded">{{ $materi->description }}</textarea>
                             </div>
                             <div class="mb-3 mr-6">
                                 <label for="file_materi-{{ $materi->id }}" class="block font-medium mb-1">File
