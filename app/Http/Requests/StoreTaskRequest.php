@@ -24,7 +24,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'class_id'=>['required','exists:classes,id'],
             'materi_id'=>['required','exists:materis,id'],
-            'title_task'=>['required','string','unique:tasks,title_task'],
+            'title_task'=>['required','string'],
             'description_task'=>['max:500'],
             'date_collection'=>['required','date','after:now']
         ];

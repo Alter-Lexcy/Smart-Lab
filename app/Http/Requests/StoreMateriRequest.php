@@ -23,7 +23,7 @@ class StoreMateriRequest extends FormRequest
     {
         return [
             'class_id'=>['required','exists:classes,id'],
-            'title_materi'=>['required','unique:materis,title_materi'],
+            'title_materi'=>['required'],
             'file_materi'=>['required','mimes:pdf','max:10240'],
         ];
     }
@@ -33,8 +33,6 @@ class StoreMateriRequest extends FormRequest
             'class_id.required'=>'Kelas Belum Di-Pilih',
             'class_id.exists'=>'Kelas Tidak Ada',
             'title_materi.required'=>'Judul Materi Belum Di-isi',
-            'title_materi.alpha_num'=>'Judul Materi Hanya Berformat Angka Dan Huruf',
-            'title_materi.unique'=>'Judul Materi Sudah Ada',
             'file_materi.required'=>'File Materi Belum Di-isi',
             'file_materi.mimes'=>'File Materi Harus Bertipe PDF',
             'file_materi.max'=>'File Materi Harus Dibawah 10 MB',

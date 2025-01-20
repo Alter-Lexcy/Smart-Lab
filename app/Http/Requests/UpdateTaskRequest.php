@@ -25,7 +25,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'class_id' => ['required', 'exists:classes,id'],
             'materi_id' => ['required', 'exists:materis,id'],
-            'title_task' => ['required', 'string',Rule::unique('tasks','title_task')->ignore($this->route('task'))],
+            'title_task' => ['required', 'string'],
             'file_task' => ['mimes:png,jpg,pdf', 'max:3072'],
             'description_task'=>['max:500'],
             'date_collection' => ['required', 'date', 'after:now']

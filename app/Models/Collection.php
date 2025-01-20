@@ -23,4 +23,18 @@ class Collection extends Model
    {
       return $this->hasOne(Assessment::class);
    }
+
+   protected static function booted()
+    {
+        static::updating(function ($collection) {
+            if ($collection->isDirty('date_collection')) {
+                $now = now();
+
+                if ($collection->date_collection > $now && $collection->status == 'Tidak mengumpulkan') {
+                    $collection->status = 'Belum mengumpulkan';
+                }
+            }
+        });
+    }
+
 }
