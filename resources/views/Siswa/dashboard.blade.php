@@ -134,11 +134,22 @@
                                     <div class="">
                                         <h1 class="text-3xl pl-10 font-bold font-poppins w-600px">Selamat Datang,
                                             {{ Auth::User()->name }}!</h1>
-                                        @forelse ($class as $kelas)
-                                            <p class="text-lg pt-1 pl-10 font-poppins">Selamat Datang Di Kelas {{ $kelas->name_class }}</p>
-                                        @empty
+                                        @if ($class->isNotEmpty())
+                                            @if ($class->isNotEmpty())
+                                                <div class="pt-1 pl-10 flex items-center gap-2">
+                                                    <p class="text-lg font-poppins">Selamat Datang Di Kelas:</p>
+                                                    <div class="flex flex-wrap gap-2 pl-4">
+                                                        @foreach ($class as $kelas)
+                                                            <p class="text-lg font-poppins">{{ $kelas->name_class }}</p>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <p class="text-lg pt-1 pl-10 font-poppins">Belum Dapat Kelas</p>
+                                            @endif
+                                        @else
                                             <p class="text-lg pt-1 pl-10 font-poppins">Belum Dapat Kelas</p>
-                                        @endforelse
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -226,7 +237,8 @@
                                     </svg>
                                     <span
                                         class="text-center text-3xl font-semibold mt-2 text-white">{{ Auth::user()->name }}</span>
-                                    <p class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl mt-5">
+                                    <p
+                                        class="bg-blue-200 text-blue-800 font-bold font-poppins p-1 px-5 rounded-xl mt-5">
                                         Murid</p>
                                 </div>
 
@@ -263,7 +275,8 @@
                                                 d="M2 12c0-.839 0-1.585.013-2.25h19.974C22 10.415 22 11.161 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14zm15 2a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m-4-5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-6-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        <span class="ml-2"><strong>Masa Berakhir Akun:</strong> {{ \Carbon\Carbon::parse(Auth::user()->graduation_date)->translatedFormat('j F Y') }}</span>
+                                        <span class="ml-2"><strong>Masa Berakhir Akun:</strong>
+                                            {{ \Carbon\Carbon::parse(Auth::user()->graduation_date)->translatedFormat('j F Y') }}</span>
                                     </div>
                                 </div>
                             </div>
