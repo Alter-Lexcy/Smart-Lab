@@ -1,4 +1,3 @@
-
 @extends('layouts.appTeacher')
 @section('content')
     <!-- CSS -->
@@ -19,6 +18,14 @@
         #searchForm.show {
             opacity: 1;
             visibility: visible;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        [id^="dropdown-opsi-"] {
+            transition: all 0.3s ease-in-out;
         }
     </style>
     <div class="container mx-auto p-4">
@@ -49,8 +56,8 @@
                     <button id="profile-button"
                         class="profile flex p-2 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 bg-white border-2 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
                         onclick="toggleDropdown('dropdown-opsi')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                         </svg>
@@ -62,8 +69,10 @@
                             <!-- Lihat -->
                             <li>
                                 <a class="flex items-center gap-2 px-4 py-1 text-gray-500 hover:bg-gray-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
                                     </svg>
                                     <span class="ml-1">Kelas 10</span>
                                 </a>
@@ -71,8 +80,10 @@
                             <!-- Pengumpulan -->
                             <li>
                                 <a class="flex items-center gap-2 px-4 py-1 text-gray-500 hover:bg-gray-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
                                     </svg>
                                     <span class="ml-1">Kelas 11</span>
                                 </a>
@@ -80,8 +91,10 @@
                             <!-- Nilai -->
                             <li>
                                 <a class="flex items-center gap-2 px-4 py-1 text-gray-500 hover:bg-gray-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
                                     </svg>
                                     <span class="ml-1">Kelas 12</span>
                                 </a>
@@ -176,24 +189,28 @@
                                                 <ul class="py-2">
                                                     <!-- Lihat -->
                                                     <li>
-                                                        <a onclick="openModal('Assessmentshow_{{ $task->id }}')"
+                                                        <a onclick="openModal('Assessmentshow_{{ $task->id }}'); closeDropdown('dropdown-opsi-{{ $task->id }}');"
                                                             class="flex items-center gap-2 px-4 py-1 text-purple-500 hover:bg-gray-100">
-                                                            <svg class="w-6 h-6 text-purple-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            <svg class="w-6 h-6 text-purple-500" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-width="2"
                                                                     d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                                                                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                                <path stroke="currentColor" stroke-width="2"
+                                                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                             </svg>
                                                             <span class="ml-1">Lihat</span>
                                                         </a>
                                                     </li>
                                                     <!-- Pengumpulan -->
                                                     <li>
-                                                        <a onclick="openModal('showCollection_{{ $task->id }}')"
+                                                        <a onclick="openModal('showCollection_{{ $task->id }}'); closeDropdown('dropdown-opsi-{{ $task->id }}');"
                                                             class="flex items-center gap-2 px-4 py-1 text-blue-500 hover:bg-blue-100">
-                                                            <svg class="w-6 h-6 text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            <svg class="w-6 h-6 text-blue-500" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
                                                                     d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z" />
                                                             </svg>
                                                             <span class="ml-1">Pengumpulan</span>
@@ -201,11 +218,13 @@
                                                     </li>
                                                     <!-- Nilai -->
                                                     <li>
-                                                        <a href="{{ route('assesments', $task->id) }}"
+                                                        <a href="{{ route('assesments', $task->id) }}; closeDropdown('dropdown-opsi-{{ $task->id }}');"
                                                             class="flex items-center gap-2 px-4 py-1 text-green-500 hover:bg-gray-100">
-                                                            <svg class="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            <svg class="w-6 h-6 text-green-500" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
                                                                     d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
                                                             </svg>
                                                             <span class="ml-1">Nilai</span>
@@ -213,11 +232,13 @@
                                                     </li>
                                                     <!-- Edit -->
                                                     <li>
-                                                        <a onclick="openModal('editTaskModal{{ $task->id }}')"
+                                                        <a onclick="openModal('editTaskModal{{ $task->id }}'); closeDropdown('dropdown-opsi-{{ $task->id }}');"
                                                             class="flex items-center gap-2 px-4 py-1 text-yellow-400 hover:bg-gray-100">
-                                                            <svg class="w-7 h-7 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            <svg class="w-7 h-7 text-yellow-400" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
                                                                     d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                                                             </svg>
                                                             <span>Edit</span>
@@ -225,15 +246,18 @@
                                                     </li>
                                                     <!-- Hapus -->
                                                     <li>
-                                                        <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
+                                                        <form action="{{ route('tasks.destroy', $task->id) }}"
+                                                            method="POST"
                                                             onsubmit="return confirm('Apakah Anda yakin ingin menghapus task ini?')">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
                                                                 class="flex items-center gap-2 px-4 py-1 w-full text-start text-red-500 hover:bg-gray-100">
-                                                                <svg class="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                <svg class="w-6 h-6 text-red-500" aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                     viewBox="0 0 24 24">
-                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
                                                                         d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                                                                 </svg>
                                                                 <span class="ml-1">Hapus</span>
@@ -257,8 +281,7 @@
             {{-- Modal Show --}}
             @foreach ($tasks as $task)
                 <div id="Assessmentshow_{{ $task->id }}"
-                    class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-                    style="display:none;">
+                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
                     <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                         {{-- Header Modal --}}
                         <div class="flex justify-between items-center border-b pb-4 mr-6">
@@ -493,8 +516,7 @@
     </div>
     @foreach ($tasks as $task)
         <div id="showCollection_{{ $task->id }}"
-            class="taskModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-            style="display:none;">
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
             <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                 {{-- Header Modal --}}
                 <div class="flex justify-between items-center border-b pb-4 mr-6">
@@ -541,47 +563,6 @@
 @endsection
 
 <script>
-    function toggleDropdown(taskId) {
-        // Menutup dropdown lain yang terbuka
-        const currentDropdown = document.querySelector('.dropdown-active');
-        const currentButton = document.querySelector('.active');
-
-        if (currentDropdown && currentDropdown.id !== `dropdown-opsi-${taskId}`) {
-            currentDropdown.classList.add('hidden');
-            currentDropdown.classList.remove('dropdown-active');
-            if (currentButton) currentButton.classList.remove('active');
-        }
-
-        const dropdown = document.getElementById(`dropdown-opsi-${taskId}`);
-        const button = document.getElementById(`profile-button-${taskId}`);
-
-        // Toggle visibilitas dropdown
-        const isDropdownHidden = dropdown.classList.contains('hidden');
-        if (isDropdownHidden) {
-            dropdown.classList.remove('hidden');
-            dropdown.classList.add('dropdown-active');
-            button.classList.add('active');
-        } else {
-            dropdown.classList.add('hidden');
-            dropdown.classList.remove('dropdown-active');
-            button.classList.remove('active');
-        }
-    }
-
-    // Menutup dropdown ketika mengklik di luar
-    document.addEventListener('click', function (event) {
-        const dropdownActive = document.querySelector('.dropdown-active');
-        const activeButton = document.querySelector('.active');
-
-        if (dropdownActive && !dropdownActive.contains(event.target) && !activeButton.contains(event.target)) {
-            dropdownActive.classList.add('hidden');
-            dropdownActive.classList.remove('dropdown-active');
-            if (activeButton) activeButton.classList.remove('active');
-        }
-    });
-</script>
-
-<script>
     document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', function(event) {
 
@@ -620,8 +601,6 @@
             }
         });
     });
-
-
 
     function openModal(id) {
         console.log(`Opening modal: ${id}`);
