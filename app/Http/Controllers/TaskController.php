@@ -11,6 +11,7 @@ use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateTaskRequest;
@@ -26,11 +27,17 @@ class TaskController extends Controller
         $order = $request->input('order', 'desc');
         $taskId = $request->input('task_id');
         $user = auth()->user();
+        $classID = $request->input('class_id');
         $class = $user->class; // Kelas yang dimiliki oleh user
         $subject = $user->subject;
 
         // Ambil semua tugas dengan relasi Classes, Subject, Materi
         $tasks = Task::where('user_id', auth()->id())
+            ->when($classID, function ($query) use ($classID){
+                $query->whereHas('Classes',function ($q) use ($classID) {
+                    $q->where('id',$classID);
+                });
+            })
             ->where(function ($query) use ($search) {
                 $query->whereHas('Classes', function ($q) use ($search) {
                     $q->where('name_class', 'like', '%' . $search . '%');
@@ -41,7 +48,8 @@ class TaskController extends Controller
                     ->orWhereHas('Materi', function ($q) use ($search) {
                         $q->where('title_materi', 'like', '%' . $search . '%');
                     })
-                    ->orWhere('title_task', 'like', '%' . $search . '%');
+                    ->orWhere('title_task', 'like', '%' . $search . '%')
+                    ->orWhere('date_collection','like','%'.$search.'%');
             })
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -73,10 +81,12 @@ class TaskController extends Controller
             ->orderByRaw("FIELD(status, 'Belum mengumpulkan') DESC")
             ->orderBy('status', 'asc')
             ->get()
-            ->groupBy('task_id'); 
+            ->groupBy('task_id');
 
 
-        return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections', 'pengumpulans'));
+        $kelas = $user->class;
+
+        return view('Guru.Tasks.index', compact('tasks', 'classes', 'subjects', 'materis', 'collections', 'pengumpulans','kelas'));
     }
 
     /**
