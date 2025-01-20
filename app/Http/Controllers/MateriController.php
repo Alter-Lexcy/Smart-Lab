@@ -24,12 +24,16 @@ class MateriController extends Controller
 
         // Filter dan Search Materi menggunakan whereHas
         $materis = Materi::with('classes')
-            ->whereHas('classes', function ($query) use ($search) {
-                $query->where('name_class', 'like', '%' . $search . '%');
+            ->where('user_id', auth()->id()) // Filter berdasarkan user ID terlebih dahulu
+            ->where(function ($query) use ($search) {
+                $query->whereHas('classes', function ($q) use ($search){
+                    $q->where('name_class','like','%'.$search.'%');
+                })
+                ->orWhere('title_materi','like','%'.$search.'%')
+                ->orWhere('created_at','like','%'.$search.'%');
             })
-            ->where('user_id', auth()->id())
-            ->orderBy('created_at', $order)
-            ->paginate(5);
+            ->orderBy('created_at', $order) // Urutkan berdasarkan waktu pembuatan
+            ->paginate(5); // Pagination
 
         // Filter Dropdown Kelas
         $classes = $user->class()->get();

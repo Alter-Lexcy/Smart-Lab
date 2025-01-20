@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,19 +122,6 @@
                         Tugas
                     </div>
                 </a>
-                <a href="{{ route('collections.index') }}"
-                    class ="hover:ml-4 w-[90%] text-white hover:text-blue-500 bg-[#1E293B] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path
-                            d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                        <path fill-rule="evenodd"
-                            d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <div>
-                        Pengumpulan
-                    </div>
-                </a>
             </div>
             <!-- MINI SIDEBAR-->
             <div class= "mini mt-20 flex flex-col space-y-2 w-full h-[calc(100vh)]">
@@ -166,16 +154,6 @@
                             clip-rule="evenodd"  />
                     </svg>
                 </button>
-                <button onclick="window.location.href='{{ route('collections.index') }}'"
-                    class= "hover:ml-4 justify-end pr-3 text-white hover:text-blue-500 w-full bg-[#1E293B] p-3 rounded-full transform ease-in-out duration-300 flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path
-                            d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                        <path fill-rule="evenodd"
-                            d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
             </div>
 
         </aside>
@@ -185,7 +163,7 @@
                 <div class="container-fluid flex justify-between items-center py-2 px-5">
                     <!-- Logo -->
                     <div class="flex items-center space-x-3">
-                        <a href="/dashboard">
+                        <a href="/teacher/dashboard">
                             <img alt="Logo" src="{{ asset('image/logo.png') }}" class="h-10" />
                         </a>
                     </div>
@@ -194,14 +172,13 @@
                     <div class="flex items-center space-x-3">
                         <div class="hidden md:flex flex-col text-right">
                             <p class="font-bold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
-                            <span
-                                class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}
+                            <span class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}
                             </span>
                         </div>
                         <div class="relative">
                             <!-- Profile Button -->
                             <button id="profile-button"
-                                class="flex items-center p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition"
+                                class="profile flex items-center p-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition"
                                 onclick="toggleDropdown('dropdown-profile')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="h-6 w-6">
@@ -217,7 +194,7 @@
                                 <div class="px-4 py-2 border-b">
                                     <h1 class="text-gray-800 font-bold break-words">PROFILE</h1>
                                 </div>
-                                <div class="px-4 py-2 text-gray-600 ">
+                                <div class="px-4 py-2 text-gray-600">
                                     <p class="break-words font-poppins">Nama: {{ Auth::user()->name }}</p>
                                     <p class="break-words font-poppins">Email: {{ Auth::user()->email }}</p>
                                     <p class="break-words font-poppins">Mata Pembelajaran:
@@ -296,22 +273,44 @@
 
             }
         </script>
-
         <script>
+            // Fungsi untuk menutup semua dropdown
+            function closeAllDropdowns() {
+                const dropdowns = document.querySelectorAll('[id^="dropdown-opsi"], #dropdown-profile');
+                dropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+            }
+
+            // Fungsi untuk toggle dropdown tertentu
             function toggleDropdown(dropdownId) {
                 const dropdown = document.getElementById(dropdownId);
+                const isHidden = dropdown.classList.contains('hidden');
 
-                // Tutup semua dropdown lain
-                document.querySelectorAll('[id^="dropdown-opsi-"]').forEach(item => {
-                    if (item.id !== dropdownId) {
-                        item.classList.add('hidden'); // Tutup dropdown lain
-                    }
-                });
+                // Tutup semua dropdown sebelum membuka yang baru
+                closeAllDropdowns();
 
-                // Toggle dropdown yang dipilih
-                dropdown.classList.toggle('hidden');
+                // Tampilkan dropdown jika sebelumnya disembunyikan
+                if (isHidden) {
+                    dropdown.classList.remove('hidden');
+                }
+            }
+
+            // Tutup dropdown ketika area di luar dropdown diklik
+            document.addEventListener('click', function(event) {
+                const isClickInsideDropdown = event.target.closest('[id^="dropdown-opsi"], #dropdown-profile, button.profile, button[data-toggle="dropdown"]');
+                if (!isClickInsideDropdown) {
+                    closeAllDropdowns();
+                }
+            });
+
+            // Tutup dropdown setelah opsi dipilih
+            function closeDropdown(dropdownId) {
+                const dropdown = document.getElementById(dropdownId);
+                if (dropdown) {
+                    dropdown.classList.add('hidden');
+                }
             }
         </script>
+
 
         {{-- <script>
             const navbar = document.getElementById("navbar");

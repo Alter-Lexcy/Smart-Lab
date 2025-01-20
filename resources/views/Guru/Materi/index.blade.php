@@ -195,8 +195,7 @@
             {{-- Modal Show --}}
             @foreach ($materis as $materi)
                 <div id="showAssessmentModal_{{ $materi->id }}"
-                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-                    style="display:none;">
+                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
                     <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                         {{-- Header Modal --}}
                         <div class="flex justify-between items-center border-b pb-4 mr-6">
@@ -260,8 +259,7 @@
             <!-- Modal Edit -->
             @foreach ($materis as $materi)
                 <div id="materiModal-{{ $materi->id }}"
-                    class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
-                    style="display:none;">
+                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
                     <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                         <h5 class="text-xl font-bold mb-4">Ubah Materi</h5>
                         <form action="{{ route('materis.update', $materi->id) }}" method="POST"
@@ -286,8 +284,7 @@
                                 <label for="title_materi-{{ $materi->id }}" class="block font-medium mb-1">Nama
                                     Materi</label>
                                 <input type="text" id="title_materi-{{ $materi->id }}" name="title_materi"
-                                    class="w-full border rounded px-3 py-2"
-                                    value="{{ old('title_materi') }}" >
+                                    class="w-full border rounded px-3 py-2" value="{{ old('title_materi') }}">
                             </div>
 
                             <div class="mb-3 mr-6">
@@ -331,8 +328,7 @@
             @endforeach
 
             <!-- Modal Tambah -->
-            <div id="materiModal"
-                class="fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50 overflow-auto"
+            <div id="materiModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                 style="display: none;">
                 <div class="bg-white rounded-lg pt-6 pb-2 pl-6 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Tambah Materi</h5>

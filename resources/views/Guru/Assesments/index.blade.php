@@ -154,8 +154,8 @@
                 </div>
                 @foreach ($assessments as $assessment)
                     <div id="showAssessmentModal_{{ $assessment->id }}"
-                        class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-                        style="display:none;">
+                        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+                style="display: none;">
                         <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                             {{-- Header Modal --}}
                             <div class="flex justify-between items-center border-b pb-4 mr-6">
