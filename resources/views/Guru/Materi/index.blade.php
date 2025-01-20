@@ -127,11 +127,11 @@
                                 @php
                                     $offset = ($materis->currentPage() - 1) * $materis->perPage();
                                 @endphp
-                                <tr class="">
+                                <tr class="border-b">
                                     <td class="px-4 py-2 ">{{ $offset + $index + 1 }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->classes->pluck('name_class')->implode(', ') }}</td>
                                     <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
-                                    <td class="px-4 py-2 border-b">
+                                    <td class="px-4 py-2 ">
                                         {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                     </td>
                                     <td class="px-4 py-2">
@@ -151,7 +151,7 @@
 
                                             <!-- Edit button -->
                                             <button type="button"
-                                                class="bg-yellow-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
+                                                class="bg-yellow-400 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('materiModal-{{ $materi->id }}')">
                                                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor" viewBox="0 0 24 24">

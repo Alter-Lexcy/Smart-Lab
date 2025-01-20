@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +33,10 @@
 
     <!-- Preline Select JS -->
     <script src="https://cdn.jsdelivr.net/npm/preline@latest/dist/preline.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
     <script>
         window.addEventListener('load', function() {
             setTimeout(function() {
@@ -190,7 +194,9 @@
                     <div class="flex items-center space-x-3">
                         <div class="hidden md:flex flex-col text-right">
                             <p class="font-bold text-gray-800 uppercase">{{ Auth::user()->name }}</p>
-                            <span class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }} </span>
+                            <span
+                                class="badge badge-light-success text-sm">{{ Auth::user()->getRoleNames()->first() }}
+                            </span>
                         </div>
                         <div class="relative">
                             <!-- Profile Button -->
@@ -214,7 +220,8 @@
                                 <div class="px-4 py-2 text-gray-600 ">
                                     <p class="break-words font-poppins">Nama: {{ Auth::user()->name }}</p>
                                     <p class="break-words font-poppins">Email: {{ Auth::user()->email }}</p>
-                                    <p class="break-words font-poppins">Mata Pembelajaran: {{ Auth::user()->subject?->name_subject ?? 'kosong' }}</p>
+                                    <p class="break-words font-poppins">Mata Pembelajaran:
+                                        {{ Auth::user()->subject?->name_subject ?? 'kosong' }}</p>
                                 </div>
                                 <form action="{{ route('logout') }}" method="POST" class="px-4 py-2">
                                     @csrf
@@ -293,6 +300,15 @@
         <script>
             function toggleDropdown(dropdownId) {
                 const dropdown = document.getElementById(dropdownId);
+
+                // Tutup semua dropdown lain
+                document.querySelectorAll('[id^="dropdown-opsi-"]').forEach(item => {
+                    if (item.id !== dropdownId) {
+                        item.classList.add('hidden'); // Tutup dropdown lain
+                    }
+                });
+
+                // Toggle dropdown yang dipilih
                 dropdown.classList.toggle('hidden');
             }
         </script>
