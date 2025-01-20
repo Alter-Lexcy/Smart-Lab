@@ -52,6 +52,7 @@ class UserPageController extends Controller
         $search = $request->input('search');
         $activeTab = $request->input('tab', 'materis'); // Default tab adalah "materis"
         $kelasID = $user->class->pluck('id');
+        $status = $request->input('status');
 
         // Pastikan $kelasID tidak kosong
         if ($kelasID->isEmpty()) {
@@ -86,9 +87,23 @@ class UserPageController extends Controller
                         $q->where('name_subject', 'like', '%' . $search . '%');
                     });
             })
-            ->where('subject_id',$materi_id)
+            ->where('subject_id', $materi_id)
             ->orderByRaw("FIELD(collections.status, 'Belum mengumpulkan', 'Sudah mengumpulkan', 'Tidak mengumpulkan') ASC")
             ->orderBy('created_at', 'desc');
+
+        if ($status) {
+            $tasksQuery->whereHas('collections', function ($query) use ($status) {
+                $query->where('user_id', Auth::id());
+                if ($status == 'Sudah mengumpulkan') {
+                    $query->where('status', 'Sudah mengumpulkan');
+                } elseif ($status == 'Belum mengumpulkan') {
+                    $query->whereNotIn('status', ['Sudah mengumpulkan', 'Tidak mengumpulkan']);
+                } elseif ($status == 'Tidak mengumpulkan') {
+                    $query->where('status', 'Tidak mengumpulkan');
+                }
+            });
+        }
+        
         $tasks = $tasksQuery->paginate(5);
 
         $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
