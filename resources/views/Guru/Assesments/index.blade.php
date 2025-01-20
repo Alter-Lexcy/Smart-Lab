@@ -159,7 +159,7 @@
                         <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                             {{-- Header Modal --}}
                             <div class="flex justify-between items-center border-b pb-4 mr-6">
-                                <h5 class="text-2xl font-bold text-gray-800">Detail Materi</h5>
+                                <h5 class="text-2xl font-bold text-gray-800">Detail Pengumpulan </h5>
                                 <button type="button" class="text-gray-700 hover:text-gray00"
                                     onclick="closeModal('showAssessmentModal_{{ $assessment->id }}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -180,7 +180,7 @@
                                                 PATHINFO_EXTENSION,
                                             );
                                         @endphp
-                                        @if (in_array($file, ['jpg', 'png']))
+                                        @if (in_array($file, ['jpg', 'png','jpeg']))
                                             <img src="{{ asset('storage/' . $assessment->collection->file_collection) }}"
                                                 alt="File Image" class=" w-full h-auto border-2 rounded-lg">
                                         @elseif($file === 'pdf')

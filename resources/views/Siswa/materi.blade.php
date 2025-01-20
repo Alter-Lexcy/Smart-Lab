@@ -224,7 +224,7 @@
                         <div class="px-4 py-3 text-lg font-semibold text-gray-700 border-b border-gray-300">
                             Pilih Status Tugas
                         </div>
-                        <form method="GET" action="{{ route('Tugas') }}">
+                        <form method="GET" action="{{ route('Materi', ['materi_id' => $materi_id]) }}">
                             @csrf
                             <button type="submit" name="status" value="Sudah mengumpulkan"
                                 class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12">
@@ -292,7 +292,7 @@
                                         <h2 class="text-xl font-bold mb-2">{{ $materi->title_materi }}</h2>
                                         <!-- Deskripsi Materi -->
                                         <p class="text-gray-600" style="margin-right: 150px;">
-                                            {{ Str::limit($materi->description, 20, '...') ?? 'Kosong' }}
+                                            {{ Str::limit($materi->description, 50, '...') ?? 'Kosong' }}
                                         </p>
                                         <!-- Tombol Lihat Detail -->
                                         <div class="mt-4" style="position: absolute; bottom: 10px; right: 10px;">
@@ -676,39 +676,51 @@
 
     <script>
         // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'materi'; // Default ke "materi"
+            showFilter(activeTab); // Tampilkan filter sesuai tab aktif
+
+            // Tambahkan event listener untuk perubahan tab
+            document.querySelectorAll('.tab-link').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const selectedTab = tab.getAttribute('data-tab');
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('tab', selectedTab);
+                    window.history.pushState({}, '', url); // Perbarui URL tanpa reload
+                    showFilter(selectedTab); // Tampilkan filter sesuai tab yang dipilih
+                });
+            });
+
+            // Fungsi untuk membuka dan menutup dropdown filter
+            const filterButton = document.getElementById('filterButton');
+            if (filterButton) {
+                filterButton.addEventListener('click', function() {
+                    const filterDropdown = document.getElementById('filterDropdown');
+                    filterDropdown.classList.toggle('hidden');
+                });
+            }
+        });
+
+        // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
         function showFilter(tab) {
             const filterUrutan = document.getElementById('filter-urutan');
             const filterDropdown = document.getElementById('filterDropdown');
             const filterDropdownContainer = document.getElementById('filter-dropdown-container');
 
             // Menyembunyikan semua filter terlebih dahulu
-            filterUrutan.classList.add('hidden');
-            filterDropdown.classList.add('hidden');
+            if (filterUrutan) filterUrutan.classList.add('hidden');
+            if (filterDropdown) filterDropdown.classList.add('hidden');
 
             // Menampilkan filter sesuai tab aktif
             if (tab === 'materi') {
-                filterUrutan.classList.remove('hidden');
-                filterDropdownContainer.classList.add('hidden');
+                if (filterUrutan) filterUrutan.classList.remove('hidden');
+                if (filterDropdownContainer) filterDropdownContainer.classList.add('hidden');
             } else if (tab === 'tugas') {
-                filterUrutan.classList.add('hidden');
-                filterDropdownContainer.classList.remove('hidden');
+                if (filterUrutan) filterUrutan.classList.add('hidden');
+                if (filterDropdownContainer) filterDropdownContainer.classList.remove('hidden');
             }
         }
-
-        // Fungsi untuk membuka dan menutup dropdown filter
-        document.getElementById('filterButton').addEventListener('click', function() {
-            const filterDropdown = document.getElementById('filterDropdown');
-            filterDropdown.classList.toggle('hidden');
-        });
-
-        // Fungsi untuk menampilkan atau menyembunyikan tombol filter urutan
-        document.getElementById('filter-urutan').addEventListener('submit', function() {
-            // Menyembunyikan dropdown filter saat urutan filter diklik
-            document.getElementById('filterDropdown').classList.add('hidden');
-        });
-
-        // Set default tab to "Materi" saat halaman pertama kali dibuka
-        showFilter('materi');
     </script>
 
     <script>

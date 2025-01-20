@@ -54,12 +54,10 @@
                 <div class="">
                     <!-- Dropdown Button -->
                     <button id="profile-button"
-                        class="profile flex p-2 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 bg-white border-2 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
+                        class="profile flex p-3 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 bg-white border-2 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
                         onclick="toggleDropdown('dropdown-opsi')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <path fill="currentColor" d="M1.75 3.75A.75.75 0 0 1 2.5 3h11a.75.75 0 0 1 0 1.5h-11a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 4.5 7h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 6.5 11h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75" />
                         </svg>
                     </button>
 
@@ -133,7 +131,7 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white text-left rounded-lg">
                         <thead>
-                            <tr class="border">
+                            <tr class="border text-center">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
@@ -147,7 +145,7 @@
                                 @php
                                     $offset = ($tasks->currentPage() - 1) * $tasks->perPage();
                                 @endphp
-                                <tr class="border-b">
+                                <tr class="border-b text-center">
                                     <td class="py-3 px-6">{{ $offset + $index + 1 }}</td>
                                     <td class="py-3 px-6">{{ $task->title_task }}</td>
                                     <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
@@ -156,11 +154,11 @@
                                         {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
                                     </td>
                                     <td class="px-4 py-2">
-                                        <div class="">
+                                        <div style="justify-items: center">
                                             <!-- Dropdown Button -->
                                             <button id="profile-button-{{ $task->id }}"
-                                                class="profile flex p-2 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 text-blue-500 bg-blue-100 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
-                                                onclick="toggleDropdown('dropdown-opsi-{{ $task->id }}')">
+                                                class="profile flex p-2 text-xs [&.active]:bg-blue-500  [&.active]:text-blue-100 text-blue-500 bg-blue-100 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
+                                                 onclick="toggleDropdown('dropdown-opsi-{{ $task->id }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
