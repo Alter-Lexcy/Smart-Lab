@@ -250,30 +250,78 @@
 
         <!-- Header Banner -->
         @if ($materis->isNotEmpty())
-            <div class="d-flex flex-column flex-root">
-                <div class="flex w-full position-relative" style="position: relative;">
-                    <!-- Gambar dengan teks di dalamnya -->
-                    <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
+        <div class="d-flex flex-column flex-root">
+            <div class="flex w-full position-relative" style="position: relative;">
+                <!-- Gambar dengan teks di dalamnya -->
+                <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
 
-                    <!-- Elemen teks yang berada di atas gambar -->
-                    <div
-                        style="
-                    position: absolute;
-                    top: 50%;
-                    left: 5%; /* Posisi kiri */
-                    transform: translateY(-50%);
-                    text-align: left;
-                    color: white;
-                    max-width: 40%; /* Membatasi lebar teks */
-                    overflow-wrap: break-word; /* Memastikan teks panjang terpecah */
-                    word-wrap: break-word; /* Kompatibilitas tambahan */
-                ">
-                        <p class="text-5xl font-poppins font-bold">
-                            {{ $subjectName }}
-                        </p>
+                <!-- Elemen teks yang berada di atas gambar -->
+                <div
+                    style="
+                        position: absolute;
+                        top: 50%;
+                        left: 5%; /* Posisi kiri */
+                        transform: translateY(-50%);
+                        text-align: left;
+                        color: white;
+                        max-width: 50%; /* Membatasi lebar teks */
+                        overflow-wrap: break-word; /* Memastikan teks panjang terpecah */
+                        word-wrap: break-word; /* Kompatibilitas tambahan */
+                    ">
+                    <p class="text-5xl my-5 font-poppins font-bold uppercase">
+                        {{ $subjectName }}
+                    </p>
+                    <!-- Kontainer tambahan untuk icon dan tulisan -->
+                    <div class="d-flex align-items-center gap-4 mt-4">
+                        <!-- Informasi guru -->
+                        <div class="d-flex align-items-center gap-2">
+                            <div
+                                style="
+                                    width: 35px;
+                                    height: 35px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border-radius: 50%;
+                                    background-color: white;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="#1E40AF">
+                                    <path d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h13.39a8 8 0 0 0 7.23-4.57a48 48 0 0 1 86.76 0a8 8 0 0 0 7.23 4.57H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M80 144a24 24 0 1 1 24 24a24 24 0 0 1-24-24m136 56h-56.57a64.4 64.4 0 0 0-28.83-26.16a40 40 0 1 0-53.2 0A64.4 64.4 0 0 0 48.57 200H40V56h176ZM56 96V80a8 8 0 0 1 8-8h128a8 8 0 0 1 8 8v96a8 8 0 0 1-8 8h-16a8 8 0 0 1 0-16h8V88H72v8a8 8 0 0 1-16 0" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold">Pengajar</h2>
+                                <p style="margin: 0; font-size: 10px; color: white;">Endah Dila Kurnia Wati</p>
+                            </div>
+                        </div>
+                        <!-- Informasi siswa -->
+                        <div class="d-flex align-items-center gap-2">
+                            <div
+                                style="
+                                    width: 35px;
+                                    height: 35px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border-radius: 50%;
+                                    background-color: white;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="#1E40AF">
+                                    <path d="m226.53 56.41l-96-32a8 8 0 0 0-5.06 0l-96 32A8 8 0 0 0 24 64v80a8 8 0 0 0 16 0V75.1l33.59 11.19a64 64 0 0 0 20.65 88.05c-18 7.06-33.56 19.83-44.94 37.29a8 8 0 1 0 13.4 8.74C77.77 197.25 101.57 184 128 184s50.23 13.25 65.3 36.37a8 8 0 0 0 13.4-8.74c-11.38-17.46-27-30.23-44.94-37.29a64 64 0 0 0 20.65-88l44.12-14.7a8 8 0 0 0 0-15.18ZM176 120a48 48 0 1 1-86.65-28.45l36.12 12a8 8 0 0 0 5.06 0l36.12-12A47.9 47.9 0 0 1 176 120m-48-32.43L57.3 64L128 40.43L198.7 64Z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold;">Siswa</h2>
+                                <p style="margin: 0; font-size: 10px; color: white;">36 Siswa</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+
         @endif
         {{-- Tap Content Materi --}}
         <div class="my-5">
