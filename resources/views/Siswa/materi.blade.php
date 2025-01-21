@@ -301,6 +301,10 @@
                                                 onclick="openModal('showMateriModal_{{ $materi->id }}')">Lihat
                                                 detail
                                             </button>
+                                            <a href="{{ Storage::url($materi->file_materi) }}" target="_blank"
+                                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl">
+                                                Buka Materi
+                                            </a>
                                         </div>
                                         <!-- Tanggal Materi -->
                                         <div class="absolute top-5 right-5 text-gray-600 font-semibold text-sm">
