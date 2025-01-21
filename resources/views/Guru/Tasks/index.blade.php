@@ -128,8 +128,8 @@
             <!-- Tabel Materi -->
             <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
                 <h6 class="font-semibold p-3 text-sm ps-5">Daftar Tugas</h6>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white text-left rounded-lg">
+                <div class="overflow-x-auto px-5">
+                    <table class="min-w-full bg-white text-left rounded-lg border ">
                         <thead>
                             <tr class="border text-center">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
@@ -145,12 +145,12 @@
                                 @php
                                     $offset = ($tasks->currentPage() - 1) * $tasks->perPage();
                                 @endphp
-                                <tr class="border-b text-center">
-                                    <td class="py-3 px-6">{{ $offset + $index + 1 }}</td>
-                                    <td class="py-3 px-6">{{ $task->title_task }}</td>
-                                    <td class="py-3 px-6">{{ $task->Classes->name_class }}</td>
-                                    <td class="py-3 px-6">{{ $task->Materi->title_materi }}</td>
-                                    <td class="py-2 px-6">
+                                <tr class="border text-center">
+                                    <td class="border py-3 px-6">{{ $offset + $index + 1 }}</td>
+                                    <td class="border py-3 px-6">{{ $task->title_task }}</td>
+                                    <td class="border py-3 px-6">{{ $task->Classes->name_class }}</td>
+                                    <td class="border py-3 px-6">{{ $task->Materi->title_materi }}</td>
+                                    <td class="border py-2 px-6">
                                         {{ \Carbon\Carbon::parse($task->date_collection)->translatedFormat('H:i l, j F Y') }}
                                     </td>
                                     <td class="px-4 py-2">
@@ -499,9 +499,9 @@
     @foreach ($tasks as $task)
         <div id="showCollection_{{ $task->id }}"
             class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
-            <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[60%] lg:max-w-[50%] h-auto pt-6 pb-7 pl-6 mr-6 overflow-x-hidden">
                 {{-- Header Modal --}}
-                <div class="flex justify-between items-center border-b pb-4 mr-6">
+                <div class="flex justify-between items-center border-b pb-4">
                     <h5 class="text-2xl font-bold text-gray-800">Daftar Pengumpulan</h5>
                     <button type="button" class="text-gray-700 hover:text-gray00"
                         onclick="closeModal('showCollection_{{ $task->id }}')">
@@ -518,6 +518,7 @@
                 @endphp
 
                 @if ($filteredPengumpulans->isNotEmpty())
+                <div class="w-[100%]">
                     <table class="min-w-full bg-white text-center rounded-lg">
                         <thead>
                             <tr class="border">
@@ -536,6 +537,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
                 @else
                     <p class="text-center mt-4">Tidak ada pengumpulan untuk tugas ini.</p>
                 @endif
