@@ -109,12 +109,12 @@
             @endif
 
             <!-- Tabel Materi -->
-            <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
+            <div class="block max-w bg-white rounded-lg shadow hover:bg-white border-l border-r border-gray-300">
                 <h6 class="font-semibold p-3 text-sm ps-5">Daftar Materi</h6>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white text-center rounded-lg">
+                <div class="overflow-x-auto px-5">
+                    <table class="w-full bg-white text-center rounded-lg border border-gray-300">
                         <thead>
-                            <tr class="border-y">
+                            <tr class="border">
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">NO</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">KELAS</th>
                                 <th class="px-4 py-2 text-gray-500 text-xs font-semibold">MATERI</th>
@@ -128,16 +128,14 @@
                                     $offset = ($materis->currentPage() - 1) * $materis->perPage();
                                 @endphp
                                 <tr class="border-b">
-                                    <td class="px-4 py-2 ">{{ $offset + $index + 1 }}</td>
-                                    <td class="px-4 py-2 ">{{ $materi->classes->pluck('name_class')->implode(', ') }}</td>
-                                    <td class="px-4 py-2 ">{{ $materi->title_materi }}</td>
-                                    <td class="px-4 py-2 ">
+                                    <td class="border px-4 py-2 ">{{ $offset + $index + 1 }}</td>
+                                    <td class="border px-4 py-2 ">{{ $materi->classes->pluck('name_class')->implode(', ') }}</td>
+                                    <td class="border px-4 py-2 ">{{ $materi->title_materi }}</td>
+                                    <td class="border px-4 py-2 ">
                                         {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                     </td>
                                     <td class="px-4 py-2">
-                                        <!-- Action buttons container -->
                                         <div class="flex space-x-2 items-center justify-center">
-                                            <!-- Show button -->
                                             <button type="button"
                                                 class="bg-blue-500 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('showAssessmentModal_{{ $materi->id }}')">
@@ -148,8 +146,6 @@
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </button>
-
-                                            <!-- Edit button -->
                                             <button type="button"
                                                 class="bg-yellow-400 text-white w-10 h-10 rounded-md flex items-center justify-center"
                                                 onclick="openModal('materiModal-{{ $materi->id }}')">
@@ -163,10 +159,7 @@
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </button>
-
-                                            <!-- Delete button -->
-                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST"
-                                                class="inline m-0 p-0">
+                                            <form action="{{ route('materis.destroy', $materi->id) }}" method="POST" class="inline m-0 p-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -190,7 +183,7 @@
                 <div class="pagination py-3 px-5">
                     {{ $materis->links('vendor.pagination.tailwind') }}
                 </div>
-            </div>
+            </div>            
 
             {{-- Modal Show --}}
             @foreach ($materis as $materi)
