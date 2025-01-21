@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use App\Models\Materi;
 use App\Models\Subject;
 use App\Models\Collection;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserPageController extends Controller
 {
@@ -50,7 +51,7 @@ class UserPageController extends Controller
         $user = auth()->user();
         $order = $request->input('order', 'desc');
         $search = $request->input('search');
-        $activeTab = $request->input('tab', 'materis'); // Default tab adalah "materis"
+        $activeTab = $request->input('tab', 'materis');
         $kelasID = $user->class->pluck('id');
         $status = $request->input('status');
 
@@ -69,7 +70,12 @@ class UserPageController extends Controller
             ->orderBy('created_at', $order)
             ->paginate(5);
 
-        // Query Task dengan logika yang sama seperti pada showTask
+        // Ambil URL file dari item pertama
+        $fileUrl = $materis->first()?->file_materi
+            ? Storage::url($materis->first()->file_materi)
+            : null;
+
+        // Query Task
         $tasksQuery = Task::select('tasks.*', 'collections.status as collection_status')
             ->with(['collections' => function ($query) {
                 $query->where('user_id', Auth::id());
@@ -103,16 +109,13 @@ class UserPageController extends Controller
                 }
             });
         }
-        
+
         $tasks = $tasksQuery->paginate(5);
 
-        $subjectName = $materis->first()->subject->name_subject ?? 'Tidak Ada Data';
+        $subjectName = $materis->first()?->subject?->name_subject ?? 'Tidak Ada Data';
 
         return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
     }
-
-
-
 
     public function showTask(Request $request)
     {
@@ -160,9 +163,6 @@ class UserPageController extends Controller
 
         return view('Siswa.tugas', compact('tasks'));
     }
-
-
-
 
     private function updateTaskStatus()
     {

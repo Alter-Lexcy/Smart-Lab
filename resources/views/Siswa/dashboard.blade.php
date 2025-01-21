@@ -161,29 +161,32 @@
                                     style="background: url('image/bg.tugas1.svg') center/cover; border-radius: 16px;">
                                     <div class="card-body py-4">
                                         <!-- Judul dan Icon -->
-                                        <div class="absolute flex items-center top-5 text-white" style="left: 10px;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                                                viewBox="0 0 20 20">
-                                                <path fill="currentColor"
-                                                    d="M5.75 3A2.75 2.75 0 0 0 3 5.75v8.5A2.75 2.75 0 0 0 5.75 17H9.6a5.5 5.5 0 0 1-.6-2.5c0-1.33.472-2.55 1.257-3.5H9.5a.5.5 0 0 1 0-1h1.837c.895-.63 1.986-1 3.163-1c.9 0 1.75.216 2.5.6V5.75A2.75 2.75 0 0 0 14.25 3zM7.5 7.25a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M6.75 9.5a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5m.75 3.75a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M9.5 8a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1zm5 11a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m-.5-6.5a.5.5 0 0 1 1 0V14h1a.5.5 0 0 1 0 1h-1.5a.5.5 0 0 1-.5-.5z" />
-                                            </svg>
-                                            <span class="font-poppins font-bold"
-                                                style="font-size: 24px; margin-left: 10px;">
-                                                Tugas yang Belum Dikerjakan
-                                            </span>
-                                        </div>
-                                        <!-- Jumlah Tugas -->
-                                        <div class="d-flex align-items-center justify-content-center"
-                                            style="margin-top: 120px;">
-                                            <span class="font-poppins font-bold"
-                                                style="font-size: 90px; margin-right: 8px;">
-                                                {{ $countNotCollected }}
-                                            </span>
-                                            <span class="font-poppins font-medium"
-                                                style="font-size: 24px; margin-top: 40px">
-                                                Tugas
-                                            </span>
-                                        </div>
+                                        <a href="{{ route('Tugas', ['status' => 'Belum mengumpulkan']) }}">
+                                            <div class="absolute flex items-center top-5 text-white"
+                                                style="left: 10px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 20 20">
+                                                    <path fill="currentColor"
+                                                        d="M5.75 3A2.75 2.75 0 0 0 3 5.75v8.5A2.75 2.75 0 0 0 5.75 17H9.6a5.5 5.5 0 0 1-.6-2.5c0-1.33.472-2.55 1.257-3.5H9.5a.5.5 0 0 1 0-1h1.837c.895-.63 1.986-1 3.163-1c.9 0 1.75.216 2.5.6V5.75A2.75 2.75 0 0 0 14.25 3zM7.5 7.25a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M6.75 9.5a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5m.75 3.75a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0M9.5 8a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1zm5 11a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m-.5-6.5a.5.5 0 0 1 1 0V14h1a.5.5 0 0 1 0 1h-1.5a.5.5 0 0 1-.5-.5z" />
+                                                </svg>
+                                                <span class="font-poppins font-bold"
+                                                    style="font-size: 24px; margin-left: 10px;">
+                                                    Tugas yang Belum Dikerjakan
+                                                </span>
+                                            </div>
+                                            <!-- Jumlah Tugas -->
+                                            <div class="d-flex align-items-center justify-content-center"
+                                                style="margin-top: 120px;">
+                                                <span class="font-poppins font-bold"
+                                                    style="font-size: 90px; margin-right: 8px;">
+                                                    {{ $countNotCollected }}
+                                                </span>
+                                                <span class="font-poppins font-medium"
+                                                    style="font-size: 24px; margin-top: 40px">
+                                                    Tugas
+                                                </span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
 
@@ -192,29 +195,32 @@
                                     style="background: url('image/bg.tugas1.svg') center/cover; border-radius: 16px;">
                                     <div class="card-body py-4">
                                         <!-- Judul dan Icon -->
-                                        <div class="absolute flex items-center top-5 text-white" style="left: 10px;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                                                viewBox="0 0 20 20">
-                                                <path fill="currentColor"
-                                                    d="M4 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9.883l-2.495 2.52l-.934-.953a1.5 1.5 0 1 0-2.142 2.1l.441.45H6a2 2 0 0 1-2-2zm5 5.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9.5 5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM9 13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5m-2-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m1-5a1 1 0 1 0-2 0a1 1 0 0 0 2 0m-1 9a1 1 0 1 0 0-2a1 1 0 0 0 0 2m10.855.352a.5.5 0 0 0-.71-.704l-3.643 3.68l-1.645-1.678a.5.5 0 1 0-.714.7l1.929 1.968a.6.6 0 0 0 .855.002z" />
-                                            </svg>
-                                            <span class="font-poppins font-bold"
-                                                style="font-size: 24px; margin-left: 10px;">
-                                                Tugas yang Sudah Dikerjakan
-                                            </span>
-                                        </div>
-                                        <!-- Jumlah Tugas -->
-                                        <div class="d-flex align-items-center justify-content-center"
-                                            style="margin-top: 120px;">
-                                            <span class="font-poppins font-bold"
-                                                style="font-size: 90px; margin-right: 8px;">
-                                                {{ $countCollected }}
-                                            </span>
-                                            <span class="font-poppins font-medium"
-                                                style="font-size: 24px; margin-top: 40px">
-                                                Tugas
-                                            </span>
-                                        </div>
+                                        <a href="{{ route('Tugas',['status'=>'Sudah mengumpulkan']) }}">
+                                            <div class="absolute flex items-center top-5 text-white"
+                                                style="left: 10px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 20 20">
+                                                    <path fill="currentColor"
+                                                        d="M4 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9.883l-2.495 2.52l-.934-.953a1.5 1.5 0 1 0-2.142 2.1l.441.45H6a2 2 0 0 1-2-2zm5 5.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9.5 5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM9 13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5m-2-3a1 1 0 1 0 0-2a1 1 0 0 0 0 2m1-5a1 1 0 1 0-2 0a1 1 0 0 0 2 0m-1 9a1 1 0 1 0 0-2a1 1 0 0 0 0 2m10.855.352a.5.5 0 0 0-.71-.704l-3.643 3.68l-1.645-1.678a.5.5 0 1 0-.714.7l1.929 1.968a.6.6 0 0 0 .855.002z" />
+                                                </svg>
+                                                <span class="font-poppins font-bold"
+                                                    style="font-size: 24px; margin-left: 10px;">
+                                                    Tugas yang Sudah Dikerjakan
+                                                </span>
+                                            </div>
+                                            <!-- Jumlah Tugas -->
+                                            <div class="d-flex align-items-center justify-content-center"
+                                                style="margin-top: 120px;">
+                                                <span class="font-poppins font-bold"
+                                                    style="font-size: 90px; margin-right: 8px;">
+                                                    {{ $countCollected }}
+                                                </span>
+                                                <span class="font-poppins font-medium"
+                                                    style="font-size: 24px; margin-top: 40px">
+                                                    Tugas
+                                                </span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
