@@ -45,7 +45,8 @@
                     </button>
 
                     <!-- Form Pencarian -->
-                    <form id="searchForm" action="{{ route('assesments',['task'=>$task->id]) }}" method="GET" name="search"
+                    <form id="searchForm" action="{{ route('assesments', ['task' => $task->id]) }}" method="GET"
+                        name="search"
                         class="absolute right-full mr-2 mt-4 opacity-0 invisible transition-all duration-300">
                         <input type="text" name="search" placeholder="Cari..."
                             class="p-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -78,17 +79,24 @@
             @endif
 
             <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
-                <h6 class="font-semibold p-3 text-sm ps-5">Daftar Penilaian</h6>
-                <div class="overflow-x-auto">
+                <!-- Bagian Tugas dan 2/28 di atas tabel -->
+                <div class="flex justify-between p-5 bg-white rounded-md">
+                    <span class="">Tugas :
+                        <span class="font-bold">Tugas Pengenalan Wayang</span></span>
+                    <span class="font-bold text-green-500">24
+                        <span class="font-bold text-black"> / 28
+                        <span class="font-normal text-black">Siswa</span></span></span>
+                </div>
+
+                <div class="overflow-x-auto px-5">
                     <form action="{{ route('assessments.store', ['task' => $task->id]) }}" method="POST">
                         @csrf
-                        <table class="min-w-full bg-white text-center rounded-lg">
+                        <table class="min-w-full bg-white text-center border">
                             <thead>
-                                <tr class="border">
+                                <tr class="text-center">
                                     <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
                                     <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
                                     <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Kelas</th>
-                                    <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Tugas</th>
                                     <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nilai</th>
                                     <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Detail</th>
                                 </tr>
@@ -107,14 +115,10 @@
                                             @endforeach
                                         </td>
                                         <td class="border px-4 py-2">
-                                            {{ $assessment->collection && $assessment->collection->task ? $assessment->collection->task->title_task : 'Tugas tidak ditemukan' }}
-                                        </td>
-                                        <td class="border px-4 py-2">
                                             <input type="number"
                                                 name="mark_task[{{ $assessment->user_id }}][{{ $assessment->collection_id }}]"
-                                                class="form-control p-1 text-center bg-gray-100 border rounded-xl no-arrows"
+                                                class="form-control p-1 text-center bg-white border border-gray-300 rounded-lg no-arrows"
                                                 min="0" max="100" value="{{ $assessment->mark_task }}">
-
                                         </td>
                                         <td class="border px-4 py-2" style="justify-items: center">
                                             <!-- Show button -->
@@ -136,7 +140,7 @@
                         </table>
                         <div class="flex justify-end">
                             <button
-                                class="flex items-center bg-blue-600 text-white mr-5 mt-5 px-7 py-2 rounded-xl shadow-lg transform hover:scale-105 hover:bg-blue-900 hover:text-blue-100 transition-all duration-300 ease-in-out"
+                                class="flex items-center bg-blue-600 text-white mr-20 mt-5 px-7 py-2 rounded-xl shadow-lg transform hover:scale-105 hover:bg-blue-900 hover:text-blue-100 transition-all duration-300 ease-in-out"
                                 type="submit">
                                 <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -155,7 +159,7 @@
                 @foreach ($assessments as $assessment)
                     <div id="showAssessmentModal_{{ $assessment->id }}"
                         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-                style="display: none;">
+                        style="display: none;">
                         <div class="bg-white rounded-lg shadow-lg w-[90%] md:w-[60%] lg:w-[50%] h-auto pt-6 pb-7 pl-6 mr-6">
                             {{-- Header Modal --}}
                             <div class="flex justify-between items-center border-b pb-4 mr-6">
@@ -180,7 +184,7 @@
                                                 PATHINFO_EXTENSION,
                                             );
                                         @endphp
-                                        @if (in_array($file, ['jpg', 'png','jpeg']))
+                                        @if (in_array($file, ['jpg', 'png', 'jpeg']))
                                             <img src="{{ asset('storage/' . $assessment->collection->file_collection) }}"
                                                 alt="File Image" class=" w-full h-auto border-2 rounded-lg">
                                         @elseif($file === 'pdf')
