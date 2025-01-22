@@ -140,51 +140,74 @@
         <div class="w-96 h-1 bg-gray-700 rounded"></div>
     </div>
 
-    <!-- Container Card -->
     <div class="container mx-auto p-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @forelse($subjects as $subject)
                 <a href="{{ route('Materi', ['materi_id' => $subject->id]) }}"
-                    class="card h-200px relative shadow-lg flex flex-col justify-between text-white"
+                    class="card h-250px relative shadow-lg flex flex-col justify-between text-white"
                     style="background-image: url('image/siswa/cardmapel.svg'); background-size: cover; background-position: center; border-radius: 15px; padding: 20px; text-decoration: none;">
-                    <div class="absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl font-bold">
-                        {{ $subject->name_subject }}
-                    </div>
 
-                    <div class="flex justify-between">
-                        <div class="absolute top-5 right-5 text-md font-semibold bg-blue-800 px-3 py-2 rounded-xl">
-                            {{ $subject->materi_count }} Materi
+                    <div class="flex flex-col items-start justify-center h-full absolute">
+                        <!-- Nama Mata Pelajaran -->
+                        <div class="text-5xl font-bold font-poppins flex-grow mb-3">
+                            {{ $subject->name_subject }}
                         </div>
-                        <div>
+
+                        <!-- Nama Guru -->
+                        <div class="text-2xl flex items-center"> <!-- Hanya menambahkan mt-4 di sini -->
+                            <!-- Ikon Guru -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <g fill="none" fill-rule="evenodd">
+                                    <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                                    <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.99 7.99 0 0 1 12 20a7.99 7.99 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984" />
+                                </g>
+                            </svg>
+
+                            <!-- Nama Guru -->
                             @if (auth()->user() && auth()->user()->class()->exists())
-                                <p>Tugas Tersisa : {{ $subject->task_count }}</p>
+                                @forelse($subject->user as $user)
+                                    @if ($user->class->pluck('id')->intersect(auth()->user()->class->pluck('id'))->isNotEmpty())
+                                        <span class="pl-2">{{ $user->name }}</span>
+                                    @else
+                                        <span class="pl-2">Belum ada guru</span>
+                                    @endif
+                                @empty
+                                    <span class="pl-2">Belum ada guru</span>
+                                @endforelse
+                            @else
+                                <span class="pl-2">Anda Harus Mendapatkan Kelas</span>
                             @endif
                         </div>
                     </div>
 
-                    <div class="absolute bottom-5 left-7 text-lg flex items-center space-x-2">
-                        <!-- Ikon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            class="size-6 w-6 h-6">
-                            <path fill-rule="evenodd"
-                                d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                                clip-rule="evenodd" />
-                        </svg>
+                    <!-- Div Flex untuk Tugas dan Materi -->
+                    <div class="flex w-full items-center mt-auto">
+                        <div class="flex-1 rounded-lg py-2 px-5" style="background-color: #333abb;">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M16 1H8v4h8z" />
+                                    <path fill="currentColor" d="M3 3h3v4h12V3h3v8.674A7 7 0 0 0 13.101 23H3z" />
+                                    <path fill="currentColor"
+                                        d="M12.5 18a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0m7.914 1L19 17.586v-1.834h-2v2.662l2 2z" />
+                                </svg>
+                                <span class="text-md pl-3">3 Tugas Belum Dikerjakan</span>
+                            </div>
+                        </div>
 
-                        <!-- Nama guru -->
-                        @if (auth()->user() && auth()->user()->class()->exists())
-                            @forelse($subject->user as $user)
-                                @if ($user->class->pluck('id')->intersect(auth()->user()->class->pluck('id'))->isNotEmpty())
-                                    <span class="text-lg">{{ $user->name }}</span>
-                                @else
-                                    <span class="text-lg">Belum ada guru</span>
-                                @endif
-                            @empty
-                                <span class="text-lg">Belum ada guru</span>
-                            @endforelse
-                        @else
-                            <span class="text-lg">Anda Harus Mendapatkan Kelas</span>
-                        @endif
+                        <!-- Garis vertikal -->
+                        <div class="border-l border-white h-6 mx-5"></div>
+
+                        <div class="flex rounded-lg py-2 px-5" style="background-color: #333abb;">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                                </svg>
+                                <span class="text-md pl-3">8 materi</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
             @empty
@@ -197,7 +220,7 @@
                                     d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                         </div>
-                        <p class="text-gray-700 text-3xl font-semibold">Belum Ada Mata Pelajaran</p>
+                        <p class="text-gray-700 text-md font-semibold">Belum Ada Mata Pelajaran</p>
                     </div>
                 </div>
             @endforelse

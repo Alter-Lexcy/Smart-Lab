@@ -499,7 +499,7 @@
     @foreach ($tasks as $task)
         <div id="showCollection_{{ $task->id }}"
             class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[60%] lg:max-w-[50%] h-auto pt-6 pb-7 pl-6 mr-6 overflow-x-hidden">
+            <div class="bg-white rounded-lg shadow-lg w-[50%] h-auto pt-6 pb-7 px-5 mr-6 overflow-x-hidden">
                 {{-- Header Modal --}}
                 <div class="flex justify-between items-center border-b pb-4">
                     <h5 class="text-2xl font-bold text-gray-800">Daftar Pengumpulan</h5>
