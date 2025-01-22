@@ -55,6 +55,11 @@ class UserPageController extends Controller
         $kelasID = $user->class->pluck('id');
         $status = $request->input('status');
 
+        if ($activeTab === 'materi') {
+            // Query untuk tab "materi"
+        } elseif ($activeTab === 'tugas') {
+            // Query untuk tab "tugas"
+        }
         // Pastikan $kelasID tidak kosong
         if ($kelasID->isEmpty()) {
             return redirect()->back()->with('error', 'Materi tidak ditemukan.');
@@ -111,10 +116,20 @@ class UserPageController extends Controller
         }
 
         $tasks = $tasksQuery->paginate(5);
-
-        $subjectName = $materis->first()?->subject?->name_subject ?? 'Tidak Ada Data';
-
-        return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab'));
+        $countSiswa = User::whereHas('roles', function ($query) {
+            $query->where('roles.name', 'Murid'); 
+        })
+        ->whereHas('class', function ($query) use ($kelasID) {
+            $query->whereIn('classes_id', $kelasID); 
+        })
+        ->count();  
+        $subjectName = Subject::whereHas('materi', function ($query) use ($materi_id) {
+            $query->where('subject_id', $materi_id);
+        })
+        ->orWhereHas('Task',function ($q) use ($materi_id){
+            $q->where('subject_id',$materi_id);
+        })->distinct()->pluck('name_subject')->first();
+        return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab','countSiswa'));
     }
 
     public function showTask(Request $request)
