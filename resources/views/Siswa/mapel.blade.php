@@ -192,18 +192,20 @@
 
                     <!-- Div Flex untuk Tugas dan Materi -->
                     <div class="flex w-full items-center mt-auto">
-                        <div class="flex-1 rounded-lg py-2 px-5" style="background-color: #333abb;">
-                            <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M16 1H8v4h8z" />
-                                    <path fill="currentColor" d="M3 3h3v4h12V3h3v8.674A7 7 0 0 0 13.101 23H3z" />
-                                    <path fill="currentColor"
-                                        d="M12.5 18a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0m7.914 1L19 17.586v-1.834h-2v2.662l2 2z" />
-                                </svg>
-                                <span class="text-sm pl-3">3 Tugas Belum Dikerjakan</span>
+                        @if (auth()->user() && auth()->user()->class()->exists())
+                            <div class="flex-1 rounded-lg py-2 px-5" style="background-color: #333abb;">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M16 1H8v4h8z" />
+                                        <path fill="currentColor" d="M3 3h3v4h12V3h3v8.674A7 7 0 0 0 13.101 23H3z" />
+                                        <path fill="currentColor"
+                                            d="M12.5 18a5.5 5.5 0 1 1 11 0a5.5 5.5 0 0 1-11 0m7.914 1L19 17.586v-1.834h-2v2.662l2 2z" />
+                                    </svg>
+                                    <span class="text-sm pl-3">{{ $subject->task_count }} Tugas Belum Dikerjakan</span>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Garis vertikal -->
                         <div class="border-l border-white h-6 mx-5"></div>
@@ -215,7 +217,7 @@
                                     <path fill="currentColor"
                                         d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
                                 </svg>
-                                <span class="text-sm pl-3">8 materi</span>
+                                <span class="text-sm pl-3"> {{ $subject->materi_count }} materi</span>
                             </div>
                         </div>
                     </div>

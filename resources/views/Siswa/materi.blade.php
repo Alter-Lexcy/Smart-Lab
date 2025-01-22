@@ -197,7 +197,8 @@
                 <!-- Filter Urutan (Hanya tampil di Tab Materi) -->
                 <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET" id="filter-urutan"
                     class="hidden">
-                    <input type="hidden" id="activeTabInput" name="tab" value="{{ $activeTab }}">
+                    <!-- Tetapkan tab aktif secara eksplisit ke 'materi' -->
+                    <input type="hidden" id="activeTabInput" name="tab" value="materi">
                     @php
                         $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
                     @endphp
@@ -225,7 +226,7 @@
                             Pilih Status Tugas
                         </div>
                         <form method="GET" action="{{ route('Materi', ['materi_id' => $materi_id]) }}">
-                            <input type="hidden" id="activeTabInput" name="tab" value="{{ $activeTab }}">
+                            <input type="hidden" id="activeTabInput" name="tab" value="tugas">
                             <button type="submit" name="status" value="Sudah mengumpulkan"
                                 class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12">
                                 Sudah Mengumpulkan
@@ -278,9 +279,9 @@
                             </p>
                         @endif
                         <!-- Kontainer tambahan untuk icon dan tulisan -->
-                        <div class="d-flex align-items-center gap-4 mt-4">
+                        <div class="d-flex align-items-center gap-12 mt-4">
                             <!-- Informasi guru -->
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-4">
                                 <div
                                     style="
                                     width: 35px;
@@ -299,14 +300,14 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold">Pengajar
+                                    <h2 style="margin: 0; font-size: 16px; color: white; font-weight: bold">Pengajar
                                     </h2>
                                     @php
                                         $displayedUserIds = [];
                                     @endphp
                                     @foreach ($materis as $materi)
                                         @if (!in_array($materi->user_id, $displayedUserIds))
-                                            <p style="margin: 0; font-size: 10px; color: white;">
+                                            <p style="margin: 0; font-size: 14px; color: white;">
                                                 {{ $materi->users->name }}
                                             </p>
                                             @php
@@ -317,7 +318,7 @@
                                 </div>
                             </div>
                             <!-- Informasi siswa -->
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-4">
                                 <div
                                     style="
                                     width: 35px;
@@ -336,8 +337,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold;">Siswa</h2>
-                                    <p style="margin: 0; font-size: 10px; color: white;">{{ $countSiswa }} Siswa</p>
+                                    <h2 style="margin: 0; font-size: 16px; color: white; font-weight: bold;">Siswa</h2>
+                                    <p style="margin: 0; font-size: 14px; color: white;">{{ $countSiswa }} Siswa</p>
                                 </div>
                             </div>
                         </div>
@@ -723,58 +724,72 @@
 
     {{-- tab content script --}}
     <script>
-        // Tab functionality
+        // Tab and filter functionality
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-button');
             const contents = document.querySelectorAll('.tab-content');
-
-            // Ambil parameter tab dari URL untuk menentukan tab yang aktif
             const urlParams = new URLSearchParams(window.location.search);
-            const activeTab = urlParams.get('tab') || 'materi'; // Default ke "materi"
+            const activeTab = urlParams.get('tab') || 'materi'; // Default tab to "materi"
 
-            // Tampilkan konten berdasarkan tab aktif
+            // Show initial tab and filter
             showTab(activeTab);
+            showFilter(activeTab);
 
+            // Tab click event
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Update URL dan tampilkan filter sesuai tab yang dipilih
                     const selectedTab = tab.id.replace('tab-', '');
                     const url = new URL(window.location.href);
                     url.searchParams.set('tab', selectedTab);
-                    window.history.pushState({}, '', url); // Update URL tanpa reload
-
-                    // Tampilkan tab dan konten sesuai yang dipilih
+                    window.history.pushState({}, '', url); // Update URL without reload
                     showTab(selectedTab);
                     showFilter(selectedTab);
                 });
             });
 
-            // Fungsi untuk menampilkan tab yang aktif
+            // Show the active tab and content
             function showTab(activeTab) {
-                // Perbarui tab aktif di input hidden
-                const activeTabInput = document.getElementById('activeTabInput');
-                if (activeTabInput) {
-                    activeTabInput.value = activeTab;
-                }
-
-                // Perbarui UI untuk tab dan konten
                 tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800', 'text-white'));
                 tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
 
-                const target = document.getElementById('tab-' + activeTab);
-                const content = document.getElementById('content-' + activeTab);
+                contents.forEach(content => content.classList.add('hidden'));
+                const targetTab = document.getElementById('tab-' + activeTab);
+                const targetContent = document.getElementById('content-' + activeTab);
 
-                if (target) {
-                    target.classList.remove('bg-white', 'text-blue-800');
-                    target.classList.add('active-tab', 'bg-blue-800', 'text-white');
+                if (targetTab) {
+                    targetTab.classList.add('active-tab', 'bg-blue-800', 'text-white');
+                    targetTab.classList.remove('bg-white', 'text-blue-800');
                 }
+                if (targetContent) targetContent.classList.remove('hidden');
+            }
 
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-                if (content) content.classList.remove('hidden');
+            // Show the filter based on the active tab
+            function showFilter(activeTab) {
+                const filterUrutan = document.getElementById('filter-urutan');
+                const filterDropdownContainer = document.getElementById('filter-dropdown-container');
+
+                // Hide all filters initially
+                if (filterUrutan) filterUrutan.classList.add('hidden');
+                if (filterDropdownContainer) filterDropdownContainer.classList.add('hidden');
+
+                // Show the relevant filter
+                if (activeTab === 'materi' && filterUrutan) {
+                    filterUrutan.classList.remove('hidden');
+                } else if (activeTab === 'tugas' && filterDropdownContainer) {
+                    filterDropdownContainer.classList.remove('hidden');
+                }
+            }
+
+            // Dropdown filter toggle
+            const filterButton = document.getElementById('filterButton');
+            if (filterButton) {
+                filterButton.addEventListener('click', () => {
+                    const filterDropdown = document.getElementById('filterDropdown');
+                    if (filterDropdown) filterDropdown.classList.toggle('hidden');
+                });
             }
         });
     </script>
-
     <script>
         // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
         document.addEventListener('DOMContentLoaded', function() {
@@ -794,13 +809,28 @@
             });
 
             // Fungsi untuk membuka dan menutup dropdown filter
-            const filterButton = document.getElementById('filterButton');
-            if (filterButton) {
-                filterButton.addEventListener('click', function() {
-                    const filterDropdown = document.getElementById('filterDropdown');
-                    filterDropdown.classList.toggle('hidden');
-                });
-            }
+            document.addEventListener('DOMContentLoaded', () => {
+                const filterButton = document.getElementById('filterButton');
+                const filterDropdown = document.getElementById('filterDropdown');
+
+                // Pastikan tombol filter dan dropdown ada sebelum menambahkan event listener
+                if (filterButton && filterDropdown) {
+                    // Menangani klik tombol filter untuk toggle dropdown
+                    filterButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Mencegah klik di dalam tombol menutup dropdown
+                        filterDropdown.classList.toggle('hidden');
+                    });
+
+                    // Menutup dropdown jika klik di luar filterButton atau filterDropdown
+                    document.addEventListener('click', (e) => {
+                        if (!filterButton.contains(e.target) && !filterDropdown.contains(e
+                            .target)) {
+                            filterDropdown.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+
         });
 
         // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
@@ -863,6 +893,18 @@
                     showTab(selectedTab);
                 });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterUrutan = document.getElementById('filter-urutan');
+            const activeTabInput = document.getElementById('activeTabInput');
+
+            if (filterUrutan && activeTabInput) {
+                filterUrutan.addEventListener('submit', function() {
+                    // Pastikan parameter 'tab' tetap ke 'materi' sebelum mengirim form
+                    activeTabInput.value = 'materi';
+                });
+            }
         });
     </script>
 

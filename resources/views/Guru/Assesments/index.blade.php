@@ -81,11 +81,13 @@
             <div class="block max-w bg-white rounded-lg shadow hover:bg-white">
                 <!-- Bagian Tugas dan 2/28 di atas tabel -->
                 <div class="flex justify-between p-5 bg-white rounded-md">
-                    <span class="">Tugas :
-                        <span class="font-bold">{{ $task->title_task }}</span></span>
+                    <span class="font-bold">Tugas :
+                        <span class="font-semibold text-gray-600">{{ $task->title_task }}</span></span>
                     <span class="font-bold text-green-500">{{ $countCollection }}
                         <span class="font-bold text-black"> / {{ $countSiswa }}
-                            <span class="font-normal text-black">Siswa</span></span></span>
+                            <span class="font-normal text-black">Siswa mengumpulkan</span>
+                        </span>
+                    </span>
                 </div>
 
                 <div class="overflow-x-auto px-5">
@@ -117,7 +119,7 @@
                                         <td class="border px-4 py-2">
                                             <input type="number"
                                                 name="mark_task[{{ $assessment->user_id }}][{{ $assessment->collection_id }}]"
-                                                class="form-control p-1 text-center border border-gray-300 rounded-lg no-arrows 
+                                                class="form-control p-1 text-center border border-gray-300 rounded-lg no-arrows
                                             {{ $assessment->status === 'Sudah Di-nilai' ? 'bg-green-500' : 'bg-white' }}"
                                                 min="0" max="100" value="{{ $assessment->mark_task }}">
                                         </td>
