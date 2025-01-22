@@ -45,11 +45,32 @@ class AssessmentController extends Controller
         ->orderByRaw("FIELD(collections.status, 'Belum Di-nilai', 'Sudah Di-nilai') ASC")
         ->orderBy('users.name', 'asc')
         ->paginate(5);
-
+dd($assessments);
         // Ambil semua tugas milik user yang sedang login
         $tasks = Task::where('user_id', $user->id)->get();
 
-        return view('Guru.Assesments.index', compact('assessments', 'tasks', 'task'));
+        $countSiswa = User::whereHas('roles', function ($query) {
+            $query->where('roles.name', 'Murid'); 
+        })
+        ->whereHas('class', function ($query) use ($task) {
+            $query->where('classes.id', $task->class_id); // Spesifikkan tabel dengan menambahkan alias `classes.id`
+        })
+        ->count();
+        
+        $countCollection = User::whereHas('roles', function ($query) {
+            $query->where('roles.name', 'Murid'); // Pastikan hanya menghitung siswa
+        })
+        ->whereHas('class', function ($query) use ($task) {
+            $query->where('classes.id', $task->class_id); // Sesuaikan dengan kelas tugas
+        })
+        ->whereHas('collections', function ($query) use ($task) {
+            $query->where('task_id', $task->id) // Pastikan tidak memiliki tugas yang dimaksud
+                  ->where('status', 'Sudah mengumpulkan'); // Pastikan status 'belum mengumpulkan'
+        })
+        ->count();
+    
+
+        return view('Guru.Assesments.index', compact('assessments', 'tasks', 'task','countSiswa','countCollection'));
     }
     /**
      * Store a newly created resource in storage.

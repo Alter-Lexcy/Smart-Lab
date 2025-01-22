@@ -187,7 +187,6 @@
                     <input type="text" id="search" name="search" placeholder="Search..."
                         class="rounded-xl border-gray-300 p-3">
                     <input type="hidden" id="activeTabInput" name="tab" value="{{ $activeTab }}">
-                    <!-- Tab aktif -->
                     <button type="submit"
                         class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl">
                         <i class="fas fa-search text-white"></i>
@@ -198,6 +197,7 @@
                 <!-- Filter Urutan (Hanya tampil di Tab Materi) -->
                 <form action="{{ route('Materi', ['materi_id' => $materi_id]) }}" method="GET" id="filter-urutan"
                     class="hidden">
+                    <input type="hidden" id="activeTabInput" name="tab" value="{{ $activeTab }}">
                     @php
                         $nextOrder = request('order', 'desc') === 'desc' ? 'asc' : 'desc';
                     @endphp
@@ -225,7 +225,7 @@
                             Pilih Status Tugas
                         </div>
                         <form method="GET" action="{{ route('Materi', ['materi_id' => $materi_id]) }}">
-                            @csrf
+                            <input type="hidden" id="activeTabInput" name="tab" value="{{ $activeTab }}">
                             <button type="submit" name="status" value="Sudah mengumpulkan"
                                 class="flex items-center justify-center px-4 py-2 text-green-800 bg-green-300 rounded-xl m-2 w-64 h-12">
                                 Sudah Mengumpulkan
@@ -249,15 +249,15 @@
     <div class="container p-10">
 
         <!-- Header Banner -->
-        @if ($materis->isNotEmpty())
-        <div class="d-flex flex-column flex-root">
-            <div class="flex w-full position-relative" style="position: relative;">
-                <!-- Gambar dengan teks di dalamnya -->
-                <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
+        @if ($materis->isNotEmpty() || $tasks->isNotEmpty())
+            <div class="d-flex flex-column flex-root">
+                <div class="flex w-full position-relative" style="position: relative;">
+                    <!-- Gambar dengan teks di dalamnya -->
+                    <img src="/image/siswa/banner materi.svg" alt="banner mapel" style="width: 100%; height: auto;">
 
-                <!-- Elemen teks yang berada di atas gambar -->
-                <div
-                    style="
+                    <!-- Elemen teks yang berada di atas gambar -->
+                    <div
+                        style="
                         position: absolute;
                         top: 50%;
                         left: 5%; /* Posisi kiri */
@@ -268,15 +268,21 @@
                         overflow-wrap: break-word; /* Memastikan teks panjang terpecah */
                         word-wrap: break-word; /* Kompatibilitas tambahan */
                     ">
-                    <p class="text-5xl my-5 font-poppins font-bold uppercase">
-                        {{ $subjectName }}
-                    </p>
-                    <!-- Kontainer tambahan untuk icon dan tulisan -->
-                    <div class="d-flex align-items-center gap-4 mt-4">
-                        <!-- Informasi guru -->
-                        <div class="d-flex align-items-center gap-2">
-                            <div
-                                style="
+                        @if ($subjectName)
+                            <p class="text-5xl my-5 font-poppins font-bold uppercase">
+                                {{ $subjectName }}
+                            </p>
+                        @else
+                            <p class="text-5xl my-5 font-poppins font-bold uppercase text-gray-500">
+                                mapel tidak ditemukan
+                            </p>
+                        @endif
+                        <!-- Kontainer tambahan untuk icon dan tulisan -->
+                        <div class="d-flex align-items-center gap-4 mt-4">
+                            <!-- Informasi guru -->
+                            <div class="d-flex align-items-center gap-2">
+                                <div
+                                    style="
                                     width: 35px;
                                     height: 35px;
                                     display: flex;
@@ -286,19 +292,34 @@
                                     background-color: white;
                                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                                 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="#1E40AF">
-                                    <path d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h13.39a8 8 0 0 0 7.23-4.57a48 48 0 0 1 86.76 0a8 8 0 0 0 7.23 4.57H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M80 144a24 24 0 1 1 24 24a24 24 0 0 1-24-24m136 56h-56.57a64.4 64.4 0 0 0-28.83-26.16a40 40 0 1 0-53.2 0A64.4 64.4 0 0 0 48.57 200H40V56h176ZM56 96V80a8 8 0 0 1 8-8h128a8 8 0 0 1 8 8v96a8 8 0 0 1-8 8h-16a8 8 0 0 1 0-16h8V88H72v8a8 8 0 0 1-16 0" />
-                                </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 256 256" fill="#1E40AF">
+                                        <path
+                                            d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h13.39a8 8 0 0 0 7.23-4.57a48 48 0 0 1 86.76 0a8 8 0 0 0 7.23 4.57H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M80 144a24 24 0 1 1 24 24a24 24 0 0 1-24-24m136 56h-56.57a64.4 64.4 0 0 0-28.83-26.16a40 40 0 1 0-53.2 0A64.4 64.4 0 0 0 48.57 200H40V56h176ZM56 96V80a8 8 0 0 1 8-8h128a8 8 0 0 1 8 8v96a8 8 0 0 1-8 8h-16a8 8 0 0 1 0-16h8V88H72v8a8 8 0 0 1-16 0" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold">Pengajar
+                                    </h2>
+                                    @php
+                                        $displayedUserIds = [];
+                                    @endphp
+                                    @foreach ($materis as $materi)
+                                        @if (!in_array($materi->user_id, $displayedUserIds))
+                                            <p style="margin: 0; font-size: 10px; color: white;">
+                                                {{ $materi->users->name }}
+                                            </p>
+                                            @php
+                                                $displayedUserIds[] = $materi->user_id;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                            <div>
-                                <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold">Pengajar</h2>
-                                <p style="margin: 0; font-size: 10px; color: white;">Endah Dila Kurnia Wati</p>
-                            </div>
-                        </div>
-                        <!-- Informasi siswa -->
-                        <div class="d-flex align-items-center gap-2">
-                            <div
-                                style="
+                            <!-- Informasi siswa -->
+                            <div class="d-flex align-items-center gap-2">
+                                <div
+                                    style="
                                     width: 35px;
                                     height: 35px;
                                     display: flex;
@@ -308,19 +329,21 @@
                                     background-color: white;
                                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                                 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="#1E40AF">
-                                    <path d="m226.53 56.41l-96-32a8 8 0 0 0-5.06 0l-96 32A8 8 0 0 0 24 64v80a8 8 0 0 0 16 0V75.1l33.59 11.19a64 64 0 0 0 20.65 88.05c-18 7.06-33.56 19.83-44.94 37.29a8 8 0 1 0 13.4 8.74C77.77 197.25 101.57 184 128 184s50.23 13.25 65.3 36.37a8 8 0 0 0 13.4-8.74c-11.38-17.46-27-30.23-44.94-37.29a64 64 0 0 0 20.65-88l44.12-14.7a8 8 0 0 0 0-15.18ZM176 120a48 48 0 1 1-86.65-28.45l36.12 12a8 8 0 0 0 5.06 0l36.12-12A47.9 47.9 0 0 1 176 120m-48-32.43L57.3 64L128 40.43L198.7 64Z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold;">Siswa</h2>
-                                <p style="margin: 0; font-size: 10px; color: white;">36 Siswa</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 256 256" fill="#1E40AF">
+                                        <path
+                                            d="m226.53 56.41l-96-32a8 8 0 0 0-5.06 0l-96 32A8 8 0 0 0 24 64v80a8 8 0 0 0 16 0V75.1l33.59 11.19a64 64 0 0 0 20.65 88.05c-18 7.06-33.56 19.83-44.94 37.29a8 8 0 1 0 13.4 8.74C77.77 197.25 101.57 184 128 184s50.23 13.25 65.3 36.37a8 8 0 0 0 13.4-8.74c-11.38-17.46-27-30.23-44.94-37.29a64 64 0 0 0 20.65-88l44.12-14.7a8 8 0 0 0 0-15.18ZM176 120a48 48 0 1 1-86.65-28.45l36.12 12a8 8 0 0 0 5.06 0l36.12-12A47.9 47.9 0 0 1 176 120m-48-32.43L57.3 64L128 40.43L198.7 64Z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h2 style="margin: 0; font-size: 15px; color: white; font-weight: bold;">Siswa</h2>
+                                    <p style="margin: 0; font-size: 10px; color: white;">{{ $countSiswa }} Siswa</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         @endif
         {{-- Tap Content Materi --}}
@@ -607,7 +630,7 @@
                                 <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
                                     class="border-2 rounded-lg " style="height: 165vh; width: 100%; display: block;">
                             @else
-                                <p class="text-red-500">Format file tidak didukung.</p>
+                                <p class="text-red-500">Tidak Ada</p>
                             @endif
                         </div>
                     </div>
@@ -705,24 +728,50 @@
             const tabs = document.querySelectorAll('.tab-button');
             const contents = document.querySelectorAll('.tab-content');
 
+            // Ambil parameter tab dari URL untuk menentukan tab yang aktif
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'materi'; // Default ke "materi"
+
+            // Tampilkan konten berdasarkan tab aktif
+            showTab(activeTab);
+
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Remove active state from all tabs
-                    tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800',
-                        'text-white'));
-                    tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
+                    // Update URL dan tampilkan filter sesuai tab yang dipilih
+                    const selectedTab = tab.id.replace('tab-', '');
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('tab', selectedTab);
+                    window.history.pushState({}, '', url); // Update URL tanpa reload
 
-                    // Hide all contents
-                    contents.forEach(content => content.classList.add('hidden'));
-
-                    // Activate clicked tab and show respective content
-                    tab.classList.remove('bg-white', 'text-blue-800');
-                    tab.classList.add('active-tab', 'bg-blue-800', 'text-white');
-
-                    const target = tab.id.replace('tab-', 'content-');
-                    document.getElementById(target).classList.remove('hidden');
+                    // Tampilkan tab dan konten sesuai yang dipilih
+                    showTab(selectedTab);
+                    showFilter(selectedTab);
                 });
             });
+
+            // Fungsi untuk menampilkan tab yang aktif
+            function showTab(activeTab) {
+                // Perbarui tab aktif di input hidden
+                const activeTabInput = document.getElementById('activeTabInput');
+                if (activeTabInput) {
+                    activeTabInput.value = activeTab;
+                }
+
+                // Perbarui UI untuk tab dan konten
+                tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800', 'text-white'));
+                tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
+
+                const target = document.getElementById('tab-' + activeTab);
+                const content = document.getElementById('content-' + activeTab);
+
+                if (target) {
+                    target.classList.remove('bg-white', 'text-blue-800');
+                    target.classList.add('active-tab', 'bg-blue-800', 'text-white');
+                }
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                if (content) content.classList.remove('hidden');
+            }
         });
     </script>
 
@@ -773,6 +822,48 @@
                 if (filterDropdownContainer) filterDropdownContainer.classList.remove('hidden');
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabInput = document.getElementById('tab-input');
+
+            // Fungsi untuk menampilkan tab yang aktif
+            function showTab(activeTab) {
+                // Perbarui tab aktif di input hidden
+                if (tabInput) tabInput.value = activeTab;
+
+                // Perbarui UI untuk tab dan konten
+                tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800', 'text-white'));
+                tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
+
+                const target = document.getElementById('tab-' + activeTab);
+                const content = document.getElementById('content-' + activeTab);
+
+                if (target) {
+                    target.classList.remove('bg-white', 'text-blue-800');
+                    target.classList.add('active-tab', 'bg-blue-800', 'text-white');
+                }
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                if (content) content.classList.remove('hidden');
+            }
+
+            // Ambil parameter tab dari URL untuk menentukan tab yang aktif
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'materi'; // Default tab
+            showTab(activeTab);
+
+            // Event listener untuk perubahan tab
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const selectedTab = tab.id.replace('tab-', '');
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('tab', selectedTab);
+                    window.history.pushState({}, '', url); // Perbarui URL tanpa reload
+                    showTab(selectedTab);
+                });
+            });
+        });
     </script>
 
     <script>
