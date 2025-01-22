@@ -45,18 +45,17 @@ class AssessmentController extends Controller
         ->orderByRaw("FIELD(collections.status, 'Belum Di-nilai', 'Sudah Di-nilai') ASC")
         ->orderBy('users.name', 'asc')
         ->paginate(5);
-dd($assessments);
         // Ambil semua tugas milik user yang sedang login
         $tasks = Task::where('user_id', $user->id)->get();
 
         $countSiswa = User::whereHas('roles', function ($query) {
-            $query->where('roles.name', 'Murid'); 
+            $query->where('roles.name', 'Murid');
         })
         ->whereHas('class', function ($query) use ($task) {
             $query->where('classes.id', $task->class_id); // Spesifikkan tabel dengan menambahkan alias `classes.id`
         })
         ->count();
-        
+
         $countCollection = User::whereHas('roles', function ($query) {
             $query->where('roles.name', 'Murid'); // Pastikan hanya menghitung siswa
         })
@@ -68,7 +67,7 @@ dd($assessments);
                   ->where('status', 'Sudah mengumpulkan'); // Pastikan status 'belum mengumpulkan'
         })
         ->count();
-    
+
 
         return view('Guru.Assesments.index', compact('assessments', 'tasks', 'task','countSiswa','countCollection'));
     }

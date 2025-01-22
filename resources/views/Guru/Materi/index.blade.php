@@ -183,7 +183,7 @@
                 <div class="pagination py-3 px-5">
                     {{ $materis->links('vendor.pagination.tailwind') }}
                 </div>
-            </div>            
+            </div>
 
             {{-- Modal Show --}}
             @foreach ($materis as $materi)
@@ -229,19 +229,8 @@
                             </div>
                             <div class="mr-6">
                                 <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi</h6>
-
-                                @php
-                                    $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                                @endphp
-                                @if (in_array($file, ['jpg', 'png']))
-                                    <img src="{{ asset('storage/' . $materi->file_materi) }}" alt="File Image"
-                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
-                                @elseif($file === 'pdf')
-                                    <embed src="{{ asset('storage/' . $materi->file_materi) }}" type="application/pdf"
-                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
-                                @else
-                                    <p class="text-red-500">Format file tidak didukung.</p>
-                                @endif
+                                <a href="{{ Storage::url($materi->file_materi) }}" target="_blank"
+                                    class="w-[120px] h-[43px] p-2 border-2 text-xs text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition">Lihat Materi</a>
                             </div>
                         </div>
                     </div>
