@@ -274,7 +274,7 @@
                                 {{ $subjectName }}
                             </p>
                         @else
-                            <p class="text-5xl my-5 font-poppins font-bold uppercase text-gray-500">
+                            <p class="text-5xl my-5 font-poppins font-bold uppercase text-gray-600">
                                 mapel tidak ditemukan
                             </p>
                         @endif
@@ -302,19 +302,9 @@
                                 <div>
                                     <h2 style="margin: 0; font-size: 16px; color: white; font-weight: bold">Pengajar
                                     </h2>
-                                    @php
-                                        $displayedUserIds = [];
-                                    @endphp
-                                    @foreach ($materis as $materi)
-                                        @if (!in_array($materi->user_id, $displayedUserIds))
-                                            <p style="margin: 0; font-size: 14px; color: white;">
-                                                {{ $materi->users->name }}
-                                            </p>
-                                            @php
-                                                $displayedUserIds[] = $materi->user_id;
-                                            @endphp
-                                        @endif
-                                    @endforeach
+                                    <p style="margin: 0; font-size: 14px; color: white;">
+                                        {{ $teacherName }}
+                                    </p>
                                 </div>
                             </div>
                             <!-- Informasi siswa -->
@@ -404,7 +394,7 @@
                         <div id="showMateriModal_{{ $materi->id }}"
                             class="materiModal fixed inset-0 hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50"
                             style="display:none;">
-                            <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-full mx-7 py-8 flex flex-col overflow-hidden"
+                            <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl h-auto mx-7 py-8 flex flex-col overflow-hidden"
                                 style="padding-left: 28px">
                                 <!-- Header Modal -->
                                 <div class="flex justify-between items-center border-b pb-4"
@@ -425,12 +415,12 @@
                                     <div class="space-y-4" style="margin-right: 28px">
                                         <div class="flex space-x-2">
                                             <h6 class="text-lg font-semibold text-gray-700">Materi:
-                                                <span class="text-gray-500">{{ $materi->title_materi }}</span>
+                                                <span class="text-gray-600">{{ $materi->title_materi }}</span>
                                             </h6>
                                         </div>
                                         <div class="flex space-x-2">
                                             <h6 class="text-lg font-semibold text-gray-700">Tanggal Pembuatan:
-                                                <span class="text-gray-500">
+                                                <span class="text-gray-600">
                                                     {{ \Carbon\Carbon::parse($materi->created_at)->translatedFormat('l, j F Y') }}
                                                 </span>
                                             </h6>
@@ -438,22 +428,15 @@
                                         <div>
                                             <h6 class="text-lg font-semibold text-gray-700">Deskripsi:
                                                 <span
-                                                    class="text-gray-500">{{ $materi->description ?? 'Kosong' }}</span>
+                                                    class="text-gray-600">{{ $materi->description ?? 'Kosong' }}</span>
                                             </h6>
                                         </div>
-                                        <div style="width: 100%; height: 165vh; overflow: hidden;">
+                                        <div style="width: 100%; height: auto; overflow: hidden;">
                                             <h6 class="text-lg font-semibold text-gray-700 mb-3">File Materi:</h6>
-                                            @php
-                                                $file = pathinfo($materi->file_materi, PATHINFO_EXTENSION);
-                                            @endphp
-                                            @if ($file === 'pdf')
-                                                <embed src="{{ asset('storage/' . $materi->file_materi) }}"
-                                                    type="application/pdf"
-                                                    class=" border-2 rounded-lg  max-h-[10000px]"
-                                                    style="width: 100%; height: 100%; display: block;"> >
-                                            @else
-                                                <p class="text-red-500">Format file tidak didukung.</p>
-                                            @endif
+                                            <a href="{{ Storage::url($materi->file_materi) }}" target="_black"
+                                                class="w-[120px] h-[43px] p-2 border-2 text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition">
+                                                Buka PDF
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -568,11 +551,7 @@
                 <div class="flex items-center justify-center h-screen">
                     <div class="text-center">
                         <div class="text-red-500 mb-5" style="justify-self: center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-28 h-28">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
+                            <img src="/image/Gelembung.svg" alt="">
                         </div>
                         <p class="text-gray-700 text-3xl font-semibold">Belum Ada Tugas</p>
                     </div>
@@ -652,7 +631,7 @@
                 <div class="bg-white rounded-lg px-7 py-5 w-[40%] h-auto shadow-lg">
                     <h5 class="text-xl font-bold mb-4">Pengumpulan Tugas</h5>
 
-                    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                    <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-700"
                         onclick="closeModal('tugasModal-{{ $task->id }}')">
                         &times;
                     </button>
@@ -673,7 +652,7 @@
                                     class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer inline-block">
                                     Pilih File
                                 </label>
-                                <span id="file-name-{{ $task->id }}" class="ml-2 text-gray-500 mt-3">Tidak ada
+                                <span id="file-name-{{ $task->id }}" class="ml-2 text-gray-600 mt-3">Tidak ada
                                     file yang dipilih</span>
                             </div>
                         </div>
@@ -824,7 +803,7 @@
                     // Menutup dropdown jika klik di luar filterButton atau filterDropdown
                     document.addEventListener('click', (e) => {
                         if (!filterButton.contains(e.target) && !filterDropdown.contains(e
-                            .target)) {
+                                .target)) {
                             filterDropdown.classList.add('hidden');
                         }
                     });

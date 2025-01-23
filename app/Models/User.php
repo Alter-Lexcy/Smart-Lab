@@ -75,6 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+    public function materis(){
+        return $this->hasMany(Materi::class);
+    }
 
 
 
