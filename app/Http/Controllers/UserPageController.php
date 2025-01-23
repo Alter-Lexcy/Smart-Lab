@@ -117,19 +117,29 @@ class UserPageController extends Controller
 
         $tasks = $tasksQuery->paginate(5);
         $countSiswa = User::whereHas('roles', function ($query) {
-            $query->where('roles.name', 'Murid'); 
+            $query->where('roles.name', 'Murid');
         })
         ->whereHas('class', function ($query) use ($kelasID) {
-            $query->whereIn('classes_id', $kelasID); 
+            $query->whereIn('classes_id', $kelasID);
         })
-        ->count();  
+        ->count();
+
         $subjectName = Subject::whereHas('materi', function ($query) use ($materi_id) {
             $query->where('subject_id', $materi_id);
         })
         ->orWhereHas('Task',function ($q) use ($materi_id){
             $q->where('subject_id',$materi_id);
         })->distinct()->pluck('name_subject')->first();
-        return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab','countSiswa'));
+
+        $teacherName = User::whereHas('tasks',function ($query) use ($materi_id){
+            $query->where('subject_id',$materi_id);
+        })
+        ->orWhereHas('materis',function ($query) use($materi_id) {
+            $query->where('subject_id',$materi_id);
+        })
+        ->distinct()->pluck('name')->first();
+
+        return view('Siswa.materi', compact('materis', 'tasks', 'subjectName', 'materi_id', 'activeTab','countSiswa','teacherName'));
     }
 
     public function showTask(Request $request)
