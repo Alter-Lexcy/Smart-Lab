@@ -57,7 +57,8 @@
                         class="profile flex p-3 text-xs  [&.active]:bg-blue-500  [&.active]:text-blue-100 bg-white border-2 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
                         onclick="toggleDropdown('dropdown-opsi')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                            <path fill="currentColor" d="M1.75 3.75A.75.75 0 0 1 2.5 3h11a.75.75 0 0 1 0 1.5h-11a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 4.5 7h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 6.5 11h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75" />
+                            <path fill="currentColor"
+                                d="M1.75 3.75A.75.75 0 0 1 2.5 3h11a.75.75 0 0 1 0 1.5h-11a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 4.5 7h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75m2 4A.75.75 0 0 1 6.5 11h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75" />
                         </svg>
                     </button>
 
@@ -65,21 +66,21 @@
                         class="hidden absolute text-left mt-2 right-32 p-3 border bg-white shadow-lg rounded-md text-md font-medium z-10">
                         <ul class="py-2">
                             @foreach ($kelas as $class)
-                            <!-- Lihat -->
-                            <li>
-                                <form action="{{ route('tasks.index') }}" method="GET" class="inline">
-                                    <input type="hidden" name="class_id" value="{{ $class->id }}">
-                                    <button type="submit"
-                                        class="flex items-center gap-2 px-4 py-1 text-gray-500 hover:bg-gray-100">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
-                                        </svg>
-                                        <span class="ml-1">{{ $class->name_class }}</span>
-                                    </button>
-                                </form>
-                            </li>
+                                <!-- Lihat -->
+                                <li>
+                                    <form action="{{ route('tasks.index') }}" method="GET" class="inline">
+                                        <input type="hidden" name="class_id" value="{{ $class->id }}">
+                                        <button type="submit"
+                                            class="flex items-center gap-2 px-4 py-1 text-gray-500 hover:bg-gray-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M7.402 4.5C7 5.196 7 6.13 7 8v3.027C7.43 11 7.914 11 8.435 11h7.13c.52 0 1.005 0 1.435.027V8c0-1.87 0-2.804-.402-3.5A3 3 0 0 0 15.5 3.402C14.804 3 13.87 3 12 3s-2.804 0-3.5.402A3 3 0 0 0 7.402 4.5M6.25 15.991c-.502-.02-.806-.088-1.014-.315c-.297-.324-.258-.774-.18-1.675c.055-.65.181-1.088.467-1.415C6.035 12 6.858 12 8.505 12h6.99c1.647 0 2.47 0 2.982.586c.286.326.412.764.468 1.415c.077.9.116 1.351-.181 1.675c-.208.227-.512.295-1.014.315V21a.75.75 0 1 1-1.5 0v-5h-8.5v5a.75.75 0 1 1-1.5 0z" />
+                                            </svg>
+                                            <span class="ml-1">{{ $class->name_class }}</span>
+                                        </button>
+                                    </form>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -158,7 +159,7 @@
                                             <!-- Dropdown Button -->
                                             <button id="profile-button-{{ $task->id }}"
                                                 class="profile flex p-2 text-xs [&.active]:bg-blue-500  [&.active]:text-blue-100 text-blue-500 bg-blue-100 rounded-lg hover:bg-blue-500 hover:text-blue-100 transition"
-                                                 onclick="toggleDropdown('dropdown-opsi-{{ $task->id }}')">
+                                                onclick="toggleDropdown('dropdown-opsi-{{ $task->id }}')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -518,26 +519,26 @@
                 @endphp
 
                 @if ($filteredPengumpulans->isNotEmpty())
-                <div class="w-[100%]">
-                    <table class="min-w-full bg-white text-center rounded-lg">
-                        <thead>
-                            <tr class="border">
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
-                                <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($filteredPengumpulans as $index => $pengumpulan)
-                                <tr class="text-center">
-                                    <td class="border px-4 py-2">{{ $index + 1 }}</td>
-                                    <td class="border px-4 py-2">{{ $pengumpulan->user->name }}</td>
-                                    <td class="border px-4 py-2">{{ $pengumpulan->status }}</td>
+                    <div class="w-[100%]">
+                        <table class="min-w-full bg-white text-center rounded-lg">
+                            <thead>
+                                <tr class="border">
+                                    <th class="px-4 py-2 text-gray-500 text-xs font-semibold">No</th>
+                                    <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Nama Siswa</th>
+                                    <th class="px-4 py-2 text-gray-500 text-xs font-semibold">Status</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($filteredPengumpulans as $index => $pengumpulan)
+                                    <tr class="text-center">
+                                        <td class="border px-4 py-2">{{ $index + 1 }}</td>
+                                        <td class="border px-4 py-2">{{ $pengumpulan->user->name }}</td>
+                                        <td class="border px-4 py-2">{{ $pengumpulan->status }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
                     <p class="text-center mt-4">Tidak ada pengumpulan untuk tugas ini.</p>
                 @endif

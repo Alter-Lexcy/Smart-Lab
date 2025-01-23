@@ -209,8 +209,8 @@ class TaskController extends Controller
             $task->delete();
             DB::commit();
             return redirect()->route('tasks.index')->with('success', 'Tugas dan data terkait berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('tasks.index')->with('error', 'Data Tugas masih dibutuhkan pada tabel lain');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('Tugas Tidak bisa Dihapus Karena Ada Data Pengumpulan');
         }
     }
 }

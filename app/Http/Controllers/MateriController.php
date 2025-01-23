@@ -125,7 +125,7 @@ class MateriController extends Controller
             Storage::disk('public')->delete($fileName);
             return redirect()->route('materis.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('materis.index')->withErrors('Data gagal dihapus Karena Masih Digunakan    ');
+            return redirect()->route('materis.index')->withErrors('Data gagal dihapus Karena Masih Digunakan');
         }
     }
 }

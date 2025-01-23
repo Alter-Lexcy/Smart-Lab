@@ -160,7 +160,7 @@
             <div class="flex items-center gap-5">
                 <!-- Tabs -->
                 <button id="tab-materi"
-                    class="tab-button active-tab bg-blue-800 text-white rounded-xl shadow-md px-3 flex items-center justify-center transform transition-all duration-200 active:scale-95"
+                    class="tab-button bg-blue-800 text-white rounded-xl shadow-md px-3 flex items-center justify-center transform transition-all duration-200 active:scale-95"
                     onclick="showFilter('materi')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-2" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4 3h2v18H4zm14 0H7v18h11c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-2 6h-6V8h6zm0-2h-6V6h6z" />
@@ -341,7 +341,7 @@
         <div class="my-5">
             <!-- Content -->
             <div class="mt-5">
-                <div id="content-materi" class="tab-content">
+                <div id="content-materi" class="tab-content hidden">
                     <!-- List Materi -->
                     @forelse ($materis as $materi)
                         <div class="pt-5">
@@ -675,7 +675,7 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
-    <!--end::Javascript-->
+   {{-- script Modal --}}
     <script>
         function openModal(modalId) {
             // Tutup semua modal yang terbuka
@@ -699,195 +699,7 @@
                 console.error(`Modal dengan ID ${modalId} tidak ditemukan.`);
             }
         }
-    </script>
 
-    {{-- tab content script --}}
-    <script>
-        // Tab and filter functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.tab-button');
-            const contents = document.querySelectorAll('.tab-content');
-            const urlParams = new URLSearchParams(window.location.search);
-            const activeTab = urlParams.get('tab') || 'materi'; // Default tab to "materi"
-
-            // Show initial tab and filter
-            showTab(activeTab);
-            showFilter(activeTab);
-
-            // Tab click event
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const selectedTab = tab.id.replace('tab-', '');
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('tab', selectedTab);
-                    window.history.pushState({}, '', url); // Update URL without reload
-                    showTab(selectedTab);
-                    showFilter(selectedTab);
-                });
-            });
-
-            // Show the active tab and content
-            function showTab(activeTab) {
-                tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800', 'text-white'));
-                tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
-
-                contents.forEach(content => content.classList.add('hidden'));
-                const targetTab = document.getElementById('tab-' + activeTab);
-                const targetContent = document.getElementById('content-' + activeTab);
-
-                if (targetTab) {
-                    targetTab.classList.add('active-tab', 'bg-blue-800', 'text-white');
-                    targetTab.classList.remove('bg-white', 'text-blue-800');
-                }
-                if (targetContent) targetContent.classList.remove('hidden');
-            }
-
-            // Show the filter based on the active tab
-            function showFilter(activeTab) {
-                const filterUrutan = document.getElementById('filter-urutan');
-                const filterDropdownContainer = document.getElementById('filter-dropdown-container');
-
-                // Hide all filters initially
-                if (filterUrutan) filterUrutan.classList.add('hidden');
-                if (filterDropdownContainer) filterDropdownContainer.classList.add('hidden');
-
-                // Show the relevant filter
-                if (activeTab === 'materi' && filterUrutan) {
-                    filterUrutan.classList.remove('hidden');
-                } else if (activeTab === 'tugas' && filterDropdownContainer) {
-                    filterDropdownContainer.classList.remove('hidden');
-                }
-            }
-
-            // Dropdown filter toggle
-            const filterButton = document.getElementById('filterButton');
-            if (filterButton) {
-                filterButton.addEventListener('click', () => {
-                    const filterDropdown = document.getElementById('filterDropdown');
-                    if (filterDropdown) filterDropdown.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
-    <script>
-        // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const activeTab = urlParams.get('tab') || 'materi'; // Default ke "materi"
-            showFilter(activeTab); // Tampilkan filter sesuai tab aktif
-
-            // Tambahkan event listener untuk perubahan tab
-            document.querySelectorAll('.tab-link').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const selectedTab = tab.getAttribute('data-tab');
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('tab', selectedTab);
-                    window.history.pushState({}, '', url); // Perbarui URL tanpa reload
-                    showFilter(selectedTab); // Tampilkan filter sesuai tab yang dipilih
-                });
-            });
-
-            // Fungsi untuk membuka dan menutup dropdown filter
-            document.addEventListener('DOMContentLoaded', () => {
-                const filterButton = document.getElementById('filterButton');
-                const filterDropdown = document.getElementById('filterDropdown');
-
-                // Pastikan tombol filter dan dropdown ada sebelum menambahkan event listener
-                if (filterButton && filterDropdown) {
-                    // Menangani klik tombol filter untuk toggle dropdown
-                    filterButton.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Mencegah klik di dalam tombol menutup dropdown
-                        filterDropdown.classList.toggle('hidden');
-                    });
-
-                    // Menutup dropdown jika klik di luar filterButton atau filterDropdown
-                    document.addEventListener('click', (e) => {
-                        if (!filterButton.contains(e.target) && !filterDropdown.contains(e
-                                .target)) {
-                            filterDropdown.classList.add('hidden');
-                        }
-                    });
-                }
-            });
-
-        });
-
-        // Fungsi untuk menampilkan filter sesuai dengan tab yang dipilih
-        function showFilter(tab) {
-            const filterUrutan = document.getElementById('filter-urutan');
-            const filterDropdown = document.getElementById('filterDropdown');
-            const filterDropdownContainer = document.getElementById('filter-dropdown-container');
-
-            // Menyembunyikan semua filter terlebih dahulu
-            if (filterUrutan) filterUrutan.classList.add('hidden');
-            if (filterDropdown) filterDropdown.classList.add('hidden');
-
-            // Menampilkan filter sesuai tab aktif
-            if (tab === 'materi') {
-                if (filterUrutan) filterUrutan.classList.remove('hidden');
-                if (filterDropdownContainer) filterDropdownContainer.classList.add('hidden');
-            } else if (tab === 'tugas') {
-                if (filterUrutan) filterUrutan.classList.add('hidden');
-                if (filterDropdownContainer) filterDropdownContainer.classList.remove('hidden');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.tab-button');
-            const tabInput = document.getElementById('tab-input');
-
-            // Fungsi untuk menampilkan tab yang aktif
-            function showTab(activeTab) {
-                // Perbarui tab aktif di input hidden
-                if (tabInput) tabInput.value = activeTab;
-
-                // Perbarui UI untuk tab dan konten
-                tabs.forEach(t => t.classList.remove('active-tab', 'bg-blue-800', 'text-white'));
-                tabs.forEach(t => t.classList.add('bg-white', 'text-blue-800'));
-
-                const target = document.getElementById('tab-' + activeTab);
-                const content = document.getElementById('content-' + activeTab);
-
-                if (target) {
-                    target.classList.remove('bg-white', 'text-blue-800');
-                    target.classList.add('active-tab', 'bg-blue-800', 'text-white');
-                }
-
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-                if (content) content.classList.remove('hidden');
-            }
-
-            // Ambil parameter tab dari URL untuk menentukan tab yang aktif
-            const urlParams = new URLSearchParams(window.location.search);
-            const activeTab = urlParams.get('tab') || 'materi'; // Default tab
-            showTab(activeTab);
-
-            // Event listener untuk perubahan tab
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const selectedTab = tab.id.replace('tab-', '');
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('tab', selectedTab);
-                    window.history.pushState({}, '', url); // Perbarui URL tanpa reload
-                    showTab(selectedTab);
-                });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterUrutan = document.getElementById('filter-urutan');
-            const activeTabInput = document.getElementById('activeTabInput');
-
-            if (filterUrutan && activeTabInput) {
-                filterUrutan.addEventListener('submit', function() {
-                    // Pastikan parameter 'tab' tetap ke 'materi' sebelum mengirim form
-                    activeTabInput.value = 'materi';
-                });
-            }
-        });
-    </script>
-
-    <script>
         function updateFileName(input) {
             const fileNameSpan = document.getElementById(`file-name-${input.id.split('-')[1]}`);
             const fileName = input.files[0]?.name || 'Tidak ada file yang dipilih';
@@ -908,6 +720,90 @@
             }
         }
     </script>
+    {{-- end script modal --}}
+
+    {{-- tab content script --}}
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'materi'; // Default tab "materi"
+            const tabInput = document.getElementById('activeTabInput'); // Pastikan elemen ini ada di HTML
+
+            // Tampilkan tab dan filter awal
+            showTab(activeTab);
+            showFilter(activeTab);
+
+            // Event listener untuk klik pada tab
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const selectedTab = tab.id.replace('tab-', '');
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('tab', selectedTab);
+                    window.history.pushState({}, '', url);
+                    showTab(selectedTab);
+                    showFilter(selectedTab);
+                });
+            });
+
+            // Fungsi untuk menampilkan tab aktif
+            function showTab(activeTab) {
+                // Perbarui tab aktif di input hidden
+                if (tabInput) tabInput.value = activeTab;
+
+                // Perbarui UI tab dan konten
+                tabs.forEach(t => {
+                    t.classList.remove('active-tab', 'bg-blue-800', 'text-white');
+                    t.classList.add('bg-white', 'text-blue-800');
+                });
+
+                const targetTab = document.getElementById('tab-' + activeTab);
+                const targetContent = document.getElementById('content-' + activeTab);
+
+                if (targetTab) {
+                    targetTab.classList.remove('bg-white', 'text-blue-800');
+                    targetTab.classList.add('active-tab', 'bg-blue-800', 'text-white');
+                }
+
+                contents.forEach(content => content.classList.add('hidden'));
+                if (targetContent) targetContent.classList.remove('hidden');
+            }
+
+            // Fungsi untuk menampilkan filter berdasarkan tab aktif
+            function showFilter(tab) {
+                const filterUrutan = document.getElementById('filter-urutan');
+                const filterDropdownContainer = document.getElementById('filter-dropdown-container');
+
+                // Sembunyikan semua filter
+                if (filterUrutan) filterUrutan.classList.add('hidden');
+                if (filterDropdownContainer) filterDropdownContainer.classList.add('hidden');
+
+                // Tampilkan filter sesuai tab
+                if (tab === 'materi') {
+                    if (filterUrutan) filterUrutan.classList.remove('hidden');
+                } else if (tab === 'tugas') {
+                    if (filterDropdownContainer) filterDropdownContainer.classList.remove('hidden');
+                }
+            }
+
+            const filterButton = document.getElementById('filterButton');
+            if (filterButton) {
+                filterButton.addEventListener('click', () => {
+                    const filterDropdown = document.getElementById('filterDropdown');
+                    if (filterDropdown) filterDropdown.classList.toggle('hidden');
+                });
+            }
+
+            const filterUrutan = document.getElementById('filter-urutan');
+            if (filterUrutan && tabInput) {
+                filterUrutan.addEventListener('submit', () => {
+                    tabInput.value = 'materi';
+                });
+            }
+        });
+    </script>
+    {{-- end Script Tab --}}
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
