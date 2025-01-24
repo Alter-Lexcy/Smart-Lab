@@ -118,6 +118,20 @@
             left: 0;
             background: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgba(0, 0, 0, 0.65) 100%);
         }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 
 </head>
@@ -154,6 +168,10 @@
     <!--end::Theme mode setup on page load-->
 
     <x-navbarsiswa></x-navbarsiswa>
+
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex justify-center items-center">
+        <div class="loader border-t-4 border-blue-600 rounded-full w-16 h-16 animate-spin"></div>
+    </div>
 
     <div class="bg-white shadow-md">
         <div class="container px-10 py-5 flex justify-between items-center">
@@ -675,7 +693,7 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://class.hummatech.com/user-assets/js/scripts.bundle.js"></script>
-   {{-- script Modal --}}
+    {{-- script Modal --}}
     <script>
         function openModal(modalId) {
             // Tutup semua modal yang terbuka
@@ -735,6 +753,12 @@
             showTab(activeTab);
             showFilter(activeTab);
 
+            // Sembunyikan loading screen setelah tab diatur
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+            }
+
             // Event listener untuk klik pada tab
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -787,6 +811,7 @@
                 }
             }
 
+            // Event listener untuk filter dropdown
             const filterButton = document.getElementById('filterButton');
             if (filterButton) {
                 filterButton.addEventListener('click', () => {
@@ -795,15 +820,15 @@
                 });
             }
 
+            // Event listener untuk filter urutan
             const filterUrutan = document.getElementById('filter-urutan');
-            if (filterUrutan && tabInput) {
-                filterUrutan.addEventListener('submit', () => {
+            if(filterUrutan && tabInput){
+                filterUrutan.addEventListener('submit',() =>{
                     tabInput.value = 'materi';
-                });
+                })
             }
         });
     </script>
-    {{-- end Script Tab --}}
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
