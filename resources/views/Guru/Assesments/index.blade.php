@@ -119,8 +119,10 @@
                                         <td class="border px-4 py-2">
                                             <input type="number"
                                                 name="mark_task[{{ $assessment->user_id }}][{{ $assessment->collection_id }}]"
-                                                class="form-control p-1 text-center border border-gray-300 rounded-lg no-arrows
-                                            {{ $assessment->status === 'Sudah Di-nilai' ? 'bg-green-500' : 'bg-white' }}"
+                                                class="form-control p-1 text-center border border-gray-300 rounded-lg no-arrows"
+                                                style="{{ $assessment->assessments_status === 'Sudah Di-nilai'
+                                                    ? 'background-color: rgba(67, 254, 101, 0.5); color: #049323; border-color: #0F9004;'
+                                                    : 'background-color: #FFFFFF;' }}"
                                                 min="0" max="100" value="{{ $assessment->mark_task }}">
                                         </td>
                                         <td class="border px-4 py-2" style="justify-items: center">
