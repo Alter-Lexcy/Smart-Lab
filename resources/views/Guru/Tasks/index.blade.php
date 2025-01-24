@@ -312,8 +312,10 @@
                                     <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
                                         class="mx-auto w-[90%] h-full border-2 rounded-lg">
                                 @elseif($file === 'pdf')
-                                    <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
-                                        class="mx-auto w-[90%] h-full border-2 rounded-lg">
+                                    <a href="{{ Storage::url($task->file_task) }}" target="_black"
+                                        class="w-[120px] h-[43px] p-2 border-2 text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition">
+                                        Buka Tugas
+                                    </a>
                                 @else
                                     <p class="text-gray-500">File Kosong</p>
                                 @endif

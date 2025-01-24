@@ -625,8 +625,10 @@
                                 <img src="{{ asset('storage/' . $task->file_task) }}" alt="File Image"
                                     class="mx-auto w-[100%] h-auto border-2 rounded-lg">
                             @elseif($file === 'pdf')
-                                <embed src="{{ asset('storage/' . $task->file_task) }}" type="application/pdf"
-                                    class="border-2 rounded-lg " style="height: 165vh; width: 100%; display: block;">
+                                <a href="{{ Storage::url($task->file_task) }}" target="_black"
+                                    class="w-[120px] h-[43px] p-2 border-2 text-white bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition">
+                                    Buka Tugas
+                                </a>
                             @else
                                 <p class="text-red-500">Tidak Ada</p>
                             @endif
@@ -822,8 +824,8 @@
 
             // Event listener untuk filter urutan
             const filterUrutan = document.getElementById('filter-urutan');
-            if(filterUrutan && tabInput){
-                filterUrutan.addEventListener('submit',() =>{
+            if (filterUrutan && tabInput) {
+                filterUrutan.addEventListener('submit', () => {
                     tabInput.value = 'materi';
                 })
             }
