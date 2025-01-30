@@ -13,137 +13,196 @@
     <link rel="stylesheet" href="style/beranda.css">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
+<style>
+    @keyframes floating {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    .floating-delay {
+        animation: floating 3s ease-in-out infinite;
+        animation-delay: 1s;
+        /* Delay 1.5 detik supaya tidak barengan */
+    }
+
+    .image-container {
+        position: relative;
+        z-index: 2;
+        width: 500px;
+    }
+
+    .image-wedok {
+        right: 250px;
+        top: 150px;
+        position: relative;
+    }
+
+    .image-laki {
+        left: 300px;
+        top: 150px;
+        position: relative;
+    }
+</style>
 
 <body>
     <div class="navbar-container">
         <x-navbar></x-navbar>
     </div>
 
+    <!-- SECTION 1 -->
     <section class="h-screen"
         style="background: url('image/bc atas.svg') no-repeat center center; background-size: cover;">
-        <div class="absolute text-white font-poppins text-5xl font-bold text-center">
+        <div class="absolute text-white font-poppins text-5xl font-bold text-center w-full">
             <h1 class="mb-3">Platform LMS gratis yang</h1>
             <h1 class="mb-3">membuat belajar lebih menarik</h1>
             <p
                 style="
-                background-color: #2765e0;
-                border-radius: 10px;
-                color: #ffffff;
-                text-align: center;
-                font-family: Poppins;
-                font-size: 23px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 45px; /* 225% */">
+        display: inline-block;
+        padding-inline: 20px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        background-color: #2765e0;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 23px;
+        font-weight: 600;
+        line-height: 45px;">
                 Akses materi belajar interaktif kapan saja, di mana saja.
             </p>
 
-            <div style="position: relative; bottom: 50px; margin-top: 100px">
-                <a href="/register" type="button"
-                    class="text-white text-xl bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-16 py-3 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-8">Daftar</a>
-                <a href="/login" type="button"
-                    class="text-white text-xl bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-16 py-3 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-8">Masuk</a>
+            <div class="mt-12 flex justify-center gap-5">
+                <a href="/register"
+                    class="relative overflow-hidden text-gray-500 text-xl bg-gray-50 font-medium rounded-xl px-16 py-3 transition-colors duration-300 ease-in-out
+                    before:absolute before:inset-0 before:w-0 before:bg-blue-800 before:rounded-xl before:transition-all before:duration-300 before:ease-in-out
+                    hover:text-white hover:before:w-full">
+                    <span class="relative z-10">Daftar</span>
+                </a>
+                <a href="/login"
+                    class="relative overflow-hidden text-gray-500 text-xl bg-gray-50 font-medium rounded-xl px-16 py-3 transition-colors duration-300 ease-in-out
+                    before:absolute before:inset-0 before:w-0 before:bg-blue-800 before:rounded-xl before:transition-all before:duration-300 before:ease-in-out
+                    hover:text-white hover:before:w-full">
+                    <span class="relative z-10">Masuk</span>
+                </a>
             </div>
         </div>
 
-        <div style="position: relative; z-index: 2; width: 500px; right: 250px; top: 150px">
+        <div class="image-container image-wedok floating">
             <img src="image/orang wedok.svg" alt="orangwedok">
         </div>
 
-        <div style="position: relative; z-index: 2; width: 500px; left: 300px; top:150px">
+        <div class="image-container image-laki floating-delay">
             <img src="image/element laki.svg" alt="wonglanang">
         </div>
     </section>
 
-    <div class="jumlah-container">
-        <img src="image/jumlah.svg" alt="Jumlah Pengguna" class="jumlah-gambar">
-        <div class="jumlah-teks">
-            <div class="jumlahsiswa">
-                <h1>+5jt</h1>
-                <p>Siswa Bergabung</p>
+    <!-- BAGIAN JUMLAH GURU & SISWA (DIPOSISIKAN DI ANTARA SECTION 1 & 2) -->
+    <div class="jumlah"
+        style="position: absolute; top: 90vh; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; flex-wrap: wrap; width: 40%; max-width: 600px; padding: 20px; background: rgba(255, 255, 255); border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; z-index: 10;">
+
+        <div class="jumlah-teks" style="display: flex; justify-content: center; width: 100%; gap: 20px;">
+            <div class="jumlahsiswa" style="margin: 10px; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 256 256"
+                    style="margin-right: 10px; color: #2765e0;">
+                    <path fill="currentColor"
+                        d="m227.79 52.62l-96-32a11.85 11.85 0 0 0-7.58 0l-96 32A12 12 0 0 0 20 63.37a6 6 0 0 0 0 .63v80a12 12 0 0 0 24 0V80.65l23.71 7.9a67.92 67.92 0 0 0 18.42 85A100.36 100.36 0 0 0 46 209.44a12 12 0 1 0 20.1 13.11C80.37 200.59 103 188 128 188s47.63 12.59 61.95 34.55a12 12 0 1 0 20.1-13.11a100.36 100.36 0 0 0-40.18-35.92a67.92 67.92 0 0 0 18.42-85l39.5-13.17a12 12 0 0 0 0-22.76Zm-99.79-8L186.05 64L128 83.35L70 64ZM172 120a44 44 0 1 1-81.06-23.71l33.27 11.09a11.9 11.9 0 0 0 7.58 0l33.27-11.09A43.85 43.85 0 0 1 172 120" />
+                </svg>
+                <div>
+                    <h1 style="font-size: 2rem; font-weight: bold; color: #2765e0;">+5jt</h1>
+                    <p style="font-size: 1.2rem; color: #333;">Siswa Bergabung</p>
+                </div>
             </div>
-            <div class="jumlahguru">
-                <h1>+40</h1>
-                <p>Guru Aktif</p>
+            <div class="jumlahguru" style="margin: 10px; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"
+                    style="margin-right: 10px; color: #2765e0;">
+                    <path fill="currentColor"
+                        d="M20 17a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H9.46c.35.61.54 1.3.54 2h10v11h-9v2m4-10v2H9v13H7v-6H5v6H3v-8H1.5V9a2 2 0 0 1 2-2zM8 4a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2a2 2 0 0 1 2 2" />
+                </svg>
+                <div>
+                    <h1 style="font-size: 2rem; font-weight: bold; color: #2765e0;">+40</h1>
+                    <p style="font-size: 1.2rem; color: #333;">Guru Aktif</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <section class="h-screen"
-        style="background: url('image/landing 2.svg') no-repeat center center; background-size: cover; position: relative;">
+    <!-- SECTION 2 -->
+    <section class="h-screen bg-cover bg-center relative" style="background-image: url('image/landing 2.svg');">
 
         <!-- Title above the slider -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 pt-36 z-50">
-            <h1 class="text-white font-bold text-4xl text-center" style="white-space: nowrap; font-family: Poppins;">
+        <div class="absolute justify-center top-28 z-50">
+            <h1 class="text-white font-bold text-4xl text-center font-poppins whitespace-nowrap">
                 KEUNGGULAN MENGGUNAKAN SMART-LAB
             </h1>
         </div>
 
-        <div id="default-carousel" class="relative w-full" style="margin-inline: 150px;" data-carousel="slide">
+        <div id="default-carousel" class="relative w-full mx-12" data-carousel="slide">
             <!-- Carousel wrapper with border-radius -->
-            <div class="relative overflow-hidden border-md shadow-lg"
-                style="height: 450px; border-radius: 30px; top: 100px">
+            <div class="relative overflow-hidden border-md shadow-lg rounded-3xl"
+                style="height: 450px; margin-top: 100px;">
                 <!-- Item 1 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="image/1.png"
-                        class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        style="border-radius: 30px" alt="Slide1">
+                <div class="duration-700 ease-in-out opacity-0 absolute inset-0 w-full h-full object-cover rounded-3xl"
+                    data-carousel-item style="transition: opacity 1s ease;">
+                    <img src="image/1.png" class="w-full h-full object-cover rounded-3xl" alt="Slide1">
                 </div>
                 <!-- Item 2 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="image/2.png"
-                        class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        style="border-radius: 30px" alt="Slide2">
+                <div class="duration-700 ease-in-out opacity-0 absolute inset-0 w-full h-full object-cover rounded-3xl"
+                    data-carousel-item style="transition: opacity 1s ease;">
+                    <img src="image/2.png" class="w-full h-full object-cover rounded-3xl" alt="Slide2">
                 </div>
                 <!-- Item 3 -->
-                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="image/3.png"
-                        class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                        style="border-radius: 30px" alt="Slide3">
+                <div class="duration-700 ease-in-out opacity-0 absolute inset-0 w-full h-full object-cover rounded-3xl"
+                    data-carousel-item style="transition: opacity 1s ease;">
+                    <img src="image/3.png" class="w-full h-full object-cover rounded-3xl" alt="Slide3">
                 </div>
             </div>
 
             <!-- Slider indicators -->
-            <div class="absolute z-30 flex -translate-x-1/2 left-1/2 space-x-3 rtl:space-x-reverse"
-                style="margin-top: 50px">
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
+            <div class="absolute z-30 flex space-x-3 transform -translate-x-1/2 left-1/2 mt-8">
+                <button type="button" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"
                     data-carousel-slide-to="0"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
+                <button type="button" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"
                     data-carousel-slide-to="1"></button>
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
+                <button type="button" class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"
                     data-carousel-slide-to="2"></button>
             </div>
 
-
             <!-- Slider controls -->
             <button type="button"
-                class="absolute top-0 start-0 pt-52 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                class="absolute top-0 left-0 pt-52 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
                 data-carousel-prev>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-400 hover:bg-blue-700 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 6 10">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-400 hover:bg-blue-700">
+                    <svg class="w-4 h-4 text-white" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5 1 1 5l4 4" />
                     </svg>
-                    <span class="sr-only">Previous</span>
                 </span>
             </button>
             <button type="button"
-                class="absolute top-0 end-0 pt-52 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                class="absolute top-0 right-0 pt-52 z-30 flex items-center justify-center h-full px-4 cursor-pointer group"
                 data-carousel-next>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-400 hover:bg-blue-700 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 6 10">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-400 hover:bg-blue-700">
+                    <svg class="w-4 h-4 text-white" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 9 4-4-4-4" />
                     </svg>
-                    <span class="sr-only">Next</span>
                 </span>
             </button>
         </div>
     </section>
+
     <section
         style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;">
         <!-- Lingkaran besar di belakang gambar -->
@@ -207,18 +266,20 @@
             alt="">
 
         <!-- Konten Teks dan Tombol -->
-        <div style="position: absolute; text-align: center; color: rgb(0, 0, 177); top: 150px;">
-            <h1 style="font-size: 2.5rem; font-weight: bold;">Ayo berkembang bersama Smart-LAB</h1>
-            <p style="font-size: 1rem; margin-bottom: 50px;">Bergabunglah bersama Smart-LAB dan raih prestasimu
-                setinggi langit</p>
+        <div style="position: absolute; text-align: center; color: rgb(0, 0, 177); top: 70px;">
+            <h1
+                style="font-size: 3.5rem; font-weight: bold; font-family: poppins; padding: 10px; padding-bottom: 50px">
+                Ayo berkembang <br>bersama Smart-LAB!</h1>
+            {{-- <p style="font-size: 1.5rem; margin-bottom: 50px;">Bergabunglah bersama Smart-LAB dan raih prestasimu
+                setinggi langit</p> --}}
             <a href="{{ route('register') }}"
-                style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 30px; font-size: 1rem; font-weight: bold;">
+                style="display: inline-block; padding: 15px 70px; background-color: #007bff; color: white; text-decoration: none; border-radius: 10px; font-size: 1rem; font-weight: bold;">
                 Daftar Sekarang
             </a>
         </div>
 
         <!-- Footer -->
-        <footer style="position: absolute; bottom: 0; width: 100%; padding: 20px; color: white;">
+        <footer style="position: absolute; bottom: 0px; width: 100%; padding: 20px; color: white;">
             <div style="display: flex; justify-content: center; align-items: center; gap: 50px;">
                 <!-- Gambar -->
                 <div style="flex: 0 0 auto;">
@@ -318,10 +379,34 @@
                 Hak Cipta Dilindungi.</p>
         </footer>
     </section>
-
-
 </body>
 
+<script>
+    function animateNumber(element, start, end, duration) {
+        let range = end - start;
+        let current = start;
+        let increment = range / (duration / 16); // 16ms per frame (60fps)
+        let timer = setInterval(function() {
+            current += increment;
+            if (current >= end) {
+                current = end;
+                clearInterval(timer);
+            }
+            element.innerText = '+' + Math.floor(current);
+        }, 16);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let siswaElement = document.querySelector(".jumlahsiswa h1");
+        let guruElement = document.querySelector(".jumlahguru h1");
+
+        animateNumber(siswaElement, 1, 50000, 2000); // dari 1 ke 5 juta dalam 2 detik
+        animateNumber(guruElement, 1, 40, 2000); // dari 1 ke 40 dalam 2 detik
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 </html>
