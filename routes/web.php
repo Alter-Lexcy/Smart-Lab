@@ -75,3 +75,8 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
         Route::get('/tugas', [UserPageController::class,'showTask'])->name('Tugas');
         Route::put('/tasks/{task_id}/collection', [CollectionController::class,'updateCollection'])->name('updateCollection');
     });
+
+    // route::get('/historimateri', [HomeController::class, 'historimateri'])->name('historimateri');
+    route::get('/historimateri', function(){
+        return view('Siswa.historimateri');
+    })->name('historimateri');
