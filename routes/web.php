@@ -80,3 +80,7 @@ Route::middleware(['auth', 'role:Guru|Admin'])->group(function () {
     route::get('/historimateri', function(){
         return view('Siswa.historimateri');
     })->name('historimateri');
+
+    route::get('/pilihkelasmateri', function(){
+        return view('Siswa.pilihkelasmateri');
+    })->name('pilihkelasmateri');
