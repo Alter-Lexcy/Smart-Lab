@@ -110,7 +110,7 @@
         data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 
         <!--begin::Sidebar primary-->
-        <div class="app-sidebar-primary bg-white">
+        <div class="app-sidebar-primary bg-gray-50">
             <!--end::Header-->
             <!--begin::Sidebar navbar-->
             <div class="app-sidebar-nav flex-grow-1 hover-scroll-overlay-y px-5 pt-2" id="kt_app_sidebar_primary_nav"
@@ -157,6 +157,16 @@
                             <span class="pt-2 fs-9 fs-lg-7 fw-bold text-blue-800">Tugas</span>
                         </a>
                     </li>
+                    <li class="nav-item py-1">
+                        <a href="/historimateri" class="nav-link py-4 px-1 btn <?= request()->is('historimateri') ? 'active' : '' ?>"
+                            style="background-color: <?= request()->is('historimateri') ? 'blue' : 'transparent' ?>; color: <?= request()->is('historimateri') ? 'white' : 'inherit' ?>;">
+                            <svg class="w-6 h-6 text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M8.17 2.25h9.23c.667 0 1.336.109 1.803.593c.46.478.547 1.14.547 1.757v11.8c0 .543-.072 1.077-.35 1.509a1.65 1.65 0 0 1-.65.583v.908c0 .666-.108 1.335-.591 1.802c-.478.462-1.14.548-1.757.548H5.75a1.5 1.5 0 0 1-1.5-1.5V6.017c-.003-.498-.006-1.12.13-1.687c.167-.692.552-1.363 1.371-1.78c.338-.172.694-.24 1.074-.27c.365-.03.81-.03 1.345-.03m-2.42 18h10.652c.547 0 .683-.096.714-.126c.025-.024.134-.155.134-.724v-.65h-10a1.5 1.5 0 0 0-1.5 1.5" />
+                            </svg>
+                            <span class="pt-2 fs-9 fs-lg-7 fw-bold text-blue-800">Materi</span>
+                        </a>
+                    </li>
+
                     @if (auth()->check() && !auth()->user()->class()->exists())
                         <li class="nav-item py-1">
                             <a href="/PilihKelas"
@@ -186,4 +196,3 @@
             dropdown.classList.toggle('hidden');
         }
     </script>
-
