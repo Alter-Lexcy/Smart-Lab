@@ -71,7 +71,7 @@
         <h1 class="text-4xl font-bold text-center mb-20 text-blue-800">Pilih Materi Sesuai Kelas!</h1>
         <div class="flex gap-10">
             <a href="/historimateri"
-                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 hover:bg-gray-500 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
+                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
                 <!-- Icon X dengan background bulat -->
                 <div
                     class="absolute top-6 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
@@ -83,7 +83,7 @@
             </a>
 
             <a href="/historimateri"
-                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 hover:bg-gray-500 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
+                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
                 <!-- Icon X dengan background bulat -->
                 <div
                     class="absolute top-6 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
@@ -95,7 +95,7 @@
             </a>
 
             <a href="/historimateri"
-                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 hover:bg-gray-500 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
+                class="card relative flex flex-col justify-center items-center text-blue-800 w-[268px] h-[184px] rounded-xl p-5 transition-all duration-300 ease-in-out shadow-md hover:scale-105 bg-cover bg-center bg-[url('/image/bg-card-materi.svg')]">
                 <!-- Icon X dengan background bulat -->
                 <div
                     class="absolute top-6 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
