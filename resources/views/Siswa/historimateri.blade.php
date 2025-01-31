@@ -16,23 +16,17 @@
     <meta name="csrf-token" content="8IMVNabevkMVEFpvO472s41XBcvpCVja5sJxIXQO">
     <meta property="og:description" content="Improve your skill with hummatech internship.">
 
-    <link rel="icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png"
-        type="image/png" />
-    <link rel="shortcut icon" href="https://class.hummatech.com/app-assets/logo_file/Logo-Kelas-Industri.png" />
-
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" /> <!--end::Fonts-->
 
-
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="https://class.hummatech.com/user-assets/plugins/global/plugins.bundle.css" rel="stylesheet"
-        type="text/css" />
+    {{-- <link href="https://class.hummatech.com/user-assets/plugins/global/plugins.bundle.css" rel="stylesheet"
+        type="text/css" /> --}}
     <link href="https://class.hummatech.com/user-assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
-
-    <link href="https://class.hummatech.com/user-assets/plugins/custom/datatables/datatables.bundle.css"
-        rel="stylesheet" type="text/css" />
+    {{-- <link href="https://class.hummatech.com/user-assets/plugins/custom/datatables/datatables.bundle.css"
+        rel="stylesheet" type="text/css" /> --}}
 
     {{-- flowbite --}}
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -159,8 +153,35 @@
                 Daftar Materi
             </h1>
 
-            <!-- Form pencarian berada di kanan -->
-            <div class="flex items-center">
+            <div class="flex items-center gap-2">
+                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+                    class="text-gray-600 bg-white hover:bg-gray-50 ring-gray-200 ring-1 rounded-xl text-sm px-5 py-3.5 text-center inline-flex items-center "
+                    type="button">Pilih Kelas <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div id="dropdownHover"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-blue-400 dark:hover:text-white">Kelas 10</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-blue-400 dark:hover:text-white">Kelas 11</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-blue-400 dark:hover:text-white">Kelas 12</a>
+                        </li>
+                    </ul>
+                </div>
+
                 <form action="{{ route('Tugas') }}" method="GET" class="flex items-center">
                     <input type="text" id="search" name="search" placeholder="Search..."
                         class="rounded-xl border-gray-300 p-3">
@@ -172,7 +193,7 @@
                 </form>
 
                 <!-- Dropdown Filter -->
-                <div class="ml-2 relative">
+                <div class="relative">
                     <button id="filterButton"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 px-4 rounded-xl shadow-md">
                         <i class="fas fa-filter text-white"></i>
@@ -197,14 +218,14 @@
                                 Matematika
                             </button>
                             <button type="submit" name="status" value="Belum mengumpulkan"
-                            class="flex items-center justify-center px-4 py-2 font-bold text-gray-800 bg-gray-100
+                                class="flex items-center justify-center px-4 py-2 font-bold text-gray-800 bg-gray-100
                                 hover:!text-white hover:bg-blue-400
                                 active:!text-white active:bg-blue-500
                                 rounded-xl m-2 w-64 h-12">
                                 Bahasa Indonesia
                             </button>
                             <button type="submit" name="status" value="Belum mengumpulkan"
-                            class="flex items-center justify-center px-4 py-2 font-bold text-gray-800 bg-gray-100
+                                class="flex items-center justify-center px-4 py-2 font-bold text-gray-800 bg-gray-100
                                 hover:!text-white hover:bg-blue-400
                                 active:!text-white active:bg-blue-500
                                 rounded-xl m-2 w-64 h-12">
